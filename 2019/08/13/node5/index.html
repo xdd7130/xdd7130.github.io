@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>Express | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="Express框架1.依赖中间件2.接受请求3.非破坏式的4.static用法
+安装、配置、接受请求、响应安装1npm install express
+使用
+
+创建服务
+监听
+处理请求1234567891011const express = require(&#39;express&#39;);var server = express();server.use(&#39;/a.html&#39;,function(req,res)&amp;#123;    res.send(&#39;abc&#39;);                          //send和write类似    res.end();&amp;#125;);server.use(&#39;/b.html&#39;,func...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            时光荏苒，旦夕之间，略有遗憾，似白驹过隙，蹉跎自悟。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>Express</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-13T03:07:47.000Z">
+                    2019-08-13
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+        </div>
+        <h3 id="Express框架"><a href="#Express框架" class="headerlink" title="Express框架"></a>Express框架</h3><p>1.依赖中间件<br>2.接受请求<br>3.非破坏式的<br>4.static用法</p>
+<h4 id="安装、配置、接受请求、响应"><a href="#安装、配置、接受请求、响应" class="headerlink" title="安装、配置、接受请求、响应"></a>安装、配置、接受请求、响应</h4><p>安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express</span><br></pre></td></tr></table></figure></p>
+<p>使用</p>
+<ul>
+<li>创建服务</li>
+<li>监听</li>
+<li>处理请求<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">var server = express();</span><br><span class="line">server.use(<span class="string">'/a.html'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    res.send(<span class="string">'abc'</span>);                          //send和write类似</span><br><span class="line">    res.end();</span><br><span class="line">&#125;);</span><br><span class="line">server.use(<span class="string">'/b.html'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    res.send(<span class="string">'123'</span>);</span><br><span class="line">    res.end();</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(8080);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>express保留了原生的功能，添加了一些方法，增强原有的功能。</p>
+<h4 id="3种方法"><a href="#3种方法" class="headerlink" title="3种方法"></a>3种方法</h4><p>get(处理get请求)\post(处理post请求)\use(get,post均可)。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">var server = express();</span><br><span class="line">server.get(<span class="string">'/'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    console.log(<span class="string">'get请求'</span>)</span><br><span class="line">&#125;);</span><br><span class="line">server.post(<span class="string">'/'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    console.log(<span class="string">'post请求'</span>)</span><br><span class="line">&#125;);</span><br><span class="line">server.use(<span class="string">'/'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    console.log(<span class="string">'use了'</span>)</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(8080);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Express-static"><a href="#Express-static" class="headerlink" title="Express-static"></a>Express-static</h4><p>读取静态文件<br>安装 npm install express-static -save</p>
+<p>实例-登录<br>a.html:<br><img src="/2019/08/13/node5/01.png" alt="01.png"><br>server.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">const expressStatic = require(<span class="string">'express-static'</span>);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">server.listen(8080);</span><br><span class="line"></span><br><span class="line">//用户数据模拟</span><br><span class="line">var users=&#123;</span><br><span class="line">    <span class="string">'blue'</span>:<span class="string">'123456'</span>,</span><br><span class="line">    <span class="string">'zhangsan'</span>:<span class="string">'654321'</span>,</span><br><span class="line">    <span class="string">'lisi'</span>:<span class="string">'987678'</span></span><br><span class="line">&#125;;</span><br><span class="line">server.get(<span class="string">'/login'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    // urlLib.parse(req.url,<span class="literal">true</span>).query;</span><br><span class="line">    console.log(req.query)</span><br><span class="line">    var user= req.query[<span class="string">'user'</span>];</span><br><span class="line">    var pass= req.query[<span class="string">'pass'</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(users[user]==null)&#123;</span><br><span class="line">        res.send(&#123;ok:<span class="literal">false</span>,mag:<span class="string">'此用户不存在'</span>&#125;)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(users[user]!=pass)&#123;</span><br><span class="line">            res.send(&#123;ok:<span class="literal">false</span>,msg:<span class="string">'密码错了'</span>&#125;)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            res.send(&#123;ok:<span class="literal">true</span>,mag:<span class="string">'成功'</span>&#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">server.use(expressStatic(<span class="string">'./www'</span>));</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据解析"><a href="#数据解析" class="headerlink" title="数据解析"></a>数据解析</h3><p>get请求数据解析,无需中间件:req.query<br>post请求数据解析，需中间件：body-parser，首先解析数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&apos;express&apos;);</span><br><span class="line">const bodyParser = require(&apos;body-parser&apos;);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">server.listen(8080);</span><br><span class="line"></span><br><span class="line">server.use(bodyParser.urlencoded(&#123;</span><br><span class="line">    extended:true,      //扩展模式</span><br><span class="line">    limit: 2*1024       //限制2M，默认100k</span><br><span class="line">&#125;));</span><br><span class="line">server.use(&apos;/&apos;,function(req,res)&#123;</span><br><span class="line">    console.log(req.body)  //POST</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="链式操作"><a href="#链式操作" class="headerlink" title="链式操作"></a>链式操作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&apos;express&apos;);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">server.listen(8080);</span><br><span class="line"></span><br><span class="line">//第三个参数</span><br><span class="line">server.use(&apos;/&apos;,function(req,res,next)&#123;</span><br><span class="line">    console.log(&apos;a&apos;)</span><br><span class="line">    next();</span><br><span class="line">&#125;);</span><br><span class="line">server.use(&apos;/&apos;,function(req,res.next)&#123;</span><br><span class="line">    console.log(&apos;b&apos;)  </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>中间件,类似’body-parser’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&apos;express&apos;);</span><br><span class="line">const querystring = require(&apos;querystring&apos;);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">server.listen(8080);</span><br><span class="line"></span><br><span class="line">//第三个参数</span><br><span class="line">server.use(function(req,res,next)&#123;</span><br><span class="line">    var str=&apos;&apos;;</span><br><span class="line">    req.on(&apos;data&apos;,function(data)&#123;</span><br><span class="line">        str+=data;</span><br><span class="line">    &#125;);</span><br><span class="line">    req.on(&apos;end&apos;,function(data)&#123;</span><br><span class="line">        req.body=querystring(str);</span><br><span class="line">        next();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">server.use(&apos;/&apos;,function(req,res.next)&#123;</span><br><span class="line">    console.log(&apos;b&apos;)  </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="cookie、session"><a href="#cookie、session" class="headerlink" title="cookie、session"></a>cookie、session</h3><ul>
+<li>a.发送cookie<br>res.cookie(名字,值,maxAge:毫秒,signed:true)</li>
+<li>b.读取cookie<br>cookie-parser<br>server.use(cookieParser(‘秘钥’))<br>server.use(function(){<br>  req.cookie   //未签名<br>  req.signedCookies   //签名版<br>})</li>
+<li>c.删除cookie<br>res.clearCookie(名字)</li>
+</ul>
+<p>保存数据，cookie数据保存浏览器，session 数据保存在服务器。<br>npm install cookie-parser cookie-session<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">const cookieParser = require(<span class="string">'cookie-parser'</span>);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">//发送cookie</span><br><span class="line">server.use(<span class="string">'/aaa/a.html'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    res.cookie(<span class="string">'user'</span>,<span class="string">'blue'</span>,&#123;path:<span class="string">'/aaa'</span>,<span class="string">'maxAge'</span>:3*24*3600*1000&#125;)</span><br><span class="line">&#125;)</span><br><span class="line">//读取cookie</span><br><span class="line">server.use(cookieParser())；</span><br><span class="line">server.use(<span class="string">'/'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    console.log(req.cookie)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>实现cookie加密：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">const cookieParser = require(<span class="string">'cookie-parser'</span>);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">//cookieParser</span><br><span class="line">server.use(cookieParser);</span><br><span class="line">server.use(<span class="string">'/'</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    req.secret=<span class="string">'hdwifbonfjfosdjhfsj'</span>;</span><br><span class="line">    res.cookie(<span class="string">'user'</span>,<span class="string">'blue'</span>,&#123;signed:<span class="literal">true</span>&#125;);</span><br><span class="line"></span><br><span class="line">    res.send(<span class="string">'ok'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(8080);</span><br></pre></td></tr></table></figure></p>
+<p>session</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">const cookieSession = require(<span class="string">'cookie-session'</span>);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">//cookie</span><br><span class="line">server.use(cookieParser(<span class="string">'dnkfvbscsvius'</span>));</span><br><span class="line">server.use(cookieSession());</span><br><span class="line"></span><br><span class="line">server.use(<span class="string">'/'</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    req.secret=<span class="string">'hdwifbonfjfosdjhfsj'</span>;</span><br><span class="line">    res.cookie(<span class="string">'user'</span>,<span class="string">'blue'</span>,&#123;signed:<span class="literal">true</span>&#125;);</span><br><span class="line"></span><br><span class="line">    res.send(<span class="string">'ok'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(8080);</span><br></pre></td></tr></table></figure>
+<h3 id="express框架整合"><a href="#express框架整合" class="headerlink" title="express框架整合"></a>express框架整合</h3><p><img src="/2019/08/13/node5/02.png" alt="02.png"><br><img src="/2019/08/13/node5/03.png" alt="03.png"></p>
+<h4 id="multer模块上传文件"><a href="#multer模块上传文件" class="headerlink" title="multer模块上传文件"></a>multer模块上传文件</h4><p>npm install multer</p>
+<ul>
+<li>body-parser:解析post数据  (application/x-form-urlencoded)<br>server.use(bodyParse.urlencode());</li>
+<li>multer:解析post文件   (multipart/form-data)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">//上传到磁盘  重命名</span><br><span class="line"></span><br><span class="line">const multer = require(<span class="string">'multer'</span>);</span><br><span class="line">const pathLib = require(<span class="string">'path'</span>);</span><br><span class="line">const fs = require(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//1、pathLib解析获取原始文件扩展名</span><br><span class="line">    var str=<span class="string">'c:\\wamp\www\a.html'</span>;</span><br><span class="line">    var obj=path.parse(str);</span><br><span class="line"></span><br><span class="line">    base :文件名<span class="string">"a.html"</span></span><br><span class="line">    ext:扩展名<span class="string">"html"</span></span><br><span class="line">    dir:路径<span class="string">'c:\\wamp\www'</span></span><br><span class="line">    name:文件名<span class="string">"a"</span></span><br><span class="line"></span><br><span class="line">//2.fs的rename重命名</span><br><span class="line">    fs.rename(<span class="string">'a.txt'</span>,<span class="string">'b.txt'</span>,<span class="keyword">function</span>(err)&#123;</span><br><span class="line">        console.log(err)</span><br><span class="line">    &#125;)</span><br><span class="line">    fs.rename(老名，新名，<span class="keyword">function</span>(err)&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var obj=multer(&#123;dest:<span class="string">'./www/upload/'</span>&#125;)  //文件保存的位置</span><br><span class="line"></span><br><span class="line">server.use(obj.any())       //接受任意类型文件</span><br><span class="line">//只接收name=f1的文件 : server.use(obj.single(<span class="string">'f1'</span>))  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//req.files:指上传的文件信息，如下图：</span><br><span class="line">server.use(<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    var newName = req.file[0].path+pathLib.parse(req.file[0].originalname).ext</span><br><span class="line">    fs.rename(req.file[0].path,newName,<span class="keyword">function</span>()(err)&#123;</span><br><span class="line">        <span class="keyword">if</span>(err)</span><br><span class="line">            res.send(<span class="string">'上传失败'</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            res.send(<span class="string">'上传成功'</span>)</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/08/13/node5/05.png" alt="05.png"><br><img src="/2019/08/13/node5/06.png" alt="06.png"></p>
+<ul>
+<li>html文件：</li>
+</ul>
+<p><img src="/2019/08/13/node5/04.png" alt="04.png"><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=<span class="string">'http://localhost:8080/'</span> method=<span class="string">'post'</span> enctype=<span class="string">'multipart/form-data'</span>&gt;</span><br><span class="line">    &lt;input <span class="built_in">type</span>=<span class="string">'file'</span>/&gt;</span><br><span class="line">    &lt;input <span class="built_in">type</span>=<span class="string">'submit'</span> value=<span class="string">'上传/&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="consolidate-模板引擎整合库"><a href="#consolidate-模板引擎整合库" class="headerlink" title="consolidate 模板引擎整合库"></a>consolidate 模板引擎整合库</h3><p>安装：npm install consolidate<br>引用：const consolidate = require(‘consolidate’);<br>配置模板引擎：</p>
+<ul>
+<li>我要输出什么东西<br>server.set(‘view engine’,’html’)</li>
+<li>模板文件放在哪里<br>server.set(‘view’,’./views’)</li>
+<li>哪种模板引擎<br>server.engine(‘html’,consolidate.ejs)</li>
+</ul>
+<p>server.get(‘/‘,function(req,res){<br>    res.render(‘模板文件’，数据);<br>})</p>
+<h3 id="route路由"><a href="#route路由" class="headerlink" title="route路由"></a>route路由</h3><p>根据目录的不同，调用不同的模块</p>
+<p>const express = require(‘express’);</p>
+<p>var server=express();</p>
+<p>var routeUser =express.Route();<br>routeUser.get(‘1.html’,function(req,res){<br>    res.send(‘user1’)<br>})<br>routeUser.get(‘2.html’,function(req,res){<br>    res.send(‘user2’)<br>})</p>
+<p>server.use(‘/user’,routeUser);<br>server.listen(8080);</p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/15/小程序/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                小程序
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/11/node4/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        node笔记(一)
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Express框架"><span class="toc-number">1.</span> <span class="toc-text">Express框架</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装、配置、接受请求、响应"><span class="toc-number">1.1.</span> <span class="toc-text">安装、配置、接受请求、响应</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3种方法"><span class="toc-number">1.2.</span> <span class="toc-text">3种方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Express-static"><span class="toc-number">1.3.</span> <span class="toc-text">Express-static</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据解析"><span class="toc-number">2.</span> <span class="toc-text">数据解析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#链式操作"><span class="toc-number">2.1.</span> <span class="toc-text">链式操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cookie、session"><span class="toc-number">3.</span> <span class="toc-text">cookie、session</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#express框架整合"><span class="toc-number">4.</span> <span class="toc-text">express框架整合</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#multer模块上传文件"><span class="toc-number">4.1.</span> <span class="toc-text">multer模块上传文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#consolidate-模板引擎整合库"><span class="toc-number">5.</span> <span class="toc-text">consolidate 模板引擎整合库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#route路由"><span class="toc-number">6.</span> <span class="toc-text">route路由</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

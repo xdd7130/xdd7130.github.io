@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>小程序 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="开发前准备1、开发者工具下载。👉下载2、注册申请等。
+小程序主要文件及作用
+组件使用见官网。👉打开
+小程序单位物理和逻辑分辨率转换
+rpx（responsive pixel）: 可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。
+WXML数据绑定WXML（WeiXin Markup Language）是框架设计的一套标签语言，结合基础组件、事件系统，可以构建出页面的结构。12345678910111213141516171819202122232425...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            时光荏苒，旦夕之间，略有遗憾，似白驹过隙，蹉跎自悟。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>小程序</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-15T03:20:43.000Z">
+                    2019-08-15
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/小程序/">小程序</a></li></ul>
+        </div>
+        <h3 id="开发前准备"><a href="#开发前准备" class="headerlink" title="开发前准备"></a>开发前准备</h3><p>1、开发者工具下载。👉<a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html" target="_blank" rel="noopener">下载</a><br>2、注册申请等。</p>
+<h3 id="小程序主要文件及作用"><a href="#小程序主要文件及作用" class="headerlink" title="小程序主要文件及作用"></a>小程序主要文件及作用</h3><p><img src="/2019/08/15/小程序/01.png" alt="01.png"></p>
+<h3 id="组件使用"><a href="#组件使用" class="headerlink" title="组件使用"></a>组件使用</h3><p>见官网。👉<a href="https://developers.weixin.qq.com/miniprogram/dev/component/swiper.html" target="_blank" rel="noopener">打开</a></p>
+<h3 id="小程序单位"><a href="#小程序单位" class="headerlink" title="小程序单位"></a>小程序单位</h3><p>物理和逻辑分辨率转换</p>
+<p>rpx（responsive pixel）: 可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。</p>
+<h3 id="WXML数据绑定"><a href="#WXML数据绑定" class="headerlink" title="WXML数据绑定"></a>WXML数据绑定</h3><p>WXML（WeiXin Markup Language）是框架设计的一套标签语言，结合基础组件、事件系统，可以构建出页面的结构。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 页面的初始数据</span><br><span class="line">   */</span><br><span class="line">  data: &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 生命周期函数--监听页面加载</span><br><span class="line">   */</span><br><span class="line">  onLoad: <span class="keyword">function</span> (options) &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 生命周期函数--监听页面初次渲染完成</span><br><span class="line">   */</span><br><span class="line">  onReady: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 生命周期函数--监听页面显示</span><br><span class="line">   */</span><br><span class="line">  onShow: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 生命周期函数--监听页面隐藏</span><br><span class="line">   */</span><br><span class="line">  onHide: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 生命周期函数--监听页面卸载</span><br><span class="line">   */</span><br><span class="line">  onUnload: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 页面相关事件处理函数--监听用户下拉动作</span><br><span class="line">   */</span><br><span class="line">  onPullDownRefresh: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 页面上拉触底事件的处理函数</span><br><span class="line">   */</span><br><span class="line">  onReachBottom: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 用户点击右上角分享</span><br><span class="line">   */</span><br><span class="line">  onShareAppMessage: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;image src=<span class="string">"&#123;&#123;meurl&#125;&#125;"</span> show-menu-by-longpress=<span class="string">"&#123;&#123;true&#125;&#125;"</span>&gt;&lt;/image&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="条件渲染和列表渲染"><a href="#条件渲染和列表渲染" class="headerlink" title="条件渲染和列表渲染"></a>条件渲染和列表渲染</h3><p>wx:if  wx:elif wx:else<br>wx:for wx:for-index wx:for-item</p>
+<h3 id="模板及引入"><a href="#模板及引入" class="headerlink" title="模板及引入"></a>模板及引入</h3><p>1.创建公用页面template.wxml<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;template name=<span class="string">"header"</span>&gt;</span><br><span class="line">    &lt;view class=<span class="string">"header"</span>&gt;这是头部内容&lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;template name=<span class="string">"footer"</span>&gt;</span><br><span class="line">    &lt;view class=<span class="string">"footer"</span>&gt;这是底部内容&lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2.引入应用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wxml:</span><br><span class="line">&lt;import src=<span class="string">"/pages/template/template"</span>/&gt;</span><br><span class="line">wxss:</span><br><span class="line">@import <span class="string">"/pages/template/template"</span></span><br><span class="line"></span><br><span class="line">应用：&lt;template is=<span class="string">"header"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="事件处理及数据交互"><a href="#事件处理及数据交互" class="headerlink" title="事件处理及数据交互"></a>事件处理及数据交互</h3><p>1、变量不是一定要初始化<br>2、setData({ })<br>3、bindtap<br>4、catchtap 阻止冒泡事件</p>
+<h3 id="小程序的全局配置"><a href="#小程序的全局配置" class="headerlink" title="小程序的全局配置"></a>小程序的全局配置</h3><p>1、tabBar导航栏页面跳转<br><img src="/2019/08/15/小程序/02.png" alt="02.png"></p>
+<h3 id="独立页面配置"><a href="#独立页面配置" class="headerlink" title="独立页面配置"></a>独立页面配置</h3>
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/小程序/">小程序</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/15/vuex/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                vuex
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/13/node5/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        Express
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#开发前准备"><span class="toc-number">1.</span> <span class="toc-text">开发前准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小程序主要文件及作用"><span class="toc-number">2.</span> <span class="toc-text">小程序主要文件及作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组件使用"><span class="toc-number">3.</span> <span class="toc-text">组件使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小程序单位"><span class="toc-number">4.</span> <span class="toc-text">小程序单位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WXML数据绑定"><span class="toc-number">5.</span> <span class="toc-text">WXML数据绑定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#条件渲染和列表渲染"><span class="toc-number">6.</span> <span class="toc-text">条件渲染和列表渲染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模板及引入"><span class="toc-number">7.</span> <span class="toc-text">模板及引入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事件处理及数据交互"><span class="toc-number">8.</span> <span class="toc-text">事件处理及数据交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小程序的全局配置"><span class="toc-number">9.</span> <span class="toc-text">小程序的全局配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#独立页面配置"><span class="toc-number">10.</span> <span class="toc-text">独立页面配置</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

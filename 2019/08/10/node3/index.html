@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>node基础(三) | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="什么是node.js编写高性能网络服务器的JS工具包（用js开发服务端程序）单线程、异步、事件驱动特点：快、耗内存
+框架express、koa、Hapi、以及express基础上的sails
+node的安装http://nodejs.cn/是否成功：12node -v  npm -v
+第一个hello程序12345678910var http = require(&#39;http&#39;);http.createServer(function(request,response)&amp;#123;    response.writeHead(200,&amp;#123;&#39;Content-Type&#39;: &#39;text/html; charset=utf-...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            How goes the world with you?
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>node基础(三)</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-10T09:41:11.000Z">
+                    2019-08-10
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+        </div>
+        <h3 id="什么是node-js"><a href="#什么是node-js" class="headerlink" title="什么是node.js"></a>什么是node.js</h3><p>编写高性能网络服务器的JS工具包（用js开发服务端程序）<br>单线程、异步、事件驱动<br>特点：快、耗内存</p>
+<h4 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h4><p>express、koa、Hapi、以及express基础上的sails</p>
+<h3 id="node的安装"><a href="#node的安装" class="headerlink" title="node的安装"></a>node的安装</h3><p><a href="http://nodejs.cn/" target="_blank" rel="noopener">http://nodejs.cn/</a><br>是否成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v  </span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure></p>
+<h4 id="第一个hello程序"><a href="#第一个hello程序" class="headerlink" title="第一个hello程序"></a>第一个hello程序</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line">http.createServer(<span class="keyword">function</span>(request,response)&#123;</span><br><span class="line">    response.writeHead(200,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span>&#125;);</span><br><span class="line">    <span class="keyword">if</span> (request.url!==<span class="string">"/favicon.ico"</span>) &#123;   //清除第二次访问</span><br><span class="line">        console.log(<span class="string">'访问'</span>);</span><br><span class="line">        response.write(<span class="string">'hello,world'</span>);</span><br><span class="line">        response.end(<span class="string">'你好，世界'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).listen(8000);</span><br><span class="line">console.log(<span class="string">'Server running at http://localhost:8000/'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="调用函数"><a href="#调用函数" class="headerlink" title="调用函数"></a>调用函数</h3><ul>
+<li>调用本地函数</li>
+<li>调用其他js文件中的函数</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line"> var otherfun = require(<span class="string">"./models/other_func.js"</span>);</span><br><span class="line"> http.createServer(<span class="keyword">function</span>(request,response)&#123;</span><br><span class="line">    response.writeHead(200,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span>&#125;);</span><br><span class="line">    <span class="keyword">if</span> (request.url!==<span class="string">"/favicon.ico"</span>) &#123;</span><br><span class="line">        //fun1(response);</span><br><span class="line">        otherfun.fun2(response);</span><br><span class="line">        otherfun.fun3(response);</span><br><span class="line"></span><br><span class="line">          //用字符串调用对应函数</span><br><span class="line">        // otherfun.fun2(response);</span><br><span class="line">        // otherfun.fun3(response);</span><br><span class="line"></span><br><span class="line">        funname = <span class="string">'fun3'</span>;</span><br><span class="line">        otherfun[funname](response);</span><br><span class="line"></span><br><span class="line">        response.end(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).listen(8000);</span><br><span class="line">console.log(<span class="string">'Server running at http://10.75.68.123:8000/'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> fun1(res)&#123;       // 本文件函数</span><br><span class="line">    console.log(<span class="string">"fun1"</span>);</span><br><span class="line">    res.write(<span class="string">"hello,我是fun1"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于被调用的函数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//只支持一个函数</span><br><span class="line"><span class="keyword">function</span> fun2(res)&#123;</span><br><span class="line">    console.log(<span class="string">"fun2"</span>);</span><br><span class="line">    res.write(<span class="string">"hello,我是fun2"</span>);</span><br><span class="line">&#125;</span><br><span class="line">module.exports = fun2;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    //支持多个函数</span><br><span class="line">module.exports=&#123;</span><br><span class="line">    fun2:<span class="keyword">function</span>(res)&#123;</span><br><span class="line">        console.log(<span class="string">"fun2"</span>);</span><br><span class="line">        res.write(<span class="string">"hello,我是fun2"</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    fun3:<span class="keyword">function</span>(res)&#123;</span><br><span class="line">        console.log(<span class="string">"fun3"</span>);</span><br><span class="line">        res.write(<span class="string">"hello,我是fun3"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="调用模块"><a href="#调用模块" class="headerlink" title="调用模块"></a>调用模块</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> var http = require(<span class="string">'http'</span>);</span><br><span class="line"> // var User = require(<span class="string">"./models/User"</span>);</span><br><span class="line"> var Teacher = require(<span class="string">"./models/Teacher"</span>);</span><br><span class="line"></span><br><span class="line"> http.createServer(<span class="keyword">function</span>(request,response)&#123;</span><br><span class="line">    response.writeHead(200,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span>&#125;);</span><br><span class="line">    <span class="keyword">if</span> (request.url!==<span class="string">"/favicon.ico"</span>) &#123;</span><br><span class="line">        teacher = new Teacher(1,<span class="string">"张三"</span>,20);</span><br><span class="line">        teacher.enter();</span><br><span class="line">        teacher.teach(response);</span><br><span class="line">        // user.id=1;</span><br><span class="line">        // user.name=<span class="string">"张三"</span>;</span><br><span class="line">        // user.age=20;</span><br><span class="line">        // user.enter();</span><br><span class="line">        response.end(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).listen(8000);</span><br><span class="line">console.log(<span class="string">'Server running at http://localhost:8000/'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="路由初步"><a href="#路由初步" class="headerlink" title="路由初步"></a>路由初步</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> var http = require(<span class="string">'http'</span>);</span><br><span class="line"> var url = require(<span class="string">"url"</span>);</span><br><span class="line"> var router = require(<span class="string">"./router"</span>);</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="keyword">function</span>(request,response)&#123;</span><br><span class="line">    response.writeHead(200,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span>&#125;);</span><br><span class="line">    <span class="keyword">if</span> (request.url!==<span class="string">"/favicon.ico"</span>) &#123;</span><br><span class="line">        var pathname=url.parse(request.url).pathname;</span><br><span class="line">        pathname = pathname.replace(/\//,<span class="string">''</span>);   //替换掉前面的<span class="string">"/"</span></span><br><span class="line">        router[pathname](request,response);</span><br><span class="line">        console.log(pathname);</span><br><span class="line">        response.end(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).listen(8000);</span><br><span class="line">console.log(<span class="string">'Server running at http://10.75.68.123:8000/'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line"> var url = require(<span class="string">'url'</span>);</span><br><span class="line"> var router = require(<span class="string">'./router'</span>);</span><br><span class="line"></span><br><span class="line"> // var optfile = require(<span class="string">"./models/optfile"</span>);</span><br><span class="line"></span><br><span class="line"> http.createServer(<span class="keyword">function</span>(request,response)&#123;</span><br><span class="line">    response.writeHead(200,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span>&#125;);</span><br><span class="line">    <span class="keyword">if</span> (request.url!==<span class="string">"/favicon.ico"</span>) &#123;</span><br><span class="line"></span><br><span class="line">        var pathname=url.parse(request.url).pathname;</span><br><span class="line">        pathname = pathname.replace(/\//,<span class="string">''</span>);   //替换掉前面的<span class="string">"/"</span></span><br><span class="line">        router[pathname](request,response);</span><br><span class="line">        </span><br><span class="line">        /*</span><br><span class="line">        // optfile.readfileSync(<span class="string">'./views/login.html'</span>);</span><br><span class="line">        // optfile.readFile(<span class="string">'./views/login.html'</span>);</span><br><span class="line">        <span class="keyword">function</span> recall(data)&#123;</span><br><span class="line">            response.write(data);</span><br><span class="line">            response.end(<span class="string">'ok'</span>);   //不写则没有http协议尾</span><br><span class="line">        &#125;</span><br><span class="line">        optfile.readFile(<span class="string">'./views/login.html'</span>,recall);</span><br><span class="line">        // optfile.readFile(<span class="string">'C:\inetpub\wwwroot\HN_NTZJS01/index.html'</span>,recall);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">        console.log(<span class="string">"主程序执行完毕"</span>);</span><br><span class="line">        */</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).listen(8000);</span><br><span class="line">console.log(<span class="string">'Server running at http://localhost:8000/'</span>)</span><br></pre></td></tr></table></figure>
+<p>待续。。。</p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/11/apply-and-bind/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                apply and bind
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/09/node2/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        node基础(二)
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是node-js"><span class="toc-number">1.</span> <span class="toc-text">什么是node.js</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#框架"><span class="toc-number">1.1.</span> <span class="toc-text">框架</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node的安装"><span class="toc-number">2.</span> <span class="toc-text">node的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一个hello程序"><span class="toc-number">2.1.</span> <span class="toc-text">第一个hello程序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调用函数"><span class="toc-number">3.</span> <span class="toc-text">调用函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调用模块"><span class="toc-number">4.</span> <span class="toc-text">调用模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由初步"><span class="toc-number">5.</span> <span class="toc-text">路由初步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读文件"><span class="toc-number">6.</span> <span class="toc-text">读文件</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

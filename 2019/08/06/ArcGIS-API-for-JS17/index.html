@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>ArcGIS API For Javascript调用结果地图服务 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="结果地图服务也是GP服务的一种，当GP服务的结果返回栅格数据时，我们往往使用结果地图服务来对生成的栅格数据进行渲染，本实例是：克里金差值
+ArcGIS API调用结果地图服务首先我们查看一下服务的定义：
+####代码实现在页面添加地图（略）创建两个按钮（一个是画点，一个是进行插值运算）12&amp;lt;input id=&amp;quot;Btn&amp;quot; type=&amp;quot;button&amp;quot; value=&amp;quot;画点&amp;quot; /&amp;gt;&amp;lt;input id=&amp;quot;king&amp;quot; type=&amp;quot;button&amp;quot; value=&amp;quot;插值分析&amp;quot; /&amp;gt;
+定义点集合对象...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            云里写诗，泥里生活，岁月里洒脱。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>ArcGIS API For Javascript调用结果地图服务</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-06T08:07:59.000Z">
+                    2019-08-06
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li></ul>
+        </div>
+        <p>结果地图服务也是GP服务的一种，当GP服务的结果返回栅格数据时，我们往往使用结果地图服务来对生成的栅格数据进行渲染，本实例是：克里金差值</p>
+<h3 id="ArcGIS-API调用结果地图服务"><a href="#ArcGIS-API调用结果地图服务" class="headerlink" title="ArcGIS API调用结果地图服务"></a>ArcGIS API调用结果地图服务</h3><p>首先我们查看一下服务的定义：<br><img src="/2019/08/06/ArcGIS-API-for-JS17/01.png" alt="01.png"><br><img src="/2019/08/06/ArcGIS-API-for-JS17/02.png" alt="02.png"></p>
+<p>####代码实现<br>在页面添加地图（略）<br>创建两个按钮（一个是画点，一个是进行插值运算）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;input id=&quot;Btn&quot; type=&quot;button&quot; value=&quot;画点&quot; /&gt;</span><br><span class="line">&lt;input id=&quot;king&quot; type=&quot;button&quot; value=&quot;插值分析&quot; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p>定义点集合对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//定义点集合</span><br><span class="line">var pointSet = new FeatureSet();</span><br><span class="line">//定义点符号</span><br><span class="line">var psymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CROSS, 12,</span><br><span class="line">new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,</span><br><span class="line">new dojo.Color([255, 0, 0]), 2),</span><br><span class="line">new dojo.Color([0, 255, 0, 0.25]));</span><br></pre></td></tr></table></figure></p>
+<p>给画点的按钮绑定事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//绑定画点的事件</span><br><span class="line">on(dom.byId(&quot;Btn&quot;),&quot;click&quot;,function(e)&#123;</span><br><span class="line">    //定义绘图工具</span><br><span class="line">            var toolBar = new Draw(MyMap, &#123; showTooltips: true &#125;);</span><br><span class="line">            //激活绘图工具</span><br><span class="line">            toolBar.activate(Draw.POINT);</span><br><span class="line">            //定义一个i，为了给graphic赋予属性，为差值做准备。</span><br><span class="line">            var i=20;</span><br><span class="line">            //给绘图工具绑定绘图完成事件</span><br><span class="line">            on(toolBar, &quot;draw-complete&quot;, function(result)&#123;</span><br><span class="line">                //保证每一次i的值都不一样，如果所有点的属性都一样，是不可以差值的。</span><br><span class="line">                i=i+40;</span><br><span class="line">                //获得几何形状</span><br><span class="line">                var geometry = result.geometry;</span><br><span class="line">                //给图形一个m属性，我们后面对m进行差值</span><br><span class="line">                var graphicpoint = new Graphic(geometry, psymbol,&#123;&quot;m&quot;:i&#125;);</span><br><span class="line">                pointSet.features.push(graphicpoint);   </span><br><span class="line">                MyMap.graphics.add(graphicpoint);</span><br><span class="line">            &#125;); </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>给插值按钮绑定事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//声明gp对象</span><br><span class="line">var gp;</span><br><span class="line">on(dom.byId(&quot;king&quot;),&quot;click&quot;,function(e)&#123;</span><br><span class="line">                    //定义gp服务对象</span><br><span class="line">                    gp= new Geoprocessor(&quot;http://localhost:6080/arcgis/rest/services/Test/myKing/GPServer/king&quot;);</span><br><span class="line">                    //定义GP服务参数对象</span><br><span class="line">                    var gpParams=&#123;&#125;;</span><br><span class="line">                    //添加点集合的字段信息</span><br><span class="line">                    pointSet.fields=[&#123;</span><br><span class="line">                    &quot;name&quot;:&quot;m&quot;,</span><br><span class="line">                    &quot;type&quot;:&quot;esriFieldTypeSmallInteger&quot;,</span><br><span class="line">                    &quot;alias&quot;:&quot;m&quot;</span><br><span class="line">                    &#125;];</span><br><span class="line">                    //添加Input参数</span><br><span class="line">                    gpParams.Input=pointSet;</span><br><span class="line">                    //添加Z属性：即差值的属性</span><br><span class="line">                    gpParams.Z=&quot;m&quot;;</span><br><span class="line">                    gp.submitJob(gpParams,completeCallback);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>回掉函数处理结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function completeCallback(jobInfo)</span><br><span class="line">                &#123;</span><br><span class="line">                    gp.on(&quot;get-result-image-layer-complete&quot;,function(gpLayer)&#123;</span><br><span class="line">                        MyMap.addLayer(gpLayer[&quot;layer&quot;])</span><br><span class="line">                    &#125;)</span><br><span class="line">                    gp.getResultImageLayer(jobInfo.jobId,&quot;out&quot;);</span><br><span class="line">                    </span><br><span class="line">                    </span><br><span class="line">                    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="全部代码"><a href="#全部代码" class="headerlink" title="全部代码"></a>全部代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;/&gt;</span><br><span class="line">    &lt;title&gt;GP&lt;/title&gt;</span><br><span class="line">    &lt;link  rel=&quot;stylesheet&quot;  type=&quot;text/css&quot; href=&quot;http://localhost/arcgis_js_api/library/3.17/3.17/dijit/themes/tundra/tundra.css&quot;/&gt;</span><br><span class="line">    &lt;link  rel=&quot;stylesheet&quot;  type=&quot;text/css&quot; href=&quot;http://localhost/arcgis_js_api/library/3.17/3.17/esri/css/esri.css&quot; /&gt;</span><br><span class="line">    &lt;script  type=&quot;text/Javascript&quot; src=&quot;http://localhost/arcgis_js_api/library/3.17/3.17/init.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">        .MapClass&#123;</span><br><span class="line">            width:100%;</span><br><span class="line">            height:600px;</span><br><span class="line">            border:1px solid #000;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;</span><br><span class="line"></span><br><span class="line">        require([&quot;esri/map&quot;,</span><br><span class="line">            &quot;esri/layers/ArcGISDynamicMapServiceLayer&quot;,</span><br><span class="line">            &quot;dojo/dom&quot;,</span><br><span class="line">            &quot;esri/tasks/Geoprocessor&quot;,</span><br><span class="line">            &quot;esri/tasks/FeatureSet&quot;,</span><br><span class="line">            &quot;esri/symbols/SimpleMarkerSymbol&quot;,</span><br><span class="line">            &quot;esri/symbols/SimpleLineSymbol&quot;,</span><br><span class="line">            &quot;esri/toolbars/draw&quot;,</span><br><span class="line">            &quot;esri/symbols/SimpleFillSymbol&quot;,</span><br><span class="line">             &quot;dojo/on&quot;,&quot;esri/graphic&quot;,</span><br><span class="line">            &quot;esri/layers/ImageParameters&quot;,</span><br><span class="line">            &quot;dojo/domReady!&quot;],</span><br><span class="line">            function (Map,</span><br><span class="line">                ArcGISDynamicMapServiceLayer,</span><br><span class="line">                dom,</span><br><span class="line">                Geoprocessor,</span><br><span class="line">                FeatureSet,</span><br><span class="line">                SimpleMarkerSymbol,</span><br><span class="line">                SimpleLineSymbol,</span><br><span class="line">                Draw,</span><br><span class="line">                SimpleFillSymbol,on,Graphic,ImageParameters) &#123;</span><br><span class="line">                var MyMap = new Map(&quot;MyMapDiv&quot;);</span><br><span class="line">                var layer = new ArcGISDynamicMapServiceLayer</span><br><span class="line">                (&quot;http://localhost:6080/arcgis/rest/services/Test/ft/MapServer&quot;);</span><br><span class="line">                MyMap.addLayer(layer)               </span><br><span class="line">                </span><br><span class="line">                //定义点集合对象</span><br><span class="line">                var pointSet = new FeatureSet();</span><br><span class="line">                //定义点符号</span><br><span class="line">                var psymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CROSS, 12,</span><br><span class="line">                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,</span><br><span class="line">                new dojo.Color([255, 0, 0]), 2),</span><br><span class="line">                new dojo.Color([0, 255, 0, 0.25]));</span><br><span class="line">                //绑定画点的事件</span><br><span class="line">                on(dom.byId(&quot;Btn&quot;),&quot;click&quot;,function(e)&#123;</span><br><span class="line">                    //定义绘图工具</span><br><span class="line">                    var toolBar = new Draw(MyMap, &#123; showTooltips: true &#125;);</span><br><span class="line">                    //激活绘图工具</span><br><span class="line">                    toolBar.activate(Draw.POINT);</span><br><span class="line">                    //定义一个i，为了给graphic赋予属性，为差值做准备。</span><br><span class="line">                    var i=20;</span><br><span class="line">                    //给绘图工具绑定绘图完成事件</span><br><span class="line">                    on(toolBar, &quot;draw-complete&quot;, function(result)&#123;</span><br><span class="line">                        //保证每一次i的值都不一样，如果所有点的属性都一样，是不可以差值的。</span><br><span class="line">                        i=i+40;</span><br><span class="line">                        //获得几何形状</span><br><span class="line">                        var geometry = result.geometry;</span><br><span class="line">                        //给图形一个m属性，我们后面对m进行差值</span><br><span class="line">                        var graphicpoint = new Graphic(geometry, psymbol,&#123;&quot;m&quot;:i&#125;);</span><br><span class="line">                        pointSet.features.push(graphicpoint);   </span><br><span class="line">                        MyMap.graphics.add(graphicpoint);</span><br><span class="line">                    &#125;); </span><br><span class="line">                &#125;);</span><br><span class="line">                var gp;</span><br><span class="line">                on(dom.byId(&quot;king&quot;),&quot;click&quot;,function(e)&#123;</span><br><span class="line">                    //定义gp服务对象</span><br><span class="line">                    gp= new Geoprocessor(&quot;http://localhost:6080/arcgis/rest/services/Test/myKing/GPServer/king&quot;);</span><br><span class="line">                    //定义GP服务参数对象</span><br><span class="line">                    var gpParams=&#123;&#125;;</span><br><span class="line">                    //添加点集合的字段信息</span><br><span class="line">                    pointSet.fields=[&#123;</span><br><span class="line">                    &quot;name&quot;:&quot;m&quot;,</span><br><span class="line">                    &quot;type&quot;:&quot;esriFieldTypeSmallInteger&quot;,</span><br><span class="line">                    &quot;alias&quot;:&quot;m&quot;</span><br><span class="line">                    &#125;];</span><br><span class="line">                    //添加Input参数</span><br><span class="line">                    gpParams.Input=pointSet;</span><br><span class="line">                    //添加Z属性：即差值的属性</span><br><span class="line">                    gpParams.Z=&quot;m&quot;;</span><br><span class="line">                    //执行gp服务，注意这里是执行submitJob，因为是同步的gp服务</span><br><span class="line">                    gp.submitJob(gpParams,completeCallback);</span><br><span class="line">                &#125;)          </span><br><span class="line">                function completeCallback(jobInfo)</span><br><span class="line">                &#123;</span><br><span class="line">                    //给gp服务绑定获得图层事件</span><br><span class="line">                    gp.on(&quot;get-result-image-layer-complete&quot;,function(gpLayer)&#123;</span><br><span class="line">                        //将图层添加到地图中</span><br><span class="line">                        MyMap.addLayer(gpLayer[&quot;layer&quot;])</span><br><span class="line">                    &#125;)</span><br><span class="line">                    //注意out是服务定义的参数</span><br><span class="line">                    gp.getResultImageLayer(jobInfo.jobId,&quot;out&quot;);</span><br><span class="line">                                                           </span><br><span class="line">                &#125;   </span><br><span class="line"></span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;MyMapDiv&quot; class=&quot;MapClass&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;input id=&quot;Btn&quot; type=&quot;button&quot; value=&quot;画点&quot; /&gt;</span><br><span class="line">    &lt;input id=&quot;king&quot; type=&quot;button&quot; value=&quot;插值分析&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/08/06/ArcGIS-API-for-JS17/03.png" alt="03.png"></p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/ArcGIS-API-for-JS/">ArcGIS API for JS</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/06/ArcGIS-API-for-JS18/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                ArcGIS API For Javascript之动态图层
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/06/ArcGIS-API-for-JS16/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        ArcGIS API For Javascript调用GP服务
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ArcGIS-API调用结果地图服务"><span class="toc-number">1.</span> <span class="toc-text">ArcGIS API调用结果地图服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#全部代码"><span class="toc-number">1.1.</span> <span class="toc-text">全部代码</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

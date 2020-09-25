@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>垂直居中 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="16种方法实现水平居中垂直居中熟悉水平居中和垂直居中的方法, 不为别的, 就为用的时候能够信手拈来. 下面直接步入正题.原文：16种方法实现水平居中垂直居中
+水平居中1) 若是行内元素, 给其父元素设置 text-align:center,即可实现行内元素水平居中.
+2) 若是块级元素, 该元素设置 margin:0 auto即可.
+3) 若子元素包含 float:left 属性, 为了让子元素水平居中, 则可让父元素宽度设置为fit-content,并且配合margin, 作如下设置:123456.parent&amp;#123;    width: -moz-fit-content;    width: -webkit-fi...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            时光荏苒，旦夕之间，略有遗憾，似白驹过隙，蹉跎自悟。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>垂直居中</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-01-05T01:25:40.000Z">
+                    2019-01-05
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+        </div>
+        <h1 id="16种方法实现水平居中垂直居中"><a href="#16种方法实现水平居中垂直居中" class="headerlink" title="16种方法实现水平居中垂直居中"></a>16种方法实现水平居中垂直居中</h1><p>熟悉水平居中和垂直居中的方法, 不为别的, 就为用的时候能够信手拈来. 下面直接步入正题.<br>原文：16种方法实现水平居中垂直居中</p>
+<h2 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h2><p>1) 若是行内元素, 给其父元素设置 text-align:center,即可实现行内元素水平居中.</p>
+<p>2) 若是块级元素, 该元素设置 margin:0 auto即可.</p>
+<p>3) 若子元素包含 float:left 属性, 为了让子元素水平居中, 则可让父元素宽度设置为fit-content,并且配合margin, 作如下设置:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    width: -moz-fit-content;</span><br><span class="line">    width: -webkit-fit-content;</span><br><span class="line">    width:fit-content;</span><br><span class="line">    margin:0 auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>fit-content是CSS3中给width属性新加的一个属性值,它配合margin可以轻松实现水平居中, 目前只支持Chrome 和 Firefox浏览器.</p>
+<p>4) 使用flex 2012年版本布局, 可以轻松的实现水平居中, 子元素设置如下:</p>
+<p>.son{<br>    display: flex;<br>    justify-content: center;<br>}复制代码<br>5) 使用flex 2009年版本, 父元素display: box;box-pack: center;如下设置:</p>
+<p>.parent {<br>    display: -webkit-box;<br>    -webkit-box-orient: horizontal;<br>    -webkit-box-pack: center;<br>    display: -moz-box;<br>    -moz-box-orient: horizontal;<br>    -moz-box-pack: center;<br>    display: -o-box;<br>      -o-box-orient: horizontal;<br>      -o-box-pack: center;<br>      display: -ms-box;<br>      -ms-box-orient: horizontal;<br>      -ms-box-pack: center;<br>      display: box;<br>      box-orient: horizontal;<br>      box-pack: center;<br>}复制代码<br>6) 使用CSS3中新增的transform属性, 子元素设置如下:</p>
+<p>.son{<br>    position:absolute;<br>      left:50%;<br>      transform:translate(-50%,0);<br>}复制代码<br>7) 使用绝对定位方式, 以及负值的margin-left, 子元素设置如下:</p>
+<p>.son{<br>    position:absolute;<br>    width:固定;<br>    left:50%;<br>    margin-left:-0.5宽度;<br>}复制代码<br>8) 使用绝对定位方式, 以及left:0;right:0;margin:0 auto; 子元素设置如下:</p>
+<p>.son{<br>    position:absolute;<br>    width:固定;<br>    left:0;<br>    right:0;<br>    margin:0 auto;<br>}复制代码</p>
+<h2 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h2><h3 id="单行文本"><a href="#单行文本" class="headerlink" title="单行文本"></a>单行文本</h3><p>1) 若元素是单行文本, 则可设置 line-height 等于父元素高度</p>
+<h3 id="行内块级元素"><a href="#行内块级元素" class="headerlink" title="行内块级元素"></a>行内块级元素</h3><p>2) 若元素是行内块级元素, 基本思想是使用display: inline-block, vertical-align: middle和一个伪元素让内容块处于容器中央.</p>
+<p>.parent::after, .son{<br>    display:inline-block;<br>    vertical-align:middle;<br>}<br>.parent::after{<br>    content:’’;<br>    height:100%;<br>}复制代码<br>这是一种很流行的方法, 也适应IE7.</p>
+<h3 id="元素高度不定"><a href="#元素高度不定" class="headerlink" title="元素高度不定"></a>元素高度不定</h3><p>3) 可用 vertical-align 属性, 而vertical-align只有在父层为 td 或者 th 时, 才会生效, 对于其他块级元素, 例如 div、p 等, 默认情况是不支持的. 为了使用vertical-align, 我们需要设置父元素display:table, 子元素 display:table-cell;vertical-align:middle;</p>
+<p>优点</p>
+<p>元素高度可以动态改变, 不需再CSS中定义, 如果父元素没有足够空间时, 该元素内容也不会被截断.</p>
+<p>缺点</p>
+<p>IE6~7, 甚至IE8 beta中无效.</p>
+<p>4) 可用 Flex 2012版, 这是CSS布局未来的趋势. Flexbox是CSS3新增属性, 设计初衷是为了解决像垂直居中这样的常见布局问题. 相关的文章如《弹性盒模型Flex指南》</p>
+<p>父元素做如下设置即可保证子元素垂直居中:</p>
+<p>.parent {<br>  display: flex;<br>  align-items: center;<br>}复制代码<br>优点</p>
+<p>内容块的宽高任意, 优雅的溢出.<br>可用于更复杂高级的布局技术中.<br>缺点</p>
+<p>IE8/IE9不支持<br>需要浏览器厂商前缀<br>渲染上可能会有一些问题<br>5) 使用flex 2009版.</p>
+<p>.parent {<br>      display: box;<br>      box-orient: vertical;<br>      box-pack: center;<br>}复制代码<br>优点</p>
+<p>实现简单, 扩展性强</p>
+<p>缺点</p>
+<p>兼容性差, 不支持IE</p>
+<p>6) 可用 transform , 设置父元素相对定位(position:relative), 子元素如下css样式:</p>
+<p>.son{<br>    position:absolute;<br>    top:50%;<br>    -webkit-transform: translate(-50%,-50%);<br>    -ms-transform: translate(-50%,-50%);<br>    transform: translate(-50%,-50%);<br>}复制代码<br>优点</p>
+<p>代码量少</p>
+<p>缺点</p>
+<p>IE8不支持, 属性需要追加浏览器厂商前缀, 可能干扰其他 transform 效果, 某些情形下会出现文本或元素边界渲染模糊的现象.</p>
+<p>元素高度固定<br>7) 设置父元素相对定位(position:relative), 子元素如下css样式:</p>
+<p>.son{<br>    position:absolute;<br>    top:50%;<br>    height:固定;<br>    margin-top:-0.5高度;<br>}复制代码<br>优点</p>
+<p>适用于所有浏览器.</p>
+<p>缺点</p>
+<p>父元素空间不够时, 子元素可能不可见(当浏览器窗口缩小时,滚动条不出现时).如果子元素设置了overflow:auto, 则高度不够时, 会出现滚动条.</p>
+<p>8) 设置父元素相对定位(position:relative), 子元素如下css样式:</p>
+<p>.son{<br>    position:absolute;<br>    height:固定;<br>    top:0;<br>    bottom:0;<br>    margin:auto 0;<br>}复制代码<br>优点</p>
+<p>简单</p>
+<p>缺点</p>
+<p>没有足够空间时, 子元素会被截断, 但不会有滚动条.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>水平居中较为简单, 共提供了8种方法, 一般情况下 text-align:center,marin:0 auto; 足矣</p>
+<p>① text-align:center;<br>② margin:0 auto;<br>③ width:fit-content;<br>④ flex<br>⑤ 盒模型<br>⑥ transform<br>⑦ ⑧ 两种不同的绝对定位方法<br>垂直居中, 共提供了8种方法.</p>
+<p>① 单行文本, line-height<br>② 行内块级元素, 使用 display: inline-block, vertical-align: middle; 加上伪元素辅助实现<br>③ vertical-align<br>④ flex<br>⑤ 盒模型<br>⑥ transform<br>⑦ ⑧ 两种不同的绝对定位方法<br>我们发现, flex, 盒模型, transform, 绝对定位, 这几种方法同时适用于水平居中和垂直居中.</p>
+<h1 id="水平垂直居中实现"><a href="#水平垂直居中实现" class="headerlink" title="水平垂直居中实现"></a>水平垂直居中实现</h1><h2 id="仅居中元素定宽高适用："><a href="#仅居中元素定宽高适用：" class="headerlink" title="仅居中元素定宽高适用："></a>仅居中元素定宽高适用：</h2><ul>
+<li><a href="http://yanhaijing.com/vertical-center/absolute1.html" target="_blank" rel="noopener">absolute + 负margin</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/absolute2.html" target="_blank" rel="noopener">absolute + margin auto</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/absolute3.html" target="_blank" rel="noopener">absolute + calc</a></li>
+</ul>
+<h2 id="居中元素不定宽高适用："><a href="#居中元素不定宽高适用：" class="headerlink" title="居中元素不定宽高适用："></a>居中元素不定宽高适用：</h2><ul>
+<li><a href="http://yanhaijing.com/vertical-center/absolute4.html" target="_blank" rel="noopener">absolute + transform</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/writing-mode.html" target="_blank" rel="noopener">writing-mode</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/lineheight.html" target="_blank" rel="noopener">lineheight</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/table.html" target="_blank" rel="noopener">table</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/css-table.html" target="_blank" rel="noopener">css-table</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/flex.html" target="_blank" rel="noopener">flex</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/grid.html" target="_blank" rel="noopener">grid</a></li>
+</ul>
+<h2 id="absolute-负margin"><a href="#absolute-负margin" class="headerlink" title="absolute + 负margin"></a>absolute + 负margin</h2><p>为了实现上面的效果先来做些准备工作，假设HTML代码如下，总共两个元素，父元素和子元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box size&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>wp是父元素的类名，box是子元素的类名，因为有定宽和不定宽的区别，size用来表示指定宽度，下面是所有效果都要用到的公共代码，主要是设置颜色和宽高<br>注意：后面不在重复这段公共代码，只会给出相应提示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/* 公共代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    border: 1px solid red;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 300px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.box &#123;</span><br><span class="line">    background: green;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.box.size&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">&#125;</span><br><span class="line">/* 公共代码 */</span><br></pre></td></tr></table></figure></p>
+<p>绝对定位的百分比是相对于父元素的宽高，通过这个特性可以让子元素的居中显示，但绝对定位是基于子元素的左上角，期望的效果是子元素的中心居中显示为了修正这个问题，可以借助外边距的负值，负的外边距可以让元素向相反方向定位，通过指定子元素的外边距为子元素宽度一半的负值，就可以让子元素居中了，css代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    margin-left: -50px;</span><br><span class="line">    margin-top: -50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这是我比较常用的方式，这种方式比较好理解，兼容性也很好，缺点是<font color="red">需要知道子元素的宽高</font></p>
+<h2 id="absolute-margin-auto"><a href="#absolute-margin-auto" class="headerlink" title="absolute + margin auto"></a>absolute + margin auto</h2><p>这种方式也要求居中元素的宽高必须固定，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box size&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这种方式通过设置各个方向的距离都是0，此时再讲margin设为auto，就可以在各个方向上居中了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    top: 0;</span><br><span class="line">    left: 0;</span><br><span class="line">    right: 0;</span><br><span class="line">    bottom: 0;</span><br><span class="line">    margin: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法兼容性也很好，缺点是需要知道子元素的宽高</p>
+<h2 id="absolute-calc"><a href="#absolute-calc" class="headerlink" title="absolute + calc"></a>absolute + calc</h2><p>这种方式也要求居中元素的宽高必须固定，所以我们为box增加size类，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box size&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>感谢css3带来了计算属性，既然top的百分比是基于元素的左上角，那么在减去宽度的一半就好了，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    top: calc(50% - 50px);</span><br><span class="line">    left: calc(50% - 50px);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法兼容性依赖calc的兼容性，缺点是需要知道子元素的宽高</p>
+<h2 id="absolute-transform"><a href="#absolute-transform" class="headerlink" title="absolute + transform"></a>absolute + transform</h2><p>还是绝对定位，但这个方法不需要子元素固定宽高，所以不再需要size类了，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>修复绝对定位的问题，还可以使用css3新增的transform，transform的translate属性也可以设置百分比，其是相对于自身的宽和高，所以可以讲translate设置为-50%，就可以做到居中了，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    transform: translate(-50%, -50%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法兼容性依赖translate2d的兼容性</p>
+<h2 id="line-height"><a href="#line-height" class="headerlink" title="line-height"></a>line-height</h2><p>利用行内元素居中属性也可以做到水平垂直居中，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>把box设置为行内元素，通过text-align就可以做到水平居中，但很多同学可能不知道通过通过vertical-align也可以在垂直方向做到居中，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    line-height: 300px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    font-size: 0px;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    font-size: 16px;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">    line-height: initial;</span><br><span class="line">    text-align: left; /* 修正文字 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法需要在子元素中将文字显示重置为想要的效果</p>
+<h2 id="writing-mode"><a href="#writing-mode" class="headerlink" title="writing-mode"></a>writing-mode</h2><p>writing-mode可以改变文字的显示方向，比如可以通过writing-mode让文字的显示变为垂直方向<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;div1&quot;&gt;水平方向&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;div2&quot;&gt;垂直方向&lt;/div&gt;</span><br><span class="line">.div2 &#123;</span><br><span class="line">    writing-mode: vertical-lr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">水平方向</span><br><span class="line">垂</span><br><span class="line">直</span><br><span class="line">方</span><br><span class="line">向</span><br></pre></td></tr></table></figure></p>
+<p>更神奇的是所有水平方向上的css属性，都会变为垂直方向上的属性，比如text-align，通过writing-mode和text-align就可以做到水平和垂直方向的居中了，只不过要稍微麻烦一点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;wp-inner&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">复制代码/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    writing-mode: vertical-lr;</span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">.wp-inner &#123;</span><br><span class="line">    writing-mode: horizontal-tb;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    text-align: center;</span><br><span class="line">    width: 100%;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    margin: auto;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法实现起来和理解起来都稍微有些复杂</p>
+<h2 id="table"><a href="#table" class="headerlink" title="table"></a>table</h2><p>曾经table被用来做页面布局，现在没人这么做了，但table也能够实现水平垂直居中，但是会增加很多冗余代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;table&gt;</span><br><span class="line">    &lt;tbody&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td class=&quot;wp&quot;&gt;</span><br><span class="line">                &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">            &lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">    &lt;/tbody&gt;</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></table></figure></p>
+<p>tabel单元格中的内容天然就是垂直居中的，只要添加一个水平居中属性就好了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.wp &#123;</span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法就是代码太冗余，而且也不是table的正确用法</p>
+<h2 id="css-table"><a href="#css-table" class="headerlink" title="css-table"></a>css-table</h2><p>css新增的table属性，可以让我们把普通元素，变为table元素的现实效果，通过这个特性也可以实现水平垂直居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>下面通过css属性，可以让div显示的和table一样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.wp &#123;</span><br><span class="line">    display: table-cell;</span><br><span class="line">    text-align: center;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>复制代码这种方法和table一样的原理，但却没有那么多冗余代码，兼容性也还不错</p>
+<h2 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h2><p>flex作为现代的布局方案，颠覆了过去的经验，只需几行代码就可以优雅的做到水平垂直居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">.wp &#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    align-items: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>目前在移动端已经完全可以使用flex了，PC端需要看自己业务的兼容性情况</p>
+<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css新出的网格布局，由于兼容性不太好，一直没太关注，通过grid也可以实现水平垂直居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">.wp &#123;</span><br><span class="line">    display: grid;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    align-self: center;</span><br><span class="line">    justify-self: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码量也很少，但兼容性不如flex，不推荐使用</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>下面对比下各个方式的优缺点，肯定又双叒叕该有同学说回字的写法了，简单总结下</p>
+<ul>
+<li>PC端有兼容性要求，宽高固定，推荐absolute + 负margin</li>
+<li>PC端有兼容要求，宽高不固定，推荐css-table</li>
+<li>PC端无兼容性要求，推荐flex</li>
+<li>移动端推荐使用flex</li>
+</ul>
+<p><strong>小贴士：</strong>关于flex的兼容性决方案，请看这里《<a href="//yanhaijing.com/css/2016/08/21/flex-practice-on-mobile/">移动端flex布局实战</a>》</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>居中元素定宽高固定</th>
+<th>PC兼容性</th>
+<th>移动端兼容性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>absolute + 负margin</td>
+<td>是</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>absolute + margin auto</td>
+<td>是</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>absolute + calc</td>
+<td>是</td>
+<td>ie9+, chrome19+, firefox4+</td>
+<td>安卓4.4+, iOS6+</td>
+</tr>
+<tr>
+<td>absolute + transform</td>
+<td>否</td>
+<td>ie9+, chrome4+, firefox3.5+</td>
+<td>安卓3+, iOS6+</td>
+</tr>
+<tr>
+<td>writing-mode</td>
+<td>否</td>
+<td>ie6+, chrome4+, firefox3.5+</td>
+<td>安卓2.3+, iOS5.1+</td>
+</tr>
+<tr>
+<td>lineheight</td>
+<td>否</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>table</td>
+<td>否</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>css-table</td>
+<td>否</td>
+<td>ie8+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>flex</td>
+<td>否</td>
+<td>ie10+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>grid</td>
+<td>否</td>
+<td>ie10+, chrome57+, firefox52+</td>
+<td>安卓6+, iOS10.3+</td>
+</tr>
+</tbody>
+</table>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/CSS/">CSS</a></li><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/居中/">居中</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/01/07/Promise/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                Promise
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/01/04/盒模型/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        盒模型
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#16种方法实现水平居中垂直居中"><span class="toc-number">1.</span> <span class="toc-text">16种方法实现水平居中垂直居中</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#水平居中"><span class="toc-number">1.1.</span> <span class="toc-text">水平居中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#垂直居中"><span class="toc-number">1.2.</span> <span class="toc-text">垂直居中</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单行文本"><span class="toc-number">1.2.1.</span> <span class="toc-text">单行文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#行内块级元素"><span class="toc-number">1.2.2.</span> <span class="toc-text">行内块级元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#元素高度不定"><span class="toc-number">1.2.3.</span> <span class="toc-text">元素高度不定</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#水平垂直居中实现"><span class="toc-number">2.</span> <span class="toc-text">水平垂直居中实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#仅居中元素定宽高适用："><span class="toc-number">2.1.</span> <span class="toc-text">仅居中元素定宽高适用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#居中元素不定宽高适用："><span class="toc-number">2.2.</span> <span class="toc-text">居中元素不定宽高适用：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#absolute-负margin"><span class="toc-number">2.3.</span> <span class="toc-text">absolute + 负margin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#absolute-margin-auto"><span class="toc-number">2.4.</span> <span class="toc-text">absolute + margin auto</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#absolute-calc"><span class="toc-number">2.5.</span> <span class="toc-text">absolute + calc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#absolute-transform"><span class="toc-number">2.6.</span> <span class="toc-text">absolute + transform</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#line-height"><span class="toc-number">2.7.</span> <span class="toc-text">line-height</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#writing-mode"><span class="toc-number">2.8.</span> <span class="toc-text">writing-mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#table"><span class="toc-number">2.9.</span> <span class="toc-text">table</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#css-table"><span class="toc-number">2.10.</span> <span class="toc-text">css-table</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flex"><span class="toc-number">2.11.</span> <span class="toc-text">flex</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#grid"><span class="toc-number">2.12.</span> <span class="toc-text">grid</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结-1"><span class="toc-number">2.13.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

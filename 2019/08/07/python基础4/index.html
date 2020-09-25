@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>python基础(四) | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="Python 模块Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。
+模块让你能够有逻辑地组织你的 Python 代码段。
+把相关的代码分配到一个模块里能让你的代码更好用，更易懂。
+模块能定义函数，类和变量，模块里也能包含可执行的代码。下例是个简单的模块 support.py：123def print_func( par ):   print &amp;quot;Hello : &amp;quot;, par   return
+import 语句1import module1[, module2[,... moduleN]]
+比如要引用模块 math，就可...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            时光荏苒，旦夕之间，略有遗憾，似白驹过隙，蹉跎自悟。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>python基础(四)</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-07T12:04:14.000Z">
+                    2019-08-07
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/python/">python</a></li></ul>
+        </div>
+        <h2 id="Python-模块"><a href="#Python-模块" class="headerlink" title="Python 模块"></a>Python 模块</h2><p>Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。</p>
+<p>模块让你能够有逻辑地组织你的 Python 代码段。</p>
+<p>把相关的代码分配到一个模块里能让你的代码更好用，更易懂。</p>
+<p>模块能定义函数，类和变量，模块里也能包含可执行的代码。<br>下例是个简单的模块 support.py：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def print_func( par ):</span><br><span class="line">   print &quot;Hello : &quot;, par</span><br><span class="line">   return</span><br></pre></td></tr></table></figure></p>
+<p>import 语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import module1[, module2[,... moduleN]]</span><br></pre></td></tr></table></figure></p>
+<p>比如要引用模块 math，就可以在文件最开始的地方用 import math 来引入。在调用 math 模块中的函数时，必须这样引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">模块名.函数名</span><br></pre></td></tr></table></figure></p>
+<p>当解释器遇到 import 语句，如果模块在当前的搜索路径就会被导入。</p>
+<p>搜索路径是一个解释器会先进行搜索的所有目录的列表。如想要导入模块 support.py，需要把命令放在脚本的顶端：</p>
+<p>test.py 文件代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line"># 导入模块</span><br><span class="line">import support</span><br><span class="line"> </span><br><span class="line"># 现在可以调用模块里包含的函数了</span><br><span class="line">support.print_func(&quot;Runoob&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>from…import 语句<br>Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from modname import name1[, name2[, ... nameN]]</span><br></pre></td></tr></table></figure></p>
+<p>例如，要导入模块 fib 的 fibonacci 函数，使用如下语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from fib import fibonacci</span><br></pre></td></tr></table></figure></p>
+<p>from…import* 语句<br>把一个模块的所有内容全都导入到当前的命名空间也是可行的，只需使用如下声明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from modname import *</span><br></pre></td></tr></table></figure></p>
+<p>dir()函数<br>dir() 函数一个排好序的字符串列表，内容是一个模块里定义过的名字。</p>
+<p>返回的列表容纳了在一个模块里定义的所有模块，变量和函数。如下一个简单的实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line"># 导入内置math模块</span><br><span class="line">import math</span><br><span class="line"> </span><br><span class="line">content = dir(math)</span><br><span class="line"> </span><br><span class="line">print content;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Python-文件I-O"><a href="#Python-文件I-O" class="headerlink" title="Python 文件I/O"></a>Python 文件I/O</h2><h3 id="打印到屏幕"><a href="#打印到屏幕" class="headerlink" title="打印到屏幕"></a>打印到屏幕</h3><p>最简单的输出方法是用print语句，你可以给它传递零个或多个用逗号隔开的表达式。此函数把你传递的表达式转换成一个字符串表达式，并将结果写到标准输出如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*- </span><br><span class="line"></span><br><span class="line">print &quot;Python 是一个非常棒的语言，不是吗？&quot;</span><br></pre></td></tr></table></figure></p>
+<p>读取键盘输入<br>Python提供了两个内置函数从标准输入读入一行文本，默认的标准输入是键盘。如下：</p>
+<ul>
+<li>raw_input</li>
+<li>input</li>
+</ul>
+<p>打开和关闭文件<br>open 函数<br>你必须先用Python内置的open()函数打开一个文件，创建一个file对象，相关的方法才可以调用它进行读写。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file object = open(file_name [, access_mode][, buffering])</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>file_name：file_name变量是一个包含了你要访问的文件名称的字符串值。</li>
+<li>access_mode：access_mode决定了打开文件的模式：只读，写入，追加等。所有可取值见如下的完全列表。这个参数是非强制的，默认文件访问模式为只读(r)。</li>
+<li>buffering:如果buffering的值被设为0，就不会有寄存。如果buffering的值取1，访问文件时会寄存行。如果将buffering的值设为大于1的整数，表明了这就是的寄存区的缓冲大小。如果取负值，寄存区的缓冲大小则为系统默认。</li>
+</ul>
+<p><img src="/2019/08/07/python基础4/01.png" alt="01.png"><br><img src="/2019/08/07/python基础4/02.png" alt="02.png"></p>
+<p>write()方法<br>write()方法可将任何字符串写入一个打开的文件。需要重点注意的是，Python字符串可以是二进制数据，而不是仅仅是文字。</p>
+<p>write()方法不会在字符串的结尾添加换行符(‘\n’)</p>
+<p>read()方法<br>read（）方法从一个打开的文件中读取一个字符串。需要重点注意的是，Python字符串可以是二进制数据，而不是仅仅是文字。</p>
+<p>remove()方法<br>你可以用remove()方法删除文件，需要提供要删除的文件名作为参数</p>
+<p>tell()方法,seek（offset [,from]）<br>文件定位</p>
+<p>重命名和删除文件</p>
+<p>Python的os模块提供了帮你执行文件处理操作的方法，比如重命名和删除文件。<br>要使用这个模块，你必须先导入它，然后才可以调用相关的各种功能。<br>rename()方法：<br>rename()方法需要两个参数，当前的文件名和新文件名。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.rename(current_file_name, new_file_name)</span><br></pre></td></tr></table></figure>
+<p>下例将重命名一个已经存在的文件test1.txt。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line"> </span><br><span class="line"># 重命名文件test1.txt到test2.txt。</span><br><span class="line">os.rename( &quot;test1.txt&quot;, &quot;test2.txt&quot; )</span><br></pre></td></tr></table></figure></p>
+<p>remove()方法<br>你可以用remove()方法删除文件，需要提供要删除的文件名作为参数。<br>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.remove(file_name)</span><br></pre></td></tr></table></figure></p>
+<p>例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line"> </span><br><span class="line"># 删除一个已经存在的文件test2.txt</span><br><span class="line">os.remove(&quot;test2.txt&quot;)</span><br></pre></td></tr></table></figure></p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/python基础/">python基础</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/07/WebSocket/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                WebSocket
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/07/python基础3/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        python基础(三)--数据类型
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python-模块"><span class="toc-number">1.</span> <span class="toc-text">Python 模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python-文件I-O"><span class="toc-number">2.</span> <span class="toc-text">Python 文件I/O</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#打印到屏幕"><span class="toc-number">2.1.</span> <span class="toc-text">打印到屏幕</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

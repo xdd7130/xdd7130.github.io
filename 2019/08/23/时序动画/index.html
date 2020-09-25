@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>时序动画 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="补充1:2019-08-29
+发布服务前，设置时区
+
+
+效果图：
+步骤一：数据准备拖拉机数据：时间2019/6/7 7:59:00-2019/6/713:52:00目标数据：时间2019/6/7 8:00:00-2019/6/713:52:00 
+注意：所有的数据需放在地理数据库里，否则日期后的时分秒被自动截去删除。
+步骤二：制图表达将拖拉机数据转为制图表达，重新为RULEID赋值，这里我全赋值为6，不能赋值为0哦。目标数据线分为五个等级，再转为制图表达，RULEID是否重新赋值视情况而定。(能够满足步骤四的分级)
+步骤三：合并merge将两个制图表达数据合并。
+步骤四：分级将步骤三合并的文件进行分级，这里分为六级（包括...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            云里写诗，泥里生活，岁月里洒脱。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>时序动画</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-23T08:39:42.000Z">
+                    2019-08-23
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li></ul>
+        </div>
+        <h4 id="补充1-2019-08-29"><a href="#补充1-2019-08-29" class="headerlink" title="补充1:2019-08-29"></a>补充1:2019-08-29</h4><blockquote>
+<p>发布服务前，设置时区</p>
+</blockquote>
+<p><img src="/2019/08/23/时序动画/02.png" alt="02.png"></p>
+<p>效果图：<br><img src="/2019/08/23/时序动画/01.png" alt="01.png"></p>
+<h4 id="步骤一：数据准备"><a href="#步骤一：数据准备" class="headerlink" title="步骤一：数据准备"></a>步骤一：数据准备</h4><p>拖拉机数据：时间2019/6/7 7:59:00-2019/6/713:52:00<br>目标数据：时间2019/6/7 8:00:00-2019/6/713:52:00 </p>
+<p>注意：所有的数据需放在地理数据库里，否则日期后的时分秒被自动截去删除。</p>
+<h4 id="步骤二：制图表达"><a href="#步骤二：制图表达" class="headerlink" title="步骤二：制图表达"></a>步骤二：制图表达</h4><p>将拖拉机数据转为制图表达，重新为RULEID赋值，这里我全赋值为6，不能赋值为0哦。<br>目标数据线分为五个等级，再转为制图表达，RULEID是否重新赋值视情况而定。(能够满足步骤四的分级)</p>
+<h4 id="步骤三：合并merge"><a href="#步骤三：合并merge" class="headerlink" title="步骤三：合并merge"></a>步骤三：合并merge</h4><p>将两个制图表达数据合并。</p>
+<h4 id="步骤四：分级"><a href="#步骤四：分级" class="headerlink" title="步骤四：分级"></a>步骤四：分级</h4><p>将步骤三合并的文件进行分级，这里分为六级（包括整个图层），其中第六级用来渲染拖拉机符号。</p>
+<h4 id="步骤五：再次制图表达"><a href="#步骤五：再次制图表达" class="headerlink" title="步骤五：再次制图表达"></a>步骤五：再次制图表达</h4><p>将分级后的文件再次制作制图表达，对第六级进行符号渲染。</p>
+<h4 id="步骤六：将文件导入到数据库"><a href="#步骤六：将文件导入到数据库" class="headerlink" title="步骤六：将文件导入到数据库"></a>步骤六：将文件导入到数据库</h4><h4 id="步骤七：从数据库拉去数据设置timeslider属性，发布服务"><a href="#步骤七：从数据库拉去数据设置timeslider属性，发布服务" class="headerlink" title="步骤七：从数据库拉去数据设置timeslider属性，发布服务"></a>步骤七：从数据库拉去数据设置timeslider属性，发布服务</h4><h4 id="步骤八：调用服务"><a href="#步骤八：调用服务" class="headerlink" title="步骤八：调用服务"></a>步骤八：调用服务</h4><p>使用动态图层，要素服务调用，符号不渲染。</p>
+<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=utf-8"</span>&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"initial-scale=1, maximum-scale=1,user-scalable=no"</span>&gt;</span><br><span class="line">    &lt;title&gt;Recent Earthquakes&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">    &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://js.arcgis.com/3.29/dijit/themes/claro/claro.css"</span>&gt;</span><br><span class="line">    &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://js.arcgis.com/3.29/esri/css/esri.css"</span>&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      html, body &#123;</span><br><span class="line">        height: 100%;</span><br><span class="line">        width: 100%;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">      &#125;</span><br><span class="line">      .dijitBorders&#123;</span><br><span class="line">        margin:5px 5px 5px 5px; </span><br><span class="line">        border:solid thin <span class="comment">#9CAA9C;</span></span><br><span class="line">       -moz-border-radius: 4px;</span><br><span class="line">      &#125;</span><br><span class="line">      .labelText&#123;</span><br><span class="line">        color:<span class="comment">#9CAA9C;</span></span><br><span class="line">        font-size:12pt;  </span><br><span class="line">        font-family:<span class="string">"Tahoma"</span>;</span><br><span class="line">        margin:5px;</span><br><span class="line">      &#125;</span><br><span class="line">      .headerText&#123;</span><br><span class="line">        color:<span class="comment">#9CAA9C;</span></span><br><span class="line">        font-size:16pt;</span><br><span class="line">        font-weight:bold;</span><br><span class="line">        font-family: <span class="string">"Tahoma"</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script src=<span class="string">"https://js.arcgis.com/3.29/"</span>&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">      var map,timeExtent;</span><br><span class="line">      require([</span><br><span class="line">        <span class="string">"esri/map"</span>,<span class="string">"esri/layers/ArcGISDynamicMapServiceLayer"</span>, <span class="string">"esri/layers/FeatureLayer"</span>, <span class="string">"esri/TimeExtent"</span>, <span class="string">"esri/layers/TimeInfo"</span>,</span><br><span class="line">        <span class="string">"esri/renderers/ClassBreaksRenderer"</span>,</span><br><span class="line">        <span class="string">"esri/symbols/SimpleMarkerSymbol"</span>, <span class="string">"esri/symbols/SimpleLineSymbol"</span>,</span><br><span class="line">        <span class="string">"esri/dijit/editing/TemplatePicker"</span>, <span class="string">"esri/dijit/TimeSlider"</span>,</span><br><span class="line">        <span class="string">"esri/renderers/TimeClassBreaksAger"</span>, <span class="string">"esri/renderers/TemporalRenderer"</span>,</span><br><span class="line">        <span class="string">"dojo/parser"</span>, <span class="string">"dojo/_base/array"</span>, <span class="string">"esri/Color"</span>, <span class="string">"dojo/dom"</span>, <span class="string">"dojo/date"</span>,</span><br><span class="line">        </span><br><span class="line">        <span class="string">"dijit/layout/BorderContainer"</span>, <span class="string">"dijit/layout/ContentPane"</span>, <span class="string">"dojo/domReady!"</span></span><br><span class="line">      ], <span class="keyword">function</span>(</span><br><span class="line">        Map, ArcGISDynamicMapServiceLayer,FeatureLayer, TimeExtent, TimeInfo,</span><br><span class="line">        ClassBreaksRenderer,</span><br><span class="line">        SimpleMarkerSymbol, SimpleLineSymbol,</span><br><span class="line">        TemplatePicker, TimeSlider,</span><br><span class="line">        TimeClassBreaksAger, TemporalRenderer,</span><br><span class="line">        parser, arrayUtils, Color, dom, date</span><br><span class="line">      ) &#123;</span><br><span class="line">        parser.parse();</span><br><span class="line"></span><br><span class="line">        map = new Map(<span class="string">"map"</span>, &#123;</span><br><span class="line">          basemap: <span class="string">"satellite"</span>,</span><br><span class="line">          center: [114.0143, 34.11075],</span><br><span class="line">          slider: <span class="literal">false</span>,</span><br><span class="line">          zoom:15</span><br><span class="line">        &#125;);</span><br><span class="line">        //边界</span><br><span class="line">          var research_scope = new ArcGISDynamicMapServiceLayer(<span class="string">"http://localhost:6080/arcgis/rest/services/Henan_S/research_scope1/MapServer"</span>,&#123;<span class="string">"id"</span>:<span class="string">"100000"</span>&#125;);</span><br><span class="line">        map.on(<span class="string">"load"</span>, mapLoaded);   </span><br><span class="line"></span><br><span class="line">        <span class="keyword">function</span> <span class="function"><span class="title">mapLoaded</span></span>() &#123;</span><br><span class="line">            var SOMtlj = new ArcGISDynamicMapServiceLayer(<span class="string">"http://localhost:6080/arcgis/rest/services/Henan_S/PH1_TLJ/MapServer"</span>,&#123;<span class="string">"id"</span>:<span class="string">"3"</span>&#125;);</span><br><span class="line">            SOMtlj.on(<span class="string">"load"</span>, featureLayerLoaded);</span><br><span class="line">            map.addLayer(SOMtlj);</span><br><span class="line">            map.addLayer(research_scope);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">function</span> <span class="function"><span class="title">featureLayerLoaded</span></span>() &#123;</span><br><span class="line">          // create time slider</span><br><span class="line">          var timeSlider = new TimeSlider(&#123; style: <span class="string">"width: 100%;"</span>&#125;, dom.byId(<span class="string">"timeSliderDiv"</span>));</span><br><span class="line">          map.setTimeSlider(timeSlider);</span><br><span class="line"></span><br><span class="line">          timeExtent = new TimeExtent();</span><br><span class="line">          </span><br><span class="line">          // 设置时区后，开始时间和结束时间</span><br><span class="line">          //timeExtent.startTime = new Date(<span class="string">"2019/06/06 23:59:00 UTC"</span>);</span><br><span class="line">          //timeExtent.endTime = new Date(<span class="string">"2019/06/07 05:52:00 UTC"</span>);</span><br><span class="line"></span><br><span class="line">          timeSlider.setThumbCount(1);</span><br><span class="line">          timeSlider.createTimeStopsByTimeInterval(timeExtent, 1, <span class="string">"esriTimeUnitsMinutes"</span>); </span><br><span class="line">        </span><br><span class="line">          timeSlider.setThumbIndexes([0]);</span><br><span class="line">          timeSlider.on(<span class="string">"time-extent-change"</span>, displayTimeInfo);</span><br><span class="line">          timeSlider.startup();</span><br><span class="line">           // timeSlider.play();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">function</span> displayTimeInfo(timeExtent) &#123;</span><br><span class="line">          var info = timeExtent.endTime;</span><br><span class="line">          dom.byId(<span class="string">"timeInfo"</span>).innerHTML = info;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line"></span><br><span class="line">  &lt;body class=<span class="string">"claro"</span>&gt;</span><br><span class="line">    &lt;div id=<span class="string">"mainWindow"</span> </span><br><span class="line">         data-dojo-type=<span class="string">"dijit/layout/BorderContainer"</span> </span><br><span class="line">         data-dojo-propx=<span class="string">"design:'sidebar', gutters:true"</span> </span><br><span class="line">         style=<span class="string">"width:100%; height:100%;"</span>&gt;</span><br><span class="line">     &lt;div id=<span class="string">"header"</span> </span><br><span class="line">          data-dojo-type=<span class="string">"dijit/layout/ContentPane"</span> </span><br><span class="line">          data-dojo-props=<span class="string">"region:'top'"</span> </span><br><span class="line">          class=<span class="string">"dijitBorders"</span> style=<span class="string">"height:100px;"</span>&gt;</span><br><span class="line">      &lt;center&gt;</span><br><span class="line">        &lt;span class=<span class="string">"headerText"</span>&gt;采样时序&lt;/span&gt;</span><br><span class="line">        &lt;div id=<span class="string">"timeInfo"</span> class=<span class="string">"labelText"</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div id=<span class="string">"timeSliderDiv"</span> &gt;&lt;/div&gt;</span><br><span class="line">      &lt;/center&gt;</span><br><span class="line">     &lt;/div&gt;</span><br><span class="line">      </span><br><span class="line">      &lt;div id=<span class="string">"map"</span> data-dojo-type=<span class="string">"dijit/layout/ContentPane"</span> </span><br><span class="line">           data-dojo-props=<span class="string">"region:'center'"</span> class=<span class="string">"dijitBorders"</span> </span><br><span class="line">           style=<span class="string">"background-color:inherit;"</span>&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      </span><br><span class="line">      &lt;div id=<span class="string">"right"</span> data-dojo-type=<span class="string">"dijit/layout/ContentPane"</span> </span><br><span class="line">           data-dojo-props=<span class="string">"region:'left'"</span> </span><br><span class="line">           style=<span class="string">"width:100px;font-size:small;"</span>&gt;</span><br><span class="line"></span><br><span class="line">          &lt;center&gt;&lt;span class=<span class="string">"labelText"</span>&gt;Age&lt;/span&gt;&lt;/center&gt;</span><br><span class="line">          &lt;div id=<span class="string">"ageDiv"</span> class=<span class="string">"dijitBorders"</span>&gt;&lt;/div&gt;</span><br><span class="line">          &lt;center&gt;&lt;span class=<span class="string">"labelText"</span>&gt;Magnitude&lt;/span&gt;&lt;/center&gt;</span><br><span class="line">          &lt;div id=<span class="string">"magnitudeDiv"</span> class=<span class="string">"dijitBorders"</span> &gt;&lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      </span><br><span class="line">     &lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/ArcGIS/">ArcGIS</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/09/10/node6/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                jade、ejs模板库
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/15/vuex/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        vuex
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#补充1-2019-08-29"><span class="toc-number">1.</span> <span class="toc-text">补充1:2019-08-29</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤一：数据准备"><span class="toc-number">2.</span> <span class="toc-text">步骤一：数据准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤二：制图表达"><span class="toc-number">3.</span> <span class="toc-text">步骤二：制图表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤三：合并merge"><span class="toc-number">4.</span> <span class="toc-text">步骤三：合并merge</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤四：分级"><span class="toc-number">5.</span> <span class="toc-text">步骤四：分级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤五：再次制图表达"><span class="toc-number">6.</span> <span class="toc-text">步骤五：再次制图表达</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤六：将文件导入到数据库"><span class="toc-number">7.</span> <span class="toc-text">步骤六：将文件导入到数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤七：从数据库拉去数据设置timeslider属性，发布服务"><span class="toc-number">8.</span> <span class="toc-text">步骤七：从数据库拉去数据设置timeslider属性，发布服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤八：调用服务"><span class="toc-number">9.</span> <span class="toc-text">步骤八：调用服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#完整代码"><span class="toc-number">10.</span> <span class="toc-text">完整代码</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

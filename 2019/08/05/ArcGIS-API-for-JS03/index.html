@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>ArcGIS Server之发布要素服务 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="什么是要素服务？要素服务可用来通过 Internet 提供要素，并提供显示要素时所要使用的符号系统。之后，客户端可执行查询操作以获取要素，并执行相应的编辑操作。要素服务提供了可用于提高客户端编辑体验的模板。此外，要素服务也可以对关系类和非空间表中的数据进行查询和编辑。简单的说，要素服务的数据是通过ArcSDE将数据储存在数据库中，当客户端请求要素服务时，服务器从数据库中读取数据生成图片，将图片返还给客户端。
+要素服务的优点要素服务由于数据是储存在数据库中，所以实现的功能多。例如：客户端对服务中的要素进行增删改查，要素服务可以进行渲染，改变图层的颜色
+要素服务数据要求1、所有数据必须来自单个 ArcSDE 地理数据库。2、...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            云里写诗，泥里生活，岁月里洒脱。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>ArcGIS Server之发布要素服务</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-05T07:02:49.000Z">
+                    2019-08-05
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li></ul>
+        </div>
+        <h3 id="什么是要素服务？"><a href="#什么是要素服务？" class="headerlink" title="什么是要素服务？"></a>什么是要素服务？</h3><p>要素服务可用来通过 Internet 提供要素，并提供显示要素时所要使用的符号系统。之后，客户端可执行查询操作以获取要素，并执行相应的编辑操作。要素服务提供了可用于提高客户端编辑体验的模板。此外，要素服务也可以对关系类和非空间表中的数据进行查询和编辑。<br>简单的说，要素服务的数据是通过ArcSDE将数据储存在数据库中，当客户端请求要素服务时，服务器从数据库中读取数据生成图片，将图片返还给客户端。</p>
+<h4 id="要素服务的优点"><a href="#要素服务的优点" class="headerlink" title="要素服务的优点"></a>要素服务的优点</h4><p>要素服务由于数据是储存在数据库中，所以实现的功能多。例如：客户端对服务中的要素进行增删改查，要素服务可以进行渲染，改变图层的颜色</p>
+<h4 id="要素服务数据要求"><a href="#要素服务数据要求" class="headerlink" title="要素服务数据要求"></a>要素服务数据要求</h4><p>1、所有数据必须来自单个 ArcSDE 地理数据库。<br>2、所有数据必须通过地理数据库注册。<br>3、如果要允许编辑数据，将需要 ArcSDE 数据的写入权限。使用 OS 身份验证时，必须向 ArcGIS 4、Server 帐户授予这些权限。<br>5、支持版本化和未版本化数据；但是，如果需要使用服务编辑非简单类型（例如，网络边），则需要进行版本化。</p>
+<h3 id="发布要素服务"><a href="#发布要素服务" class="headerlink" title="发布要素服务"></a>发布要素服务</h3><p>发布要素服务一般分为以下几个步骤：</p>
+<p>1、准备一个 ArcSDE 地理数据库（本实例准备的是SQL Server2008 R2数据库）<br>2、创建一个数据库，并将其升级为地理数据库<br>3、将数据存储到SDE数据库中，并设置数据的属性<br>4、将SDE数据库注册到ArcGIS Server，并发布服务。</p>
+<h4 id="准备一个-ArcSDE-地理数据库"><a href="#准备一个-ArcSDE-地理数据库" class="headerlink" title="准备一个 ArcSDE 地理数据库"></a>准备一个 ArcSDE 地理数据库</h4><p>1、安装SQL Server2008 R2数据库。<br>2、若服务器安装了ArcGIS Desktop,那么便不需要单独安装ArcSDE，如果服务器没有安装ArcGIS Desktop，可以选择安装ArcGIS Desktop或者ArcSDE。<br>3、若Linux操作系统，只能单独安装ArcSDE软件</p>
+<h4 id="创建一个数据库，并将其升级为地理数据库"><a href="#创建一个数据库，并将其升级为地理数据库" class="headerlink" title="创建一个数据库，并将其升级为地理数据库"></a>创建一个数据库，并将其升级为地理数据库</h4><p>安装完成后 SQL Server2008 R2后，创建一个mydb数据库<br><img src="/2019/08/05/ArcGIS-API-for-JS03/01.png" alt="01.png"><br>打开ArcCatalog连接mydb数据库<br><img src="/2019/08/05/ArcGIS-API-for-JS03/02.png" alt="02.png"></p>
+<blockquote>
+<p>注：实例名便是数据库中的Server name（一定要对应），然后输入用户名，密码，最后选择我们刚刚创建的数据库mydb</p>
+</blockquote>
+<p>点击确定，出现我们刚刚创建的数据库localhost. sde<br><img src="/2019/08/05/ArcGIS-API-for-JS03/03.png" alt="03.png"></p>
+<p>将mydb数据库升级为地理数据库<br>右击localhost. sde-&gt;启用地理数据库，弹出该画面<br><img src="/2019/08/05/ArcGIS-API-for-JS03/04.png" alt="04.png"><br>注：授权文件为ArcGIS Server授权文件（ecp文件）</p>
+<h4 id="将数据存储到SDE数据库中，并设置数据的属性"><a href="#将数据存储到SDE数据库中，并设置数据的属性" class="headerlink" title="将数据存储到SDE数据库中，并设置数据的属性"></a>将数据存储到SDE数据库中，并设置数据的属性</h4><p>将数据导入ArcSDE数据库:右键localhost.sde-&gt;导入-&gt;要素类（多个）</p>
+<h4 id="将SDE数据库注册到ArcGIS-Server，并发布服务。"><a href="#将SDE数据库注册到ArcGIS-Server，并发布服务。" class="headerlink" title="将SDE数据库注册到ArcGIS Server，并发布服务。"></a>将SDE数据库注册到ArcGIS Server，并发布服务。</h4><p>1.将要发布的图层拖拽到ArcMap<br>2.点击文件-&gt;共享为-&gt;服务-&gt;发布服务<br>3.注册数据库到ArcGIS Server</p>
+<p>点击功能选择Feature Access点击分析<br><img src="/2019/08/05/ArcGIS-API-for-JS03/05.png" alt="05.png"><br>出现错误：点击错误注册地里数据库<br><img src="/2019/08/05/ArcGIS-API-for-JS03/06.png" alt="06.png"><br><img src="/2019/08/05/ArcGIS-API-for-JS03/07.png" alt="07.png"><br><img src="/2019/08/05/ArcGIS-API-for-JS03/08.png" alt="08.png"><br><img src="/2019/08/05/ArcGIS-API-for-JS03/09.png" alt="09.png"><br><img src="/2019/08/05/ArcGIS-API-for-JS03/10.png" alt="10.png"></p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/ArcGIS-API-for-JS/">ArcGIS API for JS</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/05/ArcGIS-API-for-JS04/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                ArcGIS Server之发布影像服务
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/05/ArcGIS-API-for-JS02/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        ArcGIS Server之发布切片地图服务
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是要素服务？"><span class="toc-number">1.</span> <span class="toc-text">什么是要素服务？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#要素服务的优点"><span class="toc-number">1.1.</span> <span class="toc-text">要素服务的优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#要素服务数据要求"><span class="toc-number">1.2.</span> <span class="toc-text">要素服务数据要求</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布要素服务"><span class="toc-number">2.</span> <span class="toc-text">发布要素服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#准备一个-ArcSDE-地理数据库"><span class="toc-number">2.1.</span> <span class="toc-text">准备一个 ArcSDE 地理数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建一个数据库，并将其升级为地理数据库"><span class="toc-number">2.2.</span> <span class="toc-text">创建一个数据库，并将其升级为地理数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#将数据存储到SDE数据库中，并设置数据的属性"><span class="toc-number">2.3.</span> <span class="toc-text">将数据存储到SDE数据库中，并设置数据的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#将SDE数据库注册到ArcGIS-Server，并发布服务。"><span class="toc-number">2.4.</span> <span class="toc-text">将SDE数据库注册到ArcGIS Server，并发布服务。</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

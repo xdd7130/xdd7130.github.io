@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>原型与继承 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="prototype、proto和constructor的三者关系javascript里的关系又多又乱。作用域链是一种单向的链式关系，还算简单清晰；this机制的调用关系，稍微有些复杂；而关于原型，则是prototype、proto和constructor的三角关系。本文先用一张图开宗明义，然后详细解释原型的三角关系
+概念上图中的复杂关系，实际上来源就两行代码:12function Foo()&amp;#123;&amp;#125;;var f1 = new Foo;
+
+【构造函数】
+
+　　用来初始化新创建的对象的函数是构造函数。在例子中，Foo()函数是构造函数
+
+【实例对象】
+
+　　通过构造函数的new操作创建的对象是实例对象。可以用...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            How goes the world with you?
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>原型与继承</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2018-12-26T09:28:15.000Z">
+                    2018-12-26
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+        </div>
+        <h1 id="prototype、proto和constructor的三者关系"><a href="#prototype、proto和constructor的三者关系" class="headerlink" title="prototype、proto和constructor的三者关系"></a>prototype、proto和constructor的三者关系</h1><p>javascript里的关系又多又乱。作用域链是一种单向的链式关系，还算简单清晰；this机制的调用关系，稍微有些复杂；而关于原型，则是prototype、proto和constructor的三角关系。本文先用一张图开宗明义，然后详细解释原型的三角关系<br><img src="/2018/12/26/原型/proto01.png" alt=""></p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>上图中的复杂关系，实际上来源就两行代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>【构造函数】</li>
+</ul>
+<p>　　用来初始化新创建的对象的函数是构造函数。在例子中，Foo()函数是构造函数</p>
+<ul>
+<li>【实例对象】</li>
+</ul>
+<p>　　通过构造函数的new操作创建的对象是实例对象。可以用一个构造函数，构造多个实例对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">var f2 = new Foo;</span><br><span class="line">console.log(f1 === f2);//false</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>【原型对象及prototype】</li>
+</ul>
+<p>　　构造函数有一个prototype属性，指向实例对象的原型对象。通过同一个构造函数实例化的多个对象具有相同的原型对象。经常使用原型对象来实现继承<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">Foo.prototype.a = 1;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">var f2 = new Foo;</span><br><span class="line"></span><br><span class="line">console.log(Foo.prototype.a);//1</span><br><span class="line">console.log(f1.a);//1</span><br><span class="line">console.log(f2.a);//1</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>【constructor】</li>
+</ul>
+<p>　　原型对象有一个constructor属性，指向该原型对象对应的构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">console.log(Foo.prototype.constructor === Foo);//true</span><br></pre></td></tr></table></figure></p>
+<p>　　由于实例对象可以继承原型对象的属性，所以实例对象也拥有constructor属性，同样指向原型对象对应的构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(f1.constructor === Foo);//true</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>【proto】</li>
+</ul>
+<p>　　实例对象有一个proto属性，指向该实例对象对应的原型对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(f1.__proto__ === Foo.prototype);//true</span><br></pre></td></tr></table></figure></p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>　　概念介绍完了，现在对图示的关系进行详细说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>【第一部分： Foo】</p>
+</blockquote>
+<p><img src="/2018/12/26/原型/proto02.png" alt=""><br>实例对象f1是通过构造函数Foo()的new操作创建的。构造函数Foo()的原型对象是Foo.prototype；实例对象f1通过<strong>proto</strong>属性也指向原型对象Foo.prototype<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(f1.__proto === Foo.prototype);//true</span><br></pre></td></tr></table></figure></p>
+<p>　　实例对象f1本身并没有constructor属性，但它可以继承原型对象Foo.prototype的constructor属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(Foo.prototype.constructor === Foo);//true</span><br><span class="line">console.log(f1.constructor === Foo);//true</span><br><span class="line">console.log(f1.hasOwnProperty(&apos;constructor&apos;));//false</span><br></pre></td></tr></table></figure></p>
+<p>　　下图是实例对象f1的控制台效果<br><img src="/2018/12/26/原型/proto03.png" alt=""></p>
+<blockquote>
+<p>【第二部分： Object】</p>
+</blockquote>
+<p><img src="/2018/12/26/原型/proto04.png" alt=""><br>　Foo.prototype是f1的原型对象，同时它也是实例对象。实际上，任何对象都可以看做是通过Object()构造函数的new操作实例化的对象<br>　　所以，Foo.prototype作为实例对象，它的构造函数是Object()，原型对象是Object.prototype。相应地，构造函数Object()的prototype属性指向原型对象Object.prototype；实例对象Foo.prototype的proto属性同样指向原型对象Object.prototype<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(Foo.prototype.__proto__ === Object.prototype);//true</span><br></pre></td></tr></table></figure></p>
+<p>　　实例对象Foo.prototype本身具有constructor属性，所以它会覆盖继承自原型对象Object.prototype的constructor属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(Foo.prototype.constructor === Foo);//true</span><br><span class="line">console.log(Object.prototype.constructor === Object);//true</span><br><span class="line">console.log(Foo.prototype.hasOwnProperty(&apos;constructor&apos;));//true</span><br></pre></td></tr></table></figure></p>
+<p>　　下图是实例对象Foo.prototype的控制台效果:<br><img src="/2018/12/26/原型/proto05.png" alt=""><br>如果Object.prototype作为实例对象的话，其原型对象是什么，结果是null。私以为，这可能也是typeof null的结果是’object’的原因之一吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null);//true</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>【第三部分： Function】</p>
+</blockquote>
+<p><img src="/2018/12/26/原型/proto06.png" alt=""><br>前面已经介绍过，函数也是对象，只不过是具有特殊功能的对象而已。任何函数都可以看做是通过Function()构造函数的new操作实例化的结果</p>
+<p>　　如果把函数Foo当成实例对象的话，其构造函数是Function()，其原型对象是Function.prototype；类似地，函数Object的构造函数也是Function()，其原型对象是Function.prototype<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(Foo.__proto__ === Function.prototype);//true</span><br><span class="line">console.log(Object.__proto__ === Function.prototype);//true</span><br></pre></td></tr></table></figure></p>
+<p>　　原型对象Function.prototype的constructor属性指向构造函数Function()；实例对象Object和Foo本身没有constructor属性，需要继承原型对象Function.prototype的constructor属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(Function.prototype.constructor === Function);//true</span><br><span class="line">console.log(Foo.constructor === Function);//true</span><br><span class="line">console.log(Foo.hasOwnProperty(&apos;constructor&apos;));//false</span><br><span class="line">console.log(Object.constructor === Function);//true</span><br><span class="line">console.log(Object.hasOwnProperty(&apos;constructor&apos;));//false</span><br></pre></td></tr></table></figure>
+<p>　　所有的函数都可以看成是构造函数Function()的new操作的实例化对象。那么，Function可以看成是调用其自身的new操作的实例化的结果</p>
+<p>　　所以，如果Function作为实例对象，其构造函数是Function，其原型对象是Function.prototype<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(Function.__proto__ === Function.prototype);//true</span><br><span class="line">console.log(Function.prototype.constructor === Function);//true</span><br><span class="line">console.log(Function.prototype === Function.prototype);//true</span><br></pre></td></tr></table></figure></p>
+<p>　　如果Function.prototype作为实例对象的话，其原型对象是什么呢？和前面一样，所有的对象都可以看成是Object()构造函数的new操作的实例化结果。所以，Function.prototype的原型对象是Object.prototype，其原型函数是Object()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Function.prototype.__proto__ === Object.prototype);//true</span><br></pre></td></tr></table></figure></p>
+<p>　　第二部分介绍过，Object.prototype的原型对象是null<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null);//true</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>　　【1】函数(Function也是函数)是new Function的结果，所以函数可以作为实例对象，其构造函数是Function()，原型对象是Function.prototype</p>
+<p>　　【2】对象(函数也是对象)是new Object的结果，所以对象可以作为实例对象，其构造函数是Object()，原型对象是Object.prototype</p>
+<p>　　【3】Object.prototype的原型对象是null</p>
+<h1 id="JS继承的6种方式"><a href="#JS继承的6种方式" class="headerlink" title="JS继承的6种方式"></a>JS继承的6种方式</h1><blockquote>
+<p>[原型]</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// B是A的原型，A是B的构造函数</span><br><span class="line">A.prototype = B</span><br><span class="line">B.constructor = A</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>[约定]</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 父类</span><br><span class="line">function Super()&#123;</span><br><span class="line">  this.property = &apos;Super Property&apos;</span><br><span class="line">&#125;</span><br><span class="line">Super.prototype.getProperty = function()&#123;</span><br><span class="line">  return this.property</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h2><p>1.基本思想<br>通过使用call、apply方法可以在新创建的对象上执行构造函数,用父类的构造函数来增加子类的实例</p>
+<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 子类</span><br><span class="line">function Sub()&#123;</span><br><span class="line">  Super.call(this)</span><br><span class="line">  this.property = &apos;Sub Property&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.优缺点<br>1）优点<br>简单明了，直接继承超类构造函数的属性和方法<br>2）缺点<br>无法继承原型链上的属性和方法</p>
+<h2 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h2><p>1.基本思想<br>利用原型链来实现继承，超类的一个实例作为子类的原型</p>
+<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 子类</span><br><span class="line">function Sub()&#123;</span><br><span class="line">  this.property = &apos;Sub Property&apos;</span><br><span class="line">&#125;</span><br><span class="line">Sub.prototype = new Super()</span><br><span class="line">// 注意这里new Super()生成的超类对象并没有constructor属性,故需添加上</span><br><span class="line">Sub.prototype.constructor = Sub</span><br></pre></td></tr></table></figure></p>
+<p>3.优缺点<br>1）优点<br>简单明了，容易实现<br>实例是子类的实例，实际上也是父类的一个实例<br>父类新增原型方法/原型属性，子类都能访问到<br>2）缺点<br>所有子类的实例的原型都共享同一个超类实例的属性和方法<br>无法实现多继承</p>
+<h2 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h2><p>1.基本思想<br>利用构造继承和原型链组合</p>
+<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 子类</span><br><span class="line">function Sub()&#123;</span><br><span class="line">  Super.call(this)</span><br><span class="line">  this.property = &apos;Sub Property&apos;</span><br><span class="line">&#125;</span><br><span class="line">Sub.prototype = new Super()</span><br><span class="line">// 注意这里new Super()生成的超类对象并没有constructor属性,故需添加上</span><br><span class="line">Sub.prototype.constructor = Sub</span><br></pre></td></tr></table></figure></p>
+<p>3.优缺点<br>1）优点<br>解决了构造继承和原型链继承的两个问题<br>2）缺点<br>实际上子类上会拥有超类的两份属性，只是子类的属性覆盖了超类的属性</p>
+<h2 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h2><p>1.基本思想<br>采用原型式继承并不需要定义一个类，传入参数obj,生成一个继承obj对象的对象</p>
+<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function objectCreate(obj)&#123;</span><br><span class="line">  function F()&#123;&#125;</span><br><span class="line">  F.prototype = obj</span><br><span class="line">  return new F()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.优缺点<br>1）优点：<br>直接通过对象生成一个继承该对象的对象<br>2）缺点：</p>
+<h2 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h2><p>1.基本思想<br>创建一个仅仅用于封装继承过程的函数，然后在内部以某种方式增强对象，最后返回对象</p>
+<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function objectCreate(obj)&#123;</span><br><span class="line">  function F()&#123;&#125;</span><br><span class="line">  F.prototype = obj</span><br><span class="line">  return new F()</span><br><span class="line">&#125;</span><br><span class="line">function createSubObj(superInstance)&#123;</span><br><span class="line">  var clone = objectCreate(superInstance)</span><br><span class="line">  clone.property = &apos;Sub Property&apos;</span><br><span class="line">  return clone</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.优缺点<br>1）优点：<br>原型式继承的一种拓展<br>2）缺点：<br>依旧没有类的概念</p>
+<h2 id="六-寄生组合式继承"><a href="#六-寄生组合式继承" class="headerlink" title="六.寄生组合式继承"></a>六.寄生组合式继承</h2><p>1.基本思想<br>结合寄生式继承和组合式继承，完美实现不带两份超类属性的继承方式</p>
+<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function inheritPrototype(Super,Sub)&#123;</span><br><span class="line">  var superProtoClone = Object.Create(Super.prototype)</span><br><span class="line">  superProtoClone.constructor = Sub</span><br><span class="line">  Sub.prototype = Super</span><br><span class="line">&#125;</span><br><span class="line">function Sub()&#123;</span><br><span class="line">  Super.call()</span><br><span class="line">  Sub.property = &apos;Sub Property&apos;</span><br><span class="line">&#125;</span><br><span class="line">inheritPrototype(Super,Sub)</span><br></pre></td></tr></table></figure></p>
+<p>3.优缺点<br>1）优点：<br>完美实现继承，解决了组合式继承带两份属性的问题<br>2）缺点：<br>过于繁琐，故不如组合继承</p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/原型，继承/">原型，继承</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2018/12/26/css./" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                CSS
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2018/12/26/面试CSS/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        CSS
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#prototype、proto和constructor的三者关系"><span class="toc-number">1.</span> <span class="toc-text">prototype、proto和constructor的三者关系</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念"><span class="toc-number">1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#说明"><span class="toc-number">1.2.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JS继承的6种方式"><span class="toc-number">2.</span> <span class="toc-text">JS继承的6种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数继承"><span class="toc-number">2.1.</span> <span class="toc-text">构造函数继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原型链继承"><span class="toc-number">2.2.</span> <span class="toc-text">原型链继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组合继承"><span class="toc-number">2.3.</span> <span class="toc-text">组合继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原型式继承"><span class="toc-number">2.4.</span> <span class="toc-text">原型式继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#寄生式继承"><span class="toc-number">2.5.</span> <span class="toc-text">寄生式继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六-寄生组合式继承"><span class="toc-number">2.6.</span> <span class="toc-text">六.寄生组合式继承</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

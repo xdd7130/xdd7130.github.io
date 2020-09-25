@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>vuex+node+express+token登录 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="思路1、第一次登录的时候，前端调后端的登陆接口，发送用户名和密码
+2、后端收到请求，验证用户名和密码，验证成功，就给前端返回一个token
+3、前端拿到token，将token存储到localStorage和vuex中，并跳转路由页面
+4、前端每次跳转路由，就判断 localStroage 中有无 token ，没有就跳转到登录页面，有则跳转到对应路由页面
+5、每次调后端接口，都要在请求头中加token
+6、后端判断请求头中有无token，有token，就拿到token并验证token，验证成功就返回数据，验证失败（例如：token过期）就返回401，请求头中没有token也返回401
+7、如果前端拿到状态码为401，就...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            How goes the world with you?
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>vuex+node+express+token登录</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-09-22T08:38:30.000Z">
+                    2019-09-22
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/VUE/">VUE</a></li></ul>
+        </div>
+        <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>1、第一次登录的时候，前端调后端的登陆接口，发送用户名和密码</p>
+<p>2、后端收到请求，验证用户名和密码，验证成功，就给前端返回一个token</p>
+<p>3、前端拿到token，将token存储到localStorage和vuex中，并跳转路由页面</p>
+<p>4、前端每次跳转路由，就判断 localStroage 中有无 token ，没有就跳转到登录页面，有则跳转到对应路由页面</p>
+<p>5、每次调后端接口，都要在请求头中加token</p>
+<p>6、后端判断请求头中有无token，有token，就拿到token并验证token，验证成功就返回数据，验证失败（例如：token过期）就返回401，请求头中没有token也返回401</p>
+<p>7、如果前端拿到状态码为401，就清除token信息并跳转到登录页面</p>
+<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>1、路由守卫导航<br>2、localStorage及其他前端存储（见基础前端）<br>3、防抖和节流（token过期）<br>4、后端接口调用<br>5、node.js、mysql、git、express、element-UI、vuex、vue-router、jsonwebtoken</p>
+<h3 id="知识点解释"><a href="#知识点解释" class="headerlink" title="知识点解释"></a>知识点解释</h3><h4 id="路由守卫导航"><a href="#路由守卫导航" class="headerlink" title="路由守卫导航"></a>路由守卫导航</h4><p>vue-router 的导航钩子，主要用来作用是拦截导航，让他完成跳转或取消。<br>有三种方式可以植入路由导航过程中：</p>
+<ul>
+<li><p>全局导航守卫<br>1、全局前置守卫 router.beforeEach(fn)<br>2、全局的解析守卫(不常用)<br>3、全局的后置守卫 router.afterEach(fn)<br>（可以做一些用户友好提示、与全局前置守卫参数相同）</p>
+</li>
+<li><p>路由独享守卫<br>1、路由独享守卫 beforeEnter(to,from,next)<br>  （a、写在路由表中的守卫钩子<br>  b、针对的是和当前路由相关的，那么其他与之不相关的路由，它是无法监听它的变化情况的<br>  c、可用于用户权限管理<br>  d、与全局前置守卫参数相同）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const routes = [</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'/'</span>,</span><br><span class="line">         redirect: <span class="string">'/home'</span></span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'/home'</span>,</span><br><span class="line">         component: Home</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'/category'</span>,</span><br><span class="line">         component: Category,</span><br><span class="line">         beforeEnter ( to,from,next ) &#123;</span><br><span class="line">         alert(<span class="string">'您要进入吗'</span>)</span><br><span class="line">         next()</span><br><span class="line">         //业务： 用户权限管理</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'**'</span>,</span><br><span class="line">         redirect: <span class="string">'/error'</span></span><br><span class="line">     &#125;</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>组件内守卫<br>1、组件内的前置守卫beforeRouteEnter((to,from,next)=&gt;{})<br>导航进入组件时，调用因为组件此时没有创建，所以没有this,this是访问不到的，如果非要访问this,必须通过 next(vm=&gt;{})访问。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">next(vm =&gt; &#123; //vm指的就是组件</span><br><span class="line">   const result = JSON.parse(res.data.slice(7,-1)).rp_result.categorys</span><br><span class="line">   vm.<span class="variable">$set</span>(vm.category,<span class="string">'categorys'</span>,result)</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>2、组件内的后置守卫beforeRouteEnter((to,from,next)=&gt;{})<br>(a)离开组件时，调用<br>(b)this是可以访问到<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteLeave (to, from, next) &#123;</span><br><span class="line">    //我们现在已经要离开这个组件，那么这个组件身上的数据和方法等内容我们肯定可以获取到，也就是说这里可以使用 this</span><br><span class="line">    <span class="keyword">if</span>( this.username || this.password)&#123;</span><br><span class="line">    <span class="keyword">if</span>( confirm(<span class="string">'您已经填写结束了吗?'</span>))&#123;</span><br><span class="line">        next()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        next(<span class="literal">false</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    	next()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、组件内的更新守卫（ 路由传参和路由的接参 ）<br>（a）在当前路由改变，但是该组件被复用时调用<br>（b）举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，<br>（c）由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。<br>（d）可以访问组件实例 this<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteUpdate ( to,from,next ) &#123; //动态路由用</span><br><span class="line">     console.log(<span class="string">'路由改变了'</span>)</span><br><span class="line">     next()</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p> 1、3种类型 7个路由监听钩子<br> 2、业务：<br>监听整个项目的路由变化情况——全局的前置守卫<br>监听某个路由的变化情况——路由的独享守卫<br>监听的路由组件的路由变化情况——组件内的导航守卫</p>
+<p>#### </p>
+<h3 id="实例实现"><a href="#实例实现" class="headerlink" title="实例实现"></a>实例实现</h3><p>待补充。。。</p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/Node-js/">Node.js</a></li><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/vue/">vue</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/12/26/hexo/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                hexo学习
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/09/11/node7/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        MySQL
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#思路"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#知识点"><span class="toc-number">2.</span> <span class="toc-text">知识点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#知识点解释"><span class="toc-number">3.</span> <span class="toc-text">知识点解释</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#路由守卫导航"><span class="toc-number">3.1.</span> <span class="toc-text">路由守卫导航</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#总结"><span class="toc-number">3.1.1.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例实现"><span class="toc-number">4.</span> <span class="toc-text">实例实现</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

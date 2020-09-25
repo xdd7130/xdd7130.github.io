@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>apply and bind | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="本篇主要解决一下几个问题：
+
+1.apply和call的区别在哪里
+2.什么情况下用apply,什么情况下用call
+3.apply的其他巧妙用法（一般在什么情况下可以使用apply）*
+
+ apply:方法能劫持另外一个对象的方法，继承另外一个对象的属性.
+
+Function.apply(obj,args)方法能接收两个参数obj：这个对象将代替Function类里this对象args：这个是数组，它将作为参数传给Function（args–&amp;gt;arguments）
+
+call:和apply的意思一样,只不过是参数列表不一样.
+
+Function.call(obj,[param1[,param2[,…[,param...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            云里写诗，泥里生活，岁月里洒脱。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>apply and bind</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-11T02:36:27.000Z">
+                    2019-08-11
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+        </div>
+        <p>本篇主要解决一下几个问题：</p>
+<ul>
+<li>1.apply和call的区别在哪里</li>
+<li>2.什么情况下用apply,什么情况下用call</li>
+<li>3.apply的其他巧妙用法（一般在什么情况下可以使用apply）*</li>
+</ul>
+<p><font color="red"> apply:方法能劫持另外一个对象的方法，继承另外一个对象的属性.</font></p>
+<blockquote>
+<p>Function.apply(obj,args)方法能接收两个参数<br>obj：这个对象将代替Function类里this对象<br>args：这个是数组，它将作为参数传给Function（args–&gt;arguments）</p>
+</blockquote>
+<p>call:和apply的意思一样,只不过是参数列表不一样.</p>
+<blockquote>
+<p>Function.call(obj,[param1[,param2[,…[,paramN]]]])<br>obj：这个对象将代替Function类里this对象<br>params：这个是一个参数列表</p>
+</blockquote>
+<h4 id="apply示例"><a href="#apply示例" class="headerlink" title="apply示例:"></a>apply示例:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    /*定义一个人类*/</span><br><span class="line">    <span class="keyword">function</span> Person(name,age)</span><br><span class="line">    &#123;</span><br><span class="line">        this.name=name;</span><br><span class="line">        this.age=age;</span><br><span class="line">    &#125;</span><br><span class="line">    /*定义一个学生类*/</span><br><span class="line">    functionStudent(name,age,grade)</span><br><span class="line">    &#123;</span><br><span class="line">        Person.apply(this,arguments);</span><br><span class="line">        this.grade=grade;</span><br><span class="line">    &#125;</span><br><span class="line">    //创建一个学生类</span><br><span class="line">    var student=new Student(<span class="string">"qian"</span>,21,<span class="string">"一年级"</span>);</span><br><span class="line">    //测试</span><br><span class="line">    alert(<span class="string">"name:"</span>+student.name+<span class="string">"\n"</span>+<span class="string">"age:"</span>+student.age+<span class="string">"\n"</span>+<span class="string">"grade:"</span>+student.grade);</span><br><span class="line">    //大家可以看到测试结果name:qian  age:21  grade:一年级</span><br><span class="line">    //学生类里面我没有给name和age属性赋值啊,为什么又存在这两个属性的值呢,这个就是apply的神奇之处.</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>分析: Person.apply(this,arguments);</p>
+<ul>
+<li>this:在创建对象在这个时候代表的是student</li>
+<li>arguments:是一个数组,也就是[“qian”,”21”,”一年级”];<br>也就是通俗一点讲就是:用student去执行Person这个类里面的内容,在Person这个类里面存在this.name等之类的语句,这样就将属性创建到了student对象里面</li>
+</ul>
+<h4 id="call示例"><a href="#call示例" class="headerlink" title="call示例"></a>call示例</h4><p>在Studen函数里面可以将apply中修改成如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person.call(this,name,age);</span><br></pre></td></tr></table></figure></p>
+<h4 id="什么情况下用apply-什么情况下用call"><a href="#什么情况下用apply-什么情况下用call" class="headerlink" title="什么情况下用apply,什么情况下用call"></a>什么情况下用apply,什么情况下用call</h4><p>在给对象参数的情况下,如果参数的形式是数组的时候,比如apply示例里面传递了参数arguments,这个参数是数组类型,并且在调用Person的时候参数的列表是对应一致的(也就是Person和Student的参数列表前两位是一致的) 就可以采用 apply , 如果我的Person的参数列表是这样的(age,name),而Student的参数列表是(name,age,grade),这样就可以用call来实现了,也就是直接指定参数列表对应值的位置(Person.call(this,age,name,grade));</p>
+<h4 id="apply的一些其他巧妙用法"><a href="#apply的一些其他巧妙用法" class="headerlink" title="apply的一些其他巧妙用法"></a>apply的一些其他巧妙用法</h4><p>细心的人可能已经察觉到,在我调用apply方法的时候,第一个参数是对象(this), 第二个参数是一个数组集合, 在调用Person的时候,他需要的不是一个数组,但是为什么他给我一个数组我仍然可以将数组解析为一个一个的参数,这个就是apply的一个巧妙的用处,可以将一个数组默认的转换为一个参数列表([param1,param2,param3] 转换为 param1,param2,param3) 这个如果让我们用程序来实现将数组的每一个项,来装换为参数的列表,可能都得费一会功夫,借助apply的这点特性,所以就有了以下高效率的方法:</p>
+<p>a) Math.max 可以实现得到数组中最大的一项</p>
+<p>因为Math.max参数里面不支持Math.max([param1,param2])也就是数组但是它支持Math.max(param1,param2,param3…),所以可以根据刚才apply的那个特点来解决 var max=Math.max.apply(null,array),这样轻易的可以得到一个数组中最大的一项(apply会将一个数组装换为一个参数接一个参数的传递给方法)<br>这块在调用的时候第一个参数给了一个null,这个是因为没有对象去调用这个方法,我只需要用这个方法帮我运算,得到返回的结果就行,.所以直接传递了一个null过去</p>
+<p>b) Math.min  可以实现得到数组中最小的一项同样和 max是一个思想 var min=Math.min.apply(null,array);</p>
+<p>c) Array.prototype.push 可以实现两个数组合并</p>
+<p>同样push方法没有提供push一个数组,但是它提供了push(param1,param,…paramN) 所以同样也可以通过apply来装换一下这个数组,即:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vararr1=new Array(<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>);</span><br><span class="line">vararr2=new Array(<span class="string">"4"</span>,<span class="string">"5"</span>,<span class="string">"6"</span>);</span><br><span class="line">Array.prototype.push.apply(arr1,arr2);</span><br></pre></td></tr></table></figure></p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/js/">js</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/11/node4/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                node笔记(一)
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/10/node3/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        node基础(三)
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#apply示例"><span class="toc-number">1.</span> <span class="toc-text">apply示例:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#call示例"><span class="toc-number">2.</span> <span class="toc-text">call示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么情况下用apply-什么情况下用call"><span class="toc-number">3.</span> <span class="toc-text">什么情况下用apply,什么情况下用call</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#apply的一些其他巧妙用法"><span class="toc-number">4.</span> <span class="toc-text">apply的一些其他巧妙用法</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

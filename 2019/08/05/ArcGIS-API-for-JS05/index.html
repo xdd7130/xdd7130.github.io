@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>ArcGIS Server之发布GP服务-返回矢量数据 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="什么是GP服务在WebGIS开发当中，虽然ArcGIS API提供给我们很多的接口，但是现实需求总是千变万化的，很多可能部分需求在我们的API中没有实现，而GP服务就弥补了这一个缺点，我们可以将ArcGIS中的GP工具发布为服务，提供给我们前端调用。
+GP服务的分类GP服务从返回类型上可以分为：
+
+返回矢量数据返回栅格数据
+
+GP服务的参数对应在ArcGIS中，GP工具的参数和GP服务的参数是有一个对应参数的，在现实开发中，GP服务总是容易调用失败，这很有可能便是GP服务的参数不对应导致，因此：当我们发布GP服务时，参数便是我们高度重视的地方。以下是GP服务和GP工具参数对应表：
+发布GP服务 在本实例中以缓冲区分析为例...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            How goes the world with you?
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>ArcGIS Server之发布GP服务-返回矢量数据</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-05T08:51:51.000Z">
+                    2019-08-05
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li></ul>
+        </div>
+        <h3 id="什么是GP服务"><a href="#什么是GP服务" class="headerlink" title="什么是GP服务"></a>什么是GP服务</h3><p>在WebGIS开发当中，虽然ArcGIS API提供给我们很多的接口，但是现实需求总是千变万化的，很多可能部分需求在我们的API中没有实现，而GP服务就弥补了这一个缺点，我们可以将ArcGIS中的GP工具发布为服务，提供给我们前端调用。</p>
+<h4 id="GP服务的分类"><a href="#GP服务的分类" class="headerlink" title="GP服务的分类"></a>GP服务的分类</h4><p>GP服务从返回类型上可以分为：</p>
+<blockquote>
+<p>返回矢量数据<br>返回栅格数据</p>
+</blockquote>
+<h4 id="GP服务的参数对应"><a href="#GP服务的参数对应" class="headerlink" title="GP服务的参数对应"></a>GP服务的参数对应</h4><p>在ArcGIS中，GP工具的参数和GP服务的参数是有一个对应参数的，在现实开发中，GP服务总是容易调用失败，这很有可能便是GP服务的参数不对应导致，因此：当我们发布GP服务时，参数便是我们高度重视的地方。以下是GP服务和GP工具参数对应表：<br><img src="/2019/08/05/ArcGIS-API-for-JS05/01.png" alt="01.png"></p>
+<h3 id="发布GP服务"><a href="#发布GP服务" class="headerlink" title="发布GP服务"></a>发布GP服务</h3><p> 在本实例中以缓冲区分析为例，发布一个GP服务。在ArcGIS10.1版本以后，发布GP服务之前需要将GP工具成功运行一次才可。发布GP服务的步骤大致分为以下几步：</p>
+<p>1.创建GP模型<br>2.修改模型参数，运行模型<br>3.在结果窗口将运行成功的GP模型共享为服务</p>
+<h4 id="创建GP模型"><a href="#创建GP模型" class="headerlink" title="创建GP模型"></a>创建GP模型</h4><p>新建一个工具箱并创建一个新模型取名为Mybuffer<br><img src="/2019/08/05/ArcGIS-API-for-JS05/02.png" alt="02.png"><br><img src="/2019/08/05/ArcGIS-API-for-JS05/03.png" alt="03.png"><br>右键Mybuffer点击编辑构建缓冲区模型<br><img src="/2019/08/05/ArcGIS-API-for-JS05/04.png" alt="04.png"></p>
+<h4 id="修改模型参数并运行模型"><a href="#修改模型参数并运行模型" class="headerlink" title="修改模型参数并运行模型"></a>修改模型参数并运行模型</h4><p><img src="/2019/08/05/ArcGIS-API-for-JS05/05.png" alt="05.png"><br>修改Input变量的数据类型，改为输入要素集<br><img src="/2019/08/05/ArcGIS-API-for-JS05/06.png" alt="06.png"><br>设置临时命名空间，右键空白处，点击模型属性，设置环境<br><img src="/2019/08/05/ArcGIS-API-for-JS05/07.png" alt="07.png"><br>点击保存运行模型<br><img src="/2019/08/05/ArcGIS-API-for-JS05/08.png" alt="08.png"><br>运行成功<br><img src="/2019/08/05/ArcGIS-API-for-JS05/09.png" alt="09.png"></p>
+<h4 id="在结果窗口将运行成功的GP模型共享为服务"><a href="#在结果窗口将运行成功的GP模型共享为服务" class="headerlink" title="在结果窗口将运行成功的GP模型共享为服务"></a>在结果窗口将运行成功的GP模型共享为服务</h4><p>点击地理处理-&gt;结果打开结果窗口<br><img src="/2019/08/05/ArcGIS-API-for-JS05/10.png" alt="10.png"><br>右键模型共享为地理处理服务<br><img src="/2019/08/05/ArcGIS-API-for-JS05/11.png" alt="11.png"></p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/ArcGIS-API-for-JS/">ArcGIS API for JS</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/05/ArcGIS-API-for-JS06/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                ArcGIS Server之发布结果地图服务
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/05/ArcGIS-API-for-JS04/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        ArcGIS Server之发布影像服务
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是GP服务"><span class="toc-number">1.</span> <span class="toc-text">什么是GP服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GP服务的分类"><span class="toc-number">1.1.</span> <span class="toc-text">GP服务的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GP服务的参数对应"><span class="toc-number">1.2.</span> <span class="toc-text">GP服务的参数对应</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布GP服务"><span class="toc-number">2.</span> <span class="toc-text">发布GP服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建GP模型"><span class="toc-number">2.1.</span> <span class="toc-text">创建GP模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修改模型参数并运行模型"><span class="toc-number">2.2.</span> <span class="toc-text">修改模型参数并运行模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在结果窗口将运行成功的GP模型共享为服务"><span class="toc-number">2.3.</span> <span class="toc-text">在结果窗口将运行成功的GP模型共享为服务</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

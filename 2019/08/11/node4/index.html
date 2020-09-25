@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>node笔记(一) | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="node优势：1、性能好2、跟前台JS配合方便3、NodeJS便于前端学习
+http系统模块使用12345678910111213141516171819const http=require(&#39;http&#39;);var server = http.creatServer(function(req,res)&amp;#123;  //创建服务器    switch(res.url)&amp;#123;        case &#34;/1.html&#34;:            res.write(&#34;向前台写东西111&#34;)；            break;         case &#34;/2.html&#34;:            res.write(&#34;...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            云里写诗，泥里生活，岁月里洒脱。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>node笔记(一)</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-11T11:48:05.000Z">
+                    2019-08-11
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+        </div>
+        <h3 id="node"><a href="#node" class="headerlink" title="node"></a>node</h3><p>优势：<br>1、性能好<br>2、跟前台JS配合方便<br>3、NodeJS便于前端学习</p>
+<h3 id="http系统模块使用"><a href="#http系统模块使用" class="headerlink" title="http系统模块使用"></a>http系统模块使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const http=require(<span class="string">'http'</span>);</span><br><span class="line">var server = http.creatServer(<span class="keyword">function</span>(req,res)&#123;  //创建服务器</span><br><span class="line">    switch(res.url)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"/1.html"</span>:</span><br><span class="line">            res.write(<span class="string">"向前台写东西111"</span>)；</span><br><span class="line">            <span class="built_in">break</span>; </span><br><span class="line">        <span class="keyword">case</span> <span class="string">"/2.html"</span>:</span><br><span class="line">            res.write(<span class="string">"向前台写东西222"</span>)；</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        default</span><br><span class="line">            res.write(<span class="string">"404"</span>)；</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    // res.write(<span class="string">"向前台写东西"</span>)；</span><br><span class="line">    res.end();//结束请求</span><br><span class="line">&#125;)</span><br><span class="line">//监听 —— 等着</span><br><span class="line">//端口 —— 数字</span><br><span class="line">server.listen(8888);</span><br></pre></td></tr></table></figure>
+<h3 id="fs文件模块"><a href="#fs文件模块" class="headerlink" title="fs文件模块"></a>fs文件模块</h3><p>fs (file system)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//导入引用:</span><br><span class="line">    const fs = require(<span class="string">'fs'</span>);</span><br><span class="line">//1.readFile(文件名，回调函数)</span><br><span class="line">    fs.readFile(<span class="string">'aaa.txt'</span>,<span class="keyword">function</span>(err,data)&#123;</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            console.log(<span class="string">'读取失败'</span>)；</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            console.log(data.toString());//二进制格式用toString转换</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;)</span><br><span class="line">//2.writeFile(文件名，内容，回调函数)</span><br><span class="line">fs.write(<span class="string">"bbb.txt"</span>,<span class="string">"asdfghjkl"</span>,<span class="keyword">function</span>(err)&#123;</span><br><span class="line">    console.log(err);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>与服务器结合<br>建立www（可以是其他名字）文件夹，用于存放请求的文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const http=require(<span class="string">'http'</span>);</span><br><span class="line">var server = http.creatServer(<span class="keyword">function</span>(req,res)&#123;  //创建服务器</span><br><span class="line">    //req.url = <span class="string">'index.html'</span></span><br><span class="line">    //读取:<span class="string">'./www/index.html'</span></span><br><span class="line">    var file_name = <span class="string">'./www'</span>+req.url</span><br><span class="line">    </span><br><span class="line">    fs.readFile(file_name,<span class="keyword">function</span>(err,data)&#123; //异步</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            res.write(<span class="string">'读取失败'</span>)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            res.write(data)</span><br><span class="line">        &#125;</span><br><span class="line">        res.end();//结束请求，因为异步，res.end()应放在此处</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br><span class="line">server.listen(8888);</span><br></pre></td></tr></table></figure></p>
+<h3 id="http数据解析（get）"><a href="#http数据解析（get）" class="headerlink" title="http数据解析（get）"></a>http数据解析（get）</h3><p>前台发送请求的方式：form/ajax/jsonp<br>后台都是一样。唯有一点不同，请求方式不同，接受方式不一样（get/post）.下面一个实例：<br>GET数据解析：</p>
+<ul>
+<li>自己切</li>
+<li>querystring:</li>
+<li>url:urlLib.parse(…,true)</li>
+</ul>
+<p>server.js 普通写法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const http = require(<span class="string">'http'</span>);</span><br><span class="line">http.createServer(<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    //req获取前台请求的数据</span><br><span class="line">    var get=&#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span>(req.url.indexOf(<span class="string">'?'</span>) != -1)&#123;</span><br><span class="line">        console.log(req.url); //  /aaa?user=Tom&amp;pass=123456</span><br><span class="line">        var arr = req.url.split(<span class="string">'？'</span>)；// arr[0]=<span class="string">'/aaa'</span>  arr[1]=<span class="string">'user=Tom&amp;pass=123456'</span></span><br><span class="line">        var url=arr[0];</span><br><span class="line">        var arr2 = arr[1].split(<span class="string">'&amp;'</span>); //arr2</span><br><span class="line">        <span class="keyword">for</span>(var i=0;i&lt;arr2.length;i++)&#123;</span><br><span class="line">            var arr3=arr2[i].split(<span class="string">'='</span>)</span><br><span class="line">            get[arr3[0]]=arr3[1];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        var url=req.url;</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(url,get)</span><br><span class="line">    res.end();</span><br><span class="line">&#125;).listen(8080);</span><br></pre></td></tr></table></figure></p>
+<p>server.js querystring模块写法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">  //写法如下：</span><br><span class="line">    //const querystring=require(<span class="string">'querystring'</span>);</span><br><span class="line">    //var json = querystring.parse(<span class="string">'user=Tom&amp;pass=123456'</span>)</span><br><span class="line">    //console.log(json)</span><br><span class="line">//server.js改动后：</span><br><span class="line">    const http = require(<span class="string">'http'</span>);</span><br><span class="line">    const querystring=require(<span class="string">'querystring'</span>);</span><br><span class="line">    http.createServer(<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">        //req获取前台请求的数据</span><br><span class="line">        var get=&#123;&#125;;</span><br><span class="line">        <span class="keyword">if</span>(req.url.indexOf(<span class="string">'?'</span>) != -1)&#123;</span><br><span class="line">            console.log(req.url); //  /aaa?user=Tom&amp;pass=123456</span><br><span class="line">            var arr = req.url.split(<span class="string">'？'</span>)；// arr[0]=<span class="string">'/aaa'</span>  arr[1]=<span class="string">'user=Tom&amp;pass=123456'</span></span><br><span class="line">            var url=arr[0];</span><br><span class="line">            get=querystring.parse(arr[1]);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            var url=req.url;</span><br><span class="line">        &#125;</span><br><span class="line">        console.log(url,get)</span><br><span class="line">        res.end();</span><br><span class="line">    &#125;).listen(8080);</span><br></pre></td></tr></table></figure></p>
+<p>server.js url模块写法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//url.js写法</span><br><span class="line">    const urlLib=require(<span class="string">'url'</span>);</span><br><span class="line">    var obj= urlLib.parse(<span class="string">"http://www.aaa.bbb/index.html?a=12&amp;b=55"</span>,<span class="literal">true</span>);  第二个参数为<span class="literal">true</span>时，会把pathname等解析为json.</span><br><span class="line">    console.log(obj.pathname,obj.query);</span><br><span class="line">//server.js改动后：</span><br><span class="line">    const http = require(<span class="string">'http'</span>);</span><br><span class="line">    http.createServer(<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">        //req获取前台请求的数据</span><br><span class="line">        var obj = urlLib.parse(req.url,<span class="literal">true</span>);</span><br><span class="line">        var url=obj.pathname;</span><br><span class="line">        var get=obj.query;</span><br><span class="line"></span><br><span class="line">        console.log(url,get)</span><br><span class="line">        res.end();</span><br><span class="line">    &#125;).listen(8080);</span><br></pre></td></tr></table></figure></p>
+<p>form.html<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;form action=<span class="string">"http://localhost:8080/aaa"</span> method=<span class="string">"get"</span>&gt;</span><br><span class="line">        用户：</span><br><span class="line">        &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> name=<span class="string">"user"</span> value=<span class="string">''</span>&gt; &lt;br&gt;</span><br><span class="line">        &lt;input <span class="built_in">type</span>=<span class="string">"password"</span> name=<span class="string">"pass"</span> value=<span class="string">''</span>&gt; &lt;br&gt;</span><br><span class="line">        &lt;input <span class="built_in">type</span>=<span class="string">"submit"</span> value=<span class="string">'提交'</span></span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="http数据解析（post）"><a href="#http数据解析（post）" class="headerlink" title="http数据解析（post）"></a>http数据解析（post）</h3><p>POST数据接收：POST数据比GET数据大的多,根据数据量大小分段完成<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const http=require(<span class="string">'http'</span>);</span><br><span class="line">const querystring=require(<span class="string">'querystring'</span>);</span><br><span class="line">http.creatServer(<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">        //POST--req</span><br><span class="line">    var str=<span class="string">''</span>;  //接受数据</span><br><span class="line"></span><br><span class="line">        //data--有一段数据到达（很多次）</span><br><span class="line">    req.on(<span class="string">'data'</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        str+=data</span><br><span class="line">    &#125;);</span><br><span class="line">        //end--数据全部到达（一次）</span><br><span class="line">    req.on(<span class="string">'end'</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        var post = querystring.parse(str);</span><br><span class="line">        console.log(post)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;).listen(8080);</span><br></pre></td></tr></table></figure></p>
+<h3 id="应用1-简易httpServer搭建-用户注册登录-略"><a href="#应用1-简易httpServer搭建-用户注册登录-略" class="headerlink" title="应用1:简易httpServer搭建,用户注册登录(略)"></a>应用1:简易httpServer搭建,用户注册登录(略)</h3><h3 id="nodeJS模块化"><a href="#nodeJS模块化" class="headerlink" title="nodeJS模块化"></a>nodeJS模块化</h3><h4 id="系统模块介绍"><a href="#系统模块介绍" class="headerlink" title="系统模块介绍"></a>系统模块介绍</h4><p>除了以上用到的：http、querystring、url,还有：</p>
+<ul>
+<li>Crypto 加密</li>
+<li>Event 事件</li>
+<li>Net 网络操作</li>
+<li>OS 操作系统信息</li>
+<li>Path 处理文件路径</li>
+<li>Stream 流操作</li>
+<li>Timer 定时器</li>
+<li>ZLIB 压缩</li>
+</ul>
+<h4 id="自定义模块"><a href="#自定义模块" class="headerlink" title="自定义模块"></a>自定义模块</h4><p>关于引入模块写法：若为当前目录自己的模块，加上“./”,系统模块要加。<br>若想要输出东西，必须exports。<br>若都输出多个东西，module可实现批量输出。</p>
+<ul>
+<li>require:请求引入其他模块。</li>
+<li>module:批量输出。</li>
+<li>exports:输出。</li>
+<li>module.exports == exports。</li>
+<li>const aaa = require(‘./bbb.js’); 其中“.js”可省略。</li>
+</ul>
+<p>npm:nodejs package manager(nodejs包管理器)<br>1、统计下载途径<br>2、自动下载依赖</p>
+<p>npm init<br>npm publish<br>npm update<br>npm unpublish<br>npm –force unpublish</p>
+<p><img src="/2019/08/11/node4/01.png" alt="01.png"></p>
+<p>node_modules:放模块，可以放自己定义的模块，此时若引用，不加“./”</p>
+<blockquote>
+<p>总结：require引入模块，若有“./”,从当前目录找，若没有“./”，从系统模块或node_modules找。<br>模块优先级：系统&gt;node_modules,一般将自定义模块放在node_modules中。</p>
+</blockquote>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/13/node5/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                Express
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/11/apply-and-bind/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        apply and bind
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#node"><span class="toc-number">1.</span> <span class="toc-text">node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http系统模块使用"><span class="toc-number">2.</span> <span class="toc-text">http系统模块使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fs文件模块"><span class="toc-number">3.</span> <span class="toc-text">fs文件模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http数据解析（get）"><span class="toc-number">4.</span> <span class="toc-text">http数据解析（get）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http数据解析（post）"><span class="toc-number">5.</span> <span class="toc-text">http数据解析（post）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用1-简易httpServer搭建-用户注册登录-略"><span class="toc-number">6.</span> <span class="toc-text">应用1:简易httpServer搭建,用户注册登录(略)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nodeJS模块化"><span class="toc-number">7.</span> <span class="toc-text">nodeJS模块化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#系统模块介绍"><span class="toc-number">7.1.</span> <span class="toc-text">系统模块介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义模块"><span class="toc-number">7.2.</span> <span class="toc-text">自定义模块</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

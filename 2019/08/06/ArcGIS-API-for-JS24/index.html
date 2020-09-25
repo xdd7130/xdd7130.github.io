@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>ArcGIS API For Javascript之调用地理编码服务 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="地理编码（Geocoding）指建立地理位置坐标与给定地址一致性的过程，简单的说就是将一个地址的描述信息映射为地图上该地址所对应的空间位置。      根据输入的地址找到对应的空间信息。当输入一个地址的时候，可能会查到好多个空间位置，程序会给每一个位置一个打分，匹配的越完全的比分越高。（注意这里说的）
+调用地理编码服务查看我们发布的服务首先看一下发布的服务数据我发布的地理编码服务是：name为主键
+注意应该输入的参数
+代码实现添加地图（略）创建三个html要素123Name:&amp;lt;input class=&amp;quot;nm&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;input id=&amp;quot...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            云里写诗，泥里生活，岁月里洒脱。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>ArcGIS API For Javascript之调用地理编码服务</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-06T10:03:13.000Z">
+                    2019-08-06
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li></ul>
+        </div>
+        <p>地理编码（Geocoding）指建立地理位置坐标与给定地址一致性的过程，简单的说就是将一个地址的描述信息映射为地图上该地址所对应的空间位置。<br>      根据输入的地址找到对应的空间信息。当输入一个地址的时候，可能会查到好多个空间位置，程序会给每一个位置一个打分，匹配的越完全的比分越高。（注意这里说的）</p>
+<h3 id="调用地理编码服务"><a href="#调用地理编码服务" class="headerlink" title="调用地理编码服务"></a>调用地理编码服务</h3><h4 id="查看我们发布的服务"><a href="#查看我们发布的服务" class="headerlink" title="查看我们发布的服务"></a>查看我们发布的服务</h4><p>首先看一下发布的服务数据<br><img src="/2019/08/06/ArcGIS-API-for-JS24/01.png" alt="01.png"><br>我发布的地理编码服务是：name为主键</p>
+<p>注意应该输入的参数<br><img src="/2019/08/06/ArcGIS-API-for-JS24/02.png" alt="02.png"></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>添加地图（略）<br>创建三个html要素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Name:&lt;input class=&quot;nm&quot; type=&quot;text&quot;&gt;</span><br><span class="line">&lt;input id=&quot;btn&quot; type=&quot;button&quot; value=&quot;定位&quot;&gt;</span><br><span class="line">&lt;div id=&quot;divShowResult&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>给定位按钮添加绑定事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//执行方法</span><br><span class="line">                        locator.addressToLocations(options,function(candidates)&#123;</span><br><span class="line">                            //获得运行之后的信息</span><br><span class="line">                            if (candidates.length &gt; 0)&#123;</span><br><span class="line">                                    //拼接字符串</span><br><span class="line">                                    var htmls = &quot;&lt;table style=&apos;width: 100%&apos;&gt;&quot;; </span><br><span class="line">                                    htmls = htmls + &quot;&lt;tr bgcolor=&apos;#E0E0E0&apos;&gt;&lt;td&gt;X 坐标&lt;/td&gt;&lt;td&gt;Y 坐标&lt;/td&gt;&lt;td&gt;得分&lt;/td&gt;&lt;/tr&gt;&quot;; </span><br><span class="line">                                    array.forEach(candidates, function (candidate, index) &#123;  </span><br><span class="line">                                        if (index % 2 == 1) &#123; </span><br><span class="line">                                            htmls = htmls + &quot;&lt;tr  bgcolor=&apos;#E0E0E0&apos;&gt;&lt;td style=&apos;width: 60px&apos;&gt;&quot; + candidate.location.x + &quot;&lt;/td&gt;&lt;td style=&apos;width: 60px&apos;&gt;&quot; + candidate.location.y+ &quot;&lt;/td&gt;&lt;td&gt;&quot; + candidate.score + &quot;&lt;/td&gt;&lt;/tr&gt;&quot;; </span><br><span class="line">                                        &#125; else &#123; </span><br><span class="line">                                            htmls = htmls + &quot;&lt;tr&gt;&lt;td style=&apos;width: 60px&apos;&gt;&quot; + candidate.location.x + &quot;&lt;/td&gt;&lt;td style=&apos;width: 60px&apos;&gt;&quot; + candidate.location.y+ &quot;&lt;/td&gt;&lt;td&gt;&quot; + candidate.score + &quot;&lt;/td&gt;&lt;/tr&gt;&quot;;</span><br><span class="line">                                        &#125;                                       </span><br><span class="line">                                    &#125;); </span><br><span class="line">                                    htmls = htmls + &quot;&lt;/table&gt;&quot;; </span><br><span class="line">                                    //将拼接的字符串显示在页面上</span><br><span class="line">                                    dom.byId(&quot;divShowResult&quot;).innerHTML = htmls;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;,function(error)&#123;alert(error)&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="/2019/08/06/ArcGIS-API-for-JS24/03.png" alt="03.png"></p>
+<h4 id="全部代码"><a href="#全部代码" class="headerlink" title="全部代码"></a>全部代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;gbk&quot;&gt;</span><br><span class="line">    &lt;title&gt;Hello World&lt;/title&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://localhost/arcgis_js_api/library/3.17/3.17/dijit/themes/tundra/tundra.css&quot;/&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;http://localhost/arcgis_js_api/library/3.17/3.17/esri/css/esri.css&quot; /&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;http://localhost/arcgis_js_api/library/3.17/3.17/init.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        require([&quot;esri/map&quot;,&quot;dojo/query&quot;,&quot;dojo/on&quot;,&quot;dojo/_base/array&quot;,&quot;dojo/dom&quot;,</span><br><span class="line">            &quot;esri/layers/ArcGISDynamicMapServiceLayer&quot;,</span><br><span class="line">            &quot;esri/tasks/locator&quot;,</span><br><span class="line">            &quot;esri/symbols/SimpleMarkerSymbol&quot;,</span><br><span class="line">            &quot;dojo/colors&quot;,</span><br><span class="line">            &quot;esri/InfoTemplate&quot;,&quot;esri/graphic&quot;,</span><br><span class="line">            &quot;dojo/domReady!&quot;],</span><br><span class="line">                function(Map,query,on,array,dom,ArcGISDynamicMapServiceLayer,Locator,SimpleMarkerSymbol,Color,InfoTemplate,Graphic)&#123;</span><br><span class="line">                    var map = new Map(&quot;mapDiv&quot;);</span><br><span class="line">                    var layer=new ArcGISDynamicMapServiceLayer(&quot;http://localhost:6080/arcgis/rest/services/Test/MyService/MapServer&quot;);</span><br><span class="line">                    map.addLayer(layer);</span><br><span class="line">                    query(&quot;#btn&quot;).on(&quot;click&quot;,function()&#123;</span><br><span class="line">                        //获得教学楼的名称</span><br><span class="line">                        var name=query(&quot;.nm&quot;)[0].value;</span><br><span class="line">                        //创建地理编码对象</span><br><span class="line">                        var locator = new Locator(&quot;http://localhost:6080/arcgis/rest/services/Test/nameLoc/GeocodeServer&quot;);</span><br><span class="line">                        //注意这里的参数要和服务的参数对应</span><br><span class="line">                        var address = &#123; &quot;Single Line Input&quot;: name&#125;; </span><br><span class="line">                        //输出的空间参考</span><br><span class="line">                        locator.outSpatialReference = map.spatialReference; </span><br><span class="line">                        var options = &#123; </span><br><span class="line">                            address: address, </span><br><span class="line">                            outFields: [&quot;*&quot;] </span><br><span class="line">                        &#125; </span><br><span class="line">                        //执行方法</span><br><span class="line">                        locator.addressToLocations(options,function(candidates)&#123;</span><br><span class="line">                            //获得运行之后的信息</span><br><span class="line">                            if (candidates.length &gt; 0)&#123;</span><br><span class="line">                                    //拼接字符串</span><br><span class="line">                                    var htmls = &quot;&lt;table style=&apos;width: 100%&apos;&gt;&quot;; </span><br><span class="line">                                    htmls = htmls + &quot;&lt;tr bgcolor=&apos;#E0E0E0&apos;&gt;&lt;td&gt;X 坐标&lt;/td&gt;&lt;td&gt;Y 坐标&lt;/td&gt;&lt;td&gt;得分&lt;/td&gt;&lt;/tr&gt;&quot;; </span><br><span class="line">                                    array.forEach(candidates, function (candidate, index) &#123;  </span><br><span class="line">                                        if (index % 2 == 1) &#123; </span><br><span class="line">                                            htmls = htmls + &quot;&lt;tr  bgcolor=&apos;#E0E0E0&apos;&gt;&lt;td style=&apos;width: 60px&apos;&gt;&quot; + candidate.location.x + &quot;&lt;/td&gt;&lt;td style=&apos;width: 60px&apos;&gt;&quot; + candidate.location.y+ &quot;&lt;/td&gt;&lt;td&gt;&quot; + candidate.score + &quot;&lt;/td&gt;&lt;/tr&gt;&quot;; </span><br><span class="line">                                        &#125; else &#123; </span><br><span class="line">                                            htmls = htmls + &quot;&lt;tr&gt;&lt;td style=&apos;width: 60px&apos;&gt;&quot; + candidate.location.x + &quot;&lt;/td&gt;&lt;td style=&apos;width: 60px&apos;&gt;&quot; + candidate.location.y+ &quot;&lt;/td&gt;&lt;td&gt;&quot; + candidate.score + &quot;&lt;/td&gt;&lt;/tr&gt;&quot;;</span><br><span class="line">                                        &#125;                                       </span><br><span class="line">                                    &#125;); </span><br><span class="line">                                    htmls = htmls + &quot;&lt;/table&gt;&quot;; </span><br><span class="line">                                    //将拼接的字符串显示在页面上</span><br><span class="line">                                    dom.byId(&quot;divShowResult&quot;).innerHTML = htmls;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;,function(error)&#123;alert(error)&#125;);                               &#125;);                             </span><br><span class="line">                &#125;);</span><br><span class="line">                       </span><br><span class="line">                              </span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body class=&quot;tundra&quot;&gt;</span><br><span class="line">&lt;div id=&quot;mapDiv&quot; style=&quot;width:900px; height:580px; border:1px solid #000;&quot;&gt;&lt;/div&gt;</span><br><span class="line">    Name:&lt;input class=&quot;nm&quot; type=&quot;text&quot;&gt;</span><br><span class="line">    &lt;input id=&quot;btn&quot; type=&quot;button&quot; value=&quot;定位&quot;&gt;</span><br><span class="line">    &lt;div id=&quot;divShowResult&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/ArcGIS-API-for-JS/">ArcGIS API for JS</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/06/ArcGIS-API-for-JS25/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                ArcGIS API For Javascript之影像服务分析
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/06/ArcGIS-API-for-JS23/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        ArcGIS API For Javascript之地图输出
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#调用地理编码服务"><span class="toc-number">1.</span> <span class="toc-text">调用地理编码服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看我们发布的服务"><span class="toc-number">1.1.</span> <span class="toc-text">查看我们发布的服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码实现"><span class="toc-number">1.2.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行结果"><span class="toc-number">1.3.</span> <span class="toc-text">运行结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#全部代码"><span class="toc-number">1.4.</span> <span class="toc-text">全部代码</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

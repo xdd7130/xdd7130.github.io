@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>ArcGIS Server之发布切片地图服务 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="
+参考：https://github.com/CarpenterGISer/ArcGIS-API-For-Javacsript
+
+什么是切片地图服务？切片地图服务又叫缓存第服务区，地图缓存是使地图和图像服务更快运行的一种非常有效的方法。创建地图缓存时，服务器会在若干个不同的比例级别上绘制整个地图并存储地图图像的副本。然后，服务器可在某人请求使用地图时分发这些图像。对于服务器来说，每次请求使用地图时，返回缓存的图像要比绘制地图快得多。
+
+注：此图片的意思是，将同一幅地图按照不同的比例进行切片，得到相应的地图切片。
+
+切片地图服务优点1、由于切片地图服务中的图片不需要服务器实时生成，本身存在服务器的硬盘上，所以大大提高了服务...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            云里写诗，泥里生活，岁月里洒脱。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>ArcGIS Server之发布切片地图服务</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-05T02:17:48.000Z">
+                    2019-08-05
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li></ul>
+        </div>
+        <blockquote>
+<p>参考：<a href="https://github.com/CarpenterGISer/ArcGIS-API-For-Javacsript" target="_blank" rel="noopener">https://github.com/CarpenterGISer/ArcGIS-API-For-Javacsript</a></p>
+</blockquote>
+<h3 id="什么是切片地图服务？"><a href="#什么是切片地图服务？" class="headerlink" title="什么是切片地图服务？"></a>什么是切片地图服务？</h3><p>切片地图服务又叫缓存第服务区，地图缓存是使地图和图像服务更快运行的一种非常有效的方法。创建地图缓存时，服务器会在若干个不同的比例级别上绘制整个地图并存储地图图像的副本。然后，服务器可在某人请求使用地图时分发这些图像。对于服务器来说，每次请求使用地图时，返回缓存的图像要比绘制地图快得多。<br><img src="/2019/08/05/ArcGIS-API-for-JS02/01.png" alt="01.png"></p>
+<blockquote>
+<p>注：此图片的意思是，将同一幅地图按照不同的比例进行切片，得到相应的地图切片。</p>
+</blockquote>
+<h4 id="切片地图服务优点"><a href="#切片地图服务优点" class="headerlink" title="切片地图服务优点"></a>切片地图服务优点</h4><p>1、由于切片地图服务中的图片不需要服务器实时生成，本身存在服务器的硬盘上，所以大大提高了服务器的性能。<br>2、图像的详细程度不会对服务器分发副本的速度造成显著影响。</p>
+<h4 id="切片地图服务缺点"><a href="#切片地图服务缺点" class="headerlink" title="切片地图服务缺点"></a>切片地图服务缺点</h4><p>1、切片地图服务由于图片事先存在，所以该服务实现的功能有限，例如想隐藏服务中的某一个图层不可以实现。<br>2、当缓存级别较高时，占用的硬盘存储量较大</p>
+<h3 id="利用ArcMap发布切片地图服务"><a href="#利用ArcMap发布切片地图服务" class="headerlink" title="利用ArcMap发布切片地图服务"></a>利用ArcMap发布切片地图服务</h3><p>利用ArcMap发布切片地图服务与发布动态地图服务类似，主要分为以下几步：</p>
+<p>1、用ArcMap打开我们想要发布为服务的数据<br>2、符号化我们的数据（可选）<br>3、利用ArcMap连接ArcGIS Server<br>4、修改地图服务属性（修改为切片地图服务）<br>5、发布服务到ArcGIS Server</p>
+<h4 id="（步骤1-3略）"><a href="#（步骤1-3略）" class="headerlink" title="（步骤1-3略）"></a>（步骤1-3略）</h4><h4 id="步骤4-修改地图服务属性"><a href="#步骤4-修改地图服务属性" class="headerlink" title="步骤4:修改地图服务属性"></a>步骤4:修改地图服务属性</h4><blockquote>
+<p>点击缓存-&gt;使用缓存中的切片-&gt;切片方案-&gt;设置缓存级别</p>
+</blockquote>
+<p><img src="/2019/08/05/ArcGIS-API-for-JS02/02.png" alt="02.png"></p>
+<blockquote>
+<p>注： 这个地方设置的是5个级别，可以看到缓存的大小是小于5M，当设置的级别越多时，缓存的大小基本成几何倍数增长</p>
+</blockquote>
+<h3 id="查看硬盘缓存"><a href="#查看硬盘缓存" class="headerlink" title="查看硬盘缓存"></a>查看硬盘缓存</h3><p>可以去ArcGIS Server站点目录查看缓存（我的站点是在：C:\arcgisserver）<br>进入C:\arcgisserver\directories\arcgiscache可以看到我们刚刚发布的服务myTile<br><img src="/2019/08/05/ArcGIS-API-for-JS02/03.png" alt="03.png"></p>
+<blockquote>
+<p>注：如果发布的不是切片地图服务。此目录下面是不会有相应的文件夹的</p>
+</blockquote>
+<p>去ArcGIS REST Services Directory查看服务</p>
+<p>在网址上输入<a href="http://localhost:6080/arcgis/rest/services进入服务目录，进入" target="_blank" rel="noopener">http://localhost:6080/arcgis/rest/services进入服务目录，进入</a> Test文件夹可以看到我们发布的两个服务<br><img src="/2019/08/05/ArcGIS-API-for-JS02/04.png" alt="04.png"></p>
+<blockquote>
+<p>注：可以看到myTile后面也加了一个（MapServer），可以得知切片地图服务也是属于地图服务的一种。</p>
+</blockquote>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/ArcGIS-API-for-JS/">ArcGIS API for JS</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/05/ArcGIS-API-for-JS03/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                ArcGIS Server之发布要素服务
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/05/ArcGIS-API-for-JS01/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        ArcGIS Server之发布动态地图服务
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是切片地图服务？"><span class="toc-number">1.</span> <span class="toc-text">什么是切片地图服务？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#切片地图服务优点"><span class="toc-number">1.1.</span> <span class="toc-text">切片地图服务优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#切片地图服务缺点"><span class="toc-number">1.2.</span> <span class="toc-text">切片地图服务缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用ArcMap发布切片地图服务"><span class="toc-number">2.</span> <span class="toc-text">利用ArcMap发布切片地图服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（步骤1-3略）"><span class="toc-number">2.1.</span> <span class="toc-text">（步骤1-3略）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤4-修改地图服务属性"><span class="toc-number">2.2.</span> <span class="toc-text">步骤4:修改地图服务属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看硬盘缓存"><span class="toc-number">3.</span> <span class="toc-text">查看硬盘缓存</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

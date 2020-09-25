@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>MySQL | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="准备mysql安装参考：https://www.cnblogs.com/laumians-notes/p/9069498.html
+Navicat数据库管理工具:https://blog.csdn.net/a599174211/article/details/82795658
+nodeJS操作MySQLnodeJS默认不支持MySQL,需要第三方工具来驱动，这里用mysql驱动。
+
+npm install mysql
+
+123456789101112131415const mysql = require(&#39;mysql&#39;);1.连接//createConnection(哪台服务器，用户名，密码，库)var db = mys...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            时光荏苒，旦夕之间，略有遗憾，似白驹过隙，蹉跎自悟。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>MySQL</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-09-11T07:11:01.000Z">
+                    2019-09-11
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+        </div>
+        <h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><h4 id="mysql安装"><a href="#mysql安装" class="headerlink" title="mysql安装"></a>mysql安装</h4><p>参考：<a href="https://www.cnblogs.com/laumians-notes/p/9069498.html" target="_blank" rel="noopener">https://www.cnblogs.com/laumians-notes/p/9069498.html</a></p>
+<p>Navicat数据库管理工具:<a href="https://blog.csdn.net/a599174211/article/details/82795658" target="_blank" rel="noopener">https://blog.csdn.net/a599174211/article/details/82795658</a></p>
+<h3 id="nodeJS操作MySQL"><a href="#nodeJS操作MySQL" class="headerlink" title="nodeJS操作MySQL"></a>nodeJS操作MySQL</h3><p>nodeJS默认不支持MySQL,需要第三方工具来驱动，这里用mysql驱动。</p>
+<ul>
+<li>npm install mysql</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const mysql = require(<span class="string">'mysql'</span>);</span><br><span class="line"></span><br><span class="line">1.连接</span><br><span class="line">//createConnection(哪台服务器，用户名，密码，库)</span><br><span class="line">var db = mysql.createConnection(host:<span class="string">'localhost'</span>,port:<span class="string">'3306'</span>,user:<span class="string">'root'</span>,password:<span class="string">'123456'</span>,database:<span class="string">'my_db'</span>,)；</span><br><span class="line"></span><br><span class="line">2.查询</span><br><span class="line">//query(干啥，回调函数)</span><br><span class="line">db.query(<span class="string">"SELECT * FROM `user_table`;"</span>,(err,data)=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)</span><br><span class="line">        console.log(<span class="string">'出错了'</span>，err)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        console.log(<span class="string">'成功了'</span>，data)</span><br><span class="line">        console.log(JSON.stringify(data))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="SQL标准写法："><a href="#SQL标准写法：" class="headerlink" title="SQL标准写法："></a>SQL标准写法：</h3><p>1.关键字大写<br>2.库、表、字段需加上饭单引号<code></code><br>SQL四大语句：增删改查<br>增：INSERT<br>INSERT INTO 表（字段列表） VALUES (值列表)<br>INSERT INTO <code>user_table</code>（<code>ID</code>,<code>username</code>,<code>password</code>）VALUES (<code>0</code>,<code>blue2</code>,<code>987654</code>) VALUES (值列表)<br>删：DELETE<br>改：UPDATE<br>查：SELECT</p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/09/22/login/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                vuex+node+express+token登录
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/09/10/node6/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        jade、ejs模板库
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#准备"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mysql安装"><span class="toc-number">1.1.</span> <span class="toc-text">mysql安装</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nodeJS操作MySQL"><span class="toc-number">2.</span> <span class="toc-text">nodeJS操作MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL标准写法："><span class="toc-number">3.</span> <span class="toc-text">SQL标准写法：</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

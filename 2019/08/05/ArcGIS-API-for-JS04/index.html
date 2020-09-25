@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>ArcGIS Server之发布影像服务 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="在实际开发过程中，为了满足用户不同的需求，Esri制定了各种不同的服务类型，每一种服务类型都有着自己的优点，同时特定的服务类型可以实现特性的功能，此篇博客便说一说影像服务
+什么是影像服务？影像服务是将栅格数据和影像数据作为服务发布出去。此时客户端便可以对栅格数据的进行访问。例如：查看栅格的波段信息，查看栅格某一个像元的值等等。
+什么数据可以发布为影像服务？发布影像服务，对于原始数据是有一定的要求的，当数据出现问题时，数据是不可以发布成功的，影像服务支持的数据主要有：
+
+栅格数据集栅格图层镶嵌数据集镶嵌图层
+
+发布影像服务发布影像服务非常简单，与地图服务不同的是：发布影像服务需要在ArcCatalog中进行，主要分步骤为：...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            云里写诗，泥里生活，岁月里洒脱。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>ArcGIS Server之发布影像服务</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-05T08:25:58.000Z">
+                    2019-08-05
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li></ul>
+        </div>
+        <p>在实际开发过程中，为了满足用户不同的需求，Esri制定了各种不同的服务类型，每一种服务类型都有着自己的优点，同时特定的服务类型可以实现特性的功能，此篇博客便说一说影像服务</p>
+<h3 id="什么是影像服务？"><a href="#什么是影像服务？" class="headerlink" title="什么是影像服务？"></a>什么是影像服务？</h3><p>影像服务是将栅格数据和影像数据作为服务发布出去。此时客户端便可以对栅格数据的进行访问。例如：查看栅格的波段信息，查看栅格某一个像元的值等等。</p>
+<h3 id="什么数据可以发布为影像服务？"><a href="#什么数据可以发布为影像服务？" class="headerlink" title="什么数据可以发布为影像服务？"></a>什么数据可以发布为影像服务？</h3><p>发布影像服务，对于原始数据是有一定的要求的，当数据出现问题时，数据是不可以发布成功的，影像服务支持的数据主要有：</p>
+<blockquote>
+<p>栅格数据集<br>栅格图层<br>镶嵌数据集<br>镶嵌图层</p>
+</blockquote>
+<h3 id="发布影像服务"><a href="#发布影像服务" class="headerlink" title="发布影像服务"></a>发布影像服务</h3><p>发布影像服务非常简单，与地图服务不同的是：发布影像服务需要在ArcCatalog中进行，主要分步骤为：</p>
+<p>1.在ArcCatalog找到我们要栅格数据集。<br>2.通过ArcCatalog将我们的栅格共享为影像服务。<br>3.查看服务是否发布成功</p>
+<h4 id="在ArcCatalog找到我们要栅格数据集"><a href="#在ArcCatalog找到我们要栅格数据集" class="headerlink" title="在ArcCatalog找到我们要栅格数据集"></a>在ArcCatalog找到我们要栅格数据集</h4><p>发布的数据为数字高程模型（DEM）<br><img src="/2019/08/05/ArcGIS-API-for-JS04/01.png" alt="01.png"></p>
+<h4 id="将栅格数据共享为影像服务。"><a href="#将栅格数据共享为影像服务。" class="headerlink" title="将栅格数据共享为影像服务。"></a>将栅格数据共享为影像服务。</h4><p><img src="/2019/08/05/ArcGIS-API-for-JS04/02.png" alt="02.png"><br>到达服务编辑器，发布最简单的影像服务，直接点击发布即可-&gt;发布成功。<br><img src="/2019/08/05/ArcGIS-API-for-JS04/03.png" alt="03.png"></p>
+<h3 id="可能发生的错误（若服务发布成功，此处可略去）"><a href="#可能发生的错误（若服务发布成功，此处可略去）" class="headerlink" title="可能发生的错误（若服务发布成功，此处可略去）"></a>可能发生的错误（若服务发布成功，此处可略去）</h3><h4 id="错误发生"><a href="#错误发生" class="headerlink" title="错误发生"></a>错误发生</h4><p>发布服务告知我服务定义失败<br><img src="/2019/08/05/ArcGIS-API-for-JS04/04.png" alt="04.png"></p>
+<h4 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h4><p>此错误发生的原因是你的DEM存放在某一个数据库中，导致数据在数据库中但是数据的格式有错误。例如，我想把dem导出来，却发现也不能导出，如图所示：<br><img src="/2019/08/05/ArcGIS-API-for-JS04/05.png" alt="05.png"></p>
+<h4 id="如何解决错误"><a href="#如何解决错误" class="headerlink" title="如何解决错误"></a>如何解决错误</h4><p>1.用ArcMap打开相应的Dem<br>2.从ArcMap中将相应的栅格数据导出到硬盘上<br>3.重新发布，即可成功。</p>
+<h5 id="用ArcMap打开相应的Dem"><a href="#用ArcMap打开相应的Dem" class="headerlink" title="用ArcMap打开相应的Dem"></a>用ArcMap打开相应的Dem</h5><p><img src="/2019/08/05/ArcGIS-API-for-JS04/06.png" alt="06.png"></p>
+<h5 id="从ArcMap中将相应的栅格数据导出到硬盘上"><a href="#从ArcMap中将相应的栅格数据导出到硬盘上" class="headerlink" title="从ArcMap中将相应的栅格数据导出到硬盘上"></a>从ArcMap中将相应的栅格数据导出到硬盘上</h5><p><img src="/2019/08/05/ArcGIS-API-for-JS04/07.png" alt="07.png"><br><img src="/2019/08/05/ArcGIS-API-for-JS04/08.png" alt="08.png"><br>然后在catalog中重新发布。</p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/ArcGIS-API-for-JS/">ArcGIS API for JS</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/05/ArcGIS-API-for-JS05/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                ArcGIS Server之发布GP服务-返回矢量数据
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/05/ArcGIS-API-for-JS03/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        ArcGIS Server之发布要素服务
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是影像服务？"><span class="toc-number">1.</span> <span class="toc-text">什么是影像服务？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么数据可以发布为影像服务？"><span class="toc-number">2.</span> <span class="toc-text">什么数据可以发布为影像服务？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布影像服务"><span class="toc-number">3.</span> <span class="toc-text">发布影像服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#在ArcCatalog找到我们要栅格数据集"><span class="toc-number">3.1.</span> <span class="toc-text">在ArcCatalog找到我们要栅格数据集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#将栅格数据共享为影像服务。"><span class="toc-number">3.2.</span> <span class="toc-text">将栅格数据共享为影像服务。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可能发生的错误（若服务发布成功，此处可略去）"><span class="toc-number">4.</span> <span class="toc-text">可能发生的错误（若服务发布成功，此处可略去）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#错误发生"><span class="toc-number">4.1.</span> <span class="toc-text">错误发生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#错误原因"><span class="toc-number">4.2.</span> <span class="toc-text">错误原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何解决错误"><span class="toc-number">4.3.</span> <span class="toc-text">如何解决错误</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#用ArcMap打开相应的Dem"><span class="toc-number">4.3.1.</span> <span class="toc-text">用ArcMap打开相应的Dem</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#从ArcMap中将相应的栅格数据导出到硬盘上"><span class="toc-number">4.3.2.</span> <span class="toc-text">从ArcMap中将相应的栅格数据导出到硬盘上</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>闭包 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="闭包闭包理解** 特性：函数嵌套函数；函数内部可以引用函数外部的参数和变量；函数变量和参数不会被垃圾回收机制回收；
+**优缺点：优点 
+
+希望一个变量长期驻扎在内存中 
+避免全局变量的污染 
+私有成员的存在缺点 
+常驻内存，增大内存使用量，使用不当回造成内存泄漏；
+
+** 自执行函数的好处隔离作用域，避免全局作用域污染模拟块级作用域
+应用的两种情况：函数作为返回值、函数作为参数传递。
+第一，函数作为返回值：12345678910function fn()&amp;#123;    var max = 10;    return function bar(x)&amp;#123;        if (x&amp;gt;max)&amp;#123;   ...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            云里写诗，泥里生活，岁月里洒脱。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>闭包</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-01-02T02:54:13.000Z">
+                    2019-01-02
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+        </div>
+        <h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><h2 id="闭包理解"><a href="#闭包理解" class="headerlink" title="闭包理解"></a>闭包理解</h2><h3 id="特性："><a href="#特性：" class="headerlink" title="** 特性："></a>** 特性：</h3><p>函数嵌套函数；<br>函数内部可以引用函数外部的参数和变量；<br>函数变量和参数不会被垃圾回收机制回收；</p>
+<h3 id="优缺点："><a href="#优缺点：" class="headerlink" title="**优缺点："></a>**优缺点：</h3><p>优点 </p>
+<ul>
+<li>希望一个变量长期驻扎在内存中 </li>
+<li>避免全局变量的污染 </li>
+<li>私有成员的存在<br>缺点 </li>
+<li>常驻内存，增大内存使用量，使用不当回造成内存泄漏；</li>
+</ul>
+<h3 id="自执行函数的好处"><a href="#自执行函数的好处" class="headerlink" title="** 自执行函数的好处"></a>** 自执行函数的好处</h3><p>隔离作用域，避免全局作用域污染<br>模拟块级作用域</p>
+<p>应用的两种情况：函数作为返回值、函数作为参数传递。</p>
+<h3 id="第一，函数作为返回值："><a href="#第一，函数作为返回值：" class="headerlink" title="第一，函数作为返回值："></a>第一，函数作为返回值：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fn</span></span>()&#123;</span><br><span class="line">    var max = 10;</span><br><span class="line">    <span class="built_in">return</span> <span class="keyword">function</span> bar(x)&#123;</span><br><span class="line">        <span class="keyword">if</span> (x&gt;max)&#123;</span><br><span class="line">            console.log(x)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var f1 = fn();</span><br><span class="line">f1(15);</span><br></pre></td></tr></table></figure>
+<p>如上代码，bar函数作为返回值，赋值给f1变量。执行f1(15)时，用到了fn作用域下的max变量的值</p>
+<h3 id="第二，函数作为参数被传递"><a href="#第二，函数作为参数被传递" class="headerlink" title="第二，函数作为参数被传递"></a>第二，函数作为参数被传递</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var max = 10,</span><br><span class="line">fn = <span class="keyword">function</span>(x)&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;max)&#123;</span><br><span class="line">        console.log(x)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">(<span class="keyword">function</span>(f)&#123;</span><br><span class="line">    var max = 100;</span><br><span class="line">    f(15);</span><br><span class="line">&#125;)(fn)</span><br></pre></td></tr></table></figure>
+<p>如上代码中，fn函数作为一个参数被传递进入另一个函数，赋值给f参数。执行f(15)时，max变量的取值是10，而不是100。</p>
+<h2 id="闭包与作用域"><a href="#闭包与作用域" class="headerlink" title="闭包与作用域"></a>闭包与作用域</h2><h3 id="变量的作用域-是指变量的有效范围"><a href="#变量的作用域-是指变量的有效范围" class="headerlink" title="变量的作用域,是指变量的有效范围"></a>变量的作用域,是指变量的有效范围</h3><p>当在函数中声明一个变量的时候,如果该变量前面没有带上关键字 var,这个变量就会成为全局变量 ,这当然是一种很容易造成命名冲突的做法。<br>另外一种情况是用 var 关键字在函数中声明变量,这时候的变量即是局部变量,只有在该函数内部才能访问到这个变量,在函数外面是访问不到的。</p>
+<p>例一<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var func=<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    var a=1;</span><br><span class="line">    console.log(a); //输出:1 </span><br><span class="line">&#125;;</span><br><span class="line">func();</span><br><span class="line">console.log ( a ); // Uncaught ReferenceError: a is not defined</span><br></pre></td></tr></table></figure></p>
+<p>例二，变量的搜索是从内到外而非从外到 内的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var a=1;</span><br><span class="line">var func1 = <span class="function"><span class="title">function</span></span>()&#123; </span><br><span class="line">    var b=2;</span><br><span class="line">    var func2 = <span class="function"><span class="title">function</span></span>()&#123; </span><br><span class="line">        var c=3;</span><br><span class="line">        console.log ( b ); // 输出:2 </span><br><span class="line">        console.log ( a );// 输出:1</span><br><span class="line">    &#125;</span><br><span class="line">    func2();</span><br><span class="line">    console.log(c);//输出:Uncaught ReferenceError: c is not defined</span><br><span class="line">&#125;; </span><br><span class="line">func1();</span><br></pre></td></tr></table></figure></p>
+<h3 id="变量的生存周期。"><a href="#变量的生存周期。" class="headerlink" title="变量的生存周期。"></a>变量的生存周期。</h3><p>对于全局变量来说,全局变量的生存周期当然是的永久,除非我们主动销毁这个全局变量。</p>
+<p>而对于在函数内用 var 关键字声明的局部变量来说,当退出函数时,这些局部变量即失去了 它们的价值,它们都会随着函数的调用的结束而销毁</p>
+<p>例一<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var func = <span class="function"><span class="title">function</span></span>()&#123; </span><br><span class="line">    var a=1;</span><br><span class="line">    <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>()&#123; </span><br><span class="line">        a++;</span><br><span class="line">        console.log(a);</span><br><span class="line">    &#125; </span><br><span class="line">&#125;;</span><br><span class="line">var f=func();</span><br><span class="line">f();// 输出:2 </span><br><span class="line">f();// 输出:3</span><br><span class="line">f();// 输出:4</span><br><span class="line">f();// 输出:5</span><br></pre></td></tr></table></figure></p>
+<p>跟我们之前的结论相反,上面的例子在当退出函数后,局部变量 a 并没有消失,而是似乎一直在某个地方 存活着。</p>
+<p>这是因为当执行 var f = func();时,f 返回了一个名函数的引用,它可以问到 func() 被调用时产生的环境,而局部变量 a 一直处在这个环境里。</p>
+<p>既然外局部变量所在的环境还能被外 界访问,这个局部变量就有了不被销毁的理由。在这里生了一个闭包结构,局部变量的声明看起来被延续了。</p>
+<p>例二，假设页面上有 5 个 div 节点,我们通过循环来给每个 div绑定 onclick 事件,按照索引顺序,点击第 1 个 div 时弹出 0,点击第 2 个 div 时出 1,以此类。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var nodes = document.getElementsByTagName( <span class="string">'div'</span> );</span><br><span class="line"><span class="keyword">for</span>(var i=0,len=nodes.length;i&amp;lt;len;i++)&#123; </span><br><span class="line">    nodes[ i ].onclick = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        alert(i); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>测试这段代码会发现,无论点击哪个 div,最后弹出的结果都是 5。</p>
+<p><font color="red">这是因为 div 节点的 onclick事件是被异步触发的,当事件被触发的时候,for循环早已结束,此时 i 的值已经是 5,</font></p>
+<p>所以在 div 的 onclick 事件函数中顺着作用域链从内到外查找变量 i 时,查找到的值总是 5。</p>
+<p>解决方法是在闭包的帮助下,每次循环的 i 值都封闭起来。当在事件函数中顺着作用域链从内到外查找变量 i 时,会先找到被封闭在闭包环境中的 i,如果有 5 个 div,这里的 i 分别 是 0,1,2,3,4&gt;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(var i=0,len=nodes.length;i&amp;lt;len;i++)&#123; </span><br><span class="line">    (<span class="keyword">function</span>( i )&#123;</span><br><span class="line">        nodes[ i ].onclick = <span class="function"><span class="title">function</span></span>()&#123; </span><br><span class="line">            console.log(i);</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;)(i)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>例三<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var Type = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> ( var i = 0, <span class="built_in">type</span>; <span class="built_in">type</span> = [ <span class="string">'String'</span>, <span class="string">'Array'</span>, <span class="string">'Number'</span> ][ i++ ]; )&#123; </span><br><span class="line">    (<span class="keyword">function</span>( <span class="built_in">type</span> )&#123;</span><br><span class="line">        Type[ <span class="string">'is'</span> + <span class="built_in">type</span> ] = <span class="keyword">function</span>( obj )&#123;</span><br><span class="line">            <span class="built_in">return</span> Object.prototype.toString.call( obj ) === <span class="string">'[object '</span>+ <span class="built_in">type</span> +<span class="string">']'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)( <span class="built_in">type</span> )</span><br><span class="line">&#125;;</span><br><span class="line">console.log( Type.isArray( [] ) );// 输出:<span class="literal">true</span></span><br><span class="line">console.log( Type.isString( <span class="string">"str"</span> ) );// 输出:<span class="literal">true</span></span><br><span class="line">console.log( Type.isNumber( 5  ) );// 输出:<span class="literal">true</span></span><br><span class="line">console.log( Type.isString( [] ) );// 输出:<span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h2><p><img src="/2019/01/02/闭包/1.png" alt=""><br><img src="/2019/01/02/闭包/2.png" alt=""><br><img src="/2019/01/02/闭包/3.png" alt=""><br><img src="/2019/01/02/闭包/4.png" alt=""><br><img src="/2019/01/02/闭包/5.png" alt=""></p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/闭包/">闭包</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/01/03/面试JS/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                面试JS
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/01/02/遍历数组的常用方法/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        遍历数组的常用方法
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#闭包"><span class="toc-number">1.</span> <span class="toc-text">闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包理解"><span class="toc-number">1.1.</span> <span class="toc-text">闭包理解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#特性："><span class="toc-number">1.1.1.</span> <span class="toc-text">** 特性：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优缺点："><span class="toc-number">1.1.2.</span> <span class="toc-text">**优缺点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自执行函数的好处"><span class="toc-number">1.1.3.</span> <span class="toc-text">** 自执行函数的好处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第一，函数作为返回值："><span class="toc-number">1.1.4.</span> <span class="toc-text">第一，函数作为返回值：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二，函数作为参数被传递"><span class="toc-number">1.1.5.</span> <span class="toc-text">第二，函数作为参数被传递</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包与作用域"><span class="toc-number">1.2.</span> <span class="toc-text">闭包与作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量的作用域-是指变量的有效范围"><span class="toc-number">1.2.1.</span> <span class="toc-text">变量的作用域,是指变量的有效范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量的生存周期。"><span class="toc-number">1.2.2.</span> <span class="toc-text">变量的生存周期。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图解"><span class="toc-number">1.3.</span> <span class="toc-text">图解</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

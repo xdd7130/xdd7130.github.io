@@ -1,0 +1,807 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="前端学习">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            云里写诗，泥里生活，岁月里洒脱。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    
+    <div id="recent-posts">
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/13/node5/">
+                        Express
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-13T03:07:47.000Z">
+                            2019-08-13
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+                </div>
+                
+                    <h3 id="Express框架"><a href="#Express框架" class="headerlink" title="Express框架"></a>Express框架</h3><p>1.依赖中间件<br>2.接受请求<br>3.非破坏式的<br>4.static用法</p>
+<h4 id="安装、配置、接受请求、响应"><a href="#安装、配置、接受请求、响应" class="headerlink" title="安装、配置、接受请求、响应"></a>安装、配置、接受请求、响应</h4><p>安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install express</span><br></pre></td></tr></table></figure></p>
+<p>使用</p>
+<ul>
+<li>创建服务</li>
+<li>监听</li>
+<li>处理请求<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">var server = express();</span><br><span class="line">server.use(<span class="string">'/a.html'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    res.send(<span class="string">'abc'</span>);                          //send和write类似</span><br><span class="line">    res.end();</span><br><span class="line">&#125;);</span><br><span class="line">server.use(<span class="string">'/b.html'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    res.send(<span class="string">'123'</span>);</span><br><span class="line">    res.end();</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(8080);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>express保留了原生的功能，添加了一些方法，增强原有的功能。</p>
+<h4 id="3种方法"><a href="#3种方法" class="headerlink" title="3种方法"></a>3种方法</h4><p>get(处理get请求)\post(处理post请求)\use(get,post均可)。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">var server = express();</span><br><span class="line">server.get(<span class="string">'/'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    console.log(<span class="string">'get请求'</span>)</span><br><span class="line">&#125;);</span><br><span class="line">server.post(<span class="string">'/'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    console.log(<span class="string">'post请求'</span>)</span><br><span class="line">&#125;);</span><br><span class="line">server.use(<span class="string">'/'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    console.log(<span class="string">'use了'</span>)</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(8080);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Express-static"><a href="#Express-static" class="headerlink" title="Express-static"></a>Express-static</h4><p>读取静态文件<br>安装 npm install express-static -save</p>
+<p>实例-登录<br>a.html:<br><img src="/2019/08/13/node5/01.png" alt="01.png"><br>server.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">const expressStatic = require(<span class="string">'express-static'</span>);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">server.listen(8080);</span><br><span class="line"></span><br><span class="line">//用户数据模拟</span><br><span class="line">var users=&#123;</span><br><span class="line">    <span class="string">'blue'</span>:<span class="string">'123456'</span>,</span><br><span class="line">    <span class="string">'zhangsan'</span>:<span class="string">'654321'</span>,</span><br><span class="line">    <span class="string">'lisi'</span>:<span class="string">'987678'</span></span><br><span class="line">&#125;;</span><br><span class="line">server.get(<span class="string">'/login'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    // urlLib.parse(req.url,<span class="literal">true</span>).query;</span><br><span class="line">    console.log(req.query)</span><br><span class="line">    var user= req.query[<span class="string">'user'</span>];</span><br><span class="line">    var pass= req.query[<span class="string">'pass'</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(users[user]==null)&#123;</span><br><span class="line">        res.send(&#123;ok:<span class="literal">false</span>,mag:<span class="string">'此用户不存在'</span>&#125;)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(users[user]!=pass)&#123;</span><br><span class="line">            res.send(&#123;ok:<span class="literal">false</span>,msg:<span class="string">'密码错了'</span>&#125;)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            res.send(&#123;ok:<span class="literal">true</span>,mag:<span class="string">'成功'</span>&#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">server.use(expressStatic(<span class="string">'./www'</span>));</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据解析"><a href="#数据解析" class="headerlink" title="数据解析"></a>数据解析</h3><p>get请求数据解析,无需中间件:req.query<br>post请求数据解析，需中间件：body-parser，首先解析数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&apos;express&apos;);</span><br><span class="line">const bodyParser = require(&apos;body-parser&apos;);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">server.listen(8080);</span><br><span class="line"></span><br><span class="line">server.use(bodyParser.urlencoded(&#123;</span><br><span class="line">    extended:true,      //扩展模式</span><br><span class="line">    limit: 2*1024       //限制2M，默认100k</span><br><span class="line">&#125;));</span><br><span class="line">server.use(&apos;/&apos;,function(req,res)&#123;</span><br><span class="line">    console.log(req.body)  //POST</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="链式操作"><a href="#链式操作" class="headerlink" title="链式操作"></a>链式操作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&apos;express&apos;);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">server.listen(8080);</span><br><span class="line"></span><br><span class="line">//第三个参数</span><br><span class="line">server.use(&apos;/&apos;,function(req,res,next)&#123;</span><br><span class="line">    console.log(&apos;a&apos;)</span><br><span class="line">    next();</span><br><span class="line">&#125;);</span><br><span class="line">server.use(&apos;/&apos;,function(req,res.next)&#123;</span><br><span class="line">    console.log(&apos;b&apos;)  </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>中间件,类似’body-parser’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const express = require(&apos;express&apos;);</span><br><span class="line">const querystring = require(&apos;querystring&apos;);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">server.listen(8080);</span><br><span class="line"></span><br><span class="line">//第三个参数</span><br><span class="line">server.use(function(req,res,next)&#123;</span><br><span class="line">    var str=&apos;&apos;;</span><br><span class="line">    req.on(&apos;data&apos;,function(data)&#123;</span><br><span class="line">        str+=data;</span><br><span class="line">    &#125;);</span><br><span class="line">    req.on(&apos;end&apos;,function(data)&#123;</span><br><span class="line">        req.body=querystring(str);</span><br><span class="line">        next();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">server.use(&apos;/&apos;,function(req,res.next)&#123;</span><br><span class="line">    console.log(&apos;b&apos;)  </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="cookie、session"><a href="#cookie、session" class="headerlink" title="cookie、session"></a>cookie、session</h3><ul>
+<li>a.发送cookie<br>res.cookie(名字,值,maxAge:毫秒,signed:true)</li>
+<li>b.读取cookie<br>cookie-parser<br>server.use(cookieParser(‘秘钥’))<br>server.use(function(){<br>  req.cookie   //未签名<br>  req.signedCookies   //签名版<br>})</li>
+<li>c.删除cookie<br>res.clearCookie(名字)</li>
+</ul>
+<p>保存数据，cookie数据保存浏览器，session 数据保存在服务器。<br>npm install cookie-parser cookie-session<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">const cookieParser = require(<span class="string">'cookie-parser'</span>);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">//发送cookie</span><br><span class="line">server.use(<span class="string">'/aaa/a.html'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    res.cookie(<span class="string">'user'</span>,<span class="string">'blue'</span>,&#123;path:<span class="string">'/aaa'</span>,<span class="string">'maxAge'</span>:3*24*3600*1000&#125;)</span><br><span class="line">&#125;)</span><br><span class="line">//读取cookie</span><br><span class="line">server.use(cookieParser())；</span><br><span class="line">server.use(<span class="string">'/'</span>,<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    console.log(req.cookie)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>实现cookie加密：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">const cookieParser = require(<span class="string">'cookie-parser'</span>);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">//cookieParser</span><br><span class="line">server.use(cookieParser);</span><br><span class="line">server.use(<span class="string">'/'</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    req.secret=<span class="string">'hdwifbonfjfosdjhfsj'</span>;</span><br><span class="line">    res.cookie(<span class="string">'user'</span>,<span class="string">'blue'</span>,&#123;signed:<span class="literal">true</span>&#125;);</span><br><span class="line"></span><br><span class="line">    res.send(<span class="string">'ok'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(8080);</span><br></pre></td></tr></table></figure></p>
+<p>session</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">const cookieSession = require(<span class="string">'cookie-session'</span>);</span><br><span class="line"></span><br><span class="line">var server = express();</span><br><span class="line">//cookie</span><br><span class="line">server.use(cookieParser(<span class="string">'dnkfvbscsvius'</span>));</span><br><span class="line">server.use(cookieSession());</span><br><span class="line"></span><br><span class="line">server.use(<span class="string">'/'</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    req.secret=<span class="string">'hdwifbonfjfosdjhfsj'</span>;</span><br><span class="line">    res.cookie(<span class="string">'user'</span>,<span class="string">'blue'</span>,&#123;signed:<span class="literal">true</span>&#125;);</span><br><span class="line"></span><br><span class="line">    res.send(<span class="string">'ok'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(8080);</span><br></pre></td></tr></table></figure>
+<h3 id="express框架整合"><a href="#express框架整合" class="headerlink" title="express框架整合"></a>express框架整合</h3><p><img src="/2019/08/13/node5/02.png" alt="02.png"><br><img src="/2019/08/13/node5/03.png" alt="03.png"></p>
+<h4 id="multer模块上传文件"><a href="#multer模块上传文件" class="headerlink" title="multer模块上传文件"></a>multer模块上传文件</h4><p>npm install multer</p>
+<ul>
+<li>body-parser:解析post数据  (application/x-form-urlencoded)<br>server.use(bodyParse.urlencode());</li>
+<li>multer:解析post文件   (multipart/form-data)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">//上传到磁盘  重命名</span><br><span class="line"></span><br><span class="line">const multer = require(<span class="string">'multer'</span>);</span><br><span class="line">const pathLib = require(<span class="string">'path'</span>);</span><br><span class="line">const fs = require(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//1、pathLib解析获取原始文件扩展名</span><br><span class="line">    var str=<span class="string">'c:\\wamp\www\a.html'</span>;</span><br><span class="line">    var obj=path.parse(str);</span><br><span class="line"></span><br><span class="line">    base :文件名<span class="string">"a.html"</span></span><br><span class="line">    ext:扩展名<span class="string">"html"</span></span><br><span class="line">    dir:路径<span class="string">'c:\\wamp\www'</span></span><br><span class="line">    name:文件名<span class="string">"a"</span></span><br><span class="line"></span><br><span class="line">//2.fs的rename重命名</span><br><span class="line">    fs.rename(<span class="string">'a.txt'</span>,<span class="string">'b.txt'</span>,<span class="keyword">function</span>(err)&#123;</span><br><span class="line">        console.log(err)</span><br><span class="line">    &#125;)</span><br><span class="line">    fs.rename(老名，新名，<span class="keyword">function</span>(err)&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var obj=multer(&#123;dest:<span class="string">'./www/upload/'</span>&#125;)  //文件保存的位置</span><br><span class="line"></span><br><span class="line">server.use(obj.any())       //接受任意类型文件</span><br><span class="line">//只接收name=f1的文件 : server.use(obj.single(<span class="string">'f1'</span>))  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//req.files:指上传的文件信息，如下图：</span><br><span class="line">server.use(<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    var newName = req.file[0].path+pathLib.parse(req.file[0].originalname).ext</span><br><span class="line">    fs.rename(req.file[0].path,newName,<span class="keyword">function</span>()(err)&#123;</span><br><span class="line">        <span class="keyword">if</span>(err)</span><br><span class="line">            res.send(<span class="string">'上传失败'</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            res.send(<span class="string">'上传成功'</span>)</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/08/13/node5/05.png" alt="05.png"><br><img src="/2019/08/13/node5/06.png" alt="06.png"></p>
+<ul>
+<li>html文件：</li>
+</ul>
+<p><img src="/2019/08/13/node5/04.png" alt="04.png"><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=<span class="string">'http://localhost:8080/'</span> method=<span class="string">'post'</span> enctype=<span class="string">'multipart/form-data'</span>&gt;</span><br><span class="line">    &lt;input <span class="built_in">type</span>=<span class="string">'file'</span>/&gt;</span><br><span class="line">    &lt;input <span class="built_in">type</span>=<span class="string">'submit'</span> value=<span class="string">'上传/&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="consolidate-模板引擎整合库"><a href="#consolidate-模板引擎整合库" class="headerlink" title="consolidate 模板引擎整合库"></a>consolidate 模板引擎整合库</h3><p>安装：npm install consolidate<br>引用：const consolidate = require(‘consolidate’);<br>配置模板引擎：</p>
+<ul>
+<li>我要输出什么东西<br>server.set(‘view engine’,’html’)</li>
+<li>模板文件放在哪里<br>server.set(‘view’,’./views’)</li>
+<li>哪种模板引擎<br>server.engine(‘html’,consolidate.ejs)</li>
+</ul>
+<p>server.get(‘/‘,function(req,res){<br>    res.render(‘模板文件’，数据);<br>})</p>
+<h3 id="route路由"><a href="#route路由" class="headerlink" title="route路由"></a>route路由</h3><p>根据目录的不同，调用不同的模块</p>
+<p>const express = require(‘express’);</p>
+<p>var server=express();</p>
+<p>var routeUser =express.Route();<br>routeUser.get(‘1.html’,function(req,res){<br>    res.send(‘user1’)<br>})<br>routeUser.get(‘2.html’,function(req,res){<br>    res.send(‘user2’)<br>})</p>
+<p>server.use(‘/user’,routeUser);<br>server.listen(8080);</p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/13/node5/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/11/node4/">
+                        node笔记(一)
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-11T11:48:05.000Z">
+                            2019-08-11
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+                </div>
+                
+                    <h3 id="node"><a href="#node" class="headerlink" title="node"></a>node</h3><p>优势：<br>1、性能好<br>2、跟前台JS配合方便<br>3、NodeJS便于前端学习</p>
+<h3 id="http系统模块使用"><a href="#http系统模块使用" class="headerlink" title="http系统模块使用"></a>http系统模块使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const http=require(<span class="string">'http'</span>);</span><br><span class="line">var server = http.creatServer(<span class="keyword">function</span>(req,res)&#123;  //创建服务器</span><br><span class="line">    switch(res.url)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"/1.html"</span>:</span><br><span class="line">            res.write(<span class="string">"向前台写东西111"</span>)；</span><br><span class="line">            <span class="built_in">break</span>; </span><br><span class="line">        <span class="keyword">case</span> <span class="string">"/2.html"</span>:</span><br><span class="line">            res.write(<span class="string">"向前台写东西222"</span>)；</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        default</span><br><span class="line">            res.write(<span class="string">"404"</span>)；</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    // res.write(<span class="string">"向前台写东西"</span>)；</span><br><span class="line">    res.end();//结束请求</span><br><span class="line">&#125;)</span><br><span class="line">//监听 —— 等着</span><br><span class="line">//端口 —— 数字</span><br><span class="line">server.listen(8888);</span><br></pre></td></tr></table></figure>
+<h3 id="fs文件模块"><a href="#fs文件模块" class="headerlink" title="fs文件模块"></a>fs文件模块</h3><p>fs (file system)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//导入引用:</span><br><span class="line">    const fs = require(<span class="string">'fs'</span>);</span><br><span class="line">//1.readFile(文件名，回调函数)</span><br><span class="line">    fs.readFile(<span class="string">'aaa.txt'</span>,<span class="keyword">function</span>(err,data)&#123;</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            console.log(<span class="string">'读取失败'</span>)；</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            console.log(data.toString());//二进制格式用toString转换</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;)</span><br><span class="line">//2.writeFile(文件名，内容，回调函数)</span><br><span class="line">fs.write(<span class="string">"bbb.txt"</span>,<span class="string">"asdfghjkl"</span>,<span class="keyword">function</span>(err)&#123;</span><br><span class="line">    console.log(err);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>与服务器结合<br>建立www（可以是其他名字）文件夹，用于存放请求的文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const http=require(<span class="string">'http'</span>);</span><br><span class="line">var server = http.creatServer(<span class="keyword">function</span>(req,res)&#123;  //创建服务器</span><br><span class="line">    //req.url = <span class="string">'index.html'</span></span><br><span class="line">    //读取:<span class="string">'./www/index.html'</span></span><br><span class="line">    var file_name = <span class="string">'./www'</span>+req.url</span><br><span class="line">    </span><br><span class="line">    fs.readFile(file_name,<span class="keyword">function</span>(err,data)&#123; //异步</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            res.write(<span class="string">'读取失败'</span>)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            res.write(data)</span><br><span class="line">        &#125;</span><br><span class="line">        res.end();//结束请求，因为异步，res.end()应放在此处</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br><span class="line">server.listen(8888);</span><br></pre></td></tr></table></figure></p>
+<h3 id="http数据解析（get）"><a href="#http数据解析（get）" class="headerlink" title="http数据解析（get）"></a>http数据解析（get）</h3><p>前台发送请求的方式：form/ajax/jsonp<br>后台都是一样。唯有一点不同，请求方式不同，接受方式不一样（get/post）.下面一个实例：<br>GET数据解析：</p>
+<ul>
+<li>自己切</li>
+<li>querystring:</li>
+<li>url:urlLib.parse(…,true)</li>
+</ul>
+<p>server.js 普通写法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const http = require(<span class="string">'http'</span>);</span><br><span class="line">http.createServer(<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">    //req获取前台请求的数据</span><br><span class="line">    var get=&#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span>(req.url.indexOf(<span class="string">'?'</span>) != -1)&#123;</span><br><span class="line">        console.log(req.url); //  /aaa?user=Tom&amp;pass=123456</span><br><span class="line">        var arr = req.url.split(<span class="string">'？'</span>)；// arr[0]=<span class="string">'/aaa'</span>  arr[1]=<span class="string">'user=Tom&amp;pass=123456'</span></span><br><span class="line">        var url=arr[0];</span><br><span class="line">        var arr2 = arr[1].split(<span class="string">'&amp;'</span>); //arr2</span><br><span class="line">        <span class="keyword">for</span>(var i=0;i&lt;arr2.length;i++)&#123;</span><br><span class="line">            var arr3=arr2[i].split(<span class="string">'='</span>)</span><br><span class="line">            get[arr3[0]]=arr3[1];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        var url=req.url;</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(url,get)</span><br><span class="line">    res.end();</span><br><span class="line">&#125;).listen(8080);</span><br></pre></td></tr></table></figure></p>
+<p>server.js querystring模块写法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">  //写法如下：</span><br><span class="line">    //const querystring=require(<span class="string">'querystring'</span>);</span><br><span class="line">    //var json = querystring.parse(<span class="string">'user=Tom&amp;pass=123456'</span>)</span><br><span class="line">    //console.log(json)</span><br><span class="line">//server.js改动后：</span><br><span class="line">    const http = require(<span class="string">'http'</span>);</span><br><span class="line">    const querystring=require(<span class="string">'querystring'</span>);</span><br><span class="line">    http.createServer(<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">        //req获取前台请求的数据</span><br><span class="line">        var get=&#123;&#125;;</span><br><span class="line">        <span class="keyword">if</span>(req.url.indexOf(<span class="string">'?'</span>) != -1)&#123;</span><br><span class="line">            console.log(req.url); //  /aaa?user=Tom&amp;pass=123456</span><br><span class="line">            var arr = req.url.split(<span class="string">'？'</span>)；// arr[0]=<span class="string">'/aaa'</span>  arr[1]=<span class="string">'user=Tom&amp;pass=123456'</span></span><br><span class="line">            var url=arr[0];</span><br><span class="line">            get=querystring.parse(arr[1]);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            var url=req.url;</span><br><span class="line">        &#125;</span><br><span class="line">        console.log(url,get)</span><br><span class="line">        res.end();</span><br><span class="line">    &#125;).listen(8080);</span><br></pre></td></tr></table></figure></p>
+<p>server.js url模块写法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//url.js写法</span><br><span class="line">    const urlLib=require(<span class="string">'url'</span>);</span><br><span class="line">    var obj= urlLib.parse(<span class="string">"http://www.aaa.bbb/index.html?a=12&amp;b=55"</span>,<span class="literal">true</span>);  第二个参数为<span class="literal">true</span>时，会把pathname等解析为json.</span><br><span class="line">    console.log(obj.pathname,obj.query);</span><br><span class="line">//server.js改动后：</span><br><span class="line">    const http = require(<span class="string">'http'</span>);</span><br><span class="line">    http.createServer(<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">        //req获取前台请求的数据</span><br><span class="line">        var obj = urlLib.parse(req.url,<span class="literal">true</span>);</span><br><span class="line">        var url=obj.pathname;</span><br><span class="line">        var get=obj.query;</span><br><span class="line"></span><br><span class="line">        console.log(url,get)</span><br><span class="line">        res.end();</span><br><span class="line">    &#125;).listen(8080);</span><br></pre></td></tr></table></figure></p>
+<p>form.html<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;form action=<span class="string">"http://localhost:8080/aaa"</span> method=<span class="string">"get"</span>&gt;</span><br><span class="line">        用户：</span><br><span class="line">        &lt;input <span class="built_in">type</span>=<span class="string">"text"</span> name=<span class="string">"user"</span> value=<span class="string">''</span>&gt; &lt;br&gt;</span><br><span class="line">        &lt;input <span class="built_in">type</span>=<span class="string">"password"</span> name=<span class="string">"pass"</span> value=<span class="string">''</span>&gt; &lt;br&gt;</span><br><span class="line">        &lt;input <span class="built_in">type</span>=<span class="string">"submit"</span> value=<span class="string">'提交'</span></span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="http数据解析（post）"><a href="#http数据解析（post）" class="headerlink" title="http数据解析（post）"></a>http数据解析（post）</h3><p>POST数据接收：POST数据比GET数据大的多,根据数据量大小分段完成<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">const http=require(<span class="string">'http'</span>);</span><br><span class="line">const querystring=require(<span class="string">'querystring'</span>);</span><br><span class="line">http.creatServer(<span class="keyword">function</span>(req,res)&#123;</span><br><span class="line">        //POST--req</span><br><span class="line">    var str=<span class="string">''</span>;  //接受数据</span><br><span class="line"></span><br><span class="line">        //data--有一段数据到达（很多次）</span><br><span class="line">    req.on(<span class="string">'data'</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        str+=data</span><br><span class="line">    &#125;);</span><br><span class="line">        //end--数据全部到达（一次）</span><br><span class="line">    req.on(<span class="string">'end'</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">        var post = querystring.parse(str);</span><br><span class="line">        console.log(post)</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;).listen(8080);</span><br></pre></td></tr></table></figure></p>
+<h3 id="应用1-简易httpServer搭建-用户注册登录-略"><a href="#应用1-简易httpServer搭建-用户注册登录-略" class="headerlink" title="应用1:简易httpServer搭建,用户注册登录(略)"></a>应用1:简易httpServer搭建,用户注册登录(略)</h3><h3 id="nodeJS模块化"><a href="#nodeJS模块化" class="headerlink" title="nodeJS模块化"></a>nodeJS模块化</h3><h4 id="系统模块介绍"><a href="#系统模块介绍" class="headerlink" title="系统模块介绍"></a>系统模块介绍</h4><p>除了以上用到的：http、querystring、url,还有：</p>
+<ul>
+<li>Crypto 加密</li>
+<li>Event 事件</li>
+<li>Net 网络操作</li>
+<li>OS 操作系统信息</li>
+<li>Path 处理文件路径</li>
+<li>Stream 流操作</li>
+<li>Timer 定时器</li>
+<li>ZLIB 压缩</li>
+</ul>
+<h4 id="自定义模块"><a href="#自定义模块" class="headerlink" title="自定义模块"></a>自定义模块</h4><p>关于引入模块写法：若为当前目录自己的模块，加上“./”,系统模块要加。<br>若想要输出东西，必须exports。<br>若都输出多个东西，module可实现批量输出。</p>
+<ul>
+<li>require:请求引入其他模块。</li>
+<li>module:批量输出。</li>
+<li>exports:输出。</li>
+<li>module.exports == exports。</li>
+<li>const aaa = require(‘./bbb.js’); 其中“.js”可省略。</li>
+</ul>
+<p>npm:nodejs package manager(nodejs包管理器)<br>1、统计下载途径<br>2、自动下载依赖</p>
+<p>npm init<br>npm publish<br>npm update<br>npm unpublish<br>npm –force unpublish</p>
+<p><img src="/2019/08/11/node4/01.png" alt="01.png"></p>
+<p>node_modules:放模块，可以放自己定义的模块，此时若引用，不加“./”</p>
+<blockquote>
+<p>总结：require引入模块，若有“./”,从当前目录找，若没有“./”，从系统模块或node_modules找。<br>模块优先级：系统&gt;node_modules,一般将自定义模块放在node_modules中。</p>
+</blockquote>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/11/node4/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/11/apply-and-bind/">
+                        apply and bind
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-11T02:36:27.000Z">
+                            2019-08-11
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <p>本篇主要解决一下几个问题：</p>
+<ul>
+<li>1.apply和call的区别在哪里</li>
+<li>2.什么情况下用apply,什么情况下用call</li>
+<li>3.apply的其他巧妙用法（一般在什么情况下可以使用apply）*</li>
+</ul>
+<p><font color="red"> apply:方法能劫持另外一个对象的方法，继承另外一个对象的属性.</font></p>
+<blockquote>
+<p>Function.apply(obj,args)方法能接收两个参数<br>obj：这个对象将代替Function类里this对象<br>args：这个是数组，它将作为参数传给Function（args–&gt;arguments）</p>
+</blockquote>
+<p>call:和apply的意思一样,只不过是参数列表不一样.</p>
+<blockquote>
+<p>Function.call(obj,[param1[,param2[,…[,paramN]]]])<br>obj：这个对象将代替Function类里this对象<br>params：这个是一个参数列表</p>
+</blockquote>
+<h4 id="apply示例"><a href="#apply示例" class="headerlink" title="apply示例:"></a>apply示例:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">    /*定义一个人类*/</span><br><span class="line">    <span class="keyword">function</span> Person(name,age)</span><br><span class="line">    &#123;</span><br><span class="line">        this.name=name;</span><br><span class="line">        this.age=age;</span><br><span class="line">    &#125;</span><br><span class="line">    /*定义一个学生类*/</span><br><span class="line">    functionStudent(name,age,grade)</span><br><span class="line">    &#123;</span><br><span class="line">        Person.apply(this,arguments);</span><br><span class="line">        this.grade=grade;</span><br><span class="line">    &#125;</span><br><span class="line">    //创建一个学生类</span><br><span class="line">    var student=new Student(<span class="string">"qian"</span>,21,<span class="string">"一年级"</span>);</span><br><span class="line">    //测试</span><br><span class="line">    alert(<span class="string">"name:"</span>+student.name+<span class="string">"\n"</span>+<span class="string">"age:"</span>+student.age+<span class="string">"\n"</span>+<span class="string">"grade:"</span>+student.grade);</span><br><span class="line">    //大家可以看到测试结果name:qian  age:21  grade:一年级</span><br><span class="line">    //学生类里面我没有给name和age属性赋值啊,为什么又存在这两个属性的值呢,这个就是apply的神奇之处.</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>分析: Person.apply(this,arguments);</p>
+<ul>
+<li>this:在创建对象在这个时候代表的是student</li>
+<li>arguments:是一个数组,也就是[“qian”,”21”,”一年级”];<br>也就是通俗一点讲就是:用student去执行Person这个类里面的内容,在Person这个类里面存在this.name等之类的语句,这样就将属性创建到了student对象里面</li>
+</ul>
+<h4 id="call示例"><a href="#call示例" class="headerlink" title="call示例"></a>call示例</h4><p>在Studen函数里面可以将apply中修改成如下:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person.call(this,name,age);</span><br></pre></td></tr></table></figure></p>
+<h4 id="什么情况下用apply-什么情况下用call"><a href="#什么情况下用apply-什么情况下用call" class="headerlink" title="什么情况下用apply,什么情况下用call"></a>什么情况下用apply,什么情况下用call</h4><p>在给对象参数的情况下,如果参数的形式是数组的时候,比如apply示例里面传递了参数arguments,这个参数是数组类型,并且在调用Person的时候参数的列表是对应一致的(也就是Person和Student的参数列表前两位是一致的) 就可以采用 apply , 如果我的Person的参数列表是这样的(age,name),而Student的参数列表是(name,age,grade),这样就可以用call来实现了,也就是直接指定参数列表对应值的位置(Person.call(this,age,name,grade));</p>
+<h4 id="apply的一些其他巧妙用法"><a href="#apply的一些其他巧妙用法" class="headerlink" title="apply的一些其他巧妙用法"></a>apply的一些其他巧妙用法</h4><p>细心的人可能已经察觉到,在我调用apply方法的时候,第一个参数是对象(this), 第二个参数是一个数组集合, 在调用Person的时候,他需要的不是一个数组,但是为什么他给我一个数组我仍然可以将数组解析为一个一个的参数,这个就是apply的一个巧妙的用处,可以将一个数组默认的转换为一个参数列表([param1,param2,param3] 转换为 param1,param2,param3) 这个如果让我们用程序来实现将数组的每一个项,来装换为参数的列表,可能都得费一会功夫,借助apply的这点特性,所以就有了以下高效率的方法:</p>
+<p>a) Math.max 可以实现得到数组中最大的一项</p>
+<p>因为Math.max参数里面不支持Math.max([param1,param2])也就是数组但是它支持Math.max(param1,param2,param3…),所以可以根据刚才apply的那个特点来解决 var max=Math.max.apply(null,array),这样轻易的可以得到一个数组中最大的一项(apply会将一个数组装换为一个参数接一个参数的传递给方法)<br>这块在调用的时候第一个参数给了一个null,这个是因为没有对象去调用这个方法,我只需要用这个方法帮我运算,得到返回的结果就行,.所以直接传递了一个null过去</p>
+<p>b) Math.min  可以实现得到数组中最小的一项同样和 max是一个思想 var min=Math.min.apply(null,array);</p>
+<p>c) Array.prototype.push 可以实现两个数组合并</p>
+<p>同样push方法没有提供push一个数组,但是它提供了push(param1,param,…paramN) 所以同样也可以通过apply来装换一下这个数组,即:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vararr1=new Array(<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>);</span><br><span class="line">vararr2=new Array(<span class="string">"4"</span>,<span class="string">"5"</span>,<span class="string">"6"</span>);</span><br><span class="line">Array.prototype.push.apply(arr1,arr2);</span><br></pre></td></tr></table></figure></p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/11/apply-and-bind/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/10/node3/">
+                        node基础(三)
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-10T09:41:11.000Z">
+                            2019-08-10
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+                </div>
+                
+                    <h3 id="什么是node-js"><a href="#什么是node-js" class="headerlink" title="什么是node.js"></a>什么是node.js</h3><p>编写高性能网络服务器的JS工具包（用js开发服务端程序）<br>单线程、异步、事件驱动<br>特点：快、耗内存</p>
+<h4 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h4><p>express、koa、Hapi、以及express基础上的sails</p>
+<h3 id="node的安装"><a href="#node的安装" class="headerlink" title="node的安装"></a>node的安装</h3><p><a href="http://nodejs.cn/" target="_blank" rel="noopener">http://nodejs.cn/</a><br>是否成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v  </span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure></p>
+<h4 id="第一个hello程序"><a href="#第一个hello程序" class="headerlink" title="第一个hello程序"></a>第一个hello程序</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line">http.createServer(<span class="keyword">function</span>(request,response)&#123;</span><br><span class="line">    response.writeHead(200,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span>&#125;);</span><br><span class="line">    <span class="keyword">if</span> (request.url!==<span class="string">"/favicon.ico"</span>) &#123;   //清除第二次访问</span><br><span class="line">        console.log(<span class="string">'访问'</span>);</span><br><span class="line">        response.write(<span class="string">'hello,world'</span>);</span><br><span class="line">        response.end(<span class="string">'你好，世界'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).listen(8000);</span><br><span class="line">console.log(<span class="string">'Server running at http://localhost:8000/'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="调用函数"><a href="#调用函数" class="headerlink" title="调用函数"></a>调用函数</h3><ul>
+<li>调用本地函数</li>
+<li>调用其他js文件中的函数</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line"> var otherfun = require(<span class="string">"./models/other_func.js"</span>);</span><br><span class="line"> http.createServer(<span class="keyword">function</span>(request,response)&#123;</span><br><span class="line">    response.writeHead(200,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span>&#125;);</span><br><span class="line">    <span class="keyword">if</span> (request.url!==<span class="string">"/favicon.ico"</span>) &#123;</span><br><span class="line">        //fun1(response);</span><br><span class="line">        otherfun.fun2(response);</span><br><span class="line">        otherfun.fun3(response);</span><br><span class="line"></span><br><span class="line">          //用字符串调用对应函数</span><br><span class="line">        // otherfun.fun2(response);</span><br><span class="line">        // otherfun.fun3(response);</span><br><span class="line"></span><br><span class="line">        funname = <span class="string">'fun3'</span>;</span><br><span class="line">        otherfun[funname](response);</span><br><span class="line"></span><br><span class="line">        response.end(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).listen(8000);</span><br><span class="line">console.log(<span class="string">'Server running at http://10.75.68.123:8000/'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> fun1(res)&#123;       // 本文件函数</span><br><span class="line">    console.log(<span class="string">"fun1"</span>);</span><br><span class="line">    res.write(<span class="string">"hello,我是fun1"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于被调用的函数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//只支持一个函数</span><br><span class="line"><span class="keyword">function</span> fun2(res)&#123;</span><br><span class="line">    console.log(<span class="string">"fun2"</span>);</span><br><span class="line">    res.write(<span class="string">"hello,我是fun2"</span>);</span><br><span class="line">&#125;</span><br><span class="line">module.exports = fun2;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    //支持多个函数</span><br><span class="line">module.exports=&#123;</span><br><span class="line">    fun2:<span class="keyword">function</span>(res)&#123;</span><br><span class="line">        console.log(<span class="string">"fun2"</span>);</span><br><span class="line">        res.write(<span class="string">"hello,我是fun2"</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    fun3:<span class="keyword">function</span>(res)&#123;</span><br><span class="line">        console.log(<span class="string">"fun3"</span>);</span><br><span class="line">        res.write(<span class="string">"hello,我是fun3"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="调用模块"><a href="#调用模块" class="headerlink" title="调用模块"></a>调用模块</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> var http = require(<span class="string">'http'</span>);</span><br><span class="line"> // var User = require(<span class="string">"./models/User"</span>);</span><br><span class="line"> var Teacher = require(<span class="string">"./models/Teacher"</span>);</span><br><span class="line"></span><br><span class="line"> http.createServer(<span class="keyword">function</span>(request,response)&#123;</span><br><span class="line">    response.writeHead(200,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span>&#125;);</span><br><span class="line">    <span class="keyword">if</span> (request.url!==<span class="string">"/favicon.ico"</span>) &#123;</span><br><span class="line">        teacher = new Teacher(1,<span class="string">"张三"</span>,20);</span><br><span class="line">        teacher.enter();</span><br><span class="line">        teacher.teach(response);</span><br><span class="line">        // user.id=1;</span><br><span class="line">        // user.name=<span class="string">"张三"</span>;</span><br><span class="line">        // user.age=20;</span><br><span class="line">        // user.enter();</span><br><span class="line">        response.end(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).listen(8000);</span><br><span class="line">console.log(<span class="string">'Server running at http://localhost:8000/'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="路由初步"><a href="#路由初步" class="headerlink" title="路由初步"></a>路由初步</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> var http = require(<span class="string">'http'</span>);</span><br><span class="line"> var url = require(<span class="string">"url"</span>);</span><br><span class="line"> var router = require(<span class="string">"./router"</span>);</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="keyword">function</span>(request,response)&#123;</span><br><span class="line">    response.writeHead(200,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span>&#125;);</span><br><span class="line">    <span class="keyword">if</span> (request.url!==<span class="string">"/favicon.ico"</span>) &#123;</span><br><span class="line">        var pathname=url.parse(request.url).pathname;</span><br><span class="line">        pathname = pathname.replace(/\//,<span class="string">''</span>);   //替换掉前面的<span class="string">"/"</span></span><br><span class="line">        router[pathname](request,response);</span><br><span class="line">        console.log(pathname);</span><br><span class="line">        response.end(<span class="string">''</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).listen(8000);</span><br><span class="line">console.log(<span class="string">'Server running at http://10.75.68.123:8000/'</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="读文件"><a href="#读文件" class="headerlink" title="读文件"></a>读文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">var http = require(<span class="string">'http'</span>);</span><br><span class="line"> var url = require(<span class="string">'url'</span>);</span><br><span class="line"> var router = require(<span class="string">'./router'</span>);</span><br><span class="line"></span><br><span class="line"> // var optfile = require(<span class="string">"./models/optfile"</span>);</span><br><span class="line"></span><br><span class="line"> http.createServer(<span class="keyword">function</span>(request,response)&#123;</span><br><span class="line">    response.writeHead(200,&#123;<span class="string">'Content-Type'</span>: <span class="string">'text/html; charset=utf-8'</span>&#125;);</span><br><span class="line">    <span class="keyword">if</span> (request.url!==<span class="string">"/favicon.ico"</span>) &#123;</span><br><span class="line"></span><br><span class="line">        var pathname=url.parse(request.url).pathname;</span><br><span class="line">        pathname = pathname.replace(/\//,<span class="string">''</span>);   //替换掉前面的<span class="string">"/"</span></span><br><span class="line">        router[pathname](request,response);</span><br><span class="line">        </span><br><span class="line">        /*</span><br><span class="line">        // optfile.readfileSync(<span class="string">'./views/login.html'</span>);</span><br><span class="line">        // optfile.readFile(<span class="string">'./views/login.html'</span>);</span><br><span class="line">        <span class="keyword">function</span> recall(data)&#123;</span><br><span class="line">            response.write(data);</span><br><span class="line">            response.end(<span class="string">'ok'</span>);   //不写则没有http协议尾</span><br><span class="line">        &#125;</span><br><span class="line">        optfile.readFile(<span class="string">'./views/login.html'</span>,recall);</span><br><span class="line">        // optfile.readFile(<span class="string">'C:\inetpub\wwwroot\HN_NTZJS01/index.html'</span>,recall);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">        console.log(<span class="string">"主程序执行完毕"</span>);</span><br><span class="line">        */</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).listen(8000);</span><br><span class="line">console.log(<span class="string">'Server running at http://localhost:8000/'</span>)</span><br></pre></td></tr></table></figure>
+<p>待续。。。</p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/10/node3/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/09/node2/">
+                        node基础(二)
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-09T06:38:25.000Z">
+                            2019-08-09
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+                </div>
+                
+                    <h3 id="Node-js-REPL-交互式解释器"><a href="#Node-js-REPL-交互式解释器" class="headerlink" title="Node.js REPL(交互式解释器)"></a>Node.js REPL(交互式解释器)</h3><p>Node.js REPL(Read Eval Print Loop:交互式解释器) 表示一个电脑的环境，类似 Window 系统的终端或 Unix/Linux shell，我们可以在终端中输入命令，并接收系统的响应。<br>我们可以输入以下命令来启动 Node 的终端：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<p>停止 REPL<br>前面我们已经提到按下两次 ctrl + c 键就能退出 REPL:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ node</span><br><span class="line">&gt;</span><br><span class="line">(^C again to quit)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Node-js-回调函数"><a href="#Node-js-回调函数" class="headerlink" title="Node.js 回调函数"></a>Node.js 回调函数</h3><p>Node.js 异步编程的直接体现就是回调。</p>
+<p>异步编程依托于回调来实现，但不能说使用了回调后程序就异步化了。</p>
+<p>回调函数在完成任务后就会被调用，Node 使用了大量的回调函数，Node 所有 API 都支持回调函数。</p>
+<p>例如，我们可以一边读取文件，一边执行其他命令，在文件读取完成后，我们将文件内容作为回调函数的参数返回。这样在执行代码时就没有阻塞或等待文件 I/O 操作。这就大大提高了 Node.js 的性能，可以处理大量的并发请求。</p>
+<p>回调函数一般作为函数的最后一个参数出现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function foo1(name, age, callback) &#123; &#125;</span><br><span class="line">function foo2(value, callback1, callback2) &#123; &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="阻塞代码实例"><a href="#阻塞代码实例" class="headerlink" title="阻塞代码实例"></a>阻塞代码实例</h4><p>创建一个文件 input.txt ，内容如下：</p>
+<p>菜鸟教程官网地址：<a href="http://www.runoob.com" target="_blank" rel="noopener">www.runoob.com</a><br>创建 main.js 文件, 代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var fs = require(&quot;fs&quot;);</span><br><span class="line"></span><br><span class="line">var data = fs.readFileSync(&apos;input.txt&apos;);</span><br><span class="line"></span><br><span class="line">console.log(data.toString());</span><br><span class="line">console.log(&quot;程序执行结束!&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>以上代码执行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ node main.js</span><br><span class="line">菜鸟教程官网地址：www.runoob.com</span><br><span class="line"></span><br><span class="line">程序执行结束!</span><br></pre></td></tr></table></figure></p>
+<p>非阻塞代码实例<br>创建一个文件 input.txt ，内容如下：</p>
+<p>菜鸟教程官网地址：<a href="http://www.runoob.com" target="_blank" rel="noopener">www.runoob.com</a><br>创建 main.js 文件, 代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var fs = require(&quot;fs&quot;);</span><br><span class="line"></span><br><span class="line">fs.readFile(&apos;input.txt&apos;, function (err, data) &#123;</span><br><span class="line">    if (err) return console.error(err);</span><br><span class="line">    console.log(data.toString());</span><br><span class="line">&#125;);</span><br><span class="line">console.log(&quot;程序执行结束!&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>以上代码执行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node main.js</span><br><span class="line">程序执行结束!</span><br><span class="line">菜鸟教程官网地址：www.runoob.com</span><br></pre></td></tr></table></figure></p>
+<p>以上两个实例我们了解了阻塞与非阻塞调用的不同。第一个实例在文件读取完后才执行完程序。 第二个实例我们不需要等待文件读取完，这样就可以在读取文件时同时执行接下来的代码，大大提高了程序的性能。</p>
+<p>因此，阻塞是按顺序执行的，而非阻塞是不需要按顺序的，所以如果需要处理回调函数的参数，我们就需要写在回调函数内。</p>
+<h3 id="Node-js-事件循环"><a href="#Node-js-事件循环" class="headerlink" title="Node.js 事件循环"></a>Node.js 事件循环</h3><p>Node.js 是单进程单线程应用程序，但是因为 V8 引擎提供的异步执行回调接口，通过这些接口可以处理大量的并发，所以性能非常高。</p>
+<p>Node.js 几乎每一个 API 都是支持回调函数的。</p>
+<p>Node.js 基本上所有的事件机制都是用设计模式中观察者模式实现。</p>
+<p>Node.js 单线程类似进入一个while(true)的事件循环，直到没有事件观察者退出，每个异步事件都生成一个事件观察者，如果有事件发生就调用该回调函数.</p>
+<h4 id="事件驱动程序"><a href="#事件驱动程序" class="headerlink" title="事件驱动程序"></a>事件驱动程序</h4><p>Node.js 使用事件驱动模型，当web server接收到请求，就把它关闭然后进行处理，然后去服务下一个web请求。</p>
+<p>当这个请求完成，它被放回处理队列，当到达队列开头，这个结果被返回给用户。</p>
+<p>这个模型非常高效可扩展性非常强，因为webserver一直接受请求而不等待任何读写操作。（这也被称之为非阻塞式IO或者事件驱动IO）</p>
+<p>在事件驱动模型中，会生成一个主循环来监听事件，当检测到事件时触发回调函数。<br><img src="/2019/08/09/node2/event_loop.jpg" alt="event_loop.jpg"><br>整个事件驱动的流程就是这么实现的，非常简洁。有点类似于观察者模式，事件相当于一个主题(Subject)，而所有注册到这个事件上的处理函数相当于观察者(Observer)。</p>
+<p>Node.js 有多个内置的事件，我们可以通过引入 events 模块，并通过实例化 EventEmitter 类来绑定和监听事件，如下实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 引入 events 模块</span><br><span class="line">var events = require(&apos;events&apos;);</span><br><span class="line">// 创建 eventEmitter 对象</span><br><span class="line">var eventEmitter = new events.EventEmitter();</span><br></pre></td></tr></table></figure></p>
+<p>下程序绑定事件处理程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 绑定事件及事件的处理程序</span><br><span class="line">eventEmitter.on(&apos;eventName&apos;, eventHandler);</span><br></pre></td></tr></table></figure></p>
+<p>我们可以通过程序触发事件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 触发事件</span><br><span class="line">eventEmitter.emit(&apos;eventName&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>实例<br>创建 main.js 文件，代码如下所示：</p>
+<p>实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 引入 events 模块</span><br><span class="line">var events = require(&apos;events&apos;);</span><br><span class="line">// 创建 eventEmitter 对象</span><br><span class="line">var eventEmitter = new events.EventEmitter();</span><br><span class="line"> </span><br><span class="line">// 创建事件处理程序</span><br><span class="line">var connectHandler = function connected() &#123;</span><br><span class="line">   console.log(&apos;连接成功。&apos;);</span><br><span class="line">  </span><br><span class="line">   // 触发 data_received 事件 </span><br><span class="line">   eventEmitter.emit(&apos;data_received&apos;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">// 绑定 connection 事件处理程序</span><br><span class="line">eventEmitter.on(&apos;connection&apos;, connectHandler);</span><br><span class="line"> </span><br><span class="line">// 使用匿名函数绑定 data_received 事件</span><br><span class="line">eventEmitter.on(&apos;data_received&apos;, function()&#123;</span><br><span class="line">   console.log(&apos;数据接收成功。&apos;);</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">// 触发 connection 事件 </span><br><span class="line">eventEmitter.emit(&apos;connection&apos;);</span><br><span class="line"> </span><br><span class="line">console.log(&quot;程序执行完毕。&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>接下来让我们执行以上代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ node main.js</span><br><span class="line">连接成功。</span><br><span class="line">数据接收成功。</span><br><span class="line">程序执行完毕。</span><br></pre></td></tr></table></figure></p>
+<h3 id="Node-js-EventEmitter"><a href="#Node-js-EventEmitter" class="headerlink" title="Node.js EventEmitter"></a>Node.js EventEmitter</h3><p>Node.js 所有的异步 I/O 操作在完成时都会发送一个事件到事件队列。</p>
+<p>Node.js 里面的许多对象都会分发事件：一个 net.Server 对象会在每次有新连接时触发一个事件， 一个 fs.readStream 对象会在文件被打开的时候触发一个事件。 所有这些产生事件的对象都是 events.EventEmitter 的实例。</p>
+<h4 id="EventEmitter-类"><a href="#EventEmitter-类" class="headerlink" title="EventEmitter 类"></a>EventEmitter 类</h4><p>events 模块只提供了一个对象： events.EventEmitter。EventEmitter 的核心就是事件触发与事件监听器功能的封装。</p>
+<p>你可以通过require(“events”);来访问该模块。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 引入 events 模块</span><br><span class="line">var events = require(&apos;events&apos;);</span><br><span class="line">// 创建 eventEmitter 对象</span><br><span class="line">var eventEmitter = new events.EventEmitter();</span><br></pre></td></tr></table></figure></p>
+<p>EventEmitter 对象如果在实例化时发生错误，会触发 error 事件。当添加新的监听器时，newListener 事件会触发，当监听器被移除时，removeListener 事件被触发。</p>
+<p>下面我们用一个简单的例子说明 EventEmitter 的用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//event.js 文件</span><br><span class="line">var EventEmitter = require(&apos;events&apos;).EventEmitter; </span><br><span class="line">var event = new EventEmitter(); </span><br><span class="line">event.on(&apos;some_event&apos;, function() &#123; </span><br><span class="line">    console.log(&apos;some_event 事件触发&apos;); </span><br><span class="line">&#125;); </span><br><span class="line">setTimeout(function() &#123; </span><br><span class="line">    event.emit(&apos;some_event&apos;); </span><br><span class="line">&#125;, 1000);</span><br></pre></td></tr></table></figure></p>
+<p>执行结果如下：</p>
+<p>运行这段代码，1 秒后控制台输出了 ‘some_event 事件触发’。其原理是 event 对象注册了事件 some_event 的一个监听器，然后我们通过 setTimeout 在 1000 毫秒以后向 event 对象发送事件 some_event，此时会调用some_event 的监听器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node event.js </span><br><span class="line">some_event 事件触发</span><br></pre></td></tr></table></figure></p>
+<p>EventEmitter 的每个事件由一个事件名和若干个参数组成，事件名是一个字符串，通常表达一定的语义。对于每个事件，EventEmitter 支持 若干个事件监听器。</p>
+<p>当事件触发时，注册到这个事件的事件监听器被依次调用，事件参数作为回调函数参数传递。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//event.js 文件</span><br><span class="line">var events = require(&apos;events&apos;); </span><br><span class="line">var emitter = new events.EventEmitter(); </span><br><span class="line">emitter.on(&apos;someEvent&apos;, function(arg1, arg2) &#123; </span><br><span class="line">    console.log(&apos;listener1&apos;, arg1, arg2); </span><br><span class="line">&#125;); </span><br><span class="line">emitter.on(&apos;someEvent&apos;, function(arg1, arg2) &#123; </span><br><span class="line">    console.log(&apos;listener2&apos;, arg1, arg2); </span><br><span class="line">&#125;); </span><br><span class="line">emitter.emit(&apos;someEvent&apos;, &apos;arg1 参数&apos;, &apos;arg2 参数&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>执行以上代码，运行的结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ node event.js </span><br><span class="line">listener1 arg1 参数 arg2 参数</span><br><span class="line">listener2 arg1 参数 arg2 参数</span><br></pre></td></tr></table></figure></p>
+<p>以上例子中，emitter 为事件 someEvent 注册了两个事件监听器，然后触发了 someEvent 事件。</p>
+<p>运行结果中可以看到两个事件监听器回调函数被先后调用。 这就是EventEmitter最简单的用法。</p>
+<p>EventEmitter 提供了多个属性，如 on 和 emit。on 函数用于绑定事件函数，emit 属性用于触发一个事件。接下来我们来具体看下 EventEmitter 的属性介绍。</p>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4>
+                
+                <div class="readmore">
+                    <a href="/2019/08/09/node2/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/08/node1/">
+                        node基础(一)
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-08T03:09:06.000Z">
+                            2019-08-08
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+                </div>
+                
+                    <p><font color="red">JavaScript的后端开发</font><br>在Node上运行的JavaScript相比其他后端开发语言有何优势？<br>最大的优势是借助JavaScript天生的事件驱动机制加V8高性能引擎，使编写高性能Web服务轻而易举</p>
+<h3 id="安装Node-js和npm"><a href="#安装Node-js和npm" class="headerlink" title="安装Node.js和npm"></a>安装Node.js和npm</h3><p>由于Node.js平台是在后端运行JavaScript代码，所以，必须首先在本机安装Node环境。</p>
+<h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4><p>从Node.js官网下载对应平台的安装程序<br>安装完成后，在Windows环境下，请打开命令提示符，然后输入node -v，如果安装正常，你应该看到v7.6.0这样的输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\IEUser&gt;node -v</span><br><span class="line">v7.6.0</span><br></pre></td></tr></table></figure></p>
+<h4 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h4><p>在正式开始Node.js学习之前，我们先认识一下npm。</p>
+<p>npm是什么东东？npm其实是Node.js的包管理工具（package manager）。</p>
+<p>为啥我们需要一个包管理工具呢？因为我们在Node.js上开发时，会用到很多别人写的JavaScript代码。如果我们要使用别人写的某个包，每次都根据名称搜索一下官方网站，下载代码，解压，再使用，非常繁琐。于是一个集中管理的工具应运而生：大家都把自己开发的模块打包后放到npm官网上，如果要使用，直接通过npm安装就可以直接用，不用管代码存在哪，应该从哪下载。</p>
+<p>更重要的是，如果我们要使用模块A，而模块A又依赖于模块B，模块B又依赖于模块X和模块Y，npm可以根据依赖关系，把所有依赖的包都下载下来并管理起来。否则，靠我们自己手动管理，肯定既麻烦又容易出错。</p>
+<p>讲了这么多，npm究竟在哪？</p>
+<p>其实npm已经在Node.js安装的时候顺带装好了。我们在命令提示符或者终端输入npm -v，应该看到类似的输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt;npm -v</span><br><span class="line">4.1.2</span><br></pre></td></tr></table></figure></p>
+<p>如果直接输入npm，你会看到类似下面的输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt; npm</span><br><span class="line"></span><br><span class="line">Usage: npm &lt;command&gt;</span><br><span class="line"></span><br><span class="line">where &lt;command&gt; is one of:</span><br></pre></td></tr></table></figure></p>
+<h5 id="卸载模块"><a href="#卸载模块" class="headerlink" title="卸载模块"></a>卸载模块</h5><p>我们可以使用以下命令来卸载 Node.js 模块。</p>
+<p>$ npm uninstall express<br>卸载后，你可以到 /node_modules/ 目录下查看包是否还存在，或者使用以下命令查看：</p>
+<p>$ npm ls</p>
+<h5 id="更新模块"><a href="#更新模块" class="headerlink" title="更新模块"></a>更新模块</h5><p>我们可以使用以下命令更新模块：</p>
+<p>$ npm update express</p>
+<h5 id="搜索模块"><a href="#搜索模块" class="headerlink" title="搜索模块"></a>搜索模块</h5><p>使用以下来搜索模块：<br>$ npm search express</p>
+<h5 id="NPM-常用命令"><a href="#NPM-常用命令" class="headerlink" title="NPM 常用命令"></a>NPM 常用命令</h5><ul>
+<li>NPM提供了很多命令，例如install和publish，使用npm help可查看所有命令。</li>
+<li>使用npm help <command>可查看某条命令的详细帮助，例如npm help install。</li>
+<li>在package.json所在目录下使用npm install . -g可先在本地安装当前命令行程序，可用于发布前的本地测试。</li>
+<li>使用npm update <package>可以把当前目录下node_modules子目录里边的对应模块更新至最新版本。</package></li>
+<li>使用npm update <package> -g可以把全局安装的对应命令行程序更新至最新版。</package></li>
+<li>使用npm cache clear可以清空NPM本地缓存，用于对付使用相同版本号发布新版本代码的人。</li>
+<li>使用npm unpublish <package>@<version>可以撤销发布自己发布过的某个版本代码。</version></package></li>
+</ul>
+<p>使用淘宝 NPM 镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以使用 cnpm 命令来安装模块了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cnpm install [name]</span><br></pre></td></tr></table></figure></p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>请在本机安装Node.js环境，并确保node和npm能正常运行。</p>
+<h3 id="第一个Node程序"><a href="#第一个Node程序" class="headerlink" title="第一个Node程序"></a>第一个Node程序</h3><p>用文本编辑器写JavaScript程序，然后保存为后缀为.js的文件，就可以用node直接运行这个程序了。</p>
+<p>Node的交互模式和直接运行.js文件有什么区别呢？</p>
+<p>直接输入node进入交互模式，相当于启动了Node解释器，但是等待你一行一行地输入源代码，每输入一行就执行一行。</p>
+<p>直接运行node hello.js文件相当于启动了Node解释器，然后一次性把hello.js文件的源代码给执行了，你是没有机会以交互的方式输入源代码的。</p>
+<p>在编写JavaScript代码的时候，完全可以一边在文本编辑器里写代码，一边开一个Node交互式命令窗口，在写代码的过程中，把部分代码粘到命令行去验证，事半功倍！前提是得有个27’的超大显示器！</p>
+<h3 id="搭建Node开发环境"><a href="#搭建Node开发环境" class="headerlink" title="搭建Node开发环境"></a>搭建Node开发环境</h3><p>使用文本编辑器来开发Node程序，最大的缺点是效率太低，运行Node程序还需要在命令行单独敲命令。如果还需要调试程序，就更加麻烦了。</p>
+<p>所以我们需要一个IDE集成开发环境，让我们能在一个环境里编码、运行、调试，这样就可以大大提升开发效率。</p>
+<p>Java的集成开发环境有Eclipse，Intellij idea等，C#的集成开发环境有Visual Studio，那么问题又来了：Node.js的集成开发环境到底哪家强？</p>
+<p>考察Node.js的集成开发环境，重点放在启动速度快，执行简单，调试方便这三点上。当然，免费使用是一个加分项。</p>
+<p>综合考察后，我们隆重向大家推荐Node.js集成开发环境： vscode<br>Visual Studio Code由微软出品，但它不是那个大块头的Visual Studio，它是一个精简版的迷你Visual Studio，并且，Visual Studio Code可以跨！平！台！Windows、Mac和Linux通用。</p>
+<p>运行和调试JavaScript<br>在VS Code中，我们可以非常方便地运行JavaScript文件。</p>
+<p>VS Code以文件夹作为工程目录（Workspace Dir），所有的JavaScript文件都存放在该目录下。此外，VS Code在工程目录下还需要一个.vscode的配置目录，里面存放里VS Code需要的配置文件。</p>
+<p>假设我们在C:\Work\目录下创建了一个hello目录作为工程目录，并编写了一个hello.js文件，则该工程目录的结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hello/ &lt;-- workspace dir</span><br><span class="line">|</span><br><span class="line">+- hello.js &lt;-- JavaScript file</span><br><span class="line">|</span><br><span class="line">+- .vscode/  &lt;-- VS Code config</span><br><span class="line">   |</span><br><span class="line">   +- launch.json &lt;-- VS Code config file for JavaScript</span><br></pre></td></tr></table></figure></p>
+<p>可以用VS Code快速创建launch.json，然后修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Run hello.js&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;node&quot;,</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;program&quot;: &quot;$&#123;workspaceRoot&#125;/hello.js&quot;,</span><br><span class="line">            &quot;stopOnEntry&quot;: false,</span><br><span class="line">            &quot;args&quot;: [],</span><br><span class="line">            &quot;cwd&quot;: &quot;$&#123;workspaceRoot&#125;&quot;,</span><br><span class="line">            &quot;preLaunchTask&quot;: null,</span><br><span class="line">            &quot;runtimeExecutable&quot;: null,</span><br><span class="line">            &quot;runtimeArgs&quot;: [</span><br><span class="line">                &quot;--nolazy&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;env&quot;: &#123;</span><br><span class="line">                &quot;NODE_ENV&quot;: &quot;development&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;externalConsole&quot;: false,</span><br><span class="line">            &quot;sourceMaps&quot;: false,</span><br><span class="line">            &quot;outDir&quot;: null</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有了配置文件，即可使用VS Code调试JavaScript。</p>
+<h3 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h3><p>在计算机程序的开发过程中，随着程序代码越写越多，在一个文件里代码就会越来越长，越来越不容易维护。</p>
+<p>为了编写可维护的代码，我们把很多函数分组，分别放到不同的文件里，这样，每个文件包含的代码就相对较少，很多编程语言都采用这种组织代码的方式。在Node环境中，一个.js文件就称之为一个模块（module）。</p>
+<p>使用模块有什么好处？</p>
+<p>最大的好处是大大提高了代码的可维护性。其次，编写代码不必从零开始。当一个模块编写完毕，就可以被其他地方引用。我们在编写程序的时候，也经常引用其他模块，包括Node内置的模块和来自第三方的模块。</p>
+<p>使用模块还可以避免函数名和变量名冲突。相同名字的函数和变量完全可以分别存在不同的模块中，因此，我们自己在编写模块时，不必考虑名字会与其他模块冲突。</p>
+<p>在上一节，我们编写了一个hello.js文件，这个hello.js文件就是一个模块，模块的名字就是文件名（去掉.js后缀），所以hello.js文件就是名为hello的模块。</p>
+<p>我们把hello.js改造一下，创建一个函数，这样我们就可以在其他地方调用这个函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos;;</span><br><span class="line"></span><br><span class="line">var s = &apos;Hello&apos;;</span><br><span class="line"></span><br><span class="line">function greet(name) &#123;</span><br><span class="line">    console.log(s + &apos;, &apos; + name + &apos;!&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = greet;</span><br></pre></td></tr></table></figure></p>
+<p>函数greet()是我们在hello模块中定义的，你可能注意到最后一行是一个奇怪的赋值语句，它的意思是，把函数greet作为模块的输出暴露出去，这样其他模块就可以使用greet函数了。</p>
+<p>问题是其他模块怎么使用hello模块的这个greet函数呢？我们再编写一个main.js文件，调用hello模块的greet函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos;;</span><br><span class="line"></span><br><span class="line">// 引入hello模块:</span><br><span class="line">var greet = require(&apos;./hello&apos;);</span><br><span class="line"></span><br><span class="line">var s = &apos;Michael&apos;;</span><br><span class="line"></span><br><span class="line">greet(s); // Hello, Michael!</span><br></pre></td></tr></table></figure></p>
+<p>注意到引入hello模块用Node提供的require函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var greet = require(&apos;./hello&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>引入的模块作为变量保存在greet变量中，那greet变量到底是什么东西？其实变量greet就是在hello.js中我们用module.exports = greet;输出的greet函数。所以，main.js就成功地引用了hello.js模块中定义的greet()函数，接下来就可以直接使用它了。</p>
+<p>在使用require()引入模块的时候，请注意模块的相对路径。因为main.js和hello.js位于同一个目录，所以我们用了当前目录.：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var greet = require(&apos;./hello&apos;); // 不要忘了写相对目录!</span><br></pre></td></tr></table></figure></p>
+<p>如果只写模块名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var greet = require(&apos;hello&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>则Node会依次在内置模块、全局模块和当前模块下查找hello.js，你很可能会得到一个错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">module.js</span><br><span class="line">    throw err;</span><br><span class="line">          ^</span><br><span class="line">Error: Cannot find module &apos;hello&apos;</span><br><span class="line">    at Function.Module._resolveFilename</span><br><span class="line">    at Function.Module._load</span><br><span class="line">    ...</span><br><span class="line">    at Function.Module._load</span><br><span class="line">    at Function.Module.runMain</span><br></pre></td></tr></table></figure></p>
+<p>遇到这个错误，你要检查：</p>
+<ul>
+<li>模块名是否写对了；</li>
+<li>模块文件是否存在；</li>
+<li>相对路径是否写对了。</li>
+</ul>
+<h4 id="CommonJS规范"><a href="#CommonJS规范" class="headerlink" title="CommonJS规范"></a>CommonJS规范</h4><p>这种模块加载机制被称为CommonJS规范。在这个规范下，每个.js文件都是一个模块，它们内部各自使用的变量名和函数名都互不冲突，例如，hello.js和main.js都申明了全局变量var s = ‘xxx’，但互不影响。</p>
+<p>一个模块想要对外暴露变量（函数也是变量），可以用module.exports = variable;，一个模块要引用其他模块暴露的变量，用var ref = require(‘module_name’);就拿到了引用模块的变量。</p>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>要在模块中对外输出变量，用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module.exports = variable;</span><br></pre></td></tr></table></figure></p>
+<p>输出的变量可以是任意对象、函数、数组等等。</p>
+<p>要引入其他模块输出的对象，用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var foo = require(&apos;other_module&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>引入的对象具体是什么，取决于引入模块输出的对象。</p>
+<h4 id="module-exports-vs-exports"><a href="#module-exports-vs-exports" class="headerlink" title="module.exports vs exports"></a>module.exports vs exports</h4><p>很多时候，你会看到，在Node环境中，有两种方法可以在一个模块中输出变量：</p>
+<p>方法一：对module.exports赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// hello.js</span><br><span class="line"></span><br><span class="line">function hello() &#123;</span><br><span class="line">    console.log(&apos;Hello, world!&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function greet(name) &#123;</span><br><span class="line">    console.log(&apos;Hello, &apos; + name + &apos;!&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">    hello: hello,</span><br><span class="line">    greet: greet</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>方法二：直接使用exports：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// hello.js</span><br><span class="line"></span><br><span class="line">function hello() &#123;</span><br><span class="line">    console.log(&apos;Hello, world!&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function greet(name) &#123;</span><br><span class="line">    console.log(&apos;Hello, &apos; + name + &apos;!&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function hello() &#123;</span><br><span class="line">    console.log(&apos;Hello, world!&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exports.hello = hello;</span><br><span class="line">exports.greet = greet;</span><br></pre></td></tr></table></figure></p>
+<p>但是你不可以直接对exports赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 代码可以执行，但是模块并没有输出任何变量:</span><br><span class="line">exports = &#123;</span><br><span class="line">    hello: hello,</span><br><span class="line">    greet: greet</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/08/node1/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/07/WebSocket/">
+                        WebSocket
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-07T12:42:20.000Z">
+                            2019-08-07
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <h3 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h3><p>WebSocket是HTML5新增的协议，它的目的是在浏览器和服务器之间建立一个不受限的双向通信的通道，比如说，服务器可以在任意时刻发送消息给浏览器。</p>
+<p>WebSocket 是 HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议。</p>
+<p>WebSocket使得客户端和服务器之间的数据交换变得更加简单，允许服务端主动向客户端推送数据。在 WebSocket API 中，浏览器和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输。</p>
+<p>在 WebSocket API 中，浏览器和服务器只需要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。</p>
+<p>现在，很多网站为了实现推送技术，所用的技术都是 Ajax 轮询。轮询是在特定的的时间间隔（如每1秒），由浏览器对服务器发出HTTP请求，然后由服务器返回最新的数据给客户端的浏览器。这种传统的模式带来很明显的缺点，即浏览器需要不断的向服务器发出请求，然而HTTP请求可能包含较长的头部，其中真正有效的数据可能只是很小的一部分，显然这样会浪费很多的带宽等资源。</p>
+<p>HTML5 定义的 WebSocket 协议，能更好的节省服务器资源和带宽，并且能够更实时地进行通讯。<br><img src="/2019/08/07/WebSocket/01.png" alt="01.png"><br>浏览器通过 JavaScript 向服务器发出建立 WebSocket 连接的请求，连接建立以后，客户端和服务器端就可以通过 TCP 连接直接交换数据。</p>
+<p>当你获取 Web Socket 连接后，你可以通过 send() 方法来向服务器发送数据，并通过 onmessage 事件来接收服务器返回的数据。</p>
+<p>以下 API 用于创建 WebSocket 对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var Socket = new WebSocket(url, [protocol] );</span><br></pre></td></tr></table></figure></p>
+<p>以上代码中的第一个参数 url, 指定连接的 URL。第二个参数 protocol 是可选的，指定了可接受的子协议。</p>
+<h3 id="WebSocket-属性"><a href="#WebSocket-属性" class="headerlink" title="WebSocket 属性"></a>WebSocket 属性</h3><p>以下是 WebSocket 对象的属性。假定我们使用了以上代码创建了 Socket 对象：<br><img src="/2019/08/07/WebSocket/02.png" alt="02.png"></p>
+<h3 id="WebSocket-事件"><a href="#WebSocket-事件" class="headerlink" title="WebSocket 事件"></a>WebSocket 事件</h3><p>以下是 WebSocket 对象的相关事件。假定我们使用了以上代码创建了 Socket 对象：<br><img src="/2019/08/07/WebSocket/03.png" alt="03.png"></p>
+<h3 id="WebSocket-方法"><a href="#WebSocket-方法" class="headerlink" title="WebSocket 方法"></a>WebSocket 方法</h3><p>以下是 WebSocket 对象的相关方法。假定我们使用了以上代码创建了 Socket 对象：<br><img src="/2019/08/07/WebSocket/04.png" alt="04.png"></p>
+<p>WebSocket 协议本质上是一个基于 TCP 的协议。</p>
+<p>为了建立一个 WebSocket 连接，客户端浏览器首先要向服务器发起一个 HTTP 请求，这个请求和通常的 HTTP 请求不同，包含了一些附加头信息，其中附加头信息”Upgrade: WebSocket”表明这是一个申请协议升级的 HTTP 请求，服务器端解析这些附加的头信息然后产生应答信息返回给客户端，客户端和服务器端的 WebSocket 连接就建立起来了，双方就可以通过这个连接通道自由的传递信息，并且这个连接会持续存在直到客户端或者服务器端的某一方主动的关闭连接。</p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/07/WebSocket/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/07/python基础4/">
+                        python基础(四)
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-07T12:04:14.000Z">
+                            2019-08-07
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/python/">python</a></li></ul>
+                </div>
+                
+                    <h2 id="Python-模块"><a href="#Python-模块" class="headerlink" title="Python 模块"></a>Python 模块</h2><p>Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。</p>
+<p>模块让你能够有逻辑地组织你的 Python 代码段。</p>
+<p>把相关的代码分配到一个模块里能让你的代码更好用，更易懂。</p>
+<p>模块能定义函数，类和变量，模块里也能包含可执行的代码。<br>下例是个简单的模块 support.py：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def print_func( par ):</span><br><span class="line">   print &quot;Hello : &quot;, par</span><br><span class="line">   return</span><br></pre></td></tr></table></figure></p>
+<p>import 语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import module1[, module2[,... moduleN]]</span><br></pre></td></tr></table></figure></p>
+<p>比如要引用模块 math，就可以在文件最开始的地方用 import math 来引入。在调用 math 模块中的函数时，必须这样引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">模块名.函数名</span><br></pre></td></tr></table></figure></p>
+<p>当解释器遇到 import 语句，如果模块在当前的搜索路径就会被导入。</p>
+<p>搜索路径是一个解释器会先进行搜索的所有目录的列表。如想要导入模块 support.py，需要把命令放在脚本的顶端：</p>
+<p>test.py 文件代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line"># 导入模块</span><br><span class="line">import support</span><br><span class="line"> </span><br><span class="line"># 现在可以调用模块里包含的函数了</span><br><span class="line">support.print_func(&quot;Runoob&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>from…import 语句<br>Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from modname import name1[, name2[, ... nameN]]</span><br></pre></td></tr></table></figure></p>
+<p>例如，要导入模块 fib 的 fibonacci 函数，使用如下语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from fib import fibonacci</span><br></pre></td></tr></table></figure></p>
+<p>from…import* 语句<br>把一个模块的所有内容全都导入到当前的命名空间也是可行的，只需使用如下声明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from modname import *</span><br></pre></td></tr></table></figure></p>
+<p>dir()函数<br>dir() 函数一个排好序的字符串列表，内容是一个模块里定义过的名字。</p>
+<p>返回的列表容纳了在一个模块里定义的所有模块，变量和函数。如下一个简单的实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line"># 导入内置math模块</span><br><span class="line">import math</span><br><span class="line"> </span><br><span class="line">content = dir(math)</span><br><span class="line"> </span><br><span class="line">print content;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Python-文件I-O"><a href="#Python-文件I-O" class="headerlink" title="Python 文件I/O"></a>Python 文件I/O</h2><h3 id="打印到屏幕"><a href="#打印到屏幕" class="headerlink" title="打印到屏幕"></a>打印到屏幕</h3><p>最简单的输出方法是用print语句，你可以给它传递零个或多个用逗号隔开的表达式。此函数把你传递的表达式转换成一个字符串表达式，并将结果写到标准输出如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*- </span><br><span class="line"></span><br><span class="line">print &quot;Python 是一个非常棒的语言，不是吗？&quot;</span><br></pre></td></tr></table></figure></p>
+<p>读取键盘输入<br>Python提供了两个内置函数从标准输入读入一行文本，默认的标准输入是键盘。如下：</p>
+<ul>
+<li>raw_input</li>
+<li>input</li>
+</ul>
+<p>打开和关闭文件<br>open 函数<br>你必须先用Python内置的open()函数打开一个文件，创建一个file对象，相关的方法才可以调用它进行读写。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file object = open(file_name [, access_mode][, buffering])</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>file_name：file_name变量是一个包含了你要访问的文件名称的字符串值。</li>
+<li>access_mode：access_mode决定了打开文件的模式：只读，写入，追加等。所有可取值见如下的完全列表。这个参数是非强制的，默认文件访问模式为只读(r)。</li>
+<li>buffering:如果buffering的值被设为0，就不会有寄存。如果buffering的值取1，访问文件时会寄存行。如果将buffering的值设为大于1的整数，表明了这就是的寄存区的缓冲大小。如果取负值，寄存区的缓冲大小则为系统默认。</li>
+</ul>
+<p><img src="/2019/08/07/python基础4/01.png" alt="01.png"><br><img src="/2019/08/07/python基础4/02.png" alt="02.png"></p>
+<p>write()方法<br>write()方法可将任何字符串写入一个打开的文件。需要重点注意的是，Python字符串可以是二进制数据，而不是仅仅是文字。</p>
+<p>write()方法不会在字符串的结尾添加换行符(‘\n’)</p>
+<p>read()方法<br>read（）方法从一个打开的文件中读取一个字符串。需要重点注意的是，Python字符串可以是二进制数据，而不是仅仅是文字。</p>
+<p>remove()方法<br>你可以用remove()方法删除文件，需要提供要删除的文件名作为参数</p>
+<p>tell()方法,seek（offset [,from]）<br>文件定位</p>
+<p>重命名和删除文件</p>
+<p>Python的os模块提供了帮你执行文件处理操作的方法，比如重命名和删除文件。<br>要使用这个模块，你必须先导入它，然后才可以调用相关的各种功能。<br>rename()方法：<br>rename()方法需要两个参数，当前的文件名和新文件名。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.rename(current_file_name, new_file_name)</span><br></pre></td></tr></table></figure>
+<p>下例将重命名一个已经存在的文件test1.txt。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line"> </span><br><span class="line"># 重命名文件test1.txt到test2.txt。</span><br><span class="line">os.rename( &quot;test1.txt&quot;, &quot;test2.txt&quot; )</span><br></pre></td></tr></table></figure></p>
+<p>remove()方法<br>你可以用remove()方法删除文件，需要提供要删除的文件名作为参数。<br>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os.remove(file_name)</span><br></pre></td></tr></table></figure></p>
+<p>例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line"> </span><br><span class="line"># 删除一个已经存在的文件test2.txt</span><br><span class="line">os.remove(&quot;test2.txt&quot;)</span><br></pre></td></tr></table></figure></p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/07/python基础4/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/07/python基础3/">
+                        python基础(三)--数据类型
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-07T10:59:42.000Z">
+                            2019-08-07
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/python/">python</a></li></ul>
+                </div>
+                
+                    <h3 id="Python-Number-数字"><a href="#Python-Number-数字" class="headerlink" title="Python Number(数字)"></a>Python Number(数字)</h3><p>Python Number 数据类型用于存储数值。</p>
+<p>数据类型是不允许改变的,这就意味着如果改变 Number 数据类型的值，将重新分配内存空间。</p>
+<p>以下实例在变量赋值时 Number 对象将被创建：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var1 = 1</span><br><span class="line">var2 = 10</span><br></pre></td></tr></table></figure></p>
+<p>Python 支持四种不同的数值类型：</p>
+<ul>
+<li>整型(Int) - 通常被称为是整型或整数，是正或负整数，不带小数点。</li>
+<li>长整型(long integers) - 无限大小的整数，整数最后是一个大写或小写的L。</li>
+<li>浮点型(floating point real values) - 浮点型由整数部分与小数部分组成，浮点型也可以使用科学计数法表示（2.5e2 = 2.5 x 102 = 250）</li>
+<li>复数(complex numbers) - 复数由实数部分和虚数部分构成，可以用a + bj,或者complex(a,b)表示， 复数的实部a和虚部b都是浮点型。</li>
+</ul>
+<h4 id="Python-Number-类型转换"><a href="#Python-Number-类型转换" class="headerlink" title="Python Number 类型转换"></a>Python Number 类型转换</h4><p><img src="/2019/08/07/python基础3/01.png" alt="01.png"></p>
+<h4 id="Python-math-模块、cmath-模块"><a href="#Python-math-模块、cmath-模块" class="headerlink" title="Python math 模块、cmath 模块"></a>Python math 模块、cmath 模块</h4><p>Python 中数学运算常用的函数基本都在 math 模块、cmath 模块中。</p>
+<p>Python math 模块提供了许多对浮点数的数学运算函数。</p>
+<p>Python cmath 模块包含了一些用于复数运算的函数。</p>
+<p>cmath 模块的函数跟 math 模块函数基本一致，区别是 cmath 模块运算的是复数，math 模块运算的是数学运算。</p>
+<p>要使用 math 或 cmath 函数必须先导入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import math</span><br></pre></td></tr></table></figure></p>
+<h4 id="Python数学函数"><a href="#Python数学函数" class="headerlink" title="Python数学函数"></a>Python数学函数</h4><p><img src="/2019/08/07/python基础3/02.png" alt="02.png"></p>
+<h4 id="Python随机数函数"><a href="#Python随机数函数" class="headerlink" title="Python随机数函数"></a>Python随机数函数</h4><p><img src="/2019/08/07/python基础3/03.png" alt="03.png"></p>
+<h4 id="Python三角函数"><a href="#Python三角函数" class="headerlink" title="Python三角函数"></a>Python三角函数</h4><p><img src="/2019/08/07/python基础3/04.png" alt="04.png"></p>
+<h4 id="Python数学常量"><a href="#Python数学常量" class="headerlink" title="Python数学常量"></a>Python数学常量</h4><p><img src="/2019/08/07/python基础3/05.png" alt="05.png"></p>
+<h3 id="Python-字符串"><a href="#Python-字符串" class="headerlink" title="Python 字符串"></a>Python 字符串</h3><p>可以使用引号(‘或”)来创建字符串<br>Python访问字符串中的值<br>Python不支持单字符类型，单字符在 Python 中也是作为一个字符串使用。</p>
+<p>Python访问子字符串，可以使用方括号来截取字符串，如下实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">var1 = &apos;Hello World!&apos;</span><br><span class="line">var2 = &quot;Python Runoob&quot;</span><br><span class="line"> </span><br><span class="line">print &quot;var1[0]: &quot;, var1[0]</span><br><span class="line">print &quot;var2[1:5]: &quot;, var2[1:5]</span><br></pre></td></tr></table></figure></p>
+<p>Python字符串更新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">var1 = &apos;Hello World!&apos;</span><br><span class="line">print &quot;更新字符串 :- &quot;, var1[:6] + &apos;Runoob!&apos;</span><br></pre></td></tr></table></figure></p>
+<p>Python转义字符<br><img src="/2019/08/07/python基础3/06.png" alt="06.png"><br><img src="/2019/08/07/python基础3/07.png" alt="07.png"><br>Python字符串运算符<br><img src="/2019/08/07/python基础3/08.png" alt="08.png"><br>Python 字符串格式化<br><img src="/2019/08/07/python基础3/09.png" alt="09.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line">print &quot;My name is %s and weight is %d kg!&quot; % (&apos;Zara&apos;, 21)</span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">My name is Zara and weight is 21 kg!</span><br></pre></td></tr></table></figure></p>
+<p>Python三引号（triple quotes）</p>
+<p>python中三引号可以将复杂的字符串进行复制:<br>python三引号允许一个字符串跨多行，字符串中可以包含换行符、制表符以及其他特殊字符。<br>三引号的语法是一对连续的单引号或者双引号（通常都是成对的用）。</p>
+<p>Unicode 字符串<br>引号前小写的”u”表示这里创建的是一个 Unicode 字符串。如果你想加入一个特殊字符，可以使用 Python 的 Unicode-Escape 编码。</p>
+<h3 id="Python-列表-List"><a href="#Python-列表-List" class="headerlink" title="Python 列表(List)"></a>Python 列表(List)</h3><p>序列是Python中最基本的数据结构。序列中的每个元素都分配一个数字 - 它的位置，或索引，第一个索引是0，第二个索引是1，依此类推。<br>Python有6个序列的内置类型，但最常见的是列表和元组。<br>序列都可以进行的操作包括索引，切片，加，乘，检查成员。<br>此外，Python已经内置确定序列的长度以及确定最大和最小的元素的方法。<br>列表是最常用的Python数据类型，它可以作为一个方括号内的逗号分隔值出现。<br>列表的数据项不需要具有相同的类型<br>创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list1 = [&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000]</span><br><span class="line">list2 = [1, 2, 3, 4, 5 ]</span><br><span class="line">list3 = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>访问列表中的值<br>使用下标索引来访问列表中的值，同样你也可以使用方括号的形式截取字符，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">list1 = [&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000]</span><br><span class="line">list2 = [1, 2, 3, 4, 5, 6, 7 ]</span><br><span class="line"> </span><br><span class="line">print &quot;list1[0]: &quot;, list1[0]</span><br><span class="line">print &quot;list2[1:5]: &quot;, list2[1:5]</span><br></pre></td></tr></table></figure></p>
+<p>更新列表<br>你可以对列表的数据项进行修改或更新，你也可以使用append()方法来添加列表项，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">list = []          ## 空列表</span><br><span class="line">list.append(&apos;Google&apos;)   ## 使用 append() 添加元素</span><br><span class="line">list.append(&apos;Runoob&apos;)</span><br><span class="line">print list</span><br></pre></td></tr></table></figure></p>
+<p>删除列表元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">list1 = [&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000]</span><br><span class="line"> </span><br><span class="line">print list1</span><br><span class="line">del list1[2]</span><br><span class="line">print &quot;After deleting value at index 2 : &quot;</span><br><span class="line">print list1</span><br></pre></td></tr></table></figure></p>
+<p>Python列表脚本操作符<br>列表对 + 和 <em> 的操作符与字符串相似。+ 号用于组合列表，</em> 号用于重复列表。<br><img src="/2019/08/07/python基础3/10.png" alt="10.png"><br>Python列表截取<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;L = [&apos;Google&apos;, &apos;Runoob&apos;, &apos;Taobao&apos;]</span><br><span class="line">&gt;&gt;&gt; L[2]</span><br><span class="line">&apos;Taobao&apos;</span><br><span class="line">&gt;&gt;&gt; L[-2]</span><br><span class="line">&apos;Runoob&apos;</span><br><span class="line">&gt;&gt;&gt; L[1:]</span><br><span class="line">[&apos;Runoob&apos;, &apos;Taobao&apos;]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/08/07/python基础3/11.png" alt="11.png"><br>Python列表函数&amp;方法<br><img src="/2019/08/07/python基础3/12.png" alt="12.png"><br><img src="/2019/08/07/python基础3/13.png" alt="13.png"></p>
+<h3 id="Python-元组"><a href="#Python-元组" class="headerlink" title="Python 元组"></a>Python 元组</h3><p>Python的元组与列表类似，不同之处在于元组的元素不能修改。<br>元组使用小括号，列表使用方括号。<br>元组创建很简单，只需要在括号中添加元素，并使用逗号隔开即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tup1 = (&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000)</span><br><span class="line">tup2 = (1, 2, 3, 4, 5 )</span><br><span class="line">tup3 = &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;</span><br></pre></td></tr></table></figure></p>
+<p>创建空元组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tup1 = ()</span><br></pre></td></tr></table></figure></p>
+<p>元组中只包含一个元素时，需要在元素后面添加逗号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tup1 = (50,)</span><br></pre></td></tr></table></figure></p>
+<p>访问元组<br>元组可以使用下标索引来访问元组中的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">tup1 = (&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000)</span><br><span class="line">tup2 = (1, 2, 3, 4, 5, 6, 7 )</span><br><span class="line"> </span><br><span class="line">print &quot;tup1[0]: &quot;, tup1[0]</span><br><span class="line">print &quot;tup2[1:5]: &quot;, tup2[1:5]</span><br></pre></td></tr></table></figure></p>
+<p>修改元组<br>元组中的元素值是不允许修改的，但我们可以对元组进行连接组合<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">tup1 = (12, 34.56)</span><br><span class="line">tup2 = (&apos;abc&apos;, &apos;xyz&apos;)</span><br><span class="line"> </span><br><span class="line"># 以下修改元组元素操作是非法的。</span><br><span class="line"># tup1[0] = 100</span><br><span class="line"> </span><br><span class="line"># 创建一个新的元组</span><br><span class="line">tup3 = tup1 + tup2</span><br><span class="line">print tup3</span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(12, 34.56, &apos;abc&apos;, &apos;xyz&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>删除元组<br>元组中的元素值是不允许删除的，但我们可以使用del语句来删除整个元组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">tup = (&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000)</span><br><span class="line"> </span><br><span class="line">print tup</span><br><span class="line">del tup</span><br><span class="line">print &quot;After deleting tup : &quot;</span><br><span class="line">print tup</span><br></pre></td></tr></table></figure></p>
+<p>元组运算符<br>与字符串一样，元组之间可以使用 + 号和 * 号进行运算。这就意味着他们可以组合和复制，运算后会生成一个新的元组<br><img src="/2019/08/07/python基础3/14.png" alt="14.png"><br>元组索引，截取<br><img src="/2019/08/07/python基础3/15.png" alt="15.png"><br>无关闭分隔符<br>任意无符号的对象，以逗号隔开，默认为元组<br>元组内置函数<br><img src="/2019/08/07/python基础3/16.png" alt="16.png"></p>
+<h3 id="Python-字典-Dictionary"><a href="#Python-字典-Dictionary" class="headerlink" title="Python 字典(Dictionary)"></a>Python 字典(Dictionary)</h3><p>字典是另一种可变容器模型，且可存储任意类型对象。</p>
+<p>字典的每个键值 key=&gt;value 对用冒号 : 分割，每个键值对之间用逗号 , 分割，整个字典包括在花括号 {} 中 ,格式如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;key1 : value1, key2 : value2 &#125;</span><br></pre></td></tr></table></figure></p>
+<p>键一般是唯一的，如果重复最后的一个键值对会替换前面的，值不需要唯一。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;dict = &#123;&apos;a&apos;: 1, &apos;b&apos;: 2, &apos;b&apos;: &apos;3&apos;&#125;</span><br><span class="line">&gt;&gt;&gt; dict[&apos;b&apos;]</span><br><span class="line">&apos;3&apos;</span><br><span class="line">&gt;&gt;&gt; dict</span><br><span class="line">&#123;&apos;a&apos;: 1, &apos;b&apos;: &apos;3&apos;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>值可以取任何数据类型，但键必须是不可变的，如字符串，数字或元组。</p>
+<p>一个简单的字典实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict = &#123;&apos;Alice&apos;: &apos;2341&apos;, &apos;Beth&apos;: &apos;9102&apos;, &apos;Cecil&apos;: &apos;3258&apos;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>访问字典里的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">dict = &#123;&apos;Name&apos;: &apos;Zara&apos;, &apos;Age&apos;: 7, &apos;Class&apos;: &apos;First&apos;&#125;</span><br><span class="line"> </span><br><span class="line">print &quot;dict[&apos;Name&apos;]: &quot;, dict[&apos;Name&apos;]</span><br><span class="line">print &quot;dict[&apos;Age&apos;]: &quot;, dict[&apos;Age&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>修改字典<br>向字典添加新内容的方法是增加新的键/值对，修改或删除已有键/值对<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">dict = &#123;&apos;Name&apos;: &apos;Zara&apos;, &apos;Age&apos;: 7, &apos;Class&apos;: &apos;First&apos;&#125;</span><br><span class="line"> </span><br><span class="line">dict[&apos;Age&apos;] = 8 # 更新</span><br><span class="line">dict[&apos;School&apos;] = &quot;RUNOOB&quot; # 添加</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">print &quot;dict[&apos;Age&apos;]: &quot;, dict[&apos;Age&apos;]</span><br><span class="line">print &quot;dict[&apos;School&apos;]: &quot;, dict[&apos;School&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>删除字典元素<br>能删单一的元素也能清空字典，清空只需一项操作。</p>
+<p>显示删除一个字典用del命令.</p>
+<h3 id="Python-日期和时间"><a href="#Python-日期和时间" class="headerlink" title="Python 日期和时间"></a>Python 日期和时间</h3><p>Python 程序能用很多方式处理日期和时间，转换日期格式是一个常见的功能。</p>
+<p>Python 提供了一个 time 和 calendar 模块可以用于格式化日期和时间。</p>
+<p>时间间隔是以秒为单位的浮点小数。</p>
+<p>每个时间戳都以自从1970年1月1日午夜（历元）经过了多长时间来表示。</p>
+<p>Python 的 time 模块下有很多函数可以转换常见日期格式。如函数time.time()用于获取当前时间戳<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">import time;  # 引入time模块</span><br><span class="line"> </span><br><span class="line">ticks = time.time()</span><br><span class="line">print &quot;当前时间戳为:&quot;, ticks</span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当前时间戳为: 1459994552.51</span><br></pre></td></tr></table></figure></p>
+<p>获取当前时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">localtime = time.localtime(time.time())</span><br><span class="line">print &quot;本地时间为 :&quot;, localtime</span><br></pre></td></tr></table></figure></p>
+<p>获取格式化的时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line"> </span><br><span class="line">localtime = time.asctime( time.localtime(time.time()) )</span><br><span class="line">print &quot;本地时间为 :&quot;, localtime</span><br></pre></td></tr></table></figure></p>
+<p>格式化日期<br>我们可以使用 time 模块的 strftime 方法来格式化日期，：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">time.strftime(format[, t])</span><br></pre></td></tr></table></figure></p>
+<p>获取某月日历<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import calendar</span><br><span class="line"> </span><br><span class="line">cal = calendar.month(2016, 1)</span><br><span class="line">print &quot;以下输出2016年1月份的日历:&quot;</span><br><span class="line">print cal</span><br></pre></td></tr></table></figure></p>
+<h3 id="Python-函数"><a href="#Python-函数" class="headerlink" title="Python 函数"></a>Python 函数</h3><p>函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。</p>
+<p>函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如print()。但你也可以自己创建函数，这被叫做用户自定义函数。</p>
+<h4 id="定义一个函数"><a href="#定义一个函数" class="headerlink" title="定义一个函数"></a>定义一个函数</h4><p>你可以定义一个由自己想要功能的函数，以下是简单的规则：</p>
+<ul>
+<li>函数代码块以 def 关键词开头，后接函数标识符名称和圆括号()。</li>
+<li>任何传入参数和自变量必须放在圆括号中间。圆括号之间可以用于定义参数。</li>
+<li>函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。</li>
+<li>函数内容以冒号起始，并且缩进。</li>
+<li>return [表达式] 结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None。</li>
+</ul>
+<h4 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h4><p>定义一个函数只给了函数一个名称，指定了函数里包含的参数，和代码块结构。</p>
+<p>这个函数的基本结构完成以后，你可以通过另一个函数调用执行，也可以直接从Python提示符执行。</p>
+<p>如下实例调用了printme（）函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line"># 定义函数</span><br><span class="line">def printme( str ):</span><br><span class="line">   &quot;打印任何传入的字符串&quot;</span><br><span class="line">   print str;</span><br><span class="line">   return;</span><br><span class="line"> </span><br><span class="line"># 调用函数</span><br><span class="line">printme(&quot;我要调用用户自定义函数!&quot;);</span><br><span class="line">printme(&quot;再次调用同一函数&quot;);</span><br></pre></td></tr></table></figure></p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/07/python基础3/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/07/python基础2/">
+                        python基础(二)--语句
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-07T10:24:58.000Z">
+                            2019-08-07
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/python/">python</a></li></ul>
+                </div>
+                
+                    <h3 id="Python-条件语句"><a href="#Python-条件语句" class="headerlink" title="Python 条件语句"></a>Python 条件语句</h3><p>Python条件语句是通过一条或多条语句的执行结果（True或者False）来决定执行的代码块。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if 判断条件：</span><br><span class="line">    执行语句……</span><br><span class="line">else：</span><br><span class="line">    执行语句……</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/08/07/python基础2/01.gif" alt="01.gif"><br>if 语句的判断条件可以用&gt;（大于）、&lt;(小于)、==（等于）、&gt;=（大于等于）、&lt;=（小于等于）来表示其关系。</p>
+<p>当判断条件为多个值时，可以使用以下形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if 判断条件1:</span><br><span class="line">    执行语句1……</span><br><span class="line">elif 判断条件2:</span><br><span class="line">    执行语句2……</span><br><span class="line">elif 判断条件3:</span><br><span class="line">    执行语句3……</span><br><span class="line">else:</span><br><span class="line">    执行语句4……</span><br></pre></td></tr></table></figure></p>
+<p>简单的语句组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python </span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">var = 100 </span><br><span class="line">if ( var  == 100 ) : print &quot;变量 var 的值为100&quot; </span><br><span class="line">print &quot;Good bye!&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Python-循环语句"><a href="#Python-循环语句" class="headerlink" title="Python 循环语句"></a>Python 循环语句</h3><p><img src="/2019/08/07/python基础2/01.png" alt="01.png"><br>循环控制语句<br><img src="/2019/08/07/python基础2/02.png" alt="02.png"></p>
+<h4 id="Python-While-循环语句"><a href="#Python-While-循环语句" class="headerlink" title="Python While 循环语句"></a>Python While 循环语句</h4><p>Python 编程中 while 语句用于循环执行程序，即在某条件下，循环执行某段程序，以处理需要重复处理的相同任务。其基本形式为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">while 判断条件：</span><br><span class="line">    执行语句……</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/08/07/python基础2/02.gif" alt="02.gif"><br>while 语句时还有另外两个重要的命令 continue，break 来跳过循环，continue 用于跳过该次循环，break .</p>
+<p>循环使用 else 语句<br>在 python 中，while … else 在循环条件为 false 时执行 else 语句块：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">count = 0</span><br><span class="line">while count &lt; 5:</span><br><span class="line">   print count, &quot; is  less than 5&quot;</span><br><span class="line">   count = count + 1</span><br><span class="line">else:</span><br><span class="line">   print count, &quot; is not less than 5&quot;</span><br></pre></td></tr></table></figure></p>
+<p>简单语句组<br>类似 if 语句的语法，如果你的 while循环体中只有一条语句，你可以将该语句与while写在同一行中， 如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">flag = 1</span><br><span class="line">while (flag): print &apos;Given flag is really true!&apos;</span><br><span class="line">print &quot;Good bye!&quot;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Python-for-循环语句"><a href="#Python-for-循环语句" class="headerlink" title="Python for 循环语句"></a>Python for 循环语句</h4><p>Python for循环可以遍历任何序列的项目，如一个列表或者一个字符串。</p>
+<p>语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for iterating_var in sequence:</span><br><span class="line">   statements(s)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">for letter in &apos;Python&apos;:     # 第一个实例</span><br><span class="line">   print &apos;当前字母 :&apos;, letter</span><br><span class="line"> </span><br><span class="line">fruits = [&apos;banana&apos;, &apos;apple&apos;,  &apos;mango&apos;]</span><br><span class="line">for fruit in fruits:        # 第二个实例</span><br><span class="line">   print &apos;当前水果 :&apos;, fruit</span><br><span class="line"> </span><br><span class="line">print &quot;Good bye!&quot;</span><br></pre></td></tr></table></figure>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">当前字母 : P</span><br><span class="line">当前字母 : y</span><br><span class="line">当前字母 : t</span><br><span class="line">当前字母 : h</span><br><span class="line">当前字母 : o</span><br><span class="line">当前字母 : n</span><br><span class="line">当前水果 : banana</span><br><span class="line">当前水果 : apple</span><br><span class="line">当前水果 : mango</span><br><span class="line">Good bye!</span><br></pre></td></tr></table></figure></p>
+<p>通过序列索引迭代:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">fruits = [&apos;banana&apos;, &apos;apple&apos;,  &apos;mango&apos;]</span><br><span class="line">for index in range(len(fruits)):</span><br><span class="line">   print &apos;当前水果 :&apos;, fruits[index]</span><br><span class="line"> </span><br><span class="line">print &quot;Good bye!&quot;</span><br></pre></td></tr></table></figure></p>
+<p>循环使用 else 语句<br>在 python 中，for … else 表示这样的意思，for 中的语句和普通的没有区别，else 中的语句会在循环正常执行完（即 for 不是通过 break 跳出而中断的）的情况下执行，while … else 也是一样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">for num in range(10,20):  # 迭代 10 到 20 之间的数字</span><br><span class="line">   for i in range(2,num): # 根据因子迭代</span><br><span class="line">      if num%i == 0:      # 确定第一个因子</span><br><span class="line">         j=num/i          # 计算第二个因子</span><br><span class="line">         print &apos;%d 等于 %d * %d&apos; % (num,i,j)</span><br><span class="line">         break            # 跳出当前循环</span><br><span class="line">   else:                  # 循环的 else 部分</span><br><span class="line">      print num, &apos;是一个质数&apos;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Python-循环嵌套"><a href="#Python-循环嵌套" class="headerlink" title="Python 循环嵌套"></a>Python 循环嵌套</h4><p>Python 语言允许在一个循环体里面嵌入另一个循环。</p>
+<p>Python for 循环嵌套语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for iterating_var in sequence:</span><br><span class="line">   for iterating_var in sequence:</span><br><span class="line">      statements(s)</span><br><span class="line">   statements(s)</span><br><span class="line">Python while 循环嵌套语法：</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while expression:</span><br><span class="line">   while expression:</span><br><span class="line">      statement(s)</span><br><span class="line">   statement(s)</span><br></pre></td></tr></table></figure>
+<p>你可以在循环体内嵌入其他的循环体，如在while循环中可以嵌入for循环， 反之，你可以在for循环中嵌入while循环</p>
+<h4 id="Python-break-语句"><a href="#Python-break-语句" class="headerlink" title="Python break 语句"></a>Python break 语句</h4><p>Python break语句，就像在C语言中，打破了最小封闭for或while循环。</p>
+<p>break语句用来终止循环语句，即循环条件没有False条件或者序列还没被完全递归完，也会停止执行循环语句。</p>
+<p>break语句用在while和for循环中。</p>
+<p>如果您使用嵌套循环，break语句将停止执行最深层的循环，并开始执行下一行代码。</p>
+<h4 id="Python-continue-语句"><a href="#Python-continue-语句" class="headerlink" title="Python continue 语句"></a>Python continue 语句</h4><p>Python continue 语句跳出本次循环，而break跳出整个循环。</p>
+<p>continue 语句用来告诉Python跳过当前循环的剩余语句，然后继续进行下一轮循环。</p>
+<p>continue语句用在while和for循环中。</p>
+<h4 id="Python-pass-语句"><a href="#Python-pass-语句" class="headerlink" title="Python pass 语句"></a>Python pass 语句</h4><p>Python pass 是空语句，是为了保持程序结构的完整性。</p>
+<p>pass 不做任何事情，一般用做占位语句。</p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/07/python基础2/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+    </div>
+
+
+    <div id="content-aside">
+    <div class="content-aside-owner">
+        <div id="owner">
+    <div class="avatar-bg">
+        <div class="index-page">
+            <div class="banner">
+                <div class="slide slide1">
+                    <div class="bg-wrapper">
+                        <div class="bg" id="container_left">
+                            <div id="canvas_left"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide slide2">
+                    <div class="bg-wrapper">
+                        <div class="bg" id="container_right">
+                            <div id="canvas_right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="/"><img class="avatar" src="/images/avatar.jpg" alt=""></a>
+    <a href="/"><h3 class="author">I&#39;m xiedandan</h3></a>
+    <h4>^_^</h4>
+    <div class="social">
+        
+            
+              <a href="https://github.com/xdd7130" title="github" class="fa fa-github" target="_blank"></a>
+            
+        
+            
+              <a href="#" title="weibo" class="fa fa-weibo" target="_blank"></a>
+            
+        
+    </div>
+</div>
+    </div>
+    
+        <div class="content-aside-about">
+            <h2>
+                <a href="/about">关于</a>
+            </h2>
+        </div>
+    
+    <div class="content-aside-tags">
+        <h2>
+            <a href="/tags">
+                标签
+                <sup style="font-size: 12px">
+                    [28]
+                </sup>
+            </a>
+        </h2>
+    </div>
+    
+<aside id="categories">
+    <h2>分类</h2>
+    
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cesium/">Cesium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/VUE/">VUE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/小程序/">小程序</a></li></ul>
+    
+</aside>
+
+    
+<aside id="acchives">
+    <h2>归档</h2>
+    
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    
+</aside>
+
+</div>
+
+</div>
+<nav id="pagination" class="clearfix">
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+</nav>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/cav.js"></script>
+    <script src="/js/avatar-bg.main.js"></script>
+
+</body>
+</html>

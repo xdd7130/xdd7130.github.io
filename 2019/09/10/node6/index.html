@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>jade、ejs模板库 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="模板引擎：生成页面
+主要的：
+
+jade-破坏式、侵入式、强依赖ejs-温和式、非侵入式、 弱依赖
+
+安装jade插件npm install jade
+jade写法:
+
+根据缩进，规定层级
+属性放在()里面，逗号分隔
+a标签文本内容前有一个空格
+style两种写法：普通属性写法;用json。
+class两种写法:普通属性写法;用数组。
+&amp;amp;attribute
+
+jade1.js12345const jade = require(&#39;jade&#39;);//字符串：var str = jade.render(&#39;njfnejrfbjreknve&#39;);//文件：var str = jade.renderfile(&#39;./views...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            How goes the world with you?
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>jade、ejs模板库</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-09-10T08:36:44.000Z">
+                    2019-09-10
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+        </div>
+        <p>模板引擎：生成页面</p>
+<p>主要的：</p>
+<blockquote>
+<p>jade-破坏式、侵入式、强依赖<br>ejs-温和式、非侵入式、 弱依赖</p>
+</blockquote>
+<h3 id="安装jade插件"><a href="#安装jade插件" class="headerlink" title="安装jade插件"></a>安装jade插件</h3><p>npm install jade</p>
+<p>jade写法:</p>
+<ul>
+<li>根据缩进，规定层级</li>
+<li>属性放在()里面，逗号分隔</li>
+<li>a标签文本内容前有一个空格</li>
+<li>style两种写法：普通属性写法;用json。</li>
+<li>class两种写法:普通属性写法;用数组。</li>
+<li>&amp;attribute</li>
+</ul>
+<p>jade1.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const jade = require(<span class="string">'jade'</span>);</span><br><span class="line">//字符串：var str = jade.render(<span class="string">'njfnejrfbjreknve'</span>);</span><br><span class="line">//文件：</span><br><span class="line">var str = jade.renderfile(<span class="string">'./views/1.jade'</span>,&#123;pertty:<span class="literal">true</span>&#125;);</span><br><span class="line">console.log(str);</span><br></pre></td></tr></table></figure></p>
+<p>1.jade<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">html</span><br><span class="line">    head</span><br><span class="line">        style</span><br><span class="line">        script(src=<span class="string">"a.js"</span>)</span><br><span class="line">        link(href=<span class="string">'a.css'</span>,rel=<span class="string">'stylesheet'</span>)</span><br><span class="line">    body</span><br><span class="line">        div.box</span><br><span class="line">        div<span class="comment">#div1</span></span><br><span class="line">        div(style=<span class="string">"width:200px;height:200px;"</span>,class=<span class="string">"aaa bbb"</span>)</span><br><span class="line">            ul</span><br><span class="line">                li</span><br><span class="line">                    input(<span class="built_in">type</span>=<span class="string">'text'</span>,id=<span class="string">"test1"</span>)</span><br><span class="line">                li</span><br><span class="line">                    a(href=<span class="string">'http://baidu.com'</span>) 百度</span><br><span class="line">                li</span><br><span class="line">            div(style=&#123;width:<span class="string">'200px'</span>,height:<span class="string">'200px'</span>;&#125;,class=[<span class="string">'aaa'</span>,<span class="string">'bbb'</span>])</span><br></pre></td></tr></table></figure></p>
+<h3 id="jade模板库高级语法"><a href="#jade模板库高级语法" class="headerlink" title="jade模板库高级语法"></a>jade模板库高级语法</h3><ul>
+<li>识别单双标签，自定义标签默认为双标签。<br><img src="/2019/09/10/node6/01.png" alt="01.png"></li>
+<li>“|”或”.”用来原样输出东西。<br><img src="/2019/09/10/node6/02.png" alt="02.png"><br><img src="/2019/09/10/node6/03.png" alt="03.png"></li>
+<li>include引入文件<br><img src="/2019/09/10/node6/04.png" alt="04.png"></li>
+<li><p>使用变量：#{}  或”=”</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.js</span><br><span class="line">    const jade= require(<span class="string">'jade'</span>);</span><br><span class="line">    console.log(jade.renderfile(<span class="string">'./view/1.jade'</span>,&#123;pretty:<span class="literal">true</span>,name:<span class="string">'blue'</span>&#125;))</span><br><span class="line"></span><br><span class="line">1.jade</span><br><span class="line">    div 我的名字<span class="comment">#&#123;name&#125;</span></span><br><span class="line">    div=name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>“-“代表：我是一段代码<br><img src="/2019/09/10/node6/05.png" alt="05.png"></p>
+</li>
+<li><p>循环：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.jade</span><br><span class="line">html </span><br><span class="line">    head</span><br><span class="line">        body</span><br><span class="line">            .<span class="keyword">for</span>(var i=0;i&lt;arr.length;i++)</span><br><span class="line">            div=arr[i]</span><br><span class="line"></span><br><span class="line">1.js</span><br><span class="line">console.log(jade.renderfile(<span class="string">'./view/1.jade'</span>,&#123;pretty:<span class="literal">true</span>,</span><br><span class="line">    arr:[<span class="string">'aaa'</span>,<span class="string">'bbb'</span>,<span class="string">'ccc'</span>]</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非转义：标签原样输出：！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1.jade</span><br><span class="line">html </span><br><span class="line">    head</span><br><span class="line">        body</span><br><span class="line">            div!=content</span><br><span class="line"></span><br><span class="line">1.js</span><br><span class="line">console.log(jade.renderfile(<span class="string">'./view/1.jade'</span>,&#123;pretty:<span class="literal">true</span>,</span><br><span class="line">    content:<span class="string">'&lt;h2&gt;mwenfoirefwo&lt;/h2&gt;'</span></span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成html文件<br><img src="/2019/09/10/node6/06.png" alt="06.png"></p>
+</li>
+</ul>
+<h3 id="安装ejs插件"><a href="#安装ejs插件" class="headerlink" title="安装ejs插件"></a>安装ejs插件</h3><p>npm install ejs</p>
+<p>ejs1.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const ejs = require(<span class="string">'ejs'</span>);</span><br><span class="line">var str = ejs.renderfile(<span class="string">'./views/1.ejs'</span>,&#123;name:<span class="string">'blue'</span>&#125;,<span class="keyword">function</span>(err,data)&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)</span><br><span class="line">        console.log(<span class="string">'编译失败'</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        console.log(data)</span><br><span class="line">&#125;);</span><br><span class="line">console.log(str);</span><br></pre></td></tr></table></figure></p>
+<p>1.ejs<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    我的名字叫：&lt;%= name %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="ejs模板库高级语法"><a href="#ejs模板库高级语法" class="headerlink" title="ejs模板库高级语法"></a>ejs模板库高级语法</h3><ul>
+<li>灵活，支持各类型数据<br><img src="/2019/09/10/node6/07.png" alt="07.png"></li>
+<li>循环<br><img src="/2019/09/10/node6/08.png" alt="08.png"></li>
+<li>“=”转义输出,”-“非转义输出</li>
+<li>&lt;% include ./a.txt %&gt;<br><img src="/2019/09/10/node6/09.png" alt="09.png"></li>
+</ul>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/09/11/node7/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                MySQL
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/23/时序动画/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        时序动画
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装jade插件"><span class="toc-number">1.</span> <span class="toc-text">安装jade插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jade模板库高级语法"><span class="toc-number">2.</span> <span class="toc-text">jade模板库高级语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装ejs插件"><span class="toc-number">3.</span> <span class="toc-text">安装ejs插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ejs模板库高级语法"><span class="toc-number">4.</span> <span class="toc-text">ejs模板库高级语法</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

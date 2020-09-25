@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>Node.js部署到IIS服务器 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="使用iisnode模块在IIS中托管node.js应用程序来取代自托管node.exe进程：
+起因：服务器的ip只有80端口对外开放。但是我们node app.js后，外网访问不到，为了能够解决此问题，将nodejs部署到iis服务器上，这样既可以解决自动退出问题，也可共享80端口。
+依赖项
+Node.js
+
+
+URL rewrite
+
+
+IISNode
+
+创建web.config文件（express）1234567891011121314151617181920212223242526272829303132&amp;lt;configuration&amp;gt; &amp;lt;system.webServer&amp;gt;   &amp;lt;!--...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            How goes the world with you?
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>Node.js部署到IIS服务器</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2020-09-25T07:00:31.000Z">
+                    2020-09-25
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+        </div>
+        <p>使用iisnode模块在IIS中托管node.js应用程序来取代自托管node.exe进程：</p>
+<h3 id="起因："><a href="#起因：" class="headerlink" title="起因："></a>起因：</h3><p>服务器的ip只有80端口对外开放。但是我们node app.js后，外网访问不到，为了能够解决此问题，将nodejs部署到iis服务器上，这样既可以解决自动退出问题，也可共享80端口。</p>
+<h3 id="依赖项"><a href="#依赖项" class="headerlink" title="依赖项"></a>依赖项</h3><blockquote>
+<p>Node.js</p>
+</blockquote>
+<blockquote>
+<p><a href="urlrewrit2.exe">URL rewrite</a></p>
+</blockquote>
+<blockquote>
+<p><a href="iisnode-full-v0.2.21-x64.msi">IISNode</a></p>
+</blockquote>
+<h3 id="创建web-config文件（express）"><a href="#创建web-config文件（express）" class="headerlink" title="创建web.config文件（express）"></a>创建web.config文件（express）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line"> &lt;system.webServer&gt;</span><br><span class="line">   &lt;!-- indicates that the hello.js file is a node.js application </span><br><span class="line">   to be handled by the iisnode module --&gt;</span><br><span class="line">   &lt;handlers&gt;</span><br><span class="line">     &lt;add name=<span class="string">"iisnode"</span> path=<span class="string">"app.js"</span> verb=<span class="string">"*"</span> modules=<span class="string">"iisnode"</span> /&gt;</span><br><span class="line">   &lt;/handlers&gt;</span><br><span class="line">    &lt;!-- use URL rewriting to redirect the entire branch of the URL namespace</span><br><span class="line">    to app.js node.js application; <span class="keyword">for</span> example, the following URLs will </span><br><span class="line">    all be handled by app.js:</span><br><span class="line">        http://localhost/foo</span><br><span class="line">        http://localhost/bar</span><br><span class="line">    --&gt;</span><br><span class="line">    &lt;rewrite&gt;</span><br><span class="line">      &lt;rules&gt;</span><br><span class="line">        &lt;rule name=<span class="string">"api"</span>&gt;</span><br><span class="line">          &lt;match url=<span class="string">"api/*"</span> /&gt;</span><br><span class="line">          &lt;action <span class="built_in">type</span>=<span class="string">"Rewrite"</span> url=<span class="string">"app.js"</span> /&gt;</span><br><span class="line">        &lt;/rule&gt;</span><br><span class="line">      &lt;/rules&gt;</span><br><span class="line">    &lt;/rewrite&gt;</span><br><span class="line">    &lt;!-- exclude node_modules directory and subdirectories from serving</span><br><span class="line">    by IIS since these are implementation details of node.js applications --&gt;</span><br><span class="line">    &lt;security&gt;</span><br><span class="line">      &lt;requestFiltering&gt;</span><br><span class="line">        &lt;hiddenSegments&gt;</span><br><span class="line">          &lt;add segment=<span class="string">"node_modules"</span> /&gt;</span><br><span class="line">        &lt;/hiddenSegments&gt;</span><br><span class="line">      &lt;/requestFiltering&gt;</span><br><span class="line">    &lt;/security&gt;    </span><br><span class="line">  &lt;/system.webServer&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Node服务的修改"><a href="#Node服务的修改" class="headerlink" title="Node服务的修改"></a>Node服务的修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.js中端口监听由 server.listen(3000) 改成 server.listen(process.env.PORT)</span><br></pre></td></tr></table></figure>
+<p>完整app.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">const userApi = require(<span class="string">'./api/userApi'</span>);</span><br><span class="line">const fs = require(<span class="string">'fs'</span>);</span><br><span class="line">const path = require(<span class="string">'path'</span>);</span><br><span class="line">const bodyParser = require(<span class="string">'body-parser'</span>);</span><br><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">const app = express();</span><br><span class="line">app.all(<span class="string">'*'</span>, <span class="keyword">function</span>(req, res, next) &#123;</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Credentials"</span>, <span class="string">"true"</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'*'</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'Content-Type, Content-Length, Authorization, Accept, X-Requested-With,loginedtoken'</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'PUT, POST, GET, DELETE, OPTIONS'</span>);</span><br><span class="line">    <span class="keyword">if</span> (req.method == <span class="string">'OPTIONS'</span>) &#123;</span><br><span class="line">        res.send(200);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">var <span class="built_in">history</span> = require(<span class="string">'connect-history-api-fallback'</span>);</span><br><span class="line">const staticFileMiddleware = express.static(<span class="string">'assets'</span>);</span><br><span class="line">app.use(staticFileMiddleware);</span><br><span class="line">app.use(<span class="built_in">history</span>(&#123;</span><br><span class="line">  disableDotRule: <span class="literal">true</span>,</span><br><span class="line">  verbose: <span class="literal">true</span></span><br><span class="line">&#125;));</span><br><span class="line">app.use(bodyParser.json());</span><br><span class="line">app.use(bodyParser.urlencoded(&#123; extended: <span class="literal">true</span> &#125;))</span><br><span class="line">app.use(<span class="string">'/node_yrd/api'</span>, userApi);</span><br><span class="line">app.listen(process.env.PORT);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Vue请求地址的修改"><a href="#Vue请求地址的修改" class="headerlink" title="Vue请求地址的修改"></a>Vue请求地址的修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var isPro = process.env.NODE_ENV === <span class="string">'production'</span> //process.env.NODE_ENV用于区分是生产环境还是开发环境</span><br><span class="line">//根据环境不同导出不同的baseURL</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    baseURL: isPro ? <span class="string">'http://***.***.com/'</span> : <span class="string">''</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="创建添加应用程序"><a href="#创建添加应用程序" class="headerlink" title="创建添加应用程序"></a>创建添加应用程序</h3><p>如图<br><img src="/2020/09/25/node部署到IIS服务器/1.png" alt="应用程序"></p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/IIS服务器/">IIS服务器</a></li><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+        
+            <a href="/2020/07/01/Cesium/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        Cesium
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#起因："><span class="toc-number">1.</span> <span class="toc-text">起因：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#依赖项"><span class="toc-number">2.</span> <span class="toc-text">依赖项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建web-config文件（express）"><span class="toc-number">3.</span> <span class="toc-text">创建web.config文件（express）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node服务的修改"><span class="toc-number">4.</span> <span class="toc-text">Node服务的修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vue请求地址的修改"><span class="toc-number">5.</span> <span class="toc-text">Vue请求地址的修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建添加应用程序"><span class="toc-number">6.</span> <span class="toc-text">创建添加应用程序</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

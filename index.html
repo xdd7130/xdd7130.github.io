@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="前端学习">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            时光荏苒，旦夕之间，略有遗憾，似白驹过隙，蹉跎自悟。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    
+    <div id="recent-posts">
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2020/09/25/node部署到IIS服务器/">
+                        Node.js部署到IIS服务器
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2020-09-25T07:00:31.000Z">
+                            2020-09-25
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+                </div>
+                
+                    <p>使用iisnode模块在IIS中托管node.js应用程序来取代自托管node.exe进程：</p>
+<h3 id="起因："><a href="#起因：" class="headerlink" title="起因："></a>起因：</h3><p>服务器的ip只有80端口对外开放。但是我们node app.js后，外网访问不到，为了能够解决此问题，将nodejs部署到iis服务器上，这样既可以解决自动退出问题，也可共享80端口。</p>
+<h3 id="依赖项"><a href="#依赖项" class="headerlink" title="依赖项"></a>依赖项</h3><blockquote>
+<p>Node.js</p>
+</blockquote>
+<blockquote>
+<p><a href="urlrewrit2.exe">URL rewrite</a></p>
+</blockquote>
+<blockquote>
+<p><a href="iisnode-full-v0.2.21-x64.msi">IISNode</a></p>
+</blockquote>
+<h3 id="创建web-config文件（express）"><a href="#创建web-config文件（express）" class="headerlink" title="创建web.config文件（express）"></a>创建web.config文件（express）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line"> &lt;system.webServer&gt;</span><br><span class="line">   &lt;!-- indicates that the hello.js file is a node.js application </span><br><span class="line">   to be handled by the iisnode module --&gt;</span><br><span class="line">   &lt;handlers&gt;</span><br><span class="line">     &lt;add name=<span class="string">"iisnode"</span> path=<span class="string">"app.js"</span> verb=<span class="string">"*"</span> modules=<span class="string">"iisnode"</span> /&gt;</span><br><span class="line">   &lt;/handlers&gt;</span><br><span class="line">    &lt;!-- use URL rewriting to redirect the entire branch of the URL namespace</span><br><span class="line">    to app.js node.js application; <span class="keyword">for</span> example, the following URLs will </span><br><span class="line">    all be handled by app.js:</span><br><span class="line">        http://localhost/foo</span><br><span class="line">        http://localhost/bar</span><br><span class="line">    --&gt;</span><br><span class="line">    &lt;rewrite&gt;</span><br><span class="line">      &lt;rules&gt;</span><br><span class="line">        &lt;rule name=<span class="string">"api"</span>&gt;</span><br><span class="line">          &lt;match url=<span class="string">"api/*"</span> /&gt;</span><br><span class="line">          &lt;action <span class="built_in">type</span>=<span class="string">"Rewrite"</span> url=<span class="string">"app.js"</span> /&gt;</span><br><span class="line">        &lt;/rule&gt;</span><br><span class="line">      &lt;/rules&gt;</span><br><span class="line">    &lt;/rewrite&gt;</span><br><span class="line">    &lt;!-- exclude node_modules directory and subdirectories from serving</span><br><span class="line">    by IIS since these are implementation details of node.js applications --&gt;</span><br><span class="line">    &lt;security&gt;</span><br><span class="line">      &lt;requestFiltering&gt;</span><br><span class="line">        &lt;hiddenSegments&gt;</span><br><span class="line">          &lt;add segment=<span class="string">"node_modules"</span> /&gt;</span><br><span class="line">        &lt;/hiddenSegments&gt;</span><br><span class="line">      &lt;/requestFiltering&gt;</span><br><span class="line">    &lt;/security&gt;    </span><br><span class="line">  &lt;/system.webServer&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Node服务的修改"><a href="#Node服务的修改" class="headerlink" title="Node服务的修改"></a>Node服务的修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.js中端口监听由 server.listen(3000) 改成 server.listen(process.env.PORT)</span><br></pre></td></tr></table></figure>
+<p>完整app.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">const userApi = require(<span class="string">'./api/userApi'</span>);</span><br><span class="line">const fs = require(<span class="string">'fs'</span>);</span><br><span class="line">const path = require(<span class="string">'path'</span>);</span><br><span class="line">const bodyParser = require(<span class="string">'body-parser'</span>);</span><br><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">const app = express();</span><br><span class="line">app.all(<span class="string">'*'</span>, <span class="keyword">function</span>(req, res, next) &#123;</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Credentials"</span>, <span class="string">"true"</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'*'</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'Content-Type, Content-Length, Authorization, Accept, X-Requested-With,loginedtoken'</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'PUT, POST, GET, DELETE, OPTIONS'</span>);</span><br><span class="line">    <span class="keyword">if</span> (req.method == <span class="string">'OPTIONS'</span>) &#123;</span><br><span class="line">        res.send(200);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">var <span class="built_in">history</span> = require(<span class="string">'connect-history-api-fallback'</span>);</span><br><span class="line">const staticFileMiddleware = express.static(<span class="string">'assets'</span>);</span><br><span class="line">app.use(staticFileMiddleware);</span><br><span class="line">app.use(<span class="built_in">history</span>(&#123;</span><br><span class="line">  disableDotRule: <span class="literal">true</span>,</span><br><span class="line">  verbose: <span class="literal">true</span></span><br><span class="line">&#125;));</span><br><span class="line">app.use(bodyParser.json());</span><br><span class="line">app.use(bodyParser.urlencoded(&#123; extended: <span class="literal">true</span> &#125;))</span><br><span class="line">app.use(<span class="string">'/node_yrd/api'</span>, userApi);</span><br><span class="line">app.listen(process.env.PORT);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Vue请求地址的修改"><a href="#Vue请求地址的修改" class="headerlink" title="Vue请求地址的修改"></a>Vue请求地址的修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var isPro = process.env.NODE_ENV === <span class="string">'production'</span> //process.env.NODE_ENV用于区分是生产环境还是开发环境</span><br><span class="line">//根据环境不同导出不同的baseURL</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    baseURL: isPro ? <span class="string">'http://***.***.com/'</span> : <span class="string">''</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="创建添加应用程序"><a href="#创建添加应用程序" class="headerlink" title="创建添加应用程序"></a>创建添加应用程序</h3><p>如图<br><img src="/2020/09/25/node部署到IIS服务器/1.png" alt="应用程序"></p>
+
+                
+                <div class="readmore">
+                    <a href="/2020/09/25/node部署到IIS服务器/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2020/07/01/Cesium/">
+                        Cesium
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2020-07-01T06:16:35.000Z">
+                            2020-07-01
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Cesium/">Cesium</a></li></ul>
+                </div>
+                
+                    <h3 id="3dtiles文件放在iis服务器"><a href="#3dtiles文件放在iis服务器" class="headerlink" title="3dtiles文件放在iis服务器"></a>3dtiles文件放在iis服务器</h3><p>1、目录下，添加应用程序<br>2、配置iis的mime头，防止b3dm请求跨域：.b3dm    application/octet-stream</p>
+<ul>
+<li>问题<br>1、vue跨域：config目录下的index.js:proxyTable.<br>2、“请求筛选模块被配置为拒绝包含双重转义序列的请求。”，在些URL中若包含+号等符号，然后IIS7以上的版本会默认拒绝请求此URL，需要进行如下的修改.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;system.webServer&gt;</span><br><span class="line">&lt;security&gt;</span><br><span class="line">&lt;requestFiltering allowDoubleEscaping=<span class="string">"true"</span>/&gt;</span><br><span class="line">&lt;/security&gt;</span><br><span class="line">&lt;/system.webServer&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>viewer.scene.globe.undergroundColor 不同版本，有优化，在1.68,globe无undergroundColor属性，1.71版本有，可自定义设置。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>三维遇到的问题（20200709）：<br>1.arcScence:导出的是wrl文件，cesium不支持可视化，还没找到可以文件转换的方法。<br>2.evs:导出的也是wrl文件，呵呵<br>3.arcgis Pro:可以解决这个问题，可以发布服务，但是，需要注册安装，试用期21天，需购买。<br>4.openGeoSys:开源，文件输出的vtk格式，cesium实现可视化，但专业，需进一步学习。</p>
+
+                
+                <div class="readmore">
+                    <a href="/2020/07/01/Cesium/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/12/26/ES6/">
+                        ES6
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-12-26T14:15:19.090Z">
+                            2019-12-26
+                        </time>
+                    
+                    
+                </div>
+                
+                    
+                
+                <div class="readmore">
+                    <a href="/2019/12/26/ES6/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/12/26/hexo/">
+                        hexo学习
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-12-26T14:15:19.090Z">
+                            2019-12-26
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/hexo/">hexo</a></li></ul>
+                </div>
+                
+                     <font color="red" size="5"><a href="https://xdd7130.github.io" target="_blank" rel="noopener">https://xdd7130.github.io</a></font><font color="red" size="5">若存储在master中,xdd7130不可更改,必须和github的username一致.</font>
+
+<h2 id="为博客添加访问量"><a href="#为博客添加访问量" class="headerlink" title="为博客添加访问量"></a>为博客添加访问量</h2><p>参考：<a href="https://blog.csdn.net/qw8880000/article/details/80235391" target="_blank" rel="noopener">https://blog.csdn.net/qw8880000/article/details/80235391</a><br>这里使用的是不蒜子提供的阅读统计功能，使用的hexo主题是stage。</p>
+<h3 id="添加是否开启统计功能的配置"><a href="#添加是否开启统计功能的配置" class="headerlink" title="添加是否开启统计功能的配置"></a>添加是否开启统计功能的配置</h3><p>找到stage主题的配置文件themes/stage/_config.yml，找到原来的footer字段，加入一个配置，这里我们叫它counter吧，即<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">footer:</span><br><span class="line">  <span class="comment"># -------------------------------------------------------------</span></span><br><span class="line">  <span class="comment"># visitors count</span></span><br><span class="line">  counter: <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>修改stage主题的模板文件<br>由于是把访问量统计放在网页的footer，所以我们需要修改的模板文件是theme/stage/layout/_partials/footer.ejs。<br>我们在合适的位置加入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> theme.footer.counter %&#125;</span><br><span class="line">    &lt;script async src=<span class="string">"//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">    &lt;span id=<span class="string">"busuanzi_container_site_pv"</span>&gt;总访问量&lt;span id=<span class="string">"busuanzi_value_site_pv"</span>&gt;&lt;/span&gt;次&lt;/span&gt;</span><br><span class="line">    &lt;span class=<span class="string">"post-meta-divider"</span>&gt;|&lt;/span&gt;</span><br><span class="line">    &lt;span id=<span class="string">"busuanzi_container_site_uv"</span>&gt;总访客&lt;span id=<span class="string">"busuanzi_value_site_uv"</span>&gt;&lt;/span&gt;人&lt;/span&gt;</span><br><span class="line">    &lt;span class=<span class="string">"post-meta-divider"</span>&gt;|&lt;/span&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h4 id="Hexo-github搭建博客"><a href="#Hexo-github搭建博客" class="headerlink" title="Hexo+github搭建博客"></a>Hexo+github搭建博客</h4><p>1、  npm install -g hexo<br>错误：npm WARN deprecated <a href="mailto:titlecase@1.1.2" target="_blank" rel="noopener">titlecase@1.1.2</a>: no longer maintained<br>解决：安装淘宝镜像<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
+<p>2、  初始化(hexo init)<br>Hexo文件夹必须为空。<br>3、  hexo g 生成静态文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s 搭建本地服务查看localhost:4000</span><br></pre></td></tr></table></figure></p>
+<p>4、  hexo d<br>问题：$ hexo d： ERROR Deployer not found: git<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure></p>
+<p>部署本地文件到github<br>既然Repository已经创建了，当然是先把博客放到Github上去看看效果。编辑E：\hexo下的_config.yml文件，建议使用Notepad++。<br>在_config.yml最下方，添加如下配置(命令中的第一个tengj为Github的用户名,第二个tengj为之前New的Repository的名字,记得改成自己的。另外记得一点，hexo的配置文件中任何’:’后面都是带一个空格的),如果配置以下命令出现ERROR Deployer not found : github，则参考上文的解决方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">    <span class="built_in">type</span>: git</span><br><span class="line">    repository: https://github.com/tengj/tengj.github.io.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure></p>
+<p>配置_config.yml并保存。如果你是第一次使用Github或者是已经使用过，但没有配置过SSH，则可能需要配置一下:<br>在Git Bash输入以下指令（任意位置点击鼠标右键），检查是否已经存在了SSH keys。<br>ls -al ~/.ssh<br>如果不存在就没有关系，如果存在的话，直接删除.ssh文件夹里面所有文件：<br>输入以下指令（邮箱就是你注册Github时候的邮箱）后，回车，出现提示让你输入的时候直接先回车，好像需要3次，如下图所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"2621324849@qq.com"</span></span><br></pre></td></tr></table></figure></p>
+<p>然后键入以下指令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-agent -s</span><br></pre></td></tr></table></figure></p>
+<p>继续输入指令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure></p>
+<p>输入之后，在我这里是出错了，不知道你的有没有出错。<br>如果你的也是这样子出错了的话，就输入以下指令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span> `ssh-agent -s`</span><br><span class="line">ssh-add</span><br></pre></td></tr></table></figure></p>
+<p>到了这一步，就可以添加SSH key到你的Github账户了。键入以下指令，拷贝Key（先拷贝了，等一下可以直接粘贴，不放心的在执行下面命令后，先黏贴在记事本上）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clip &lt; ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure></p>
+<p>然后到Github里面，点击右上角的设置图标Settings,找到SSH keys,Ttile随便你命名，Key就黏贴上你刚才复制的key,然后点Add SSH key，最后会让你重新输入下gitHub的密码<br>最后还是测试一下吧，键入以下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></p>
+<p>你可能会看到有警告，没事，输入“yes”就好<br>以上就表示SSH配置好了，执行以下命令部署到Github上。<br>hexo g<br>hexo d<br>如果执行hexo d命令报下名错：<br>就先安装一下hexo-deployer-git这个模块：npm install hexo-deployer-git –save<br>安装好了继续执行hexo d部署命令，输入gitHub的账号密码，就可以访问了。</p>
+<h4 id="问题：博客引入图片"><a href="#问题：博客引入图片" class="headerlink" title="问题：博客引入图片"></a>问题：博客引入图片</h4><p>解决办法<br>1.首先把blog（hexo）目录下的_config.yml里的psot_asset_folder:设置为true</p>
+<p>2.在blog（hexo）目录下执行:</p>
+<p>npm install hexo-asset-image –save<br>3.在blog（hexo）目录下Git Bash Here，运行hexo n “博客名”来生成md博客时，会在_post目录下看到一个与博客同名的文件夹。</p>
+<p>4.将想要上传的图片先扔到文件夹下，然后在博客中使用markdown的格式引入图片：</p>
+<p><img src="/2019/12/26/hexo/xxxx/图片名.jpg" alt="你想要输入的替代文字"><br>ps：因为博客名和文件夹名字相同，所以不需要绝对路径，只要xxxx是文件夹的名字就可以了。</p>
+<p>5.然后，使用hexo g部署的时候，进入public\2018\04\19\index.html文件中查看相关字段，可以发现html标签内的语句是img src = “2018/04/19/xxxx/图片名.jpg”而不是img src=”xxxx.图片名.jpg”，这就成功了，当然前面步骤操作正确的话，这一步也不用检查。</p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/12/26/hexo/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/09/22/login/">
+                        vuex+node+express+token登录
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-09-22T08:38:30.000Z">
+                            2019-09-22
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/VUE/">VUE</a></li></ul>
+                </div>
+                
+                    <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>1、第一次登录的时候，前端调后端的登陆接口，发送用户名和密码</p>
+<p>2、后端收到请求，验证用户名和密码，验证成功，就给前端返回一个token</p>
+<p>3、前端拿到token，将token存储到localStorage和vuex中，并跳转路由页面</p>
+<p>4、前端每次跳转路由，就判断 localStroage 中有无 token ，没有就跳转到登录页面，有则跳转到对应路由页面</p>
+<p>5、每次调后端接口，都要在请求头中加token</p>
+<p>6、后端判断请求头中有无token，有token，就拿到token并验证token，验证成功就返回数据，验证失败（例如：token过期）就返回401，请求头中没有token也返回401</p>
+<p>7、如果前端拿到状态码为401，就清除token信息并跳转到登录页面</p>
+<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>1、路由守卫导航<br>2、localStorage及其他前端存储（见基础前端）<br>3、防抖和节流（token过期）<br>4、后端接口调用<br>5、node.js、mysql、git、express、element-UI、vuex、vue-router、jsonwebtoken</p>
+<h3 id="知识点解释"><a href="#知识点解释" class="headerlink" title="知识点解释"></a>知识点解释</h3><h4 id="路由守卫导航"><a href="#路由守卫导航" class="headerlink" title="路由守卫导航"></a>路由守卫导航</h4><p>vue-router 的导航钩子，主要用来作用是拦截导航，让他完成跳转或取消。<br>有三种方式可以植入路由导航过程中：</p>
+<ul>
+<li><p>全局导航守卫<br>1、全局前置守卫 router.beforeEach(fn)<br>2、全局的解析守卫(不常用)<br>3、全局的后置守卫 router.afterEach(fn)<br>（可以做一些用户友好提示、与全局前置守卫参数相同）</p>
+</li>
+<li><p>路由独享守卫<br>1、路由独享守卫 beforeEnter(to,from,next)<br>  （a、写在路由表中的守卫钩子<br>  b、针对的是和当前路由相关的，那么其他与之不相关的路由，它是无法监听它的变化情况的<br>  c、可用于用户权限管理<br>  d、与全局前置守卫参数相同）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const routes = [</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'/'</span>,</span><br><span class="line">         redirect: <span class="string">'/home'</span></span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'/home'</span>,</span><br><span class="line">         component: Home</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'/category'</span>,</span><br><span class="line">         component: Category,</span><br><span class="line">         beforeEnter ( to,from,next ) &#123;</span><br><span class="line">         alert(<span class="string">'您要进入吗'</span>)</span><br><span class="line">         next()</span><br><span class="line">         //业务： 用户权限管理</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'**'</span>,</span><br><span class="line">         redirect: <span class="string">'/error'</span></span><br><span class="line">     &#125;</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>组件内守卫<br>1、组件内的前置守卫beforeRouteEnter((to,from,next)=&gt;{})<br>导航进入组件时，调用因为组件此时没有创建，所以没有this,this是访问不到的，如果非要访问this,必须通过 next(vm=&gt;{})访问。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">next(vm =&gt; &#123; //vm指的就是组件</span><br><span class="line">   const result = JSON.parse(res.data.slice(7,-1)).rp_result.categorys</span><br><span class="line">   vm.<span class="variable">$set</span>(vm.category,<span class="string">'categorys'</span>,result)</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>2、组件内的后置守卫beforeRouteEnter((to,from,next)=&gt;{})<br>(a)离开组件时，调用<br>(b)this是可以访问到<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteLeave (to, from, next) &#123;</span><br><span class="line">    //我们现在已经要离开这个组件，那么这个组件身上的数据和方法等内容我们肯定可以获取到，也就是说这里可以使用 this</span><br><span class="line">    <span class="keyword">if</span>( this.username || this.password)&#123;</span><br><span class="line">    <span class="keyword">if</span>( confirm(<span class="string">'您已经填写结束了吗?'</span>))&#123;</span><br><span class="line">        next()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        next(<span class="literal">false</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    	next()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、组件内的更新守卫（ 路由传参和路由的接参 ）<br>（a）在当前路由改变，但是该组件被复用时调用<br>（b）举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，<br>（c）由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。<br>（d）可以访问组件实例 this<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteUpdate ( to,from,next ) &#123; //动态路由用</span><br><span class="line">     console.log(<span class="string">'路由改变了'</span>)</span><br><span class="line">     next()</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p> 1、3种类型 7个路由监听钩子<br> 2、业务：<br>监听整个项目的路由变化情况——全局的前置守卫<br>监听某个路由的变化情况——路由的独享守卫<br>监听的路由组件的路由变化情况——组件内的导航守卫</p>
+<p>#### </p>
+<h3 id="实例实现"><a href="#实例实现" class="headerlink" title="实例实现"></a>实例实现</h3><p>待补充。。。</p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/09/22/login/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/09/11/node7/">
+                        MySQL
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-09-11T07:11:01.000Z">
+                            2019-09-11
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+                </div>
+                
+                    <h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><h4 id="mysql安装"><a href="#mysql安装" class="headerlink" title="mysql安装"></a>mysql安装</h4><p>参考：<a href="https://www.cnblogs.com/laumians-notes/p/9069498.html" target="_blank" rel="noopener">https://www.cnblogs.com/laumians-notes/p/9069498.html</a></p>
+<p>Navicat数据库管理工具:<a href="https://blog.csdn.net/a599174211/article/details/82795658" target="_blank" rel="noopener">https://blog.csdn.net/a599174211/article/details/82795658</a></p>
+<h3 id="nodeJS操作MySQL"><a href="#nodeJS操作MySQL" class="headerlink" title="nodeJS操作MySQL"></a>nodeJS操作MySQL</h3><p>nodeJS默认不支持MySQL,需要第三方工具来驱动，这里用mysql驱动。</p>
+<ul>
+<li>npm install mysql</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const mysql = require(<span class="string">'mysql'</span>);</span><br><span class="line"></span><br><span class="line">1.连接</span><br><span class="line">//createConnection(哪台服务器，用户名，密码，库)</span><br><span class="line">var db = mysql.createConnection(host:<span class="string">'localhost'</span>,port:<span class="string">'3306'</span>,user:<span class="string">'root'</span>,password:<span class="string">'123456'</span>,database:<span class="string">'my_db'</span>,)；</span><br><span class="line"></span><br><span class="line">2.查询</span><br><span class="line">//query(干啥，回调函数)</span><br><span class="line">db.query(<span class="string">"SELECT * FROM `user_table`;"</span>,(err,data)=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)</span><br><span class="line">        console.log(<span class="string">'出错了'</span>，err)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        console.log(<span class="string">'成功了'</span>，data)</span><br><span class="line">        console.log(JSON.stringify(data))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="SQL标准写法："><a href="#SQL标准写法：" class="headerlink" title="SQL标准写法："></a>SQL标准写法：</h3><p>1.关键字大写<br>2.库、表、字段需加上饭单引号<code></code><br>SQL四大语句：增删改查<br>增：INSERT<br>INSERT INTO 表（字段列表） VALUES (值列表)<br>INSERT INTO <code>user_table</code>（<code>ID</code>,<code>username</code>,<code>password</code>）VALUES (<code>0</code>,<code>blue2</code>,<code>987654</code>) VALUES (值列表)<br>删：DELETE<br>改：UPDATE<br>查：SELECT</p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/09/11/node7/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/09/10/node6/">
+                        jade、ejs模板库
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-09-10T08:36:44.000Z">
+                            2019-09-10
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
+                </div>
+                
+                    <p>模板引擎：生成页面</p>
+<p>主要的：</p>
+<blockquote>
+<p>jade-破坏式、侵入式、强依赖<br>ejs-温和式、非侵入式、 弱依赖</p>
+</blockquote>
+<h3 id="安装jade插件"><a href="#安装jade插件" class="headerlink" title="安装jade插件"></a>安装jade插件</h3><p>npm install jade</p>
+<p>jade写法:</p>
+<ul>
+<li>根据缩进，规定层级</li>
+<li>属性放在()里面，逗号分隔</li>
+<li>a标签文本内容前有一个空格</li>
+<li>style两种写法：普通属性写法;用json。</li>
+<li>class两种写法:普通属性写法;用数组。</li>
+<li>&amp;attribute</li>
+</ul>
+<p>jade1.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const jade = require(<span class="string">'jade'</span>);</span><br><span class="line">//字符串：var str = jade.render(<span class="string">'njfnejrfbjreknve'</span>);</span><br><span class="line">//文件：</span><br><span class="line">var str = jade.renderfile(<span class="string">'./views/1.jade'</span>,&#123;pertty:<span class="literal">true</span>&#125;);</span><br><span class="line">console.log(str);</span><br></pre></td></tr></table></figure></p>
+<p>1.jade<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">html</span><br><span class="line">    head</span><br><span class="line">        style</span><br><span class="line">        script(src=<span class="string">"a.js"</span>)</span><br><span class="line">        link(href=<span class="string">'a.css'</span>,rel=<span class="string">'stylesheet'</span>)</span><br><span class="line">    body</span><br><span class="line">        div.box</span><br><span class="line">        div<span class="comment">#div1</span></span><br><span class="line">        div(style=<span class="string">"width:200px;height:200px;"</span>,class=<span class="string">"aaa bbb"</span>)</span><br><span class="line">            ul</span><br><span class="line">                li</span><br><span class="line">                    input(<span class="built_in">type</span>=<span class="string">'text'</span>,id=<span class="string">"test1"</span>)</span><br><span class="line">                li</span><br><span class="line">                    a(href=<span class="string">'http://baidu.com'</span>) 百度</span><br><span class="line">                li</span><br><span class="line">            div(style=&#123;width:<span class="string">'200px'</span>,height:<span class="string">'200px'</span>;&#125;,class=[<span class="string">'aaa'</span>,<span class="string">'bbb'</span>])</span><br></pre></td></tr></table></figure></p>
+<h3 id="jade模板库高级语法"><a href="#jade模板库高级语法" class="headerlink" title="jade模板库高级语法"></a>jade模板库高级语法</h3><ul>
+<li>识别单双标签，自定义标签默认为双标签。<br><img src="/2019/09/10/node6/01.png" alt="01.png"></li>
+<li>“|”或”.”用来原样输出东西。<br><img src="/2019/09/10/node6/02.png" alt="02.png"><br><img src="/2019/09/10/node6/03.png" alt="03.png"></li>
+<li>include引入文件<br><img src="/2019/09/10/node6/04.png" alt="04.png"></li>
+<li><p>使用变量：#{}  或”=”</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.js</span><br><span class="line">    const jade= require(<span class="string">'jade'</span>);</span><br><span class="line">    console.log(jade.renderfile(<span class="string">'./view/1.jade'</span>,&#123;pretty:<span class="literal">true</span>,name:<span class="string">'blue'</span>&#125;))</span><br><span class="line"></span><br><span class="line">1.jade</span><br><span class="line">    div 我的名字<span class="comment">#&#123;name&#125;</span></span><br><span class="line">    div=name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>“-“代表：我是一段代码<br><img src="/2019/09/10/node6/05.png" alt="05.png"></p>
+</li>
+<li><p>循环：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.jade</span><br><span class="line">html </span><br><span class="line">    head</span><br><span class="line">        body</span><br><span class="line">            .<span class="keyword">for</span>(var i=0;i&lt;arr.length;i++)</span><br><span class="line">            div=arr[i]</span><br><span class="line"></span><br><span class="line">1.js</span><br><span class="line">console.log(jade.renderfile(<span class="string">'./view/1.jade'</span>,&#123;pretty:<span class="literal">true</span>,</span><br><span class="line">    arr:[<span class="string">'aaa'</span>,<span class="string">'bbb'</span>,<span class="string">'ccc'</span>]</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>非转义：标签原样输出：！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1.jade</span><br><span class="line">html </span><br><span class="line">    head</span><br><span class="line">        body</span><br><span class="line">            div!=content</span><br><span class="line"></span><br><span class="line">1.js</span><br><span class="line">console.log(jade.renderfile(<span class="string">'./view/1.jade'</span>,&#123;pretty:<span class="literal">true</span>,</span><br><span class="line">    content:<span class="string">'&lt;h2&gt;mwenfoirefwo&lt;/h2&gt;'</span></span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成html文件<br><img src="/2019/09/10/node6/06.png" alt="06.png"></p>
+</li>
+</ul>
+<h3 id="安装ejs插件"><a href="#安装ejs插件" class="headerlink" title="安装ejs插件"></a>安装ejs插件</h3><p>npm install ejs</p>
+<p>ejs1.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const ejs = require(<span class="string">'ejs'</span>);</span><br><span class="line">var str = ejs.renderfile(<span class="string">'./views/1.ejs'</span>,&#123;name:<span class="string">'blue'</span>&#125;,<span class="keyword">function</span>(err,data)&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)</span><br><span class="line">        console.log(<span class="string">'编译失败'</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        console.log(data)</span><br><span class="line">&#125;);</span><br><span class="line">console.log(str);</span><br></pre></td></tr></table></figure></p>
+<p>1.ejs<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    我的名字叫：&lt;%= name %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="ejs模板库高级语法"><a href="#ejs模板库高级语法" class="headerlink" title="ejs模板库高级语法"></a>ejs模板库高级语法</h3><ul>
+<li>灵活，支持各类型数据<br><img src="/2019/09/10/node6/07.png" alt="07.png"></li>
+<li>循环<br><img src="/2019/09/10/node6/08.png" alt="08.png"></li>
+<li>“=”转义输出,”-“非转义输出</li>
+<li>&lt;% include ./a.txt %&gt;<br><img src="/2019/09/10/node6/09.png" alt="09.png"></li>
+</ul>
+
+                
+                <div class="readmore">
+                    <a href="/2019/09/10/node6/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/23/时序动画/">
+                        时序动画
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-23T08:39:42.000Z">
+                            2019-08-23
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li></ul>
+                </div>
+                
+                    <h4 id="补充1-2019-08-29"><a href="#补充1-2019-08-29" class="headerlink" title="补充1:2019-08-29"></a>补充1:2019-08-29</h4><blockquote>
+<p>发布服务前，设置时区</p>
+</blockquote>
+<p><img src="/2019/08/23/时序动画/02.png" alt="02.png"></p>
+<p>效果图：<br><img src="/2019/08/23/时序动画/01.png" alt="01.png"></p>
+<h4 id="步骤一：数据准备"><a href="#步骤一：数据准备" class="headerlink" title="步骤一：数据准备"></a>步骤一：数据准备</h4><p>拖拉机数据：时间2019/6/7 7:59:00-2019/6/713:52:00<br>目标数据：时间2019/6/7 8:00:00-2019/6/713:52:00 </p>
+<p>注意：所有的数据需放在地理数据库里，否则日期后的时分秒被自动截去删除。</p>
+<h4 id="步骤二：制图表达"><a href="#步骤二：制图表达" class="headerlink" title="步骤二：制图表达"></a>步骤二：制图表达</h4><p>将拖拉机数据转为制图表达，重新为RULEID赋值，这里我全赋值为6，不能赋值为0哦。<br>目标数据线分为五个等级，再转为制图表达，RULEID是否重新赋值视情况而定。(能够满足步骤四的分级)</p>
+<h4 id="步骤三：合并merge"><a href="#步骤三：合并merge" class="headerlink" title="步骤三：合并merge"></a>步骤三：合并merge</h4><p>将两个制图表达数据合并。</p>
+<h4 id="步骤四：分级"><a href="#步骤四：分级" class="headerlink" title="步骤四：分级"></a>步骤四：分级</h4><p>将步骤三合并的文件进行分级，这里分为六级（包括整个图层），其中第六级用来渲染拖拉机符号。</p>
+<h4 id="步骤五：再次制图表达"><a href="#步骤五：再次制图表达" class="headerlink" title="步骤五：再次制图表达"></a>步骤五：再次制图表达</h4><p>将分级后的文件再次制作制图表达，对第六级进行符号渲染。</p>
+<h4 id="步骤六：将文件导入到数据库"><a href="#步骤六：将文件导入到数据库" class="headerlink" title="步骤六：将文件导入到数据库"></a>步骤六：将文件导入到数据库</h4><h4 id="步骤七：从数据库拉去数据设置timeslider属性，发布服务"><a href="#步骤七：从数据库拉去数据设置timeslider属性，发布服务" class="headerlink" title="步骤七：从数据库拉去数据设置timeslider属性，发布服务"></a>步骤七：从数据库拉去数据设置timeslider属性，发布服务</h4><h4 id="步骤八：调用服务"><a href="#步骤八：调用服务" class="headerlink" title="步骤八：调用服务"></a>步骤八：调用服务</h4><p>使用动态图层，要素服务调用，符号不渲染。</p>
+<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=utf-8"</span>&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"initial-scale=1, maximum-scale=1,user-scalable=no"</span>&gt;</span><br><span class="line">    &lt;title&gt;Recent Earthquakes&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">    &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://js.arcgis.com/3.29/dijit/themes/claro/claro.css"</span>&gt;</span><br><span class="line">    &lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"https://js.arcgis.com/3.29/esri/css/esri.css"</span>&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;style&gt;</span><br><span class="line">      html, body &#123;</span><br><span class="line">        height: 100%;</span><br><span class="line">        width: 100%;</span><br><span class="line">        margin: 0;</span><br><span class="line">        padding: 0;</span><br><span class="line">      &#125;</span><br><span class="line">      .dijitBorders&#123;</span><br><span class="line">        margin:5px 5px 5px 5px; </span><br><span class="line">        border:solid thin <span class="comment">#9CAA9C;</span></span><br><span class="line">       -moz-border-radius: 4px;</span><br><span class="line">      &#125;</span><br><span class="line">      .labelText&#123;</span><br><span class="line">        color:<span class="comment">#9CAA9C;</span></span><br><span class="line">        font-size:12pt;  </span><br><span class="line">        font-family:<span class="string">"Tahoma"</span>;</span><br><span class="line">        margin:5px;</span><br><span class="line">      &#125;</span><br><span class="line">      .headerText&#123;</span><br><span class="line">        color:<span class="comment">#9CAA9C;</span></span><br><span class="line">        font-size:16pt;</span><br><span class="line">        font-weight:bold;</span><br><span class="line">        font-family: <span class="string">"Tahoma"</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script src=<span class="string">"https://js.arcgis.com/3.29/"</span>&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">      var map,timeExtent;</span><br><span class="line">      require([</span><br><span class="line">        <span class="string">"esri/map"</span>,<span class="string">"esri/layers/ArcGISDynamicMapServiceLayer"</span>, <span class="string">"esri/layers/FeatureLayer"</span>, <span class="string">"esri/TimeExtent"</span>, <span class="string">"esri/layers/TimeInfo"</span>,</span><br><span class="line">        <span class="string">"esri/renderers/ClassBreaksRenderer"</span>,</span><br><span class="line">        <span class="string">"esri/symbols/SimpleMarkerSymbol"</span>, <span class="string">"esri/symbols/SimpleLineSymbol"</span>,</span><br><span class="line">        <span class="string">"esri/dijit/editing/TemplatePicker"</span>, <span class="string">"esri/dijit/TimeSlider"</span>,</span><br><span class="line">        <span class="string">"esri/renderers/TimeClassBreaksAger"</span>, <span class="string">"esri/renderers/TemporalRenderer"</span>,</span><br><span class="line">        <span class="string">"dojo/parser"</span>, <span class="string">"dojo/_base/array"</span>, <span class="string">"esri/Color"</span>, <span class="string">"dojo/dom"</span>, <span class="string">"dojo/date"</span>,</span><br><span class="line">        </span><br><span class="line">        <span class="string">"dijit/layout/BorderContainer"</span>, <span class="string">"dijit/layout/ContentPane"</span>, <span class="string">"dojo/domReady!"</span></span><br><span class="line">      ], <span class="keyword">function</span>(</span><br><span class="line">        Map, ArcGISDynamicMapServiceLayer,FeatureLayer, TimeExtent, TimeInfo,</span><br><span class="line">        ClassBreaksRenderer,</span><br><span class="line">        SimpleMarkerSymbol, SimpleLineSymbol,</span><br><span class="line">        TemplatePicker, TimeSlider,</span><br><span class="line">        TimeClassBreaksAger, TemporalRenderer,</span><br><span class="line">        parser, arrayUtils, Color, dom, date</span><br><span class="line">      ) &#123;</span><br><span class="line">        parser.parse();</span><br><span class="line"></span><br><span class="line">        map = new Map(<span class="string">"map"</span>, &#123;</span><br><span class="line">          basemap: <span class="string">"satellite"</span>,</span><br><span class="line">          center: [114.0143, 34.11075],</span><br><span class="line">          slider: <span class="literal">false</span>,</span><br><span class="line">          zoom:15</span><br><span class="line">        &#125;);</span><br><span class="line">        //边界</span><br><span class="line">          var research_scope = new ArcGISDynamicMapServiceLayer(<span class="string">"http://localhost:6080/arcgis/rest/services/Henan_S/research_scope1/MapServer"</span>,&#123;<span class="string">"id"</span>:<span class="string">"100000"</span>&#125;);</span><br><span class="line">        map.on(<span class="string">"load"</span>, mapLoaded);   </span><br><span class="line"></span><br><span class="line">        <span class="keyword">function</span> <span class="function"><span class="title">mapLoaded</span></span>() &#123;</span><br><span class="line">            var SOMtlj = new ArcGISDynamicMapServiceLayer(<span class="string">"http://localhost:6080/arcgis/rest/services/Henan_S/PH1_TLJ/MapServer"</span>,&#123;<span class="string">"id"</span>:<span class="string">"3"</span>&#125;);</span><br><span class="line">            SOMtlj.on(<span class="string">"load"</span>, featureLayerLoaded);</span><br><span class="line">            map.addLayer(SOMtlj);</span><br><span class="line">            map.addLayer(research_scope);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">function</span> <span class="function"><span class="title">featureLayerLoaded</span></span>() &#123;</span><br><span class="line">          // create time slider</span><br><span class="line">          var timeSlider = new TimeSlider(&#123; style: <span class="string">"width: 100%;"</span>&#125;, dom.byId(<span class="string">"timeSliderDiv"</span>));</span><br><span class="line">          map.setTimeSlider(timeSlider);</span><br><span class="line"></span><br><span class="line">          timeExtent = new TimeExtent();</span><br><span class="line">          </span><br><span class="line">          // 设置时区后，开始时间和结束时间</span><br><span class="line">          //timeExtent.startTime = new Date(<span class="string">"2019/06/06 23:59:00 UTC"</span>);</span><br><span class="line">          //timeExtent.endTime = new Date(<span class="string">"2019/06/07 05:52:00 UTC"</span>);</span><br><span class="line"></span><br><span class="line">          timeSlider.setThumbCount(1);</span><br><span class="line">          timeSlider.createTimeStopsByTimeInterval(timeExtent, 1, <span class="string">"esriTimeUnitsMinutes"</span>); </span><br><span class="line">        </span><br><span class="line">          timeSlider.setThumbIndexes([0]);</span><br><span class="line">          timeSlider.on(<span class="string">"time-extent-change"</span>, displayTimeInfo);</span><br><span class="line">          timeSlider.startup();</span><br><span class="line">           // timeSlider.play();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">function</span> displayTimeInfo(timeExtent) &#123;</span><br><span class="line">          var info = timeExtent.endTime;</span><br><span class="line">          dom.byId(<span class="string">"timeInfo"</span>).innerHTML = info;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">      &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line"></span><br><span class="line">  &lt;body class=<span class="string">"claro"</span>&gt;</span><br><span class="line">    &lt;div id=<span class="string">"mainWindow"</span> </span><br><span class="line">         data-dojo-type=<span class="string">"dijit/layout/BorderContainer"</span> </span><br><span class="line">         data-dojo-propx=<span class="string">"design:'sidebar', gutters:true"</span> </span><br><span class="line">         style=<span class="string">"width:100%; height:100%;"</span>&gt;</span><br><span class="line">     &lt;div id=<span class="string">"header"</span> </span><br><span class="line">          data-dojo-type=<span class="string">"dijit/layout/ContentPane"</span> </span><br><span class="line">          data-dojo-props=<span class="string">"region:'top'"</span> </span><br><span class="line">          class=<span class="string">"dijitBorders"</span> style=<span class="string">"height:100px;"</span>&gt;</span><br><span class="line">      &lt;center&gt;</span><br><span class="line">        &lt;span class=<span class="string">"headerText"</span>&gt;采样时序&lt;/span&gt;</span><br><span class="line">        &lt;div id=<span class="string">"timeInfo"</span> class=<span class="string">"labelText"</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;div id=<span class="string">"timeSliderDiv"</span> &gt;&lt;/div&gt;</span><br><span class="line">      &lt;/center&gt;</span><br><span class="line">     &lt;/div&gt;</span><br><span class="line">      </span><br><span class="line">      &lt;div id=<span class="string">"map"</span> data-dojo-type=<span class="string">"dijit/layout/ContentPane"</span> </span><br><span class="line">           data-dojo-props=<span class="string">"region:'center'"</span> class=<span class="string">"dijitBorders"</span> </span><br><span class="line">           style=<span class="string">"background-color:inherit;"</span>&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      </span><br><span class="line">      &lt;div id=<span class="string">"right"</span> data-dojo-type=<span class="string">"dijit/layout/ContentPane"</span> </span><br><span class="line">           data-dojo-props=<span class="string">"region:'left'"</span> </span><br><span class="line">           style=<span class="string">"width:100px;font-size:small;"</span>&gt;</span><br><span class="line"></span><br><span class="line">          &lt;center&gt;&lt;span class=<span class="string">"labelText"</span>&gt;Age&lt;/span&gt;&lt;/center&gt;</span><br><span class="line">          &lt;div id=<span class="string">"ageDiv"</span> class=<span class="string">"dijitBorders"</span>&gt;&lt;/div&gt;</span><br><span class="line">          &lt;center&gt;&lt;span class=<span class="string">"labelText"</span>&gt;Magnitude&lt;/span&gt;&lt;/center&gt;</span><br><span class="line">          &lt;div id=<span class="string">"magnitudeDiv"</span> class=<span class="string">"dijitBorders"</span> &gt;&lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      </span><br><span class="line">     &lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/23/时序动画/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/15/vuex/">
+                        vuex
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-15T03:20:43.000Z">
+                            2019-08-15
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/VUE/">VUE</a></li></ul>
+                </div>
+                
+                    <p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式<br>大型项目，涉及复杂的交互时，用vuex</p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/15/vuex/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/15/小程序/">
+                        小程序
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-15T03:20:43.000Z">
+                            2019-08-15
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/小程序/">小程序</a></li></ul>
+                </div>
+                
+                    <h3 id="开发前准备"><a href="#开发前准备" class="headerlink" title="开发前准备"></a>开发前准备</h3><p>1、开发者工具下载。👉<a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html" target="_blank" rel="noopener">下载</a><br>2、注册申请等。</p>
+<h3 id="小程序主要文件及作用"><a href="#小程序主要文件及作用" class="headerlink" title="小程序主要文件及作用"></a>小程序主要文件及作用</h3><p><img src="/2019/08/15/小程序/01.png" alt="01.png"></p>
+<h3 id="组件使用"><a href="#组件使用" class="headerlink" title="组件使用"></a>组件使用</h3><p>见官网。👉<a href="https://developers.weixin.qq.com/miniprogram/dev/component/swiper.html" target="_blank" rel="noopener">打开</a></p>
+<h3 id="小程序单位"><a href="#小程序单位" class="headerlink" title="小程序单位"></a>小程序单位</h3><p>物理和逻辑分辨率转换</p>
+<p>rpx（responsive pixel）: 可以根据屏幕宽度进行自适应。规定屏幕宽为750rpx。如在 iPhone6 上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。</p>
+<h3 id="WXML数据绑定"><a href="#WXML数据绑定" class="headerlink" title="WXML数据绑定"></a>WXML数据绑定</h3><p>WXML（WeiXin Markup Language）是框架设计的一套标签语言，结合基础组件、事件系统，可以构建出页面的结构。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 页面的初始数据</span><br><span class="line">   */</span><br><span class="line">  data: &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 生命周期函数--监听页面加载</span><br><span class="line">   */</span><br><span class="line">  onLoad: <span class="keyword">function</span> (options) &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 生命周期函数--监听页面初次渲染完成</span><br><span class="line">   */</span><br><span class="line">  onReady: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 生命周期函数--监听页面显示</span><br><span class="line">   */</span><br><span class="line">  onShow: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 生命周期函数--监听页面隐藏</span><br><span class="line">   */</span><br><span class="line">  onHide: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 生命周期函数--监听页面卸载</span><br><span class="line">   */</span><br><span class="line">  onUnload: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 页面相关事件处理函数--监听用户下拉动作</span><br><span class="line">   */</span><br><span class="line">  onPullDownRefresh: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 页面上拉触底事件的处理函数</span><br><span class="line">   */</span><br><span class="line">  onReachBottom: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  /**</span><br><span class="line">   * 用户点击右上角分享</span><br><span class="line">   */</span><br><span class="line">  onShareAppMessage: <span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;image src=<span class="string">"&#123;&#123;meurl&#125;&#125;"</span> show-menu-by-longpress=<span class="string">"&#123;&#123;true&#125;&#125;"</span>&gt;&lt;/image&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="条件渲染和列表渲染"><a href="#条件渲染和列表渲染" class="headerlink" title="条件渲染和列表渲染"></a>条件渲染和列表渲染</h3><p>wx:if  wx:elif wx:else<br>wx:for wx:for-index wx:for-item</p>
+<h3 id="模板及引入"><a href="#模板及引入" class="headerlink" title="模板及引入"></a>模板及引入</h3><p>1.创建公用页面template.wxml<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;template name=<span class="string">"header"</span>&gt;</span><br><span class="line">    &lt;view class=<span class="string">"header"</span>&gt;这是头部内容&lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;template name=<span class="string">"footer"</span>&gt;</span><br><span class="line">    &lt;view class=<span class="string">"footer"</span>&gt;这是底部内容&lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2.引入应用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wxml:</span><br><span class="line">&lt;import src=<span class="string">"/pages/template/template"</span>/&gt;</span><br><span class="line">wxss:</span><br><span class="line">@import <span class="string">"/pages/template/template"</span></span><br><span class="line"></span><br><span class="line">应用：&lt;template is=<span class="string">"header"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="事件处理及数据交互"><a href="#事件处理及数据交互" class="headerlink" title="事件处理及数据交互"></a>事件处理及数据交互</h3><p>1、变量不是一定要初始化<br>2、setData({ })<br>3、bindtap<br>4、catchtap 阻止冒泡事件</p>
+<h3 id="小程序的全局配置"><a href="#小程序的全局配置" class="headerlink" title="小程序的全局配置"></a>小程序的全局配置</h3><p>1、tabBar导航栏页面跳转<br><img src="/2019/08/15/小程序/02.png" alt="02.png"></p>
+<h3 id="独立页面配置"><a href="#独立页面配置" class="headerlink" title="独立页面配置"></a>独立页面配置</h3>
+                
+                <div class="readmore">
+                    <a href="/2019/08/15/小程序/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+    </div>
+
+
+    <div id="content-aside">
+    <div class="content-aside-owner">
+        <div id="owner">
+    <div class="avatar-bg">
+        <div class="index-page">
+            <div class="banner">
+                <div class="slide slide1">
+                    <div class="bg-wrapper">
+                        <div class="bg" id="container_left">
+                            <div id="canvas_left"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide slide2">
+                    <div class="bg-wrapper">
+                        <div class="bg" id="container_right">
+                            <div id="canvas_right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="/"><img class="avatar" src="/images/avatar.jpg" alt=""></a>
+    <a href="/"><h3 class="author">I&#39;m xiedandan</h3></a>
+    <h4>^_^</h4>
+    <div class="social">
+        
+            
+              <a href="https://github.com/xdd7130" title="github" class="fa fa-github" target="_blank"></a>
+            
+        
+            
+              <a href="#" title="weibo" class="fa fa-weibo" target="_blank"></a>
+            
+        
+    </div>
+</div>
+    </div>
+    
+        <div class="content-aside-about">
+            <h2>
+                <a href="/about">关于</a>
+            </h2>
+        </div>
+    
+    <div class="content-aside-tags">
+        <h2>
+            <a href="/tags">
+                标签
+                <sup style="font-size: 12px">
+                    [28]
+                </sup>
+            </a>
+        </h2>
+    </div>
+    
+<aside id="categories">
+    <h2>分类</h2>
+    
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cesium/">Cesium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/VUE/">VUE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/小程序/">小程序</a></li></ul>
+    
+</aside>
+
+    
+<aside id="acchives">
+    <h2>归档</h2>
+    
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    
+</aside>
+
+</div>
+
+</div>
+<nav id="pagination" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+</nav>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/cav.js"></script>
+    <script src="/js/avatar-bg.main.js"></script>
+
+</body>
+</html>

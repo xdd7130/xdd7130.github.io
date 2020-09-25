@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>ArcGIS API For Javascript之影像服务分析 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="  在前面我们大多数的程序是对矢量数据的操作，在这篇博客中，主要介绍影响服务的操作。在影像服务的操作中主要用到的类有：
+
+esri/tasks/ImageServiceIdentifyTask用于对影像数据的查询，它主要对应的参数为esri/tasks/ImageServiceIdentifyParameters,查询返回的结果用esri/tasks/ImageServiceIdentifyResult接受
+对影像数据的测量主要用到的类为esri/tasks/ImageServiceMeasureTask,它所对应的的参数为esri/tasks/ImageServiceMeasureParameters
+
+ArcGIS ...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            How goes the world with you?
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>ArcGIS API For Javascript之影像服务分析</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2019-08-06T10:08:42.000Z">
+                    2019-08-06
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li></ul>
+        </div>
+        <p>  在前面我们大多数的程序是对矢量数据的操作，在这篇博客中，主要介绍影响服务的操作。在影像服务的操作中主要用到的类有：</p>
+<ul>
+<li>esri/tasks/ImageServiceIdentifyTask用于对影像数据的查询，它主要对应的参数为esri/tasks/ImageServiceIdentifyParameters,查询返回的结果用esri/tasks/ImageServiceIdentifyResult接受</li>
+<li>对影像数据的测量主要用到的类为esri/tasks/ImageServiceMeasureTask,它所对应的的参数为esri/tasks/ImageServiceMeasureParameters</li>
+</ul>
+<h3 id="ArcGIS-API影像测量"><a href="#ArcGIS-API影像测量" class="headerlink" title="ArcGIS API影像测量"></a>ArcGIS API影像测量</h3><h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>首先加载地图<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">require([&quot;esri/map&quot;,&quot;esri/layers/ArcGISImageServiceLayer&quot;,&quot;dojo/domReady!&quot;],function(Map,ArcGISImageServiceLayer)&#123;</span><br><span class="line">        var map=new Map(&quot;mapDiv&quot;)</span><br><span class="line">        //注意这里是影响服务</span><br><span class="line">        var layer=new ArcGISImageServiceLayer(&quot;http://localhost:6080/arcgis/rest/services/Test/Dem/ImageServer&quot;)</span><br><span class="line">        map.addLayer(layer);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>添加两个按钮，一个用于绘制折线，一个用于测量分析<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;button id=&quot;drawp&quot;&gt;绘制点&lt;/button&gt;</span><br><span class="line">&lt;button id=&quot;btn&quot;&gt;查询&lt;/button&gt;</span><br></pre></td></tr></table></figure></p>
+<p>创建必要对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//用于绘制点</span><br><span class="line">            var toolbar =new Draw(map);</span><br><span class="line">            </span><br><span class="line">            //创建影像分析对象</span><br><span class="line">            var task=new ImageServiceIdentifyTask(&quot;http://192.168.0.112:6080/arcgis/rest/services/Test/Dem1/ImageServer&quot;);</span><br><span class="line">            //创建影像分析参数对象</span><br><span class="line">            var params=new ImageServiceIdentifyParameters();</span><br><span class="line">            var lineSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASH, new dojo.Color([255, 0, 0]), 3);</span><br><span class="line">            var marker= new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE,10, lineSymbol, new dojo.Color([255, 0, 0]));</span><br><span class="line">            var fill= new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, lineSymbol,  new dojo.Color([255, 0, 0]));</span><br></pre></td></tr></table></figure></p>
+<p>给绘制折现按钮添加绑定事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//给绘制点按钮绑定事件</span><br><span class="line">            on(dom.byId(&quot;drawp&quot;),&quot;click&quot;,function()&#123;</span><br><span class="line">                toolbar.activate(Draw.POLYLINE, &#123;</span><br><span class="line">                        showTooltips:true</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">            //给draw工具的绘制完成事件绑定函数</span><br><span class="line">            on(toolbar,&quot;draw-complete&quot;, function (result) &#123;</span><br><span class="line">                var geometry=result.geometry;</span><br><span class="line">                //给参数对象的几何属性赋值</span><br><span class="line">                params.geometry=geometry;</span><br><span class="line">                toolbar.deactivate();</span><br><span class="line">            </span><br><span class="line">            &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>给分析按钮绑定事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">on(dom.byId(&quot;btn&quot;),&quot;click&quot;,function()&#123;</span><br><span class="line">                //设置掩膜规则</span><br><span class="line">                var mosaicRule=new MosaicRule();</span><br><span class="line">                mosaicRule.ascending=false;</span><br><span class="line">                mosaicRule.method=MosaicRule.METHOD_CENTER</span><br><span class="line">                params.mosaicRule=mosaicRule</span><br><span class="line">                params.pixelSizeX=layer.pixelSizeX;</span><br><span class="line">                params.pixelSizeY=layer.pixelSizeY;</span><br><span class="line">                task.execute(params,function(result)&#123;</span><br><span class="line">                    //弹出改点的高程值</span><br><span class="line">                    alert(result.value)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="代码结果"><a href="#代码结果" class="headerlink" title="代码结果"></a>代码结果</h4><p><img src="/2019/08/06/ArcGIS-API-for-JS25/04.png" alt="04.png"></p>
+<h4 id="全部代码"><a href="#全部代码" class="headerlink" title="全部代码"></a>全部代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;index.html&lt;/title&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;meta http-equiv=&quot;keywords&quot; content=&quot;keyword1,keyword2,keyword3&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;description&quot; content=&quot;this is my page&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;</span><br><span class="line">    &lt;link  rel=&quot;stylesheet&quot;  type=&quot;text/css&quot; href=&quot;http://localhost/arcgis_js_api/library/3.17/3.17/dijit/themes/tundra/tundra.css&quot;/&gt;</span><br><span class="line">    &lt;link  rel=&quot;stylesheet&quot;  type=&quot;text/css&quot; href=&quot;http://localhost/arcgis_js_api/library/3.17/3.17/esri/css/esri.css&quot; /&gt;</span><br><span class="line">    &lt;script  type=&quot;text/Javascript&quot; src=&quot;http://localhost/arcgis_js_api/library/3.17/3.17/init.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;!--&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;./styles.css&quot;&gt;--&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        .MapClass&#123;</span><br><span class="line">            width:100%;</span><br><span class="line">            height:500px;</span><br><span class="line">            border:1px solid #000;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        require([&quot;esri/map&quot;,&quot;esri/layers/ArcGISImageServiceLayer&quot;,&quot;dojo/on&quot;,</span><br><span class="line">        &quot;dojo/dom&quot;,&quot;esri/toolbars/draw&quot;,</span><br><span class="line">        &quot;esri/tasks/ImageServiceIdentifyTask&quot;,&quot;esri/tasks/ImageServiceIdentifyParameters&quot;,</span><br><span class="line">        &quot;esri/symbols/SimpleLineSymbol&quot;,&quot;esri/graphic&quot;,&quot;esri/symbols/SimpleMarkerSymbol&quot;, &quot;esri/symbols/SimpleFillSymbol&quot;,</span><br><span class="line">        &quot;esri/layers/MosaicRule&quot;,</span><br><span class="line">        &quot;dojo/domReady!&quot;],function(Map,ArcGISImageServiceLayer,on,dom,Draw,ImageServiceIdentifyTask,</span><br><span class="line">        ImageServiceIdentifyParameters,SimpleLineSymbol,</span><br><span class="line">        Graphic,SimpleMarkerSymbol,SimpleFillSymbol,MosaicRule)&#123;</span><br><span class="line">            var map=new Map(&quot;mapDiv&quot;)</span><br><span class="line"></span><br><span class="line">            //注意这里是影响服务</span><br><span class="line">            var layer=new ArcGISImageServiceLayer(&quot;http://192.168.0.112:6080/arcgis/rest/services/Test/Dem1/ImageServer&quot;)</span><br><span class="line">            map.addLayer(layer);</span><br><span class="line">            //用于绘制点</span><br><span class="line">            var toolbar =new Draw(map);</span><br><span class="line">            </span><br><span class="line">            //创建影像分析对象</span><br><span class="line">            var task=new ImageServiceIdentifyTask(&quot;http://192.168.0.112:6080/arcgis/rest/services/Test/Dem1/ImageServer&quot;);</span><br><span class="line">            //创建影像分析参数对象</span><br><span class="line">            var params=new ImageServiceIdentifyParameters();</span><br><span class="line">            var lineSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASH, new dojo.Color([255, 0, 0]), 3);</span><br><span class="line">            var marker= new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE,10, lineSymbol, new dojo.Color([255, 0, 0]));</span><br><span class="line">            var fill= new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, lineSymbol,  new dojo.Color([255, 0, 0]));</span><br><span class="line">            //给绘制折线按钮绑定事件</span><br><span class="line">            on(dom.byId(&quot;drawp&quot;),&quot;click&quot;,function()&#123;</span><br><span class="line">                toolbar.activate(Draw.POINT, &#123;</span><br><span class="line">                        showTooltips:true</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">            //给draw工具的绘制完成事件绑定函数</span><br><span class="line">            on(toolbar,&quot;draw-complete&quot;, function (result) &#123;</span><br><span class="line">                map.graphics.clear();</span><br><span class="line">                var geometry=result.geometry;</span><br><span class="line">                //给参数对象的几何属性赋值</span><br><span class="line">                params.geometry =geometry;</span><br><span class="line">                graphic= new Graphic(geometry, marker);</span><br><span class="line">                map.graphics.add(graphic);</span><br><span class="line">                toolbar.deactivate();</span><br><span class="line">            </span><br><span class="line">            &#125;)</span><br><span class="line">            </span><br><span class="line">            on(dom.byId(&quot;btn&quot;),&quot;click&quot;,function()&#123;</span><br><span class="line">                //设置掩膜规则</span><br><span class="line">                var mosaicRule=new MosaicRule();</span><br><span class="line">                mosaicRule.ascending=false;</span><br><span class="line">                mosaicRule.method=MosaicRule.METHOD_CENTER</span><br><span class="line">                params.mosaicRule=mosaicRule</span><br><span class="line">                params.pixelSizeX=layer.pixelSizeX;</span><br><span class="line">                params.pixelSizeY=layer.pixelSizeY;</span><br><span class="line">                task.execute(params,function(result)&#123;</span><br><span class="line">                    //弹出改点的高程值</span><br><span class="line">                    alert(result.value)</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;)</span><br><span class="line">            </span><br><span class="line">        &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;mapDiv&quot; class=&quot;MapClass&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;button id=&quot;drawp&quot;&gt;绘制点&lt;/button&gt;</span><br><span class="line">    &lt;button id=&quot;btn&quot;&gt;查询&lt;/button&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/ArcGIS-API-for-JS/">ArcGIS API for JS</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2019/08/07/python基础1/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                python基础（一）
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2019/08/06/ArcGIS-API-for-JS24/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        ArcGIS API For Javascript之调用地理编码服务
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ArcGIS-API影像测量"><span class="toc-number">1.</span> <span class="toc-text">ArcGIS API影像测量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#代码实现"><span class="toc-number">1.1.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码结果"><span class="toc-number">1.2.</span> <span class="toc-text">代码结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#全部代码"><span class="toc-number">1.3.</span> <span class="toc-text">全部代码</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>
