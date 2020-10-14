@@ -32,7 +32,7 @@
     <div id="nav">
         <div class="nav-img" id="nav-img"></div>
         <div class="sentences">
-            云里写诗，泥里生活，岁月里洒脱。
+            时光荏苒，旦夕之间，略有遗憾，似白驹过隙，蹉跎自悟。
         </div>
     </div>
 </header>
@@ -42,6 +42,46 @@
         <div class="clearfix">
     
     <div id="recent-posts">
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/01/02/理解cookie、session、localStorage、sessionStorage之不同/">
+                        理解cookie、session、localStorage、sessionStorage...
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-01-02T02:03:31.000Z">
+                            2019-01-02
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <h1 id="理解cookie、session、localStorage、sessionStorage之不同"><a href="#理解cookie、session、localStorage、sessionStorage之不同" class="headerlink" title="理解cookie、session、localStorage、sessionStorage之不同"></a>理解cookie、session、localStorage、sessionStorage之不同</h1><p><img src="http12.png" alt=""></p>
+<ul>
+<li><p>1、相同点：数据都保存在浏览器，同源共享。即相同的域下可以修改读取。</p>
+</li>
+<li><p>2、不同点：</p>
+<p>   <font color="red">大小数量： </font>IE6或更低版本最多20个cookie，IE7+可以有50个。 cookie大小4KB左右，超过部分会被截掉。sessionStoage，localStoage大小可达5M。</p>
+<p>   <font color="red">传输： </font>每次请求cookie都会发送到服务器，然后回传给浏览器，sessionStoage,localStoage不会自动发送到服务器端。</p>
+<p> <font color="red">有效性：</font>cookie可以设置path路径，限制只属于某个路径。在过期时间之前都有效，即使窗口和浏览器关闭。sesesionStorage当前窗口有效，关闭窗口自动失效。localStorage始终有效，即使窗口和浏览器关闭。</p>
+<p> <font color="red">作用域：</font>cookie在同源页面中共享，sessionStorage只能在当前页有效，localStorage在所有同源页面中共享。</p>
+<p>  <font color="red">操作方法：</font>Cookie的修改读取方法需自己实现，sessionStorage，localStorage提供了get，set方法。    </p>
+</li>
+</ul>
+<p>注：cookie是不可以或缺的，cookie的作用是与服务器进行交互，作为HTTP规范的一部分而存在 ，而Web Storage仅仅是为了在本地“存储”数据而生。</p>
+<h1 id="web-Storage支持的属性与方法"><a href="#web-Storage支持的属性与方法" class="headerlink" title="web Storage支持的属性与方法"></a>web Storage支持的属性与方法</h1><p>localStorage和sessionStorage都具有相同的操作方法，例如setItem、getItem和removeItem等</p>
+<p>getItem(key):获取指定key所存储的value值<br>key(index)方法：返回列表中对应索引的key值<br>length属性：返回key/value队列的长度<br>removeItem(key)方法：从Storage中删除一个对应的键值对。<br>setItem(key,value)方法：将value存储到key指定的字段。<br>clear()方法：移除所有的内容</p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/01/02/理解cookie、session、localStorage、sessionStorage之不同/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
         
             <div class="post-item">
                 <h1>
@@ -882,7 +922,7 @@
             <a href="/tags">
                 标签
                 <sup style="font-size: 12px">
-                    [28]
+                    [29]
                 </sup>
             </a>
         </h2>
@@ -899,7 +939,7 @@
 <aside id="acchives">
     <h2>归档</h2>
     
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
     
 </aside>
 

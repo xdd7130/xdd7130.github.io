@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>遇到的问题 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="😮问题一：ArcGIS服务突然启动不了症状😷症状一：所有的ArcGIS服务用不了，启动ArcGIS Server后，会立刻停掉.症状二：Arcgis Desktop连接GIS Servers报错“Proxy server got bad address from remote server …”症状三：打开错误日志，如下错误：
+1234567891011java.lang.ExceptionInInitializerError	at com.esri.arcgis.discovery.admin.SiteManager.getInstance(SiteManager.java:374)	at com.esri.arc...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            云里写诗，泥里生活，岁月里洒脱。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>遇到的问题</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2020-10-14T01:36:25.000Z">
+                    2020-10-14
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+        </div>
+        <h3 id="😮问题一：ArcGIS服务突然启动不了"><a href="#😮问题一：ArcGIS服务突然启动不了" class="headerlink" title="😮问题一：ArcGIS服务突然启动不了"></a>😮问题一：ArcGIS服务突然启动不了</h3><h4 id="症状😷"><a href="#症状😷" class="headerlink" title="症状😷"></a>症状😷</h4><p>症状一：所有的ArcGIS服务用不了，启动ArcGIS Server后，会立刻停掉.<br>症状二：Arcgis Desktop连接GIS Servers报错“Proxy server got bad address from remote server …”<br>症状三：打开错误日志，如下错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ExceptionInInitializerError</span><br><span class="line">	at com.esri.arcgis.discovery.admin.SiteManager.getInstance(SiteManager.java:374)</span><br><span class="line">	at com.esri.arcgis.discovery.admin.plugins.ServerConfigObserver.beforeStart(ServerConfigObserver.java:80)</span><br><span class="line">	at com.esri.arcgis.discovery.nodeagent.impl.ObserverManager.beforeStart(ObserverManager.java:146)</span><br><span class="line">	at com.esri.arcgis.discovery.nodeagent.impl.NodeAgent.c(NodeAgent.java:245)</span><br><span class="line">	at com.esri.arcgis.discovery.nodeagent.impl.NodeAgent.start(NodeAgent.java:137)</span><br><span class="line">	at com.esri.arcgis.discovery.nodeagent.impl.Main.start(Main.java:56)</span><br><span class="line">Caused by: java.lang.RuntimeException: Could not create directory path <span class="string">'D:\arcgisserver\config-store'</span>. This is required to maintain the Site configuration. Please check that the location is valid and that the ArcGIS Server account has permissions to the location.</span><br><span class="line">	at com.esri.arcgis.discovery.admin.SiteManager.&lt;init&gt;(SiteManager.java:242)</span><br><span class="line">	at com.esri.arcgis.discovery.admin.SiteManager.&lt;init&gt;(SiteManager.java:153)</span><br><span class="line">	at com.esri.arcgis.discovery.admin.SiteManager<span class="variable">$i_</span>.&lt;clinit&gt;(SiteManager<span class="variable">$i_</span>.java:363)</span><br></pre></td></tr></table></figure>
+<p>从以上症状，我们发现了问题所在，即文件夹’D:\arcgisserver\config-store’的权限问题，于是回想我之前是否改过权限，之前我删掉了Users组或用户名。</p>
+<h4 id="解决办法💊"><a href="#解决办法💊" class="headerlink" title="解决办法💊"></a>解决办法💊</h4><p>安全-添加-高级-立即查找-选择“users”-确定。添加主体Users后，ArcGIS Server便可恢复，如图：<br><img src="/2020/10/14/遇到的问题/001.png" alt="001.png"></p>
+<h3 id="😮问题二-Sql-Server数据库密码过期"><a href="#😮问题二-Sql-Server数据库密码过期" class="headerlink" title="😮问题二:Sql Server数据库密码过期"></a>😮问题二:Sql Server数据库密码过期</h3><h4 id="症状😷-1"><a href="#症状😷-1" class="headerlink" title="症状😷"></a>症状😷</h4><p>症状一：某台服务器上的接口突然无法使用，报错500；<br>症状二：SQL Server数据库,sa用户登录不上，错误如图：<br><img src="/2020/10/14/遇到的问题/002.png" alt="002.png"></p>
+<p>以上症状说明：sa密码错误，我们设定的密码过期了。</p>
+<h4 id="解决办法💊-1"><a href="#解决办法💊-1" class="headerlink" title="解决办法💊"></a>解决办法💊</h4><p>常规办法解决如下步骤：<br>1、以windows验证模式进入数据库管理器<br>2、右键数据库服务器名，选择【属性】<br>3、打开“服务器属性”窗口，选择【安全性】，更改“服务器身份验证”<br>4、展开数据库服务器名—“安全性”—“登录名”， 右键“sa”用户，选择【属性】<br>5、打开“登录属性”窗口，选择【常规】，设置密码<br>6、仍然在“登录属性”窗口，选择【状态】，选择“登录”下面的【已启用】<br>7、右键数据库服务器名，选择【重新启动】<br>8、现在可以使用SQL Server身份验证成功登录了。<br>以上办法设置的密码仍会过期，执行下面脚本重启服务便可彻底解决：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER LOGIN sa WITH PASSWORD = <span class="string">'&lt;password&gt;'</span> unlock, check_policy = off, check_expiration = off;</span><br></pre></td></tr></table></figure></p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/PROBLEM/">PROBLEM</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+        
+            <a href="/2020/09/25/node部署到IIS服务器/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        Node.js部署到IIS服务器
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#😮问题一：ArcGIS服务突然启动不了"><span class="toc-number">1.</span> <span class="toc-text">😮问题一：ArcGIS服务突然启动不了</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#症状😷"><span class="toc-number">1.1.</span> <span class="toc-text">症状😷</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决办法💊"><span class="toc-number">1.2.</span> <span class="toc-text">解决办法💊</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#😮问题二-Sql-Server数据库密码过期"><span class="toc-number">2.</span> <span class="toc-text">😮问题二:Sql Server数据库密码过期</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#症状😷-1"><span class="toc-number">2.1.</span> <span class="toc-text">症状😷</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解决办法💊-1"><span class="toc-number">2.2.</span> <span class="toc-text">解决办法💊</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>
