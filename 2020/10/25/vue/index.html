@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>vue | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="生命周期钩子Vue实例从创建到销毁的过程，生命周期分为8个过程：创建前，创建后，挂载前，挂载后，更新前，更新后，销毁前，销毁后。
+
+beforeCreate:初始化vue实例，进行数据观测，发生在实例对象创建之前，一般来实现加载动画等。
+
+
+created:组件创建，属性被绑定，但DOM还没生成，一般在这个阶段进行请求、获取数据，赋给属性等。
+
+完成数据观测，属性与方法的运算，watch、event事件回调的配置
+可调用methods中的方法，访问和修改data数据触发响应式渲染dom，可通过computed和watch完成数据计算
+此时vm.$el 并没有被创建
+一般在created中进行ajax请求
+
+
+
+creat...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            黎明的那道光，会越过黑暗，打破一切恐惧，我能找到答案。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>vue</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2020-10-25T11:18:34.000Z">
+                    2020-10-25
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/VUE/">VUE</a></li></ul>
+        </div>
+        <h3 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h3><p>Vue实例从创建到销毁的过程，生命周期分为8个过程：创建前，创建后，挂载前，挂载后，更新前，更新后，销毁前，销毁后。</p>
+<blockquote>
+<p>beforeCreate:初始化vue实例，进行数据观测，发生在实例对象创建之前，一般来实现加载动画等。</p>
+</blockquote>
+<blockquote>
+<p>created:组件创建，属性被绑定，但DOM还没生成，一般在这个阶段进行请求、获取数据，赋给属性等。</p>
+<ul>
+<li>完成数据观测，属性与方法的运算，watch、event事件回调的配置</li>
+<li>可调用methods中的方法，访问和修改data数据触发响应式渲染dom，可通过computed和watch完成数据计算</li>
+<li>此时vm.$el 并没有被创建</li>
+<li>一般在created中进行ajax请求</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>created -&gt; beforeMount:</p>
+<ul>
+<li>判断是否存在el选项，若不存在则停止编译，直到调用vm.$mount(el)才会继续编译</li>
+<li>若存在el，则判断是否存在template，若存在，则将template编译成render函数；若不存在，则直接编译el所对应的外部html</li>
+<li>如果存在render函数，则首先对其进行编译</li>
+<li>此过程中vm.el被实例化为el选项对应DOM元素，所以在beforeMount中，用vm.el获取到的是挂载DOM的HTML<br>优先级： render &gt; template &gt; outerHTML</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>beforeMount:</p>
+<ul>
+<li>在此阶段可获取到vm.el</li>
+<li>此阶段vm.el虽已完成DOM初始化，但并未挂载在el选项上</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>beforeMount -&gt; mounted:此阶段vm.el完成挂载，vm.$el生成的DOM替换了el选项所对应的DOM</p>
+</blockquote>
+<blockquote>
+<p>mounted:编译完成页面显示，有些东西需要在页面显示之后再操作的，应在mounted方法阶段。</p>
+</blockquote>
+<blockquote>
+<p>beforeUpdate:实例更新之前。</p>
+</blockquote>
+<blockquote>
+<p>updated:实例更新之后。</p>
+</blockquote>
+<blockquote>
+<p>beforeDestroy:实例销毁之前。</p>
+</blockquote>
+<blockquote>
+<p>destroyed:实例销毁之后。</p>
+</blockquote>
+<h3 id="路由导航守卫"><a href="#路由导航守卫" class="headerlink" title="路由导航守卫"></a>路由导航守卫</h3><p> 导航守卫就是路由跳转过程中的一些钩子函数，路由跳转的过程分为跳转前中后等等细小的过程，在每一个过程中都有一函数，这个函数能让你操作一些其他的事儿，这就是导航守卫，类似于上面的组件生命周期钩子函数。<br> 待补充。。。。</p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/VUE/">VUE</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+        
+            <a href="/2020/10/14/遇到的问题/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        遇到的问题
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#生命周期钩子"><span class="toc-number">1.</span> <span class="toc-text">生命周期钩子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路由导航守卫"><span class="toc-number">2.</span> <span class="toc-text">路由导航守卫</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>
