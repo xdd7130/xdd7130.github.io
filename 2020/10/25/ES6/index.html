@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>ES6 | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="🌴 let 与 const👉 总结：
+let :声明的变量只在 let 命令所在的代码块内有效，且只能声明一次，多次声明，报错：“Identifier XX has already been declared”,for循环很适合let。
+const:声明一个只读的常量，一旦声明，常量的值就不能改变。
+
+👉 比较：1、不存在变量提升：let没有预解析，不存在变量提升，var 会变量提升。
+12345678console.log(a); // undefined  ===&amp;gt;  a已声明还没赋值，默认得到undefined值var a = 100;console.log(b); // 报错：b is not def...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            也许世界就这样，我也还在路上。
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>ES6</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2020-10-25T11:18:34.000Z">
+                    2020-10-25
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+        </div>
+        <h3 id="🌴-let-与-const"><a href="#🌴-let-与-const" class="headerlink" title="🌴 let 与 const"></a>🌴 let 与 const</h3><h4 id="👉-总结："><a href="#👉-总结：" class="headerlink" title="👉 总结："></a>👉 总结：</h4><ul>
+<li>let :声明的变量只在 let 命令所在的代码块内有效，且只能声明一次，多次声明，报错：“Identifier XX has already been declared”,for循环很适合let。</li>
+<li>const:声明一个只读的常量，一旦声明，常量的值就不能改变。</li>
+</ul>
+<h4 id="👉-比较："><a href="#👉-比较：" class="headerlink" title="👉 比较："></a>👉 比较：</h4><p>1、不存在变量提升：let没有预解析，不存在变量提升，var 会变量提升。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">console.log(a); // undefined  ===&gt;  a已声明还没赋值，默认得到undefined值</span><br><span class="line">var a = 100;</span><br><span class="line"></span><br><span class="line">console.log(b); // 报错：b is not defined  ===&gt; 找不到b这个变量</span><br><span class="line"><span class="built_in">let</span> b = 10;</span><br><span class="line"></span><br><span class="line">console.log(c); // 报错：c is not defined  ===&gt; 找不到c这个变量</span><br><span class="line">const c = 10;</span><br></pre></td></tr></table></figure>
+<p>2、const 声明一个只读变量，声明之后不允许改变。意味着，一旦声明必须初始化，否则会报错。<br>3、暂时性死区：代码块内如果存在 let 或者 const，代码块会对这些命令声明的变量从块的开始就形成一个封闭作用域。<br>4、var声明的变量会挂载在window上，而let和const声明的变量不会。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var a = 100;</span><br><span class="line">console.log(a,window.a);    // 100 100</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> b = 10;</span><br><span class="line">console.log(b,window.b);    // 10 undefined</span><br><span class="line"></span><br><span class="line">const c = 1;</span><br><span class="line">console.log(c,window.c);    // 1 undefined</span><br></pre></td></tr></table></figure>
+<h4 id="👉-注意"><a href="#👉-注意" class="headerlink" title="👉 注意:"></a>👉 注意:</h4><p>对于简单类型（数值 number、字符串 string 、布尔值 boolean）,值就保存在变量指向的那个内存地址，因此 const 声明的简单类型变量等同于常量。<br>复杂类型（对象 object，数组 array，函数 function），变量指向的内存地址其实是保存了一个指向实际数据的指针，所以 const 只能保证指针是固定的，至于指针指向的数据结构变不变就无法控制了，所以使用 const 声明复杂类型对象时要慎重。</p>
+<h3 id="🌴-解构赋值"><a href="#🌴-解构赋值" class="headerlink" title="🌴 解构赋值"></a>🌴 解构赋值</h3><p>解构赋值是对赋值运算符的扩展。</p>
+<p>他是一种针对数组或者对象进行模式匹配，然后对其中的变量进行赋值。</p>
+<p>在代码书写上简洁且易读，语义更加清晰明了；也方便了复杂对象中数据字段获取。<br>在解构中，有下面两部分参与：</p>
+<p>解构的源，解构赋值表达式的右边部分。<br>解构的目标，解构赋值表达式的左边部分。</p>
+<font color="green">一一对应的关系</font>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> [a,b,c] = [1,2,3];</span><br><span class="line"><span class="built_in">let</span> [a,[b,c]] = [1,[2,3]];</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> json = &#123;</span><br><span class="line">    name:<span class="string">'DANDAN'</span>,</span><br><span class="line">    age:18,</span><br><span class="line">    job:<span class="string">"打工人"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> &#123;name,age,job&#125; = &#123;</span><br><span class="line">    nama:<span class="string">"DANDAN"</span>,</span><br><span class="line">    age:18,</span><br><span class="line">    job:<span class="string">"打工人"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//别名</span><br><span class="line"><span class="built_in">let</span> &#123;name:n,age:g,job:b&#125; = json</span><br><span class="line">console.log(n,g,b)</span><br><span class="line">//解构可以给默认值</span><br><span class="line"><span class="built_in">let</span> [a,b,c=<span class="string">"暂无数据"</span>] = [1,2,undefined];</span><br><span class="line">//</span><br><span class="line"><span class="built_in">let</span> = a;</span><br><span class="line">(&#123;a&#125; = &#123;a:<span class="string">"apple"</span>,b:<span class="string">"banana"</span>&#125;);</span><br><span class="line">console.log(a)</span><br></pre></td></tr></table></figure>
+<h3 id="🌴-字符串模板"><a href="#🌴-字符串模板" class="headerlink" title="🌴 字符串模板"></a>🌴 字符串模板</h3><p>代替字符串拼接<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> name = <span class="string">"DANDAN"</span>;</span><br><span class="line"><span class="built_in">let</span> age = 18;</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> str = `我是<span class="variable">$&#123;name&#125;</span>,年龄永远<span class="variable">$&#123;age&#125;</span>岁`;</span><br></pre></td></tr></table></figure></p>
+<h3 id="🌴-函数"><a href="#🌴-函数" class="headerlink" title="🌴 函数"></a>🌴 函数</h3><h4 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h4><p>函数参数默认已经定义，不能再用let,const声明<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>(a=0,b=0)&#123;</span><br><span class="line">    console.log(a,b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h4><p>()=&gt;{<br>    语句<br>    return<br>}<br>注:</p>
+<ul>
+<li>this问题，定义函数所在的对象，不是运行时所在对象。</li>
+<li>箭头函数里没有arguments；用“…”。</li>
+<li>箭头函数不能作构造函数</li>
+</ul>
+<h4 id="剩余参数"><a href="#剩余参数" class="headerlink" title="剩余参数"></a>剩余参数</h4><p>扩展运算符，reset运算符(…)：<br>剩余参数必须放到最后</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">let</span> arr = [a,b,c]</span><br><span class="line">console.log(...arr);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> show(...a)&#123;</span><br><span class="line">    console.log(a)</span><br><span class="line">&#125;</span><br><span class="line">show(1,2,3,4,5)</span><br></pre></td></tr></table></figure>
+<h3 id="🌴-热闹的数组循环"><a href="#🌴-热闹的数组循环" class="headerlink" title="🌴 热闹的数组循环"></a>🌴 热闹的数组循环</h3><ul>
+<li>forEach() 代替for,两个参数</li>
+<li>map()</li>
+<li>filter()</li>
+<li>some()</li>
+<li>every()</li>
+</ul>
+<p>1、arr.forEach(function(){},指向)、arr.map(function(){},指向),接受两个参数，第一个：循环回调函数，第二个：this指向。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr.forEach(<span class="keyword">function</span>(val,index,arr)&#123;</span><br><span class="line">    console.log(this,val,index,arr);</span><br><span class="line">&#125;,windows)</span><br></pre></td></tr></table></figure>
+<p>2、arr.map(function(){},指向),和forEach()一样，接受两个参数，第一个：循环回调函数，第二个：this指向。<br>   <font color="red">一般用来做数据交互映射，正常情况下，需要配合return,返回一个新的数组 </font> 若没有return相当于forEach,<br>   日常用return返回目标数据。<br>3、arr.filter(),过滤掉“不合格”数据.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> arr = [</span><br><span class="line">    &#123;<span class="built_in">type</span>:<span class="literal">true</span>&#125;,</span><br><span class="line">    &#123;<span class="built_in">type</span>:<span class="literal">false</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="built_in">let</span> newArr = arr.filter(<span class="keyword">function</span>(item,index,arr)&#123;</span><br><span class="line">    <span class="built_in">return</span> item.type === <span class="literal">true</span>;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(newArr);</span><br></pre></td></tr></table></figure>
+<p>4、arr.some(),类似查找，数组里面有一个元素符合条件，返回true.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> arr = [1,2,3,4,5,6];</span><br><span class="line"><span class="built_in">let</span> r = arr.some((val,index,arr) =&gt;&#123;</span><br><span class="line">    <span class="built_in">return</span> val%2 = 1;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>5、arr.every(),数组里面所有元素符合条件，返回true。<br>6、arr.reduce(),与上面的不同，有四个参数,从左往右。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> r = arr.reduce((pre,cur,index,arr)=&gt;&#123;</span><br><span class="line">    <span class="built_in">return</span> pre+cur;  //求和</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>7、arr.reduceRight(),有四个参数,从右往左。<br>8、for…of</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="built_in">let</span> val of arr)&#123;</span><br><span class="line">    console.log(val);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">let</span> index of arr.keys())&#123;</span><br><span class="line">    console.log(val);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">let</span> item of arr.entries())&#123;</span><br><span class="line">    console.log(val);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">let</span> [key,val] of arr.entries())&#123;</span><br><span class="line">    console.log(key,val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="🌴-数组新增"><a href="#🌴-数组新增" class="headerlink" title="🌴 数组新增"></a>🌴 数组新增</h3><p>1、Array.from():把类数组对象转为数组。<br>2、Array.of():把一组值转为数组。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Array.of(<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>) //[<span class="string">'1'</span>,<span class="string">'2'</span>,<span class="string">'3'</span>]</span><br></pre></td></tr></table></figure>
+<p>3、Array.find():数组查找，找出第一个符合条件，若没找到，返回undefined。<br>4、Array.findIndex():返回找到的位置，没找到返回-1.<br>5、arr.fill()<br>6、arr.includes()<br>6、arr.indexOf()</p>
+<h3 id="🌴-Promise"><a href="#🌴-Promise" class="headerlink" title="🌴 Promise"></a>🌴 Promise</h3><p>1、解决异步回调问题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">new Promise(<span class="keyword">function</span>(resolve,reject)&#123;</span><br><span class="line">    //resolve成功调用</span><br><span class="line">    //reject 失败调用</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> a=10;</span><br><span class="line"><span class="built_in">let</span> promise = new Promise(<span class="keyword">function</span>(resolve,reject)&#123;</span><br><span class="line">    <span class="keyword">if</span>(a==10)&#123;</span><br><span class="line">        resolve(<span class="string">'成功！'</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        resolve(<span class="string">'失败！'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">promise.then(res=&gt;&#123;</span><br><span class="line">    console.log(res);</span><br><span class="line">&#125;,err=&gt;&#123;</span><br><span class="line">    console.log(err);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>2、Promise.resolve(‘a’):将现有的东西转成一个promise对象，resolve状态，成功状态。等价于：new Promise(resolve=&gt;{resolve(“a”)})。<br>Promise.reject(‘a’):将现有的东西转成一个promise对象，reject状态，失败状态。<br>3、Promise.all([p1,p2,p3]):把promise打包，扔到数组里，打包完还是一个promise对象。必须确保所有的promise对象都是resolve状态，都是成功状态。<br>4、Promise.race([p1,p2,p3]):只要有一个成功，就返回。</p>
+<h3 id="🌴-模块化"><a href="#🌴-模块化" class="headerlink" title="🌴 模块化"></a>🌴 模块化</h3><p>在ES6之前，社区定制一套模块规范</p>
+<ul>
+<li>Commonjs—-主要服务端nodejs  require(‘http’)</li>
+<li>AMD———requirejs,curljs</li>
+<li>CMD———seajs</li>
+</ul>
+<p>ES6 ， import/export/export default  .</p>
+<ul>
+<li>可以是相对路径，也可绝对路径。</li>
+<li>import只会导入一次，无论引入多少次。</li>
+<li>import “./modules/1.js”;如果这么用，相当于引入文件。</li>
+<li>import会自动提升到顶部，先执行</li>
+<li>导出去模块内容，如果里面有定时器更改，外面也会改动，不像CommonJS规范缓存。</li>
+<li>动态引入：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//1、import、<span class="built_in">export</span></span><br><span class="line">    //模块</span><br><span class="line">        const a=1;</span><br><span class="line">        const b=2;</span><br><span class="line">        <span class="built_in">let</span> c=3</span><br><span class="line">        <span class="built_in">export</span> &#123;</span><br><span class="line">            a as first</span><br><span class="line">            b as second</span><br><span class="line">            c as third</span><br><span class="line">        &#125;</span><br><span class="line">    //引入</span><br><span class="line">        import &#123;first,second,third&#125; from ./modules.js</span><br><span class="line"></span><br><span class="line">//2、import、<span class="built_in">export</span> default</span><br><span class="line"><span class="built_in">export</span> default引入时不用加花括号.</span><br><span class="line">    //模块</span><br><span class="line">        <span class="built_in">export</span> default a=3;</span><br><span class="line">    //引入</span><br><span class="line">        import a from ./modules.js</span><br></pre></td></tr></table></figure>
+<h3 id="🌴-Symbol"><a href="#🌴-Symbol" class="headerlink" title="🌴 Symbol"></a>🌴 Symbol</h3><p>ES6 数据类型除了 Number 、 String 、 Boolean 、 Objec t、 null 和 undefined ，还新增了 Symbol 。</p>
+<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><p>Symbol 函数栈不能用 new 命令，因为 Symbol 是原始数据类型，不是对象。可以接受一个字符串作为参数，为新创建的 Symbol 提供描述，用来显示在控制台或者作为字符串的时候使用，便于区分。</p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/ES6/">ES6</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+        
+            <a href="/2020/10/25/vue/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        vue
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#🌴-let-与-const"><span class="toc-number">1.</span> <span class="toc-text">🌴 let 与 const</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#👉-总结："><span class="toc-number">1.1.</span> <span class="toc-text">👉 总结：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#👉-比较："><span class="toc-number">1.2.</span> <span class="toc-text">👉 比较：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#👉-注意"><span class="toc-number">1.3.</span> <span class="toc-text">👉 注意:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🌴-解构赋值"><span class="toc-number">2.</span> <span class="toc-text">🌴 解构赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🌴-字符串模板"><span class="toc-number">3.</span> <span class="toc-text">🌴 字符串模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🌴-函数"><span class="toc-number">4.</span> <span class="toc-text">🌴 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#默认参数"><span class="toc-number">4.1.</span> <span class="toc-text">默认参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#箭头函数"><span class="toc-number">4.2.</span> <span class="toc-text">箭头函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#剩余参数"><span class="toc-number">4.3.</span> <span class="toc-text">剩余参数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🌴-热闹的数组循环"><span class="toc-number">5.</span> <span class="toc-text">🌴 热闹的数组循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🌴-数组新增"><span class="toc-number">6.</span> <span class="toc-text">🌴 数组新增</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🌴-Promise"><span class="toc-number">7.</span> <span class="toc-text">🌴 Promise</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🌴-模块化"><span class="toc-number">8.</span> <span class="toc-text">🌴 模块化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🌴-Symbol"><span class="toc-number">9.</span> <span class="toc-text">🌴 Symbol</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本用法"><span class="toc-number">9.1.</span> <span class="toc-text">基本用法</span></a></li></ol></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>
