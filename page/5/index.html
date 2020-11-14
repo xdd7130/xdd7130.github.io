@@ -32,7 +32,7 @@
     <div id="nav">
         <div class="nav-img" id="nav-img"></div>
         <div class="sentences">
-            黎明的那道光，会越过黑暗，打破一切恐惧，我能找到答案。
+            向着风，拥抱彩虹，勇敢的向前走。
         </div>
     </div>
 </header>
@@ -42,6 +42,39 @@
         <div class="clearfix">
     
     <div id="recent-posts">
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/08/05/ArcGIS-API-for-JS09/">
+                        ArcGIS API For JavaScript本地部署（IIS）
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-08-05T10:23:24.000Z">
+                            2019-08-05
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li></ul>
+                </div>
+                
+                    <p>在windows系统，我们总是将ArcGIS API For JavaScript部署在IIS中，而不是部署在Tomcat中，其实在IIS中的配置和Tomcat中的配置ArcGIS API几乎没有什么差别，在本篇文章中，主要讲解在IIS中的配置ArcGIS API。<br>部署本地环境在IIS主要分为以下几个步骤： </p>
+<ol>
+<li>下载ArcGIS API For JavaScript函数库 </li>
+<li>安装IIS软件并进行配置 </li>
+<li>修改相应的js文件（2个文件） </li>
+<li>将修改好的函数库复制到指定位置 </li>
+<li>测试ArcGIS API For JavaScript函数库是否安装成功。<br>###　下载ArcGIS API For JavaScript函数库<br>ArcGIS API For JavaScript<br>下载的函数库如图所示:<br><img src="/2019/08/05/ArcGIS-API-for-JS09/01.png" alt="01.png"><br>###　安装IIS软件并进行配置（略）<br>###　修改相应的js文件（2个文件）<br>修改 文件一（init.js）<br>位置：arcgis_js_v317_api\arcgis_js_api\library\3.17\3.17\init.js<br>将[HOSTNAME_AND_PATH_TO_JSAPI]替换成localhost/arcgis_js_api/library/3.17/3.17/<br>修改文件二（dojo.js）<br>位置：arcgis_js_v317_api\arcgis_js_api\library\3.17\3.17\dojo\dojo.js<br>将[HOSTNAME_AND_PATH_TO_JSAPI]替换成localhost/arcgis_js_api/library/3.17/3.17/</li>
+</ol>
+
+                
+                <div class="readmore">
+                    <a href="/2019/08/05/ArcGIS-API-for-JS09/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
         
             <div class="post-item">
                 <h1>
@@ -365,32 +398,6 @@
                 </div>
             </div>
         
-            <div class="post-item">
-                <h1>
-                    <a href="/2019/07/13/react/">
-                        React
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2019-07-13T13:35:13.000Z">
-                            2019-07-13
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/React/">React</a></li></ul>
-                </div>
-                
-                    <p># </p>
-
-                
-                <div class="readmore">
-                    <a href="/2019/07/13/react/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
     </div>
 
 
@@ -445,7 +452,7 @@
             <a href="/tags">
                 标签
                 <sup style="font-size: 12px">
-                    [30]
+                    [31]
                 </sup>
             </a>
         </h2>
@@ -462,7 +469,7 @@
 <aside id="acchives">
     <h2>归档</h2>
     
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
     
 </aside>
 
