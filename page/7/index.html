@@ -32,7 +32,7 @@
     <div id="nav">
         <div class="nav-img" id="nav-img"></div>
         <div class="sentences">
-            也许世界就这样，我也还在路上。
+            向着风，拥抱彩虹，勇敢的向前走。
         </div>
     </div>
 </header>
@@ -42,6 +42,408 @@
         <div class="clearfix">
     
     <div id="recent-posts">
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/01/05/垂直居中/">
+                        垂直居中
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-01-05T01:25:40.000Z">
+                            2019-01-05
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <h1 id="16种方法实现水平居中垂直居中"><a href="#16种方法实现水平居中垂直居中" class="headerlink" title="16种方法实现水平居中垂直居中"></a>16种方法实现水平居中垂直居中</h1><p>熟悉水平居中和垂直居中的方法, 不为别的, 就为用的时候能够信手拈来. 下面直接步入正题.<br>原文：16种方法实现水平居中垂直居中</p>
+<h2 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h2><p>1) 若是行内元素, 给其父元素设置 text-align:center,即可实现行内元素水平居中.</p>
+<p>2) 若是块级元素, 该元素设置 margin:0 auto即可.</p>
+<p>3) 若子元素包含 float:left 属性, 为了让子元素水平居中, 则可让父元素宽度设置为fit-content,并且配合margin, 作如下设置:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    width: -moz-fit-content;</span><br><span class="line">    width: -webkit-fit-content;</span><br><span class="line">    width:fit-content;</span><br><span class="line">    margin:0 auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>fit-content是CSS3中给width属性新加的一个属性值,它配合margin可以轻松实现水平居中, 目前只支持Chrome 和 Firefox浏览器.</p>
+<p>4) 使用flex 2012年版本布局, 可以轻松的实现水平居中, 子元素设置如下:</p>
+<p>.son{<br>    display: flex;<br>    justify-content: center;<br>}复制代码<br>5) 使用flex 2009年版本, 父元素display: box;box-pack: center;如下设置:</p>
+<p>.parent {<br>    display: -webkit-box;<br>    -webkit-box-orient: horizontal;<br>    -webkit-box-pack: center;<br>    display: -moz-box;<br>    -moz-box-orient: horizontal;<br>    -moz-box-pack: center;<br>    display: -o-box;<br>      -o-box-orient: horizontal;<br>      -o-box-pack: center;<br>      display: -ms-box;<br>      -ms-box-orient: horizontal;<br>      -ms-box-pack: center;<br>      display: box;<br>      box-orient: horizontal;<br>      box-pack: center;<br>}复制代码<br>6) 使用CSS3中新增的transform属性, 子元素设置如下:</p>
+<p>.son{<br>    position:absolute;<br>      left:50%;<br>      transform:translate(-50%,0);<br>}复制代码<br>7) 使用绝对定位方式, 以及负值的margin-left, 子元素设置如下:</p>
+<p>.son{<br>    position:absolute;<br>    width:固定;<br>    left:50%;<br>    margin-left:-0.5宽度;<br>}复制代码<br>8) 使用绝对定位方式, 以及left:0;right:0;margin:0 auto; 子元素设置如下:</p>
+<p>.son{<br>    position:absolute;<br>    width:固定;<br>    left:0;<br>    right:0;<br>    margin:0 auto;<br>}复制代码</p>
+<h2 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h2><h3 id="单行文本"><a href="#单行文本" class="headerlink" title="单行文本"></a>单行文本</h3><p>1) 若元素是单行文本, 则可设置 line-height 等于父元素高度</p>
+<h3 id="行内块级元素"><a href="#行内块级元素" class="headerlink" title="行内块级元素"></a>行内块级元素</h3><p>2) 若元素是行内块级元素, 基本思想是使用display: inline-block, vertical-align: middle和一个伪元素让内容块处于容器中央.</p>
+<p>.parent::after, .son{<br>    display:inline-block;<br>    vertical-align:middle;<br>}<br>.parent::after{<br>    content:’’;<br>    height:100%;<br>}复制代码<br>这是一种很流行的方法, 也适应IE7.</p>
+<h3 id="元素高度不定"><a href="#元素高度不定" class="headerlink" title="元素高度不定"></a>元素高度不定</h3><p>3) 可用 vertical-align 属性, 而vertical-align只有在父层为 td 或者 th 时, 才会生效, 对于其他块级元素, 例如 div、p 等, 默认情况是不支持的. 为了使用vertical-align, 我们需要设置父元素display:table, 子元素 display:table-cell;vertical-align:middle;</p>
+<p>优点</p>
+<p>元素高度可以动态改变, 不需再CSS中定义, 如果父元素没有足够空间时, 该元素内容也不会被截断.</p>
+<p>缺点</p>
+<p>IE6~7, 甚至IE8 beta中无效.</p>
+<p>4) 可用 Flex 2012版, 这是CSS布局未来的趋势. Flexbox是CSS3新增属性, 设计初衷是为了解决像垂直居中这样的常见布局问题. 相关的文章如《弹性盒模型Flex指南》</p>
+<p>父元素做如下设置即可保证子元素垂直居中:</p>
+<p>.parent {<br>  display: flex;<br>  align-items: center;<br>}复制代码<br>优点</p>
+<p>内容块的宽高任意, 优雅的溢出.<br>可用于更复杂高级的布局技术中.<br>缺点</p>
+<p>IE8/IE9不支持<br>需要浏览器厂商前缀<br>渲染上可能会有一些问题<br>5) 使用flex 2009版.</p>
+<p>.parent {<br>      display: box;<br>      box-orient: vertical;<br>      box-pack: center;<br>}复制代码<br>优点</p>
+<p>实现简单, 扩展性强</p>
+<p>缺点</p>
+<p>兼容性差, 不支持IE</p>
+<p>6) 可用 transform , 设置父元素相对定位(position:relative), 子元素如下css样式:</p>
+<p>.son{<br>    position:absolute;<br>    top:50%;<br>    -webkit-transform: translate(-50%,-50%);<br>    -ms-transform: translate(-50%,-50%);<br>    transform: translate(-50%,-50%);<br>}复制代码<br>优点</p>
+<p>代码量少</p>
+<p>缺点</p>
+<p>IE8不支持, 属性需要追加浏览器厂商前缀, 可能干扰其他 transform 效果, 某些情形下会出现文本或元素边界渲染模糊的现象.</p>
+<p>元素高度固定<br>7) 设置父元素相对定位(position:relative), 子元素如下css样式:</p>
+<p>.son{<br>    position:absolute;<br>    top:50%;<br>    height:固定;<br>    margin-top:-0.5高度;<br>}复制代码<br>优点</p>
+<p>适用于所有浏览器.</p>
+<p>缺点</p>
+<p>父元素空间不够时, 子元素可能不可见(当浏览器窗口缩小时,滚动条不出现时).如果子元素设置了overflow:auto, 则高度不够时, 会出现滚动条.</p>
+<p>8) 设置父元素相对定位(position:relative), 子元素如下css样式:</p>
+<p>.son{<br>    position:absolute;<br>    height:固定;<br>    top:0;<br>    bottom:0;<br>    margin:auto 0;<br>}复制代码<br>优点</p>
+<p>简单</p>
+<p>缺点</p>
+<p>没有足够空间时, 子元素会被截断, 但不会有滚动条.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>水平居中较为简单, 共提供了8种方法, 一般情况下 text-align:center,marin:0 auto; 足矣</p>
+<p>① text-align:center;<br>② margin:0 auto;<br>③ width:fit-content;<br>④ flex<br>⑤ 盒模型<br>⑥ transform<br>⑦ ⑧ 两种不同的绝对定位方法<br>垂直居中, 共提供了8种方法.</p>
+<p>① 单行文本, line-height<br>② 行内块级元素, 使用 display: inline-block, vertical-align: middle; 加上伪元素辅助实现<br>③ vertical-align<br>④ flex<br>⑤ 盒模型<br>⑥ transform<br>⑦ ⑧ 两种不同的绝对定位方法<br>我们发现, flex, 盒模型, transform, 绝对定位, 这几种方法同时适用于水平居中和垂直居中.</p>
+<h1 id="水平垂直居中实现"><a href="#水平垂直居中实现" class="headerlink" title="水平垂直居中实现"></a>水平垂直居中实现</h1><h2 id="仅居中元素定宽高适用："><a href="#仅居中元素定宽高适用：" class="headerlink" title="仅居中元素定宽高适用："></a>仅居中元素定宽高适用：</h2><ul>
+<li><a href="http://yanhaijing.com/vertical-center/absolute1.html" target="_blank" rel="noopener">absolute + 负margin</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/absolute2.html" target="_blank" rel="noopener">absolute + margin auto</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/absolute3.html" target="_blank" rel="noopener">absolute + calc</a></li>
+</ul>
+<h2 id="居中元素不定宽高适用："><a href="#居中元素不定宽高适用：" class="headerlink" title="居中元素不定宽高适用："></a>居中元素不定宽高适用：</h2><ul>
+<li><a href="http://yanhaijing.com/vertical-center/absolute4.html" target="_blank" rel="noopener">absolute + transform</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/writing-mode.html" target="_blank" rel="noopener">writing-mode</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/lineheight.html" target="_blank" rel="noopener">lineheight</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/table.html" target="_blank" rel="noopener">table</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/css-table.html" target="_blank" rel="noopener">css-table</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/flex.html" target="_blank" rel="noopener">flex</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/grid.html" target="_blank" rel="noopener">grid</a></li>
+</ul>
+<h2 id="absolute-负margin"><a href="#absolute-负margin" class="headerlink" title="absolute + 负margin"></a>absolute + 负margin</h2><p>为了实现上面的效果先来做些准备工作，假设HTML代码如下，总共两个元素，父元素和子元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box size&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>wp是父元素的类名，box是子元素的类名，因为有定宽和不定宽的区别，size用来表示指定宽度，下面是所有效果都要用到的公共代码，主要是设置颜色和宽高<br>注意：后面不在重复这段公共代码，只会给出相应提示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/* 公共代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    border: 1px solid red;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 300px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.box &#123;</span><br><span class="line">    background: green;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.box.size&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">&#125;</span><br><span class="line">/* 公共代码 */</span><br></pre></td></tr></table></figure></p>
+<p>绝对定位的百分比是相对于父元素的宽高，通过这个特性可以让子元素的居中显示，但绝对定位是基于子元素的左上角，期望的效果是子元素的中心居中显示为了修正这个问题，可以借助外边距的负值，负的外边距可以让元素向相反方向定位，通过指定子元素的外边距为子元素宽度一半的负值，就可以让子元素居中了，css代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    margin-left: -50px;</span><br><span class="line">    margin-top: -50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这是我比较常用的方式，这种方式比较好理解，兼容性也很好，缺点是<font color="red">需要知道子元素的宽高</font></p>
+<h2 id="absolute-margin-auto"><a href="#absolute-margin-auto" class="headerlink" title="absolute + margin auto"></a>absolute + margin auto</h2><p>这种方式也要求居中元素的宽高必须固定，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box size&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这种方式通过设置各个方向的距离都是0，此时再讲margin设为auto，就可以在各个方向上居中了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    top: 0;</span><br><span class="line">    left: 0;</span><br><span class="line">    right: 0;</span><br><span class="line">    bottom: 0;</span><br><span class="line">    margin: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法兼容性也很好，缺点是需要知道子元素的宽高</p>
+<h2 id="absolute-calc"><a href="#absolute-calc" class="headerlink" title="absolute + calc"></a>absolute + calc</h2><p>这种方式也要求居中元素的宽高必须固定，所以我们为box增加size类，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box size&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>感谢css3带来了计算属性，既然top的百分比是基于元素的左上角，那么在减去宽度的一半就好了，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    top: calc(50% - 50px);</span><br><span class="line">    left: calc(50% - 50px);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法兼容性依赖calc的兼容性，缺点是需要知道子元素的宽高</p>
+<h2 id="absolute-transform"><a href="#absolute-transform" class="headerlink" title="absolute + transform"></a>absolute + transform</h2><p>还是绝对定位，但这个方法不需要子元素固定宽高，所以不再需要size类了，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>修复绝对定位的问题，还可以使用css3新增的transform，transform的translate属性也可以设置百分比，其是相对于自身的宽和高，所以可以讲translate设置为-50%，就可以做到居中了，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    transform: translate(-50%, -50%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法兼容性依赖translate2d的兼容性</p>
+<h2 id="line-height"><a href="#line-height" class="headerlink" title="line-height"></a>line-height</h2><p>利用行内元素居中属性也可以做到水平垂直居中，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>把box设置为行内元素，通过text-align就可以做到水平居中，但很多同学可能不知道通过通过vertical-align也可以在垂直方向做到居中，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    line-height: 300px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    font-size: 0px;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    font-size: 16px;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">    line-height: initial;</span><br><span class="line">    text-align: left; /* 修正文字 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法需要在子元素中将文字显示重置为想要的效果</p>
+<h2 id="writing-mode"><a href="#writing-mode" class="headerlink" title="writing-mode"></a>writing-mode</h2><p>writing-mode可以改变文字的显示方向，比如可以通过writing-mode让文字的显示变为垂直方向<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;div1&quot;&gt;水平方向&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;div2&quot;&gt;垂直方向&lt;/div&gt;</span><br><span class="line">.div2 &#123;</span><br><span class="line">    writing-mode: vertical-lr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">水平方向</span><br><span class="line">垂</span><br><span class="line">直</span><br><span class="line">方</span><br><span class="line">向</span><br></pre></td></tr></table></figure></p>
+<p>更神奇的是所有水平方向上的css属性，都会变为垂直方向上的属性，比如text-align，通过writing-mode和text-align就可以做到水平和垂直方向的居中了，只不过要稍微麻烦一点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;wp-inner&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">复制代码/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    writing-mode: vertical-lr;</span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">.wp-inner &#123;</span><br><span class="line">    writing-mode: horizontal-tb;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    text-align: center;</span><br><span class="line">    width: 100%;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    margin: auto;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法实现起来和理解起来都稍微有些复杂</p>
+<h2 id="table"><a href="#table" class="headerlink" title="table"></a>table</h2><p>曾经table被用来做页面布局，现在没人这么做了，但table也能够实现水平垂直居中，但是会增加很多冗余代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;table&gt;</span><br><span class="line">    &lt;tbody&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td class=&quot;wp&quot;&gt;</span><br><span class="line">                &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">            &lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">    &lt;/tbody&gt;</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></table></figure></p>
+<p>tabel单元格中的内容天然就是垂直居中的，只要添加一个水平居中属性就好了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.wp &#123;</span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法就是代码太冗余，而且也不是table的正确用法</p>
+<h2 id="css-table"><a href="#css-table" class="headerlink" title="css-table"></a>css-table</h2><p>css新增的table属性，可以让我们把普通元素，变为table元素的现实效果，通过这个特性也可以实现水平垂直居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>下面通过css属性，可以让div显示的和table一样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.wp &#123;</span><br><span class="line">    display: table-cell;</span><br><span class="line">    text-align: center;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>复制代码这种方法和table一样的原理，但却没有那么多冗余代码，兼容性也还不错</p>
+<h2 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h2><p>flex作为现代的布局方案，颠覆了过去的经验，只需几行代码就可以优雅的做到水平垂直居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">.wp &#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    align-items: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>目前在移动端已经完全可以使用flex了，PC端需要看自己业务的兼容性情况</p>
+<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css新出的网格布局，由于兼容性不太好，一直没太关注，通过grid也可以实现水平垂直居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">.wp &#123;</span><br><span class="line">    display: grid;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    align-self: center;</span><br><span class="line">    justify-self: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码量也很少，但兼容性不如flex，不推荐使用</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>下面对比下各个方式的优缺点，肯定又双叒叕该有同学说回字的写法了，简单总结下</p>
+<ul>
+<li>PC端有兼容性要求，宽高固定，推荐absolute + 负margin</li>
+<li>PC端有兼容要求，宽高不固定，推荐css-table</li>
+<li>PC端无兼容性要求，推荐flex</li>
+<li>移动端推荐使用flex</li>
+</ul>
+<p><strong>小贴士：</strong>关于flex的兼容性决方案，请看这里《<a href="//yanhaijing.com/css/2016/08/21/flex-practice-on-mobile/">移动端flex布局实战</a>》</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>居中元素定宽高固定</th>
+<th>PC兼容性</th>
+<th>移动端兼容性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>absolute + 负margin</td>
+<td>是</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>absolute + margin auto</td>
+<td>是</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>absolute + calc</td>
+<td>是</td>
+<td>ie9+, chrome19+, firefox4+</td>
+<td>安卓4.4+, iOS6+</td>
+</tr>
+<tr>
+<td>absolute + transform</td>
+<td>否</td>
+<td>ie9+, chrome4+, firefox3.5+</td>
+<td>安卓3+, iOS6+</td>
+</tr>
+<tr>
+<td>writing-mode</td>
+<td>否</td>
+<td>ie6+, chrome4+, firefox3.5+</td>
+<td>安卓2.3+, iOS5.1+</td>
+</tr>
+<tr>
+<td>lineheight</td>
+<td>否</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>table</td>
+<td>否</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>css-table</td>
+<td>否</td>
+<td>ie8+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>flex</td>
+<td>否</td>
+<td>ie10+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>grid</td>
+<td>否</td>
+<td>ie10+, chrome57+, firefox52+</td>
+<td>安卓6+, iOS10.3+</td>
+</tr>
+</tbody>
+</table>
+
+                
+                <div class="readmore">
+                    <a href="/2019/01/05/垂直居中/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/01/04/盒模型/">
+                        盒模型
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-01-04T08:40:34.000Z">
+                            2019-01-04
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <h1 id="css盒模型"><a href="#css盒模型" class="headerlink" title="css盒模型"></a>css盒模型</h1><p>简介：就是用来装页面上的元素的矩形区域。CSS中的盒子模型包括IE盒子模型和标准的W3C盒子模型。</p>
+<p>box-sizing(有3个值哦)：border-box,padding-box,content-box.</p>
+<p>标准盒子模型：<br><img src="/2019/01/04/盒模型/box1.png" alt=""><br>IE盒子模型：<br><img src="/2019/01/04/盒模型/box2.png" alt=""><br>区别：从图中我们可以看出，这两种盒子模型最主要的区别就是width的包含范围，在标准的盒子模型中，width指content部分的宽度，在IE盒子模型中，width表示content+padding+border这三个部分的宽度，故这使得在计算整个盒子的宽度时存在着差异：</p>
+<p>标准盒子模型的盒子宽度：左右border+左右padding+width<br>IE盒子模型的盒子宽度：width</p>
+<p>在CSS3中引入了box-sizing属性，box-sizing:content-box;表示标准的盒子模型，box-sizing:border-box表示的是IE盒子模型</p>
+<p>最后，前面我们还提到了，box-sizing:padding-box,这个属性值的宽度包含了左右padding+width</p>
+
+                
+                <div class="readmore">
+                    <a href="/2019/01/04/盒模型/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2019/01/03/面试JS/">
+                        面试JS
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2019-01-03T13:42:31.000Z">
+                            2019-01-03
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <h1 id="介绍一下JS的数据类型？"><a href="#介绍一下JS的数据类型？" class="headerlink" title="介绍一下JS的数据类型？"></a>介绍一下JS的数据类型？</h1><blockquote>
+<p>简单类型：String、Number、Boolean、Null、Undefined<br>复杂类型：ObjectES6新增类型：Symbol<br>扩展：null与undefined有什么区别 </p>
+</blockquote>
+<p>答：null 表示一个对象被定义了，值为“空值”，而undefined 表示不存在这个值。 正因为这个原因，所以使用typeof判断时，null返回的是object，而undefined返回的是undefined。(判断两者时需要使用===严格判断)<br>Boolean类型在进行判断的时候设置为 0、-0、null、””、false、undefined 或 NaN，则该对象设置为 false。否则设置为 true（即使 value 参数是字符串 “false”）</p>
+<h1 id="如何通过JS判断一个数组？"><a href="#如何通过JS判断一个数组？" class="headerlink" title="如何通过JS判断一个数组？"></a>如何通过JS判断一个数组？</h1><blockquote>
+<p>1.instanceof方法</p>
+</blockquote>
+<p>instanceof 运算符是用来测试一个对象是否在其原型链原型构造函数的属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = []; </span><br><span class="line">arr instanceof Array; // true</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>2.constructor方法</p>
+</blockquote>
+<p>constructor属性返回对创建此对象的数组函数的引用，就是返回对象相对应的构造函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = []; </span><br><span class="line">arr.constructor == Array; //true</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>3.特性判断法</p>
+</blockquote>
+<p>利用判断数组独有的length和splice方法，但是这是不靠谱的，因为对象也能添加方法和属性。那怎么办了，有一个办法，可以利用数组的length属性没法枚举来判断。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function isArray(object)&#123;</span><br><span class="line">      return  object &amp;&amp; typeof object===&apos;object&apos; &amp;&amp;    </span><br><span class="line">      typeof object.length===&apos;number&apos; &amp;&amp;  </span><br><span class="line">      typeof object.splice===&apos;function&apos; &amp;&amp;    </span><br><span class="line">       //判断length属性是否是可枚举的 对于数组 将得到false  </span><br><span class="line">      !(object.propertyIsEnumerable(&apos;length&apos;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>4.最简单的方法</p>
+</blockquote>
+<p>这种写法，是 jQuery 正在使用的，淘宝的 kissy 也是使用这种方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.toString.call(value) == &apos;[object Array]&apos;</span><br><span class="line">// 利用这个方法，可以写一个返回数据类型的方法</span><br><span class="line">var isType = function (obj) &#123;</span><br><span class="line">     return Object.prototype.toString.call(obj).slice(8,-1); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>5.ES5新增方法isArray()</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = new Array(123);</span><br><span class="line">var b = new Date();</span><br><span class="line">console.log(Array.isArray(a)); //true</span><br><span class="line">console.log(Array.isArray(b)); //false</span><br></pre></td></tr></table></figure>
+<p>&amp;扩展：<br>使用instanceof和construcor，被判断的array必须是在当前页面声明的。比如，一个页面（父页面）有一个框架，框架中引用了一个页面（子页面），在子页面中声明了一个array，并将其赋值给父页面的一个变量，这时判断该变量，Array == object.constructor;会返回false。<br>最简单的方法，在IE6下判断null和undefined，有一些bug，判断undefined和null均为Object，(并不是bug，是在ES3的标准下返回的就为Object)</p>
+<h1 id="谈一谈let、const与var的区别？"><a href="#谈一谈let、const与var的区别？" class="headerlink" title="谈一谈let、const与var的区别？"></a>谈一谈let、const与var的区别？</h1><h2 id="let命令基本用法"><a href="#let命令基本用法" class="headerlink" title="let命令基本用法"></a>let命令基本用法</h2><p>在ES6中，新增了let命令，用于声明变量，用来取代ES5中var命令，消除var声明的变量的不合理，不严谨之处。const用于声明常量。<br>让我们来看看let和var的区别</p>
+<blockquote>
+<p>1.let不存在变量提升</p>
+</blockquote>
+<p>使用let声明的变量，不会像使用var那样存在“变量提升“”的现象。所以使用let声明变量，必须遵循“先声明，后使用”的原则。否则会报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(a); //ReferenceError</span><br><span class="line">let a = 10;</span><br></pre></td></tr></table></figure></p>
+<p>如果是var声明的变量，则不会报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(b); //undefined</span><br><span class="line">var b = 10;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>2.let声明的变量，存在块级作用域</p>
+</blockquote>
+<p>let声明的变量只在所声明的代码块内有效。块级作用域由 { } 包括，if语句和for语句里面的{ }也属于块作用域。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    var a = 10;</span><br><span class="line">    let b = 20;  </span><br><span class="line">&#125;</span><br><span class="line">    console.log(a); //10</span><br><span class="line">    console.log(b); // ReferenceError: b is not defined</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a =[];</span><br><span class="line">for( var i=0; i&lt;10; i++ )&#123;</span><br><span class="line">    a[i] = function()&#123;</span><br><span class="line">        console.log(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    for( var j = 0; j&lt;a.length; j++ )&#123;</span><br><span class="line">        a[j](); //输出10个10。 因为i是var声明的，在全局范围内都用，每次新的i都会覆盖原来的。</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a =[];</span><br><span class="line">    for( let i=0; i&lt;10; i++ )&#123;</span><br><span class="line">        a[i] = function()&#123;</span><br><span class="line">            console.log(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    for( let j = 0; j&lt;a.length; j++ )&#123;</span><br><span class="line">        a[j](); //输出 0，1，2，...，9</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>3.let不允许在同一作用域内重复声明同一个变量在同一作用域内，如果使用var声明同一个变量，则后面的覆盖前面的</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var a = 10;</span><br><span class="line">let a = 10;</span><br><span class="line"></span><br><span class="line">console.log(a);//Uncaught SyntaxError:</span><br><span class="line">                 Identifier &apos;a&apos; has already been declared</span><br><span class="line"></span><br><span class="line">或</span><br><span class="line"></span><br><span class="line">let a = 10;</span><br><span class="line">let a = 15;</span><br><span class="line"></span><br><span class="line">console.log(a);//Uncaught SyntaxError:</span><br><span class="line">                 Identifier &apos;a&apos; has already been declared</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>4.暂时性死区：在代码块内，使用let声明变量之前，该变量都是不可以使用用<br>只要在同一作用域内存在let命令，他所声明的变量就“绑定”在这个作用域内，不管外部有没有声明</p>
+</blockquote>
+<p>例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let a =10;</span><br><span class="line">function fn1()&#123;</span><br><span class="line">    console.log(a);</span><br><span class="line">    let a = 5;</span><br><span class="line">&#125;</span><br><span class="line">fn1();//Uncaught ReferenceError: a is not defined</span><br></pre></td></tr></table></figure></p>
+<p>ES6规定，如果在区块中存在let和const声明的变量，则这个区块对这些声明的变量从一开始就形成一个封闭的作用域。不管在外部有没有声明这个变量。必须遵守“先声明，后使用”的原则，否则报错</p>
+<p>ES6规定暂时性死区和不存在变量提升，主要是为了减少运行程序的错误，防止出现“先使用（变量），后声明（变量）”的情况，从而导致意料之外的行为。这种错误在ES5中很常见，现在有了这种规定，就可以避免出现此类错误了</p>
+<font color="red">总之，暂时性死区的本质就是，只要一进入当前作用域，所使用的变量就已存在，但是不可获取，只有等到声明变量的哪一行代码的出现，在可以获取和使用该变量</font>
+
+<h2 id="const命令的基本使用"><a href="#const命令的基本使用" class="headerlink" title="const命令的基本使用"></a>const命令的基本使用</h2><p>const用来声明常量，一旦声明，其值就不能更改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const a = 10;</span><br><span class="line">    a = 20;</span><br><span class="line"></span><br><span class="line"> console.log(a);//Uncaught TypeError: Assignment to constant variable.</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>1.const声明的常量不能改变，意味着const一旦声明常量，就必须同时初始化。不能先声明，后初始化，这样会报错</p>
+</li>
+<li><p>2.与let一样。const声明的常量也只在块级作用域内有效 </p>
+</li>
+<li>3.与let一样，必须先声明，后使用 </li>
+<li>4.与let一样，在同一作用域，const不能重复声明同一常量</li>
+</ul>
+<p>那么如果使用const声明对象呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const b = &#123;</span><br><span class="line">        name:&apos;zs&apos;,</span><br><span class="line">        age:22</span><br><span class="line">    &#125;</span><br><span class="line">b.name = &quot;lzx&quot;;</span><br><span class="line"></span><br><span class="line">console.log(b.name+&quot;---&quot;+b.age);//输出lzx---22</span><br></pre></td></tr></table></figure></p>
+<p><font color="red">我们可以看到，使用const声明的对象的属性是可以修改。 </font><br>因为Object类型是引用类型。用const声明常量保存的是对象的地址，不可变的是地址，在上面的代码中就是，不能把 b 指向另一个对象。而修改对象的属性，并不会改变对象的地址，因此用const声明对象的属性是可以修改的 </p>
+<h1 id="map与forEach的区别？"><a href="#map与forEach的区别？" class="headerlink" title="map与forEach的区别？"></a>map与forEach的区别？</h1><p>1、forEach方法，是最基本的方法，就是遍历与循环，默认有3个传参：分别是遍历的数组内容item、数组索引index、和当前遍历数组Array。另外，除去第一个必须的回调函数参数，还可以接受一个上下文参数(改变回调函数的this指向)；并且forEach不会遍历空元素。<br>2、map方法，基本用法与forEach一致，但是不同的，它会返回一个新的数组，所以在callback需要有return值，如果没有，会返回undefined。(从字面理解，map就是映射的意思)<br>3、filter方法，用法和map很相似，从字面理解，就是过滤、筛选的意思。但是函数的callback需要返回布尔值true或false，并且返回值只需要为弱等==即可。<br>4、some 方法，对数组中每一项运行指定函数，如果该函数对任一项返回true，则返回true。(一旦遇到true，就会中断循环，返回true，类似于||判断)<br>5、every方法，对数组中的每一项运行给定函数，如果该函数对每一项返回true，则返回true。(一旦遇到false，就会中断循环，返回false，类似于&amp;&amp;判断)<br>6、indexOf方法，与字符串中的indexOf类似，返回数组索引值，如果没有匹配，则会返回-1，第二个参数为可选，表示从当前位置开始搜索。<br>7、lastIndexOf方法，与indexOf相似，只是是从数组的末尾开始查找，而第二个参数的默认值是array.length - 1。<br>8、reduce方法，字面意思应该是‘减少’，但是实际是‘递归’的意思。实际就是应用一个函数针对数组的两个值(从左到右)，以减至一个值。它的callback接收4个参数：之前值(上一次循环返回的值)、当前值、索引值以及数组本身。initialValue参数可选，表示初始值。<br>9、reduceRight方法，与reduce方法类似，只是从数组的末尾开始实现。</p>
+<h1 id="谈一谈你理解的函数式编程？"><a href="#谈一谈你理解的函数式编程？" class="headerlink" title="谈一谈你理解的函数式编程？"></a>谈一谈你理解的函数式编程？</h1><h1 id="谈一谈箭头函数与普通函数的区别？"><a href="#谈一谈箭头函数与普通函数的区别？" class="headerlink" title="谈一谈箭头函数与普通函数的区别？"></a>谈一谈箭头函数与普通函数的区别？</h1><ul>
+<li>箭头函数使得表达更加简洁。(这个是废话)</li>
+<li>函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。</li>
+<li>不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。</li>
+<li>不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。</li>
+<li>不可以使用yield命令，因此箭头函数不能用作Generator函数。</li>
+</ul>
+<h1 id="谈一谈函数中this的指向吧？"><a href="#谈一谈函数中this的指向吧？" class="headerlink" title="谈一谈函数中this的指向吧？"></a>谈一谈函数中this的指向吧？</h1><h2 id="全局环境"><a href="#全局环境" class="headerlink" title="全局环境"></a>全局环境</h2><blockquote>
+<p>无论是否在严格模式下，在全局执行环境中（在任何函数体外部）this 都指代全局对象。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 在浏览器中, window 对象同时也是全局对象：</span><br><span class="line">console.log(this === window); // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">a = 37;</span><br><span class="line">console.log(window.a); // 37</span><br><span class="line"></span><br><span class="line">this.b = <span class="string">"MDN"</span>;</span><br><span class="line">console.log(window.b)  // <span class="string">"MDN"</span></span><br><span class="line">console.log(b)         // <span class="string">"MDN"</span></span><br></pre></td></tr></table></figure>
+<h2 id="函数（运行内）环境"><a href="#函数（运行内）环境" class="headerlink" title="函数（运行内）环境"></a>函数（运行内）环境</h2><p>在函数内部，this的值取决于函数被调用的方式。</p>
+<h3 id="简单调用"><a href="#简单调用" class="headerlink" title="简单调用"></a>简单调用</h3><p>因为下面的代码不在严格模式下，且 this 的值不是由该调用设置的，所以 this 的值默认指向全局对象<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">f1</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span> this;</span><br><span class="line">&#125;</span><br><span class="line">//在浏览器中：</span><br><span class="line">f1() === window;   //在浏览器中，全局对象是window</span><br><span class="line"></span><br><span class="line">//在Node中：</span><br><span class="line">f1() === global;</span><br></pre></td></tr></table></figure></p>
+<p>然而，在严格模式下，this将保持他进入执行环境时的值，所以下面的this将会默认为undefined。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">f2</span></span>()&#123;</span><br><span class="line">  <span class="string">"use strict"</span>; // 这里是严格模式</span><br><span class="line">  <span class="built_in">return</span> this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f2() === undefined; // <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>所以，在严格模式下，如果 this 没有被执行环境（execution context）定义，那它将保持为 undefined。</p>
+<blockquote>
+<p>在第二个例子中，this的确应该是undefined，因为f2是被直接调用的，而不是作为对象的属性或方法调用的（如 window.f2()）。有一些浏览器最初在支持严格模式时没有正确实现这个功能，于是它们错误地返回了window对象。</p>
+</blockquote>
+<p>如果要想把 this 的值从一个环境传到另一个，就要用 call 或者apply 方法<br>// 将一个对象作为call和apply的第一个参数，this会被绑定到这个对象。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;a: <span class="string">'Custom'</span>&#125;;</span><br><span class="line"></span><br><span class="line">// 这个属性是在global对象定义的。</span><br><span class="line">var a = <span class="string">'Global'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> whatsThis(arg) &#123;</span><br><span class="line">  <span class="built_in">return</span> this.a;  // this的值取决于函数的调用方式</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">whatsThis();          // <span class="string">'Global'</span></span><br><span class="line">whatsThis.call(obj);  // <span class="string">'Custom'</span></span><br><span class="line">whatsThis.apply(obj); // <span class="string">'Custom'</span></span><br></pre></td></tr></table></figure></p>
+<p>当一个函数在其主体中使用 this 关键字时，可以通过使用函数继承自Function.prototype 的 call 或 apply 方法将 this 值绑定到调用中的特定对象。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> add(c, d) &#123;</span><br><span class="line">  <span class="built_in">return</span> this.a + this.b + c + d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var o = &#123;a: 1, b: 3&#125;;</span><br><span class="line"></span><br><span class="line">// 第一个参数是作为‘this’使用的对象</span><br><span class="line">// 后续参数作为参数传递给函数调用</span><br><span class="line">add.call(o, 5, 7); // 1 + 3 + 5 + 7 = 16</span><br><span class="line"></span><br><span class="line">// 第一个参数也是作为‘this’使用的对象</span><br><span class="line">// 第二个参数是一个数组，数组里的元素用作函数调用中的参数</span><br><span class="line">add.apply(o, [10, 20]); // 1 + 3 + 10 + 20 = 34</span><br></pre></td></tr></table></figure></p>
+<p>使用 call 和 apply 函数的时候要注意，如果传递给 this 的值不是一个对象，JavaScript 会尝试使用内部 ToObject 操作将其转换为对象。因此，如果传递的值是一个原始值比如 7 或 ‘foo’，那么就会使用相关构造函数将它转换为对象，所以原始值 7 会被转换为对象，像 new Number(7) 这样，而字符串 ‘foo’ 转化成 new String(‘foo’) 这样，例如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">bar</span></span>() &#123;</span><br><span class="line">  console.log(Object.prototype.toString.call(this));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//原始值 7 被隐式转换为对象</span><br><span class="line">bar.call(7); // [object Number]</span><br></pre></td></tr></table></figure></p>
+<h3 id="bind方法"><a href="#bind方法" class="headerlink" title="bind方法"></a>bind方法</h3><p>ECMAScript 5 引入了 Function.prototype.bind。调用f.bind(someObject)会创建一个与f具有相同函数体和作用域的函数，但是在这个新函数中，this将永久地被绑定到了bind的第一个参数，无论这个函数是如何被调用的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">f</span></span>()&#123;</span><br><span class="line">  <span class="built_in">return</span> this.a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var g = f.bind(&#123;a:<span class="string">"azerty"</span>&#125;);</span><br><span class="line">console.log(g()); // azerty</span><br><span class="line"></span><br><span class="line">var h = g.bind(&#123;a:<span class="string">'yoo'</span>&#125;); // <span class="built_in">bind</span>只生效一次！</span><br><span class="line">console.log(h()); // azerty</span><br><span class="line"></span><br><span class="line">var o = &#123;a:37, f:f, g:g, h:h&#125;;</span><br><span class="line">console.log(o.f(), o.g(), o.h()); // 37, azerty, azerty</span><br></pre></td></tr></table></figure></p>
+<h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><p>  <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="noopener">箭头函数详解1</a><br>  <a href="https://www.cnblogs.com/freelyflying/p/6978126.html" target="_blank" rel="noopener">箭头函数详解2</a></p>
+<p>在箭头函数中，this与封闭词法环境的this保持一致。在全局代码中，它将被设置为全局对象<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var globalObject = this;</span><br><span class="line">var foo = (() =&gt; this);</span><br><span class="line">console.log(foo() === globalObject); // <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：如果将this传递给call、bind、或者apply，它将被忽略。不过你仍然可以为调用添加参数，不过第一个参数（thisArg）应该设置为null。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 接着上面的代码</span><br><span class="line">// 作为对象的一个方法调用</span><br><span class="line">var obj = &#123;foo: foo&#125;;</span><br><span class="line">console.log(obj.foo() === globalObject); // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">// 尝试使用call来设定this</span><br><span class="line">console.log(foo.call(obj) === globalObject); // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">// 尝试使用<span class="built_in">bind</span>来设定this</span><br><span class="line">foo = foo.bind(obj);</span><br><span class="line">console.log(foo() === globalObject); // <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>无论如何，foo 的 this 被设置为他被创建时的环境（在上面的例子中，就是全局对象）。这同样适用于在其他函数内创建的箭头函数：这些箭头函数的this被设置为封闭的词法环境的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// 创建一个含有bar方法的obj对象，</span><br><span class="line">// bar返回一个函数，</span><br><span class="line">// 这个函数返回this，</span><br><span class="line">// 这个返回的函数是以箭头函数创建的，</span><br><span class="line">// 所以它的this被永久绑定到了它外层函数的this。</span><br><span class="line">// bar的值可以在调用中设置，这反过来又设置了返回函数的值。</span><br><span class="line">var obj = &#123;</span><br><span class="line">  bar: <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    var x = (() =&gt; this);</span><br><span class="line">    <span class="built_in">return</span> x;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 作为obj对象的一个方法来调用bar，把它的this绑定到obj。</span><br><span class="line">// 将返回的函数的引用赋值给fn。</span><br><span class="line">var fn = obj.bar();</span><br><span class="line"></span><br><span class="line">// 直接调用fn而不设置this，</span><br><span class="line">// 通常(即不使用箭头函数的情况)默认为全局对象</span><br><span class="line">// 若在严格模式则为undefined</span><br><span class="line">console.log(fn() === obj); // <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">// 但是注意，如果你只是引用obj的方法，</span><br><span class="line">// 而没有调用它</span><br><span class="line">var fn2 = obj.bar;</span><br><span class="line">// 那么调用箭头函数后，this指向window，因为它从 bar 继承了this。</span><br><span class="line">console.log(fn2()() == window); // <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，一个赋值给了 obj.bar的函数（称为匿名函数 A），返回了另一个箭头函数（称为匿名函数 B）。因此，在 A 调用时，函数B的this被永久设置为obj.bar（函数A）的this。当返回的函数（函数B）被调用时，它this始终是最初设置的。在上面的代码示例中，函数B的this被设置为函数A的this，即obj，所以即使被调用的方式通常将其设置为 undefined 或全局对象（或者如前面示例中的其他全局执行环境中的方法），它的 this 也仍然是 obj .</p>
+<h3 id="作为对象的方法"><a href="#作为对象的方法" class="headerlink" title="作为对象的方法"></a>作为对象的方法</h3><p>当函数作为对象里的方法被调用时，它们的 this 是调用该函数的对象。<br>下面的例子中，当 o.f()被调用时，函数内的this将绑定到o对象。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;</span><br><span class="line">  prop: 37,</span><br><span class="line">  f: <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> this.prop;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">console.log(o.f()); // logs 37</span><br></pre></td></tr></table></figure></p>
+<p>请注意，这样的行为，根本不受函数定义方式或位置的影响。在前面的例子中，我们在定义对象o的同时，将函数内联定义为成员f。但是，我们也可以先定义函数，然后再将其附属到o.f。这样做会导致相同的行为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;prop: 37&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">independent</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span> this.prop;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">o.f = independent;</span><br><span class="line"></span><br><span class="line">console.log(o.f()); // logs 37</span><br></pre></td></tr></table></figure></p>
+<p>这表明函数是从o的f成员调用的才是重点。</p>
+<p>同样，this 的绑定只受最靠近的成员引用的影响。在下面的这个例子中，我们把一个方法g当作对象o.b的函数调用。在这次执行期间，函数中的this将指向o.b。事实证明，这与他是对象 o 的成员没有多大关系，最靠近的引用才是最重要的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">o.b = &#123;g: independent, prop: 42&#125;;</span><br><span class="line">console.log(o.b.g()); // 42</span><br></pre></td></tr></table></figure></p>
+<h3 id="原型链中的-this"><a href="#原型链中的-this" class="headerlink" title="原型链中的 this"></a>原型链中的 this</h3><p>对于在对象原型链上某处定义的方法，同样的概念也适用。如果该方法存在于一个对象的原型链上，那么this指向的是调用这个方法的对象，就像该方法在对象上一样。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;</span><br><span class="line">  f: <span class="function"><span class="title">function</span></span>() &#123; </span><br><span class="line">    <span class="built_in">return</span> this.a + this.b; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">var p = Object.create(o);</span><br><span class="line">p.a = 1;</span><br><span class="line">p.b = 4;</span><br><span class="line"></span><br><span class="line">console.log(p.f()); // 5</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，对象p没有属于它自己的f属性，它的f属性继承自它的原型。虽然在对 f 的查找过程中，最终是在 o 中找到 f 属性的，这并没有关系；查找过程首先从 p.f 的引用开始，所以函数中的 this 指向p。也就是说，因为f是作为p的方法调用的，所以它的this指向了p。这是 JavaScript 的原型继承中的一个有趣的特性。</p>
+<h3 id="getter-与-setter-中的-this"><a href="#getter-与-setter-中的-this" class="headerlink" title="getter 与 setter 中的 this"></a>getter 与 setter 中的 this</h3><p>再次，相同的概念也适用于当函数在一个 getter 或者 setter 中被调用。用作 getter 或 setter 的函数都会把 this 绑定到设置或获取属性的对象。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">sum</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span> this.a + this.b + this.c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var o = &#123;</span><br><span class="line">  a: 1,</span><br><span class="line">  b: 2,</span><br><span class="line">  c: 3,</span><br><span class="line">  get <span class="function"><span class="title">average</span></span>() &#123;</span><br><span class="line">    <span class="built_in">return</span> (this.a + this.b + this.c) / 3;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Object.defineProperty(o, <span class="string">'sum'</span>, &#123;</span><br><span class="line">    get: sum, enumerable: <span class="literal">true</span>, configurable: <span class="literal">true</span>&#125;);</span><br><span class="line"></span><br><span class="line">console.log(o.average, o.sum); // logs 2, 6</span><br></pre></td></tr></table></figure></p>
+<h3 id="作为构造函数"><a href="#作为构造函数" class="headerlink" title="作为构造函数"></a>作为构造函数</h3><p>当一个函数用作构造函数时（使用new关键字），它的this被绑定到正在构造的新对象</p>
+<blockquote>
+<p>虽然构造器返回的默认值是this所指的那个对象，但它仍可以手动返回其他的对象（如果返回值不是一个对象，则返回this对象）。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * 构造函数这样工作:</span><br><span class="line"> *</span><br><span class="line"> * <span class="keyword">function</span> <span class="function"><span class="title">MyConstructor</span></span>()&#123;</span><br><span class="line"> *   // 函数实体写在这里</span><br><span class="line"> *   // 根据需要在this上创建属性，然后赋值给它们，比如：</span><br><span class="line"> *   this.fum = <span class="string">"nom"</span>;</span><br><span class="line"> *   // 等等...</span><br><span class="line"> *</span><br><span class="line"> *   // 如果函数具有返回对象的<span class="built_in">return</span>语句，</span><br><span class="line"> *   // 则该对象将是 new 表达式的结果。 </span><br><span class="line"> *   // 否则，表达式的结果是当前绑定到 this 的对象。</span><br><span class="line"> *   //（即通常看到的常见情况）。</span><br><span class="line"> * &#125;</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">C</span></span>()&#123;</span><br><span class="line">  this.a = 37;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var o = new C();</span><br><span class="line">console.log(o.a); // logs 37</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">C2</span></span>()&#123;</span><br><span class="line">  this.a = 37;</span><br><span class="line">  <span class="built_in">return</span> &#123;a:38&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">o = new C2();</span><br><span class="line">console.log(o.a); // logs 38</span><br></pre></td></tr></table></figure>
+<h3 id="作为一个DOM事件处理函数节"><a href="#作为一个DOM事件处理函数节" class="headerlink" title="作为一个DOM事件处理函数节"></a>作为一个DOM事件处理函数节</h3><p>当函数被用作事件处理函数时，它的this指向触发事件的元素（一些浏览器在使用非addEventListener的函数动态添加监听函数时不遵守这个约定）。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 被调用时，将关联的元素变成蓝色</span><br><span class="line"><span class="keyword">function</span> bluify(e)&#123;</span><br><span class="line">  console.log(this === e.currentTarget); // 总是 <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  // 当 currentTarget 和 target 是同一个对象时为 <span class="literal">true</span></span><br><span class="line">  console.log(this === e.target);        </span><br><span class="line">  this.style.backgroundColor = <span class="string">'#A5D9F3'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 获取文档中的所有元素的列表</span><br><span class="line">var elements = document.getElementsByTagName(<span class="string">'*'</span>);</span><br><span class="line"></span><br><span class="line">// 将bluify作为元素的点击监听函数，当元素被点击时，就会变成蓝色</span><br><span class="line"><span class="keyword">for</span>(var i=0 ; i&lt;elements.length ; i++)&#123;</span><br><span class="line">  elements[i].addEventListener(<span class="string">'click'</span>, bluify, <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="作为一个内联事件处理函数"><a href="#作为一个内联事件处理函数" class="headerlink" title="作为一个内联事件处理函数"></a>作为一个内联事件处理函数</h3><p>当代码被内联on-event 处理函数调用时，它的this指向监听器所在的DOM元素：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onclick=<span class="string">"alert(this.tagName.toLowerCase());"</span>&gt;</span><br><span class="line">  Show this</span><br><span class="line">&lt;/button&gt;</span><br></pre></td></tr></table></figure></p>
+<p>上面的 alert 会显示button。注意只有外层代码中的this是这样设置的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onclick=<span class="string">"alert((function()&#123;return this&#125;)());"</span>&gt;</span><br><span class="line">  Show inner this</span><br><span class="line">&lt;/button&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在这种情况下，没有设置内部函数的this，所以它指向 global/window 对象（即非严格模式下调用的函数未设置this时指向的默认对象）</p>
+<h1 id="异步编程的实现方式？"><a href="#异步编程的实现方式？" class="headerlink" title="异步编程的实现方式？"></a>异步编程的实现方式？</h1><p>回调函数：<br>优点：简单、容易理解<br>缺点：不利于维护，代码耦合高</p>
+<blockquote>
+<p>1.事件监听(采用时间驱动模式，取决于某个事件是否发生)：</p>
+</blockquote>
+<p>优点：容易理解，可以绑定多个事件，每个事件可以指定多个回调函数<br>缺点：事件驱动型，流程不够清晰</p>
+<blockquote>
+<p>2.发布/订阅(观察者模式)：</p>
+</blockquote>
+<p>类似于事件监听，但是可以通过‘消息中心’，了解现在有多少发布者，多少订阅者。</p>
+<blockquote>
+<p>3.Promise对象</p>
+</blockquote>
+<p>优点：可以利用then方法，进行链式写法；可以书写错误时的回调函数；<br>缺点：编写和理解，相对比较难</p>
+<blockquote>
+<p>4.Generator函数</p>
+</blockquote>
+<p>优点：函数体内外的数据交换、错误处理机制<br>缺点：流程管理不方便</p>
+<blockquote>
+<p>5.async函数</p>
+</blockquote>
+<p>优点：内置执行器、更好的语义、更广的适用性、返回的是Promise、结构清晰。<br>缺点：错误处理机制</p>
+<p>……js基础</p>
+<p>类和继承（es5实现方法 + es6实现方法）；</p>
+<p>promise；</p>
+<p>写一个方法遍历所有文档树所有节点(考察递归)；</p>
+<p>jsonp和跨域；</p>
+<p>sort排序相关(注意ascll这个坑)</p>
+<p>数组和对象的深浅拷贝；</p>
+<p>String + Array的一些基本操作；<br>写一个数组去重的方法；<br>冒泡和捕获；<br>事件代理；</p>
+<p>call、apply、bind；<br>变量提升；<br>高阶函数；<br>动画；<br>setTimeout、setInterval和requestAnimationFrame；<br>模块化开发；<br>引起内存泄漏的原因；<br>ajax；<br>map、filter、reduce相关；<br>Map和Set；<br>移动端开发相关；</p>
+<p>……技术拓展</p>
+<p>设计模式相关(单例、发布订阅等)；<br>浏览器渲染过程；<br>性能优化相关(这个点很大，设计很多方面，不要自以为优化就是网上经常看到的那一套)；<br>设计一个模版引擎；<br>设计一个打包工具；<br>设计一个mvvm框架需要注意的case；<br>源码阅读相关；</p>
+<p>作者：玩弄心里的鬼<br>链接：<a href="https://juejin.im/post/59ec3d50f265da431c6f7339" target="_blank" rel="noopener">https://juejin.im/post/59ec3d50f265da431c6f7339</a><br>来源：掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h1 id="json的JSON-parse-和JSON-stringfy"><a href="#json的JSON-parse-和JSON-stringfy" class="headerlink" title="json的JSON.parse()和JSON.stringfy()"></a>json的JSON.parse()和JSON.stringfy()</h1><h2 id="JSON-parse"><a href="#JSON-parse" class="headerlink" title="JSON.parse()"></a>JSON.parse()</h2><blockquote>
+<p>从字符串解析出对象</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//定义一个字符串</span><br><span class="line">var data=&apos;&#123;&quot;name&quot;:&quot;goatling&quot;&#125;&apos;</span><br><span class="line">//解析对象​</span><br><span class="line">​JSON.parse(data)</span><br><span class="line">结果是：</span><br><span class="line">​name:&quot;goatling&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="JSON-stringfy"><a href="#JSON-stringfy" class="headerlink" title="JSON.stringfy()"></a>JSON.stringfy()</h2><blockquote>
+<p>从一个对象解析出字符串</p>
+</blockquote>
+<pre><code>var data={name:&apos;goatling&apos;}
+JSON.stringify(data)
+结果是：
+&apos;{&quot;name&quot;:&quot;goatling&quot;}&apos;
+</code></pre>
+                
+                <div class="readmore">
+                    <a href="/2019/01/03/面试JS/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
         
             <div class="post-item">
                 <h1>
@@ -464,519 +866,6 @@
                 </div>
             </div>
         
-            <div class="post-item">
-                <h1>
-                    <a href="/2018/12/26/原型/">
-                        原型与继承
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2018-12-26T09:28:15.000Z">
-                            2018-12-26
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
-                </div>
-                
-                    <h1 id="prototype、proto和constructor的三者关系"><a href="#prototype、proto和constructor的三者关系" class="headerlink" title="prototype、proto和constructor的三者关系"></a>prototype、proto和constructor的三者关系</h1><p>javascript里的关系又多又乱。作用域链是一种单向的链式关系，还算简单清晰；this机制的调用关系，稍微有些复杂；而关于原型，则是prototype、proto和constructor的三角关系。本文先用一张图开宗明义，然后详细解释原型的三角关系<br><img src="/2018/12/26/原型/proto01.png" alt=""></p>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>上图中的复杂关系，实际上来源就两行代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>【构造函数】</li>
-</ul>
-<p>　　用来初始化新创建的对象的函数是构造函数。在例子中，Foo()函数是构造函数</p>
-<ul>
-<li>【实例对象】</li>
-</ul>
-<p>　　通过构造函数的new操作创建的对象是实例对象。可以用一个构造函数，构造多个实例对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">var f2 = new Foo;</span><br><span class="line">console.log(f1 === f2);//false</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>【原型对象及prototype】</li>
-</ul>
-<p>　　构造函数有一个prototype属性，指向实例对象的原型对象。通过同一个构造函数实例化的多个对象具有相同的原型对象。经常使用原型对象来实现继承<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">Foo.prototype.a = 1;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">var f2 = new Foo;</span><br><span class="line"></span><br><span class="line">console.log(Foo.prototype.a);//1</span><br><span class="line">console.log(f1.a);//1</span><br><span class="line">console.log(f2.a);//1</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>【constructor】</li>
-</ul>
-<p>　　原型对象有一个constructor属性，指向该原型对象对应的构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">console.log(Foo.prototype.constructor === Foo);//true</span><br></pre></td></tr></table></figure></p>
-<p>　　由于实例对象可以继承原型对象的属性，所以实例对象也拥有constructor属性，同样指向原型对象对应的构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(f1.constructor === Foo);//true</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>【proto】</li>
-</ul>
-<p>　　实例对象有一个proto属性，指向该实例对象对应的原型对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(f1.__proto__ === Foo.prototype);//true</span><br></pre></td></tr></table></figure></p>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>　　概念介绍完了，现在对图示的关系进行详细说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>【第一部分： Foo】</p>
-</blockquote>
-<p><img src="/2018/12/26/原型/proto02.png" alt=""><br>实例对象f1是通过构造函数Foo()的new操作创建的。构造函数Foo()的原型对象是Foo.prototype；实例对象f1通过<strong>proto</strong>属性也指向原型对象Foo.prototype<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(f1.__proto === Foo.prototype);//true</span><br></pre></td></tr></table></figure></p>
-<p>　　实例对象f1本身并没有constructor属性，但它可以继承原型对象Foo.prototype的constructor属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(Foo.prototype.constructor === Foo);//true</span><br><span class="line">console.log(f1.constructor === Foo);//true</span><br><span class="line">console.log(f1.hasOwnProperty(&apos;constructor&apos;));//false</span><br></pre></td></tr></table></figure></p>
-<p>　　下图是实例对象f1的控制台效果<br><img src="/2018/12/26/原型/proto03.png" alt=""></p>
-<blockquote>
-<p>【第二部分： Object】</p>
-</blockquote>
-<p><img src="/2018/12/26/原型/proto04.png" alt=""><br>　Foo.prototype是f1的原型对象，同时它也是实例对象。实际上，任何对象都可以看做是通过Object()构造函数的new操作实例化的对象<br>　　所以，Foo.prototype作为实例对象，它的构造函数是Object()，原型对象是Object.prototype。相应地，构造函数Object()的prototype属性指向原型对象Object.prototype；实例对象Foo.prototype的proto属性同样指向原型对象Object.prototype<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(Foo.prototype.__proto__ === Object.prototype);//true</span><br></pre></td></tr></table></figure></p>
-<p>　　实例对象Foo.prototype本身具有constructor属性，所以它会覆盖继承自原型对象Object.prototype的constructor属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(Foo.prototype.constructor === Foo);//true</span><br><span class="line">console.log(Object.prototype.constructor === Object);//true</span><br><span class="line">console.log(Foo.prototype.hasOwnProperty(&apos;constructor&apos;));//true</span><br></pre></td></tr></table></figure></p>
-<p>　　下图是实例对象Foo.prototype的控制台效果:<br><img src="/2018/12/26/原型/proto05.png" alt=""><br>如果Object.prototype作为实例对象的话，其原型对象是什么，结果是null。私以为，这可能也是typeof null的结果是’object’的原因之一吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null);//true</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>【第三部分： Function】</p>
-</blockquote>
-<p><img src="/2018/12/26/原型/proto06.png" alt=""><br>前面已经介绍过，函数也是对象，只不过是具有特殊功能的对象而已。任何函数都可以看做是通过Function()构造函数的new操作实例化的结果</p>
-<p>　　如果把函数Foo当成实例对象的话，其构造函数是Function()，其原型对象是Function.prototype；类似地，函数Object的构造函数也是Function()，其原型对象是Function.prototype<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(Foo.__proto__ === Function.prototype);//true</span><br><span class="line">console.log(Object.__proto__ === Function.prototype);//true</span><br></pre></td></tr></table></figure></p>
-<p>　　原型对象Function.prototype的constructor属性指向构造函数Function()；实例对象Object和Foo本身没有constructor属性，需要继承原型对象Function.prototype的constructor属性</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;&#125;;</span><br><span class="line">var f1 = new Foo;</span><br><span class="line">console.log(Function.prototype.constructor === Function);//true</span><br><span class="line">console.log(Foo.constructor === Function);//true</span><br><span class="line">console.log(Foo.hasOwnProperty(&apos;constructor&apos;));//false</span><br><span class="line">console.log(Object.constructor === Function);//true</span><br><span class="line">console.log(Object.hasOwnProperty(&apos;constructor&apos;));//false</span><br></pre></td></tr></table></figure>
-<p>　　所有的函数都可以看成是构造函数Function()的new操作的实例化对象。那么，Function可以看成是调用其自身的new操作的实例化的结果</p>
-<p>　　所以，如果Function作为实例对象，其构造函数是Function，其原型对象是Function.prototype<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(Function.__proto__ === Function.prototype);//true</span><br><span class="line">console.log(Function.prototype.constructor === Function);//true</span><br><span class="line">console.log(Function.prototype === Function.prototype);//true</span><br></pre></td></tr></table></figure></p>
-<p>　　如果Function.prototype作为实例对象的话，其原型对象是什么呢？和前面一样，所有的对象都可以看成是Object()构造函数的new操作的实例化结果。所以，Function.prototype的原型对象是Object.prototype，其原型函数是Object()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Function.prototype.__proto__ === Object.prototype);//true</span><br></pre></td></tr></table></figure></p>
-<p>　　第二部分介绍过，Object.prototype的原型对象是null<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null);//true</span><br></pre></td></tr></table></figure></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>　　【1】函数(Function也是函数)是new Function的结果，所以函数可以作为实例对象，其构造函数是Function()，原型对象是Function.prototype</p>
-<p>　　【2】对象(函数也是对象)是new Object的结果，所以对象可以作为实例对象，其构造函数是Object()，原型对象是Object.prototype</p>
-<p>　　【3】Object.prototype的原型对象是null</p>
-<h1 id="JS继承的6种方式"><a href="#JS继承的6种方式" class="headerlink" title="JS继承的6种方式"></a>JS继承的6种方式</h1><blockquote>
-<p>[原型]</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// B是A的原型，A是B的构造函数</span><br><span class="line">A.prototype = B</span><br><span class="line">B.constructor = A</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>[约定]</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 父类</span><br><span class="line">function Super()&#123;</span><br><span class="line">  this.property = &apos;Super Property&apos;</span><br><span class="line">&#125;</span><br><span class="line">Super.prototype.getProperty = function()&#123;</span><br><span class="line">  return this.property</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h2><p>1.基本思想<br>通过使用call、apply方法可以在新创建的对象上执行构造函数,用父类的构造函数来增加子类的实例</p>
-<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 子类</span><br><span class="line">function Sub()&#123;</span><br><span class="line">  Super.call(this)</span><br><span class="line">  this.property = &apos;Sub Property&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>3.优缺点<br>1）优点<br>简单明了，直接继承超类构造函数的属性和方法<br>2）缺点<br>无法继承原型链上的属性和方法</p>
-<h2 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h2><p>1.基本思想<br>利用原型链来实现继承，超类的一个实例作为子类的原型</p>
-<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 子类</span><br><span class="line">function Sub()&#123;</span><br><span class="line">  this.property = &apos;Sub Property&apos;</span><br><span class="line">&#125;</span><br><span class="line">Sub.prototype = new Super()</span><br><span class="line">// 注意这里new Super()生成的超类对象并没有constructor属性,故需添加上</span><br><span class="line">Sub.prototype.constructor = Sub</span><br></pre></td></tr></table></figure></p>
-<p>3.优缺点<br>1）优点<br>简单明了，容易实现<br>实例是子类的实例，实际上也是父类的一个实例<br>父类新增原型方法/原型属性，子类都能访问到<br>2）缺点<br>所有子类的实例的原型都共享同一个超类实例的属性和方法<br>无法实现多继承</p>
-<h2 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h2><p>1.基本思想<br>利用构造继承和原型链组合</p>
-<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 子类</span><br><span class="line">function Sub()&#123;</span><br><span class="line">  Super.call(this)</span><br><span class="line">  this.property = &apos;Sub Property&apos;</span><br><span class="line">&#125;</span><br><span class="line">Sub.prototype = new Super()</span><br><span class="line">// 注意这里new Super()生成的超类对象并没有constructor属性,故需添加上</span><br><span class="line">Sub.prototype.constructor = Sub</span><br></pre></td></tr></table></figure></p>
-<p>3.优缺点<br>1）优点<br>解决了构造继承和原型链继承的两个问题<br>2）缺点<br>实际上子类上会拥有超类的两份属性，只是子类的属性覆盖了超类的属性</p>
-<h2 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h2><p>1.基本思想<br>采用原型式继承并不需要定义一个类，传入参数obj,生成一个继承obj对象的对象</p>
-<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function objectCreate(obj)&#123;</span><br><span class="line">  function F()&#123;&#125;</span><br><span class="line">  F.prototype = obj</span><br><span class="line">  return new F()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>3.优缺点<br>1）优点：<br>直接通过对象生成一个继承该对象的对象<br>2）缺点：</p>
-<h2 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h2><p>1.基本思想<br>创建一个仅仅用于封装继承过程的函数，然后在内部以某种方式增强对象，最后返回对象</p>
-<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function objectCreate(obj)&#123;</span><br><span class="line">  function F()&#123;&#125;</span><br><span class="line">  F.prototype = obj</span><br><span class="line">  return new F()</span><br><span class="line">&#125;</span><br><span class="line">function createSubObj(superInstance)&#123;</span><br><span class="line">  var clone = objectCreate(superInstance)</span><br><span class="line">  clone.property = &apos;Sub Property&apos;</span><br><span class="line">  return clone</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>3.优缺点<br>1）优点：<br>原型式继承的一种拓展<br>2）缺点：<br>依旧没有类的概念</p>
-<h2 id="六-寄生组合式继承"><a href="#六-寄生组合式继承" class="headerlink" title="六.寄生组合式继承"></a>六.寄生组合式继承</h2><p>1.基本思想<br>结合寄生式继承和组合式继承，完美实现不带两份超类属性的继承方式</p>
-<p>2.具体实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function inheritPrototype(Super,Sub)&#123;</span><br><span class="line">  var superProtoClone = Object.Create(Super.prototype)</span><br><span class="line">  superProtoClone.constructor = Sub</span><br><span class="line">  Sub.prototype = Super</span><br><span class="line">&#125;</span><br><span class="line">function Sub()&#123;</span><br><span class="line">  Super.call()</span><br><span class="line">  Sub.property = &apos;Sub Property&apos;</span><br><span class="line">&#125;</span><br><span class="line">inheritPrototype(Super,Sub)</span><br></pre></td></tr></table></figure></p>
-<p>3.优缺点<br>1）优点：<br>完美实现继承，解决了组合式继承带两份属性的问题<br>2）缺点：<br>过于繁琐，故不如组合继承</p>
-
-                
-                <div class="readmore">
-                    <a href="/2018/12/26/原型/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
-            <div class="post-item">
-                <h1>
-                    <a href="/2018/12/26/面试CSS/">
-                        CSS
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2018-12-26T09:28:15.000Z">
-                            2018-12-26
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
-                </div>
-                
-                    <h1 id="响应式布局的常用解决方案对比-媒体查询、百分比、rem和vw-vh）"><a href="#响应式布局的常用解决方案对比-媒体查询、百分比、rem和vw-vh）" class="headerlink" title="响应式布局的常用解决方案对比(媒体查询、百分比、rem和vw/vh）"></a>响应式布局的常用解决方案对比(媒体查询、百分比、rem和vw/vh）</h1><p>简要介绍：前端开发中，静态网页通常需要适应不同分辨率的设备，常用的自适应解决方案包括媒体查询、百分比、rem和vw/vh等。本文从px单位出发，分析了px在移动端布局中的不足，接着介绍了几种不同的自适应解决方案。</p>
-<ul>
-<li>px和视口</li>
-<li>媒体查询</li>
-<li>百分比</li>
-<li>自适应场景下的rem解决方案</li>
-<li>通过vw/vh来实现自适应</li>
-</ul>
-<h2 id="px和视口"><a href="#px和视口" class="headerlink" title="px和视口"></a>px和视口</h2><p>在静态网页中，我们经常用像素（px）作为单位，来描述一个元素的宽高以及定位信息。在pc端，通常认为css中,1px所表示的真实长度是固定的。<br>那么，px真的是一个设备无关，跟长度单位米和分米一样是固定大小的吗？</p>
-<p>答案是否定的，下面图1.1和图1.2分别表示pc端下和移动端下的显示结果，在网页中我们设置的font-size统一为16px。<br><img src="/2018/12/26/面试CSS/css01.png" alt=""><br>从上面两幅图的对比可以看出，字体都是16px，显然在pc端中文字正常显示，而在移动端文字很小，几乎看不到，说明在css中1px并不是固定大小，直观从我们发现在移动端1px所表示的长度较小，所以导致文字显示不清楚。</p>
-<p>那么css中的1px的真实长度到底由什么决定呢？</p>
-<p>为了理清楚这个概念我们首先介绍像素和视口的概念</p>
-<h3 id="像素"><a href="#像素" class="headerlink" title="像素"></a>像素</h3><p>像素是网页布局的基础，一个像素表示了计算机屏幕所能显示的最小区域，像素分为两种类型：css像素和物理像素。</p>
-<p>我们在js或者css代码中使用的px单位就是指的是css像素，物理像素也称设备像素，只与设备或者说硬件有关，同样尺寸的屏幕，设备的密度越高，物理像素也就越多。下表表示css像素和物理像素的具体区别：</p>
-<blockquote>
-<p>css像素:  为web开发者提供，在css中使用的一个抽象单位<br>物理像素 : 只与设备的硬件密度有关，任何设备的物理像素都是固定的<br>那么css像素与物理像素的转换关系是怎么样的呢？为了明确css像素和物理像素的转换关系，必须先了解视口是什么。</p>
-</blockquote>
-<h3 id="视口"><a href="#视口" class="headerlink" title="视口"></a>视口</h3><p>广义的视口，是指浏览器显示内容的屏幕区域，狭义的视口包括了布局视口、视觉视口和理想视口</p>
-<p>(1) 布局视口（layout viewport）<br>布局视口定义了pc网页在移动端的默认布局行为，因为通常pc的分辨率较大，布局视口默认为980px。也就是说在不设置网页的viewport的情况下，pc端的网页默认会以布局视口为基准，在移动端进行展示。因此我们可以明显看出来，默认为布局视口时，根植于pc端的网页在移动端展示很模糊。</p>
-<p>(2) 视觉视口（visual viewport）<br>视觉视口表示浏览器内看到的网站的显示区域，用户可以通过缩放来查看网页的显示内容，从而改变视觉视口。视觉视口的定义，就像拿着一个放大镜分别从不同距离观察同一个物体，视觉视口仅仅类似于放大镜中显示的内容，因此视觉视口不会影响布局视口的宽度和高度。</p>
-<p>(3) 理想视口（ideal viewport）<br>理想视口或者应该全称为“理想的布局视口”，在移动设备中就是指设备的分辨率。换句话说，理想视口或者说分辨率就是给定设备物理像素的情况下，最佳的“布局视口”。</p>
-<p>上述视口中，最重要的是要明确理想视口的概念，在移动端中，理想视口或者说分辨率跟物理像素之间有什么关系呢？</p>
-<p>为了理清分辨率和物理像素之间的联系，我们介绍一个用DPR（Device pixel ratio）设备像素比来表示，则可以写成：</p>
-<p>1 DPR = 物理像素／分辨率<br>在不缩放的情况下，一个css像素就对应一个dpr，也就是说，在不缩放</p>
-<p>1 CSS像素 = 物理像素／分辨率<br>此外，在移动端的布局中，我们可以通过viewport元标签来控制布局，比如一般情况下，我们可以通过下述标签使得移动端在理想视口下布局：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta id=&quot;viewport&quot; name=&quot;viewport&quot; content=&quot;width=device-width; initial-scale=1.0; maximum-scale=1; user-scalable=no;&quot;&gt;</span><br></pre></td></tr></table></figure></p>
-<table>
-<thead>
-<tr>
-<th>属性名</th>
-<th>取值</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>width</td>
-<td>正整数</td>
-<td>定义布局视口的宽度，单位为像素</td>
-</tr>
-<tr>
-<td>height</td>
-<td>正整数</td>
-<td>定义布局视口的高度，单位为像素，很少使用</td>
-</tr>
-<tr>
-<td>initial-scale</td>
-<td>[0,10]</td>
-<td>初始缩放比例，1表示不缩放</td>
-</tr>
-<tr>
-<td>minimum-scale</td>
-<td>[0,10]</td>
-<td>最小缩放比例</td>
-</tr>
-<tr>
-<td>maximum-scale</td>
-<td>[0,10]</td>
-<td>最大缩放比例</td>
-</tr>
-<tr>
-<td>user-scalable</td>
-<td>yes／no</td>
-<td>是否允许手动缩放页面，默认值为yes</td>
-</tr>
-</tbody>
-</table>
-<p>其中我们来看width属性，在移动端布局时，在meta标签中我们会将width设置称为device-width，device-width一般是表示分辨率的宽，通过width=device-width的设置我们就将布局视口设置成了理想的视口。</p>
-<h3 id="px与自适应"><a href="#px与自适应" class="headerlink" title="px与自适应"></a>px与自适应</h3><p>上述我们了解到了当通过viewport元标签，设置布局视口为理想视口时，1个css像素可以表示成：</p>
-<p>1 CSS像素 = 物理像素／分辨率<br>我们直到，在pc端的布局视口通常情况下为980px，移动端以iphone6为例，分辨率为375 <em> 667，也就是说布局视口在理想的情况下为375px。比如现在我们有一个750px </em> 1134px的视觉稿，那么在pc端，一个css像素可以如下计算：</p>
-<p>PC端： 1 CSS像素 = 物理像素／分辨率 = 750 ／ 980 =0.76 px<br>而在iphone6下：</p>
-<p>iphone6：1 CSS像素 = 物理像素 ／分辨率 = 750 ／ 375 = 2 px<br>也就是说在PC端，一个CSS像素可以用0.76个物理像素来表示，而iphone6中 一个CSS像素表示了2个物理像素。此外不同的移动设备分辨率不同，也就是1个CSS像素可以表示的物理像素是不同的，因此如果在css中仅仅通过px作为长度和宽度的单位，造成的结果就是无法通过一套样式，实现各端的自适应。</p>
-<h2 id="媒体查询"><a href="#媒体查询" class="headerlink" title="媒体查询"></a>媒体查询</h2><p>在前面我们说到，不同端的设备下，在css文件中，1px所表示的物理像素的大小是不同的，因此通过一套样式，是无法实现各端的自适应。由此我们联想：</p>
-<p>如果一套样式不行，那么能否给每一种设备各一套不同的样式来实现自适应的效果？</p>
-<p>答案是肯定的。</p>
-<p>使用@media媒体查询可以针对不同的媒体类型定义不同的样式，特别是响应式页面，可以针对不同屏幕的大小，编写多套样式，从而达到自适应的效果。举例来说：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@media screen and (max-width: 960px)&#123;</span><br><span class="line">    body&#123;</span><br><span class="line">      background-color:#FF6699</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@media screen and (max-width: 768px)&#123;</span><br><span class="line">    body&#123;</span><br><span class="line">      background-color:#00FF66;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@media screen and (max-width: 550px)&#123;</span><br><span class="line">    body&#123;</span><br><span class="line">      background-color:#6633FF;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@media screen and (max-width: 320px)&#123;</span><br><span class="line">    body&#123;</span><br><span class="line">      background-color:#FFFF00;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上述的代码通过媒体查询定义了几套样式，通过max-width设置样式生效时的最大分辨率，上述的代码分别对分辨率在0～320px，320px～550px，550px～768px以及768px～960px的屏幕设置了不同的背景颜色。</p>
-<p>通过媒体查询，可以通过给不同分辨率的设备编写不同的样式来实现响应式的布局，比如我们为不同分辨率的屏幕，设置不同的背景图片。比如给小屏幕手机设置@2x图，为大屏幕手机设置@3X图，通过媒体查询就能很方便的实现。</p>
-<p>但是媒体查询的缺点也很明显，如果在浏览器大小改变时，需要改变的样式太多，那么多套样式代码会很繁琐。</p>
-<h2 id="百分比"><a href="#百分比" class="headerlink" title="百分比"></a>百分比</h2><p>除了用px结合媒体查询实现响应式布局外，我们也可以通过百分比单位 “ % “ 来实现响应式的效果。</p>
-<p>比如当浏览器的宽度或者高度发生变化时，通过百分比单位，通过百分比单位可以使得浏览器中的组件的宽和高随着浏览器的变化而变化，从而实现响应式的效果。</p>
-<p>为了了解百分比布局，首先要了解的问题是：</p>
-<p>css中的子元素中的百分比（%）到底是谁的百分比？</p>
-<p>直观的理解，我们可能会认为子元素的百分比完全相对于直接父元素，height百分比相对于height，width百分比相对于width。当然这种理解是正确的，但是根据css的盒式模型，除了height、width属性外，还具有padding、border、margin等等属性。那么这些属性设置成百分比，是根据父元素的那些属性呢？此外还有border-radius和translate等属性中的百分比，又是相对于什么呢？下面来具体分析。</p>
-<ol>
-<li>百分比的具体分析<br>（1）子元素height和width的百分比</li>
-</ol>
-<p>子元素的height或width中使用百分比，是相对于子元素的直接父元素，width相对于父元素的width，height相对于父元素的height。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">  &lt;div class=&quot;child&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">如果设置：</span><br><span class="line">.father&#123;</span><br><span class="line">width:200px;</span><br><span class="line">height:100px;</span><br><span class="line">&#125;</span><br><span class="line">.child&#123;</span><br><span class="line">width:50%;</span><br><span class="line">height:50%;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>展示的效果为：<br><img src="/2018/12/26/面试CSS/css02.png" alt=""><br>(2) top和bottom 、left和right</p>
-<p>子元素的top和bottom如果设置百分比，则相对于直接非static定位(默认定位)的父元素的高度，同样</p>
-<p>子元素的left和right如果设置百分比，则相对于直接非static定位(默认定位的)父元素的宽度。</p>
-<p>展示的效果为：<br><img src="/2018/12/26/面试CSS/css03.png" alt=""><br>（3）padding</p>
-<p>子元素的padding如果设置百分比，不论是垂直方向或者是水平方向，都相对于直接父亲元素的width，而与父元素的height无关。</p>
-<p>举例来说：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">  width:200px;</span><br><span class="line">  height:100px;</span><br><span class="line">  background:green;</span><br><span class="line">&#125;</span><br><span class="line">.child&#123;</span><br><span class="line">  width:0px;</span><br><span class="line">  height:0px;</span><br><span class="line">  background:blue;</span><br><span class="line">  color:white;</span><br><span class="line">  padding-top:50%;</span><br><span class="line">  padding-left:50%;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>展示的效果为：<br><img src="/2018/12/26/面试CSS/css04.png" alt=""><br>子元素的初始宽高为0，通过padding可以将父元素撑大，上图的蓝色部分是一个正方形，且边长为100px,说明padding不论宽高，如果设置成百分比都相对于父元素的width。</p>
-<p>（4）margin</p>
-<p>跟padding一样，margin也是如此，子元素的margin如果设置成百分比，不论是垂直方向还是水平方向，都相对于直接父元素的width。这里就不具体举例。</p>
-<p>（5）border-radius</p>
-<p>border-radius不一样，如果设置border-radius为百分比，则是相对于自身的宽度，举例来说：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;trangle&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>设置border-radius为百分比：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.trangle&#123;</span><br><span class="line">  width:100px;</span><br><span class="line">  height:100px;</span><br><span class="line">  border-radius:50%;</span><br><span class="line">  background:blue;</span><br><span class="line">  margin-top:10px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>展示效果为：</p>
-<p><img src="/2018/12/26/面试CSS/css06.gif" alt=""></p>
-<ol start="2">
-<li>百分比单位布局应用<br>百分比单位在布局上应用还是很广泛的，这里介绍一种应用。<br>比如我们要实现一个固定长宽比的长方形，比如要实现一个长宽比为4:3的长方形,我们可以根据padding属性来实现，因为padding不管是垂直方向还是水平方向，百分比单位都相对于父元素的宽度，因此我们可以设置padding-top为百分比来实现，长宽自适应的长方形：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;trangle&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>设置样式让其自适应：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.trangle&#123;</span><br><span class="line">  height:0;</span><br><span class="line">  width:100%;</span><br><span class="line">  padding-top:75%;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>通过设置padding-top：75%,相对比宽度的75%，因此这样就设置了一个长宽高恒定比例的长方形，具体效果<br><img src="/2018/12/26/面试CSS/css05.png" alt=""></p>
-<ol start="3">
-<li>百分比单位缺点<br>从上述对于百分比单位的介绍我们很容易看出如果全部使用百分比单位来实现响应式的布局，有明显的以下两个缺点：<br>（1）计算困难，如果我们要定义一个元素的宽度和高度，按照设计稿，必须换算成百分比单位。<br>（2）从小节1可以看出，各个属性中如果使用百分比，相对父元素的属性并不是唯一的。比如width和height相对于父元素的width和height，而margin、padding不管垂直还是水平方向都相对比父元素的宽度、border-radius则是相对于元素自身等等，造成我们使用百分比单位容易使布局问题变得复杂。</li>
-</ol>
-<h2 id="自适应场景下的rem解决方案"><a href="#自适应场景下的rem解决方案" class="headerlink" title="自适应场景下的rem解决方案"></a>自适应场景下的rem解决方案</h2><ol>
-<li>rem单位</li>
-</ol>
-<p>首先来看，什么是rem单位。rem是一个灵活的、可扩展的单位，由浏览器转化像素并显示。与em单位不同，rem单位无论嵌套层级如何，都只相对于浏览器的根元素（HTML元素）的font-size。默认情况下，html元素的font-size为16px，所以：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 rem = 12px</span><br></pre></td></tr></table></figure></p>
-<p>为了计算方便，通常可以将html的font-size设置成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">html&#123; font-size: 62.5% &#125;</span><br></pre></td></tr></table></figure></p>
-<p>这种情况下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 rem = 10px</span><br></pre></td></tr></table></figure></p>
-<p>2.通过rem来实现响应式布局</p>
-<p>rem单位都是相对于根元素html的font-size来决定大小的,根元素的font-size相当于提供了一个基准，当页面的size发生变化时，只需要改变font-size的值，那么以rem为固定单位的元素的大小也会发生响应的变化。<br>因此，如果通过rem来实现响应式的布局，只需要根据视图容器的大小，动态的改变font-size即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function refreshRem() &#123;</span><br><span class="line">    var docEl = doc.documentElement;</span><br><span class="line">    var width = docEl.getBoundingClientRect().width;</span><br><span class="line">    var rem = width / 10;</span><br><span class="line">    docEl.style.fontSize = rem + &apos;px&apos;;</span><br><span class="line">    flexible.rem = win.rem = rem;</span><br><span class="line">&#125;</span><br><span class="line">win.addEventListener(&apos;resize&apos;, refreshRem);</span><br></pre></td></tr></table></figure></p>
-<p>上述代码中将视图容器分为10份，font-size用十分之一的宽度来表示，最后在header标签中执行这段代码，就可以动态定义font-size的大小，从而1rem在不同的视觉容器中表示不同的大小，用rem固定单位可以实现不同容器内布局的自适应。</p>
-<ol start="3">
-<li>rem2px和px2rem</li>
-</ol>
-<p>如果在响应式布局中使用rem单位，那么存在一个单位换算的问题，rem2px表示从rem换算成px，这个就不说了，只要rem乘以相应的font-size中的大小，就能换算成px。更多的应用是px2rem，表示的是从px转化为rem。</p>
-<p>比如给定的视觉稿为750px（物理像素），如果我们要将所有的布局单位都用rem来表示，一种比较笨的办法就是对所有的height和width等元素，乘以相应的比例，现将视觉稿换算成rem单位，然后一个个的用rem来表示。另一种比较方便的解决方法就是，在css中我们还是用px来表示元素的大小，最后编写完css代码之后，将css文件中的所有px单位，转化成rem单位。</p>
-<p>px2rem的原理也很简单，重点在于预处理以px为单位的css文件，处理后将所有的px变成rem单位。可以通过两种方式来实现：</p>
-<p>1） webpack loader的形式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install px2rem-loader</span><br></pre></td></tr></table></figure></p>
-<p>在webpack的配置文件中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  // ...</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [&#123;</span><br><span class="line">      test: /\.css$/,</span><br><span class="line">      use: [&#123;</span><br><span class="line">        loader: &apos;style-loader&apos;</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        loader: &apos;css-loader&apos;</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        loader: &apos;px2rem-loader&apos;,</span><br><span class="line">        // options here</span><br><span class="line">        options: &#123;</span><br><span class="line">          remUni: 75,</span><br><span class="line">          remPrecision: 8</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2）webpack中使用postcss plugin<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install postcss-loader</span><br></pre></td></tr></table></figure></p>
-<p>在webpack的plugin中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var px2rem = require(&apos;postcss-px2rem&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  module: &#123;</span><br><span class="line">    loaders: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.css$/,</span><br><span class="line">        loader: &quot;style-loader!css-loader!postcss-loader&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  postcss: function() &#123;</span><br><span class="line">    return [px2rem(&#123;remUnit: 75&#125;)];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="4">
-<li>rem 布局应用举例</li>
-</ol>
-<p>网易新闻的移动端页面使用了rem布局，具体例子如下：</p>
-<p><img src="/2018/12/26/面试CSS/css07.gif" alt=""></p>
-<ol start="5">
-<li>rem 布局的缺点</li>
-</ol>
-<p>通过rem单位，可以实现响应式的布局，特别是引入相应的postcss相关插件，免去了设计稿中的px到rem的计算。rem单位在国外的一些网站也有使用，这里所说的rem来实现布局的缺点，或者说是小缺陷是：</p>
-<p>在响应式布局中，必须通过js来动态控制根元素font-size的大小。</p>
-<p>也就是说css样式和js代码有一定的耦合性。且必须将改变font-size的代码放在css样式之前。</p>
-<h2 id="通过vw-vh来实现自适应"><a href="#通过vw-vh来实现自适应" class="headerlink" title="通过vw/vh来实现自适应"></a>通过vw/vh来实现自适应</h2><ol>
-<li>什么是vw/vh ?</li>
-</ol>
-<p>css3中引入了一个新的单位vw/vh，与视图窗口有关，vw表示相对于视图窗口的宽度，vh表示相对于视图窗口高度，除了vw和vh外，还有vmin和vmax两个相关的单位。各个单位具体的含义如下：</p>
-<table>
-<thead>
-<tr>
-<th>单位</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>vw</td>
-<td>相对于视窗的宽度，视窗宽度是100vw</td>
-</tr>
-<tr>
-<td>vh</td>
-<td>相对于视窗的高度，视窗高度是100vh</td>
-</tr>
-<tr>
-<td>vmin</td>
-<td>vw和vh中的较小值</td>
-</tr>
-<tr>
-<td>vmax</td>
-<td>vw和vh中的较大值</td>
-</tr>
-</tbody>
-</table>
-<p>这里我们发现视窗宽高都是100vw／100vh，那么vw或者vh，下简称vw，很类似百分比单位。vw和%的区别为：</p>
-<table>
-<thead>
-<tr>
-<th>单位</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>%</td>
-<td>大部分相对于祖先元素，也有相对于自身的情况比如（border-radius、translate等)</td>
-</tr>
-<tr>
-<td>vw/vh</td>
-<td>相对于视窗的尺寸</td>
-</tr>
-</tbody>
-</table>
-<p>从对比中我们可以发现，vw单位与百分比类似，单确有区别，前面我们介绍了百分比单位的换算困难，这里的vw更像”理想的百分比单位”。任意层级元素，在使用vw单位的情况下，1vw都等于视图宽度的百分之一。</p>
-<ol start="2">
-<li>vw单位换算</li>
-</ol>
-<p>同样的，如果要将px换算成vw单位，很简单，只要确定视图的窗口大小（布局视口），如果我们将布局视口设置成分辨率大小，比如对于iphone6/7 375*667的分辨率，那么px可以通过如下方式换算成vw：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1px = （1/375）*100 vw</span><br></pre></td></tr></table></figure></p>
-<p>此外，也可以通过postcss的相应插件，预处理css做一个自动的转换，postcss-px-to-viewport可以自动将px转化成vw。<br>postcss-px-to-viewport的默认参数为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var defaults = &#123;</span><br><span class="line">  viewportWidth: 320,</span><br><span class="line">  viewportHeight: 568, </span><br><span class="line">  unitPrecision: 5,</span><br><span class="line">  viewportUnit: &apos;vw&apos;,</span><br><span class="line">  selectorBlackList: [],</span><br><span class="line">  minPixelValue: 1,</span><br><span class="line">  mediaQuery: false</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>通过指定视窗的宽度和高度，以及换算精度，就能将px转化成vw。</p>
-<ol start="3">
-<li>vw/vh单位的兼容性<br>可以在<a href="https://caniuse.com/" target="_blank" rel="noopener">https://caniuse.com/</a> 查看各个版本的浏览器对vw单位的支持性。<br>从上图我们发现，绝大多数的浏览器支持vw单位，但是ie9-11不支持vmin和vmax，考虑到vmin和vmax单位不常用，vw单位在绝大部分高版本浏览器内的支持性很好，但是opera浏览器整体不支持vw单位，如果需要兼容opera浏览器的布局，不推荐使用vw。</li>
-</ol>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文介绍在布局中常用的单位，比如px、%、rem和vw等等，以及不同的单位在响应式布局中的优缺点。</p>
-<h1 id="画一条0-5px的线"><a href="#画一条0-5px的线" class="headerlink" title="画一条0.5px的线"></a>画一条0.5px的线</h1><ul>
-<li><p>采用meta viewport的方式</p>
-</li>
-<li><p>采用 border-image的方式</p>
-</li>
-<li><p>采用transform: scale()的方式</p>
-</li>
-</ul>
-<h1 id="link标签和import标签的区别"><a href="#link标签和import标签的区别" class="headerlink" title="link标签和import标签的区别"></a>link标签和import标签的区别</h1><ul>
-<li>link属于html标签，而@import是css提供的</li>
-<li>页面被加载时，link会同时被加载，而@import引用的css会等到页面加载结束后加载。</li>
-<li>link是html标签，因此没有兼容性，而@import只有IE5以上才能识别。</li>
-<li>link方式样式的权重高于@import的。</li>
-</ul>
-<h1 id="transition和animation的区别"><a href="#transition和animation的区别" class="headerlink" title="transition和animation的区别"></a>transition和animation的区别</h1><p>Animation和transition大部分属性是相同的，他们都是随时间改变元素的属性值，他们的主要区别是transition需要触发一个事件才能改变属性，而animation不需要触发任何事件的情况下才会随时间改变属性值，并且transition为2帧，从from …. to，而animation可以一帧一帧的。</p>
-<h1 id="Flex布局"><a href="#Flex布局" class="headerlink" title="Flex布局"></a>Flex布局</h1><p>文章链接：<br><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool（语法篇）" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool（语法篇）</a><br><a href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html（实例篇）" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2015/07/flex-examples.html（实例篇）</a></p>
-<p>Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。<br>布局的传统解决方案，基于盒状模型，依赖 display属性 + position属性 + float属性。它对于那些特殊布局非常不方便，比如，垂直居中就不容易实现。</p>
-<p>简单的分为容器属性和元素属性<br>容器的属性：</p>
-<p>flex-direction：决定主轴的方向（即子item的排列方法）<br>.box {<br>flex-direction: row | row-reverse | column | column-reverse;<br>}<br>flex-wrap：决定换行规则<br>.box{<br>flex-wrap: nowrap | wrap | wrap-reverse;<br>}<br>flex-flow：<br>.box {<br>flex-flow: || ;<br>}<br>justify-content：对其方式，水平主轴对齐方式<br>align-items：对齐方式，竖直轴线方向<br>项目的属性（元素的属性）：</p>
-<p>order属性：定义项目的排列顺序，顺序越小，排列越靠前，默认为0<br>flex-grow属性：定义项目的放大比例，即使存在空间，也不会放大<br>flex-shrink属性：定义了项目的缩小比例，当空间不足的情况下会等比例的缩小，如果定义个item的flow-shrink为0，则为不缩小<br>flex-basis属性：定义了在分配多余的空间，项目占据的空间。<br>flex：是flex-grow和flex-shrink、flex-basis的简写，默认值为0 1 auto。<br>align-self：允许单个项目与其他项目不一样的对齐方式，可以覆盖align-items，默认属性为auto，表示继承父元素的align-items<br>比如说，用flex实现圣杯布局</p>
-<h1 id="BFC（块级格式化上下文，用于清除浮动，防止margin重叠等）"><a href="#BFC（块级格式化上下文，用于清除浮动，防止margin重叠等）" class="headerlink" title="BFC（块级格式化上下文，用于清除浮动，防止margin重叠等）"></a>BFC（块级格式化上下文，用于清除浮动，防止margin重叠等）</h1><p>直译成：块级格式化上下文，是一个独立的渲染区域，并且有一定的布局规则。</p>
-<p>BFC区域不会与float box重叠<br>BFC是页面上的一个独立容器，子元素不会影响到外面<br>计算BFC的高度时，浮动元素也会参与计算<br>哪些元素会生成BFC：</p>
-<p>根元素</p>
-<ul>
-<li>float不为none的元素</li>
-<li>position为fixed和absolute的元素</li>
-<li>display为inline-block、table-cell、table-caption，flex，inline-flex的元素</li>
-<li>overflow不为visible的元素</li>
-</ul>
-<blockquote>
-<p>BFC定义</p>
-</blockquote>
-<p>1、 box<br>box是css布局的基本单位，元素的类型和display属性决定了box的类型。不同的类型的盒子会参与不同的formatting context。<br>block-level box :display属性为block、list-item(作为列表显示的元素)、table的元素会生成block-level box。<br>2、formatting context<br>它是页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用</p>
-<p>BFC（block formatting context）为块级格式化上下文，他是一个独立渲染区域，并且只有block-level box参与，规定了block-level box内部的布局方式。</p>
-<blockquote>
-<p>布局规则</p>
-</blockquote>
-<ul>
-<li><p>1、内部的box会在垂直方向上一个接一个的放置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"div1"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;div class=<span class="string">"div2"</span>&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>2、同一个bfc内，两个相邻box元素的margin会产生重叠，重叠距离为数值大的margin值<br>给div1设置margin: 20px 0,给div2设置margin: 30px 0,此时div1和div2之间的间距为30px。</p>
-</li>
-</ul>
-<p>解决方式  让两个元素不属于同一个BFC<br>3、BFC区域不会与浮动元素重叠<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"left"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;div class=<span class="string">"main"</span>&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>此时main元素没有产生bfc,left元素浮动，效果如下：<br>给main元素设置overflow:hidden变为bfc,效果如下：</p>
-<ul>
-<li>4、计算BFC的高度时，浮动元素也参与计算</li>
-<li>5、每个元素的margin box的左边， 与 包含块 border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此</li>
-<li>6、BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素<blockquote>
-<p>3、产生BFC的方式</p>
-</blockquote>
-</li>
-<li>1、overflow属性不是visible</li>
-<li>2、float属性不为none</li>
-<li>3、display属性为inline-block、table-cell、flex、inline-flex、table-caption</li>
-<li>4、position为absolute、fixed</li>
-<li>5、body根元素</li>
-</ul>
-<h1 id="关于js动画和css3动画的差异性"><a href="#关于js动画和css3动画的差异性" class="headerlink" title="关于js动画和css3动画的差异性"></a>关于js动画和css3动画的差异性</h1><p>渲染线程分为main thread和compositor thread，如果css动画只改变transform和opacity，这时整个CSS动画得以在compositor trhead完成（而js动画则会在main thread执行，然后出发compositor thread进行下一步操作），特别注意的是如果改变transform和opacity是不会layout或者paint的。<br>区别：</p>
-<ul>
-<li>功能涵盖面，js比css大</li>
-<li>实现/重构难度不一，CSS3比js更加简单，性能跳优方向固定</li>
-<li>对帧速表现不好的低版本浏览器，css3可以做到自然降级</li>
-<li>css动画有天然事件支持</li>
-<li>css3有兼容性问题</li>
-</ul>
-<h1 id="块元素和行元素"><a href="#块元素和行元素" class="headerlink" title="块元素和行元素"></a>块元素和行元素</h1><p>HTML可以将元素分类方式分为行内元素、块状元素和行内块状元素三种。首先需要说明的是，这三者是可以互相转换的，使用display属性能够将三者任意转换：</p>
-<p>　　(1)display:inline;转换为行内元素</p>
-<p>　　(2)display:block;转换为块状元素</p>
-<p>　　(3)display:inline-block;转换为行内块状元素<br>块元素：独占一行，并且有自动填满父元素，可以设置margin和pading以及高度和宽度<br>行元素：不会独占一行，width和height会失效，并且在垂直方向的padding和margin会失<br>效。<br>1.块状元素<br>　　块状元素代表性的就是div，其他如p、nav、aside、header、footer、section、article、ul-li、address等等，都可以用div来实现。不过为了可以方便程序员解读代码，一般都会使用特定的语义化标签，使得代码可读性强，且便于查错。</p>
-<p>　　块状元素特征：(1)能够识别宽高</p>
-<p>　　　　　　　　　(2)margin和padding的上下左右均对其有效</p>
-<p>　　　　　　　　　(3)可以自动换行</p>
-<p>　　　　　　　　　(4)多个块状元素标签写在一起，默认排列方式为从上至下<br>2.块状元素<br>　　块状元素代表性的就是div，其他如p、nav、aside、header、footer、section、article、ul-li、address等等，都可以用div来实现。不过为了可以方便程序员解读代码，一般都会使用特定的语义化标签，使得代码可读性强，且便于查错。</p>
-<p>　　块状元素特征：(1)能够识别宽高</p>
-<p>　　　　　　　　　(2)margin和padding的上下左右均对其有效</p>
-<p>　　　　　　　　　(3)可以自动换行</p>
-<p>　　　　　　　　　(4)多个块状元素标签写在一起，默认排列方式为从上至下<br>3.行内块状元素<br>　　行内块状元素综合了行内元素和块状元素的特性，但是各有取舍。因此行内块状元素在日常的使用中，由于其特性，使用的次数也比较多。</p>
-<p>　　行内块状元素特征：(1)不自动换行</p>
-<p>　　　　　　　　　　　(2)能够识别宽高</p>
-<p>　　　　　　　　　　　(3)默认排列方式为从左到右</p>
-<h1 id="多行元素的文本省略号"><a href="#多行元素的文本省略号" class="headerlink" title="多行元素的文本省略号"></a>多行元素的文本省略号</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">display: -webkit-box</span><br><span class="line">-webkit-box-orient:vertical</span><br><span class="line">-webkit-line-clamp:3</span><br><span class="line">overflow:hidden</span><br></pre></td></tr></table></figure>
-<h1 id="visibility-hidden-opacity-0，display-none"><a href="#visibility-hidden-opacity-0，display-none" class="headerlink" title="visibility=hidden, opacity=0，display:none"></a>visibility=hidden, opacity=0，display:none</h1><p>opacity=0，该元素隐藏起来了，但不会改变页面布局，并且，如果该元素已经绑定一些事件，如click事件，那么点击该区域，也能触发点击事件的visibility=hidden，该元素隐藏起来了，但不会改变页面布局，但是不会触发该元素已经绑定的事件display=none，把元素隐藏起来，并且会改变页面布局，可以理解成在页面中把该元素删除掉一样。</p>
-<h1 id="双边距重叠问题（外边距折叠）"><a href="#双边距重叠问题（外边距折叠）" class="headerlink" title="双边距重叠问题（外边距折叠）"></a>双边距重叠问题（外边距折叠）</h1><p>多个相邻（兄弟或者父子关系）普通流的块元素垂直方向marigin会重叠</p>
-<p>折叠的结果为：</p>
-<p>两个相邻的外边距都是正数时，折叠结果是它们两者之间较大的值。<br>两个相邻的外边距都是负数时，折叠结果是两者绝对值的较大值。<br>两个外边距一正一负时，折叠结果是两者的相加的和。</p>
-<h1 id="position"><a href="#position" class="headerlink" title="position"></a>position</h1><ul>
-<li>static  默认。位置设置为 static 的元素，它始终会处于页面流给予的位置（static 元素会忽略任何 top、bottom、left 或 right 声明）。</li>
-<li>relative  位置被设置为 relative 的元素，可将其移至相对于其正常位置的地方，因此 “left:20” 会将元素移至元素正常位置左边 20 个像素的位置。</li>
-<li>absolute  位置设置为 absolute 的元素，可定位于相对于包含它的元素的指定坐标。此元素的位置可通过 “left”、”top”、”right” 以及 “bottom” 属性来规定。</li>
-<li>fixed 位置被设置为 fixed 的元素，可定位于相对于浏览器窗口的指定坐标。此元素的位置可通过 “left”、”top”、”right” 以及”bottom” 属性来规定。不论窗口滚动与否，元素都会留在那个位置。工作于 IE7（strict 模式）。</li>
-<li>sticky 基于用户的滚动位置来定位。粘性定位的元素是依赖于用户的滚动，在position:relative 与 position:fixed定位之间切换。它的行为就像position:relative;而当页面滚动超出目标区域时，它的表现就像 position:fixed;，它会固定在目标位置。元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位。</li>
-</ul>
-<h1 id="animation"><a href="#animation" class="headerlink" title="animation"></a>animation</h1><p>语法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@keyframes animationname &#123;keyframes-selector &#123;css-styles;&#125;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>下面的表格列出了 @keyframes 规则和所有动画属性：</p>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>描述</th>
-<th>CSS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>@keyframes</td>
-<td>规定动画。</td>
-<td>3</td>
-</tr>
-<tr>
-<td>animation</td>
-<td>所有动画属性的简写属性，除了 animation-play-state 属性。</td>
-<td>3</td>
-</tr>
-<tr>
-<td>animation-name</td>
-<td>规定 @keyframes 动画的名称。</td>
-<td>3</td>
-</tr>
-<tr>
-<td>animation-duration</td>
-<td>规定动画完成一个周期所花费的秒或毫秒。默认是 0。</td>
-<td>3</td>
-</tr>
-<tr>
-<td>animation-timing-function</td>
-<td>规定动画的速度曲线。默认是 “ease”。</td>
-<td>3</td>
-</tr>
-<tr>
-<td>animation-delay</td>
-<td>规定动画何时开始。默认是 0。</td>
-<td>3</td>
-</tr>
-<tr>
-<td>animation-iteration-count</td>
-<td>规定动画被播放的次数。默认是 1。</td>
-<td>3</td>
-</tr>
-<tr>
-<td>animation-direction</td>
-<td>规定动画是否在下一周期逆向地播放。默认是 “normal”。</td>
-<td>3</td>
-</tr>
-<tr>
-<td>animation-play-state</td>
-<td>规定动画是否正在运行或暂停。默认是 “running”。</td>
-<td>3</td>
-</tr>
-<tr>
-<td>animation-fill-mode</td>
-<td>规定对象动画时间之外的状态。</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-<h1 id="伪元素伪类"><a href="#伪元素伪类" class="headerlink" title="伪元素伪类"></a>伪元素伪类</h1><blockquote>
-<p>css3为了区分伪类和伪元素，伪元素采用双冒号写法。</p>
-</blockquote>
-<p>伪类 – :hover, :link, :active, :visited, :first-child, :last-child, nth-child(n), :not(), :focus<br>伪元素 – ::before, ::after, ::first-letter, ::first-line, ::selection</p>
-<blockquote>
-<p>定义:</p>
-</blockquote>
-<p>伪类：用于向某些选择器添加特殊的效果<br>伪元素：用于将特殊的效果添加到某些选择器</p>
-<blockquote>
-<p>区别</p>
-</blockquote>
-<p>例子来理解<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;em&gt;This&lt;/em&gt;</span><br><span class="line">    &lt;em&gt;is a text&lt;/em&gt;</span><br><span class="line">&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/12/26/面试CSS/weilei01.png" alt=""><br>如果我们想要第一个em标签字体颜色变红怎么做呢<br>使用我们熟悉的伪类很简单<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">em:first-child &#123;</span><br><span class="line">    color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/12/26/面试CSS/weilei02.png" alt=""><br>但是如果不存在伪类我们怎么做呢<br>这是我们就需要为第一个em标签添加类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;em class=&quot;first-child&quot;&gt;This&lt;/em&gt;</span><br><span class="line">    &lt;em&gt;is a text&lt;/em&gt;</span><br><span class="line">&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">em.first-child &#123;</span><br><span class="line">    color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以实现同样的效果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;em&gt;This&lt;/em&gt;</span><br><span class="line">    &lt;em&gt;is a text&lt;/em&gt;</span><br><span class="line">&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
-<p>还是这个例子<br>现在我想让这个段落的第一个字母变红 </p>
-<p>这回我们需要使用伪元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p::first-letter &#123;</span><br><span class="line">    color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/12/26/面试CSS/weilei03.png" alt=""><br>同样假设伪元素不存在的情况<br>这时我们只能嵌套span标签来实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;</span><br><span class="line">    &lt;em&gt;&lt;span&gt;T&lt;/span&gt;his&lt;/em&gt;</span><br><span class="line">    &lt;em&gt;is a text&lt;/em&gt;</span><br><span class="line">&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">p span &#123;</span><br><span class="line">    color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>看到这里，相信大家已经清楚了为什么一个叫做伪类，一个叫做伪元素<br>伪类的效果可以通过添加实际的类来实现<br>伪元素的效果可以通过添加实际的元素来实现 </p>
-<p><font color="red">它们的本质区别就是是否抽象创造了新元素</font><br>伪元素是可以设置content属性的，类似于标签，但是伪类只能设置样式不能设置内容。<br><strong>注意</strong><br>伪类就像真正的类一样，可以叠加使用<br>没有数量上限，只要不是互斥的<br>比如这样<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">em:first-child:hover &#123;</span><br><span class="line">    color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>但注意，这里是“与”的关系<br>也就是说既要满足“first-child”第一个子元素<br>又要满足“hover”光标悬浮<br>伪元素就要严格的多<br>伪元素在一个选择器中只能出现一次，并且只能出现在末尾<br>（这里有同学误会了，所以我作出了修改）<br>像下面的样式是无法生效的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">p::first-letter:hover &#123;  /*错误的写法：伪元素不是末尾*/</span><br><span class="line">    color: red;</span><br><span class="line">&#125;</span><br><span class="line">p::first-letter::selection &#123;  /*错误的写法：伪元素出现了多个*/</span><br><span class="line">    color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>关于它们的优先级<br>在计算权重的时候<br>伪类与类优先级相同<br>伪元素与标签优先级相同</p>
-<p><strong>总结</strong></p>
-<ul>
-<li>伪类与伪元素都是用于向选择器加特殊效果</li>
-<li>伪类与伪元素的本质区别就是是否抽象创造了新元素</li>
-<li>伪类只要不是互斥可以叠加使用</li>
-<li>伪元素在一个选择器中只能出现一次，并且只能出现在末尾</li>
-<li>伪类与伪元素优先级分别与类、标签优先级相同</li>
-</ul>
-
-                
-                <div class="readmore">
-                    <a href="/2018/12/26/面试CSS/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
     </div>
 
 
@@ -1031,7 +920,7 @@
             <a href="/tags">
                 标签
                 <sup style="font-size: 12px">
-                    [31]
+                    [32]
                 </sup>
             </a>
         </h2>
@@ -1048,7 +937,7 @@
 <aside id="acchives">
     <h2>归档</h2>
     
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
     
 </aside>
 
@@ -1056,7 +945,7 @@
 
 </div>
 <nav id="pagination" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/6/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/">下一页 &raquo;</a>
 </nav>
 
     </div>

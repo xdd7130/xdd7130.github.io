@@ -32,7 +32,7 @@
     <div id="nav">
         <div class="nav-img" id="nav-img"></div>
         <div class="sentences">
-            也许世界就这样，我也还在路上。
+            向着风，拥抱彩虹，勇敢的向前走。
         </div>
     </div>
 </header>
@@ -45,24 +45,108 @@
         
             <div class="post-item">
                 <h1>
-                    <a href="/2020/11/11/关于大屏/">
-                        关于大屏
+                    <a href="/2020/12/29/React生命周期/">
+                        React生命周期
                     </a>
                 </h1>
                 <div class="create">
                     <span>创建于</span>
                     
-                        <time datetime="2020-11-11T06:57:42.000Z">
-                            2020-11-11
+                        <time datetime="2020-12-29T11:33:26.000Z">
+                            2020-12-29
                         </time>
                     
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                    
                 </div>
                 
                     
                 
                 <div class="readmore">
-                    <a href="/2020/11/11/关于大屏/">
+                    <a href="/2020/12/29/React生命周期/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2020/11/23/ES6-2/">
+                        ES6(二)之Set和Map
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2020-11-23T11:18:34.000Z">
+                            2020-11-23
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <h3 id="🌴-Set-和-WeakSet数据结构"><a href="#🌴-Set-和-WeakSet数据结构" class="headerlink" title="🌴 Set 和 WeakSet数据结构"></a>🌴 Set 和 WeakSet数据结构</h3><h4 id="👉-Set："><a href="#👉-Set：" class="headerlink" title="👉 Set："></a>👉 Set：</h4><p>1、ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//add方法</span><br><span class="line">const s = new Set();</span><br><span class="line"></span><br><span class="line">[2, 3, 5, 4, 5, 2, 2].forEach(x =&gt; s.add(x));</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i of s) &#123;</span><br><span class="line">console.log(i);</span><br><span class="line">&#125;</span><br><span class="line">// 2 3 5 4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 一、 数组去重</span><br><span class="line">[...new Set(array)]</span><br><span class="line">// 二、Array.from方法可以将 Set 结构转为数组。</span><br><span class="line">const items = new Set([1, 2, 3, 4, 5]);</span><br><span class="line">const array = Array.from(items);</span><br></pre></td></tr></table></figure>
+<p>2、Set 实例的属性和方法</p>
+<ul>
+<li>实例属性：<br>Set.prototype.constructor：构造函数，默认就是Set函数。<br>Set.prototype.size：返回Set实例的成员总数。</li>
+<li>实例方法:<br>Set.prototype.add(value)：添加某个值，返回 Set 结构本身。<br>Set.prototype.delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。<br>Set.prototype.has(value)：返回一个布尔值，表示该值是否为Set的成员。<br>Set.prototype.clear()：清除所有成员，没有返回值。</li>
+</ul>
+<p>例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">s.add(1).add(2).add(2);</span><br><span class="line">// 注意2被加入了两次</span><br><span class="line"></span><br><span class="line">s.size // 2</span><br><span class="line"></span><br><span class="line">s.has(1) // <span class="literal">true</span></span><br><span class="line">s.has(2) // <span class="literal">true</span></span><br><span class="line">s.has(3) // <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">s.delete(2);</span><br><span class="line">s.has(2) // <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>3、遍历操作</p>
+<p>四个遍历方法：</p>
+<p>Set.prototype.keys()：返回键名的遍历器<br>Set.prototype.values()：返回键值的遍历器<br>Set.prototype.entries()：返回键值对的遍历器<br>Set.prototype.forEach()：使用回调函数遍历每个成员</p>
+<h4 id="WeakSet"><a href="#WeakSet" class="headerlink" title="WeakSet"></a>WeakSet</h4><p>WeakSet 结构与 Set 类似，也是不重复的值的集合。但是，它与 Set 有两个区别:<br>1、WeakSet 的成员只能是对象，而不能是其他类型的值。<br>2、WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用</p>
+<p>WeakSet 结构有以下三个方法：</p>
+<p>WeakSet.prototype.add(value)：向 WeakSet 实例添加一个新成员。<br>WeakSet.prototype.delete(value)：清除 WeakSet 实例的指定成员。<br>WeakSet.prototype.has(value)：返回一个布尔值，表示某个值是否在 WeakSet 实例之中</p>
+<h3 id="🌴-Map-和-WeakMap数据结构"><a href="#🌴-Map-和-WeakMap数据结构" class="headerlink" title="🌴 Map 和 WeakMap数据结构"></a>🌴 Map 和 WeakMap数据结构</h3><h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><p>JavaScript 的对象（Object），本质上是键值对的集合（Hash 结构），但是传统上只能用字符串当作键。这给它的使用带来了很大的限制。<br>ES6 提供了 Map 数据结构。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const m = new Map();</span><br><span class="line">const o = &#123;p: <span class="string">'Hello World'</span>&#125;;</span><br><span class="line"></span><br><span class="line">m.set(o, <span class="string">'content'</span>)</span><br><span class="line">m.get(o) // <span class="string">"content"</span></span><br><span class="line"></span><br><span class="line">m.has(o) // <span class="literal">true</span></span><br><span class="line">m.delete(o) // <span class="literal">true</span></span><br><span class="line">m.has(o) // <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>如果对同一个键多次赋值，后面的值将覆盖前面的值：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const map = new Map();</span><br><span class="line"></span><br><span class="line">map</span><br><span class="line">.<span class="built_in">set</span>(1, <span class="string">'aaa'</span>)</span><br><span class="line">.<span class="built_in">set</span>(1, <span class="string">'bbb'</span>);</span><br><span class="line"></span><br><span class="line">map.get(1) // <span class="string">"bbb"</span></span><br></pre></td></tr></table></figure></p>
+<p>如果读取一个未知的键，则返回undefined。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new Map().get(<span class="string">'asfddfsasadf'</span>)</span><br><span class="line">// undefined</span><br></pre></td></tr></table></figure></p>
+<p>注意，只有对同一个对象的引用，Map 结构才将其视为同一个键。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const map = new Map();</span><br><span class="line"></span><br><span class="line">map.set([<span class="string">'a'</span>], 555);</span><br><span class="line">map.get([<span class="string">'a'</span>]) // undefined</span><br></pre></td></tr></table></figure></p>
+<p>上面代码的set和get方法，表面是针对同一个键，但实际上这是两个不同的数组实例，内存地址是不一样的，因此get方法无法读取该键，返回undefined。<br>同样的值的两个实例，在 Map 结构中被视为两个键。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const map = new Map();</span><br><span class="line"></span><br><span class="line">const k1 = [<span class="string">'a'</span>];</span><br><span class="line">const k2 = [<span class="string">'a'</span>];</span><br><span class="line"></span><br><span class="line">map</span><br><span class="line">.<span class="built_in">set</span>(k1, 111)</span><br><span class="line">.<span class="built_in">set</span>(k2, 222);</span><br><span class="line"></span><br><span class="line">map.get(k1) // 111</span><br><span class="line">map.get(k2) // 222</span><br></pre></td></tr></table></figure></p>
+<p>另外：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> map = new Map();</span><br><span class="line"></span><br><span class="line">map.set(-0, 123);</span><br><span class="line">map.get(+0) // 123</span><br><span class="line"></span><br><span class="line">map.set(<span class="literal">true</span>, 1);</span><br><span class="line">map.set(<span class="string">'true'</span>, 2);</span><br><span class="line">map.get(<span class="literal">true</span>) // 1</span><br><span class="line"></span><br><span class="line">map.set(undefined, 3);</span><br><span class="line">map.set(null, 4);</span><br><span class="line">map.get(undefined) // 3</span><br><span class="line"></span><br><span class="line">map.set(NaN, 123);</span><br><span class="line">map.get(NaN) // 123</span><br></pre></td></tr></table></figure></p>
+<h4 id="实例的属性和操作方法"><a href="#实例的属性和操作方法" class="headerlink" title="实例的属性和操作方法"></a>实例的属性和操作方法</h4><p>1、size 属性<br>size属性返回 Map 结构的成员总数<br>2、Map.prototype.set(key, value)<br>set方法设置键名key对应的键值为value，然后返回整个 Map 结构。如果key已经有值，则键值会被更新，否则就新生成该键。set方法返回的是当前的Map对象，因此可以采用链式写法。<br>3、Map.prototype.get(key)<br>get方法读取key对应的键值，如果找不到key，返回undefined。<br>4、Map.prototype.has(key)<br>has方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。<br>5、Map.prototype.delete(key)<br>delete方法删除某个键，返回true。如果删除失败，返回false。<br>6、Map.prototype.clear()<br>clear方法清除所有成员，没有返回值。</p>
+<h4 id="遍历方法"><a href="#遍历方法" class="headerlink" title="遍历方法"></a>遍历方法</h4><p>Map.prototype.keys()：返回键名的遍历器。<br>Map.prototype.values()：返回键值的遍历器。<br>Map.prototype.entries()：返回所有成员的遍历器。<br>Map.prototype.forEach()：遍历 Map 的所有成员。</p>
+<p>Map 结构转为数组结构，比较快速的方法是使用扩展运算符（…）。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const map = new Map([</span><br><span class="line">  [1, <span class="string">'one'</span>],</span><br><span class="line">  [2, <span class="string">'two'</span>],</span><br><span class="line">  [3, <span class="string">'three'</span>],</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">[...map.keys()]</span><br><span class="line">// [1, 2, 3]</span><br><span class="line"></span><br><span class="line">[...map.values()]</span><br><span class="line">// [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>]</span><br><span class="line"></span><br><span class="line">[...map.entries()]</span><br><span class="line">// [[1,<span class="string">'one'</span>], [2, <span class="string">'two'</span>], [3, <span class="string">'three'</span>]]</span><br><span class="line"></span><br><span class="line">[...map]</span><br><span class="line">// [[1,<span class="string">'one'</span>], [2, <span class="string">'two'</span>], [3, <span class="string">'three'</span>]]</span><br></pre></td></tr></table></figure></p>
+<h4 id="与其他数据结构的互相转换"><a href="#与其他数据结构的互相转换" class="headerlink" title="与其他数据结构的互相转换"></a>与其他数据结构的互相转换</h4><p>1、Map 转为数组<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const myMap = new Map()</span><br><span class="line">  .<span class="built_in">set</span>(<span class="literal">true</span>, 7)</span><br><span class="line">  .<span class="built_in">set</span>(&#123;foo: 3&#125;, [<span class="string">'abc'</span>]);</span><br><span class="line">[...myMap]</span><br><span class="line">// [ [ <span class="literal">true</span>, 7 ], [ &#123; foo: 3 &#125;, [ <span class="string">'abc'</span> ] ] ]</span><br></pre></td></tr></table></figure></p>
+<p>2、数组 转为 Map<br>将数组传入 Map 构造函数，就可以转为 Map。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">new Map([</span><br><span class="line">  [<span class="literal">true</span>, 7],</span><br><span class="line">  [&#123;foo: 3&#125;, [<span class="string">'abc'</span>]]</span><br><span class="line">])</span><br><span class="line">// Map &#123;</span><br><span class="line">//   <span class="literal">true</span> =&gt; 7,</span><br><span class="line">//   Object &#123;foo: 3&#125; =&gt; [<span class="string">'abc'</span>]</span><br><span class="line">// &#125;</span><br></pre></td></tr></table></figure></p>
+<p>3、Map 转为对象<br>如果所有 Map 的键都是字符串，它可以无损地转为对象<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> strMapToObj(strMap) &#123;</span><br><span class="line">  <span class="built_in">let</span> obj = Object.create(null);</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> [k,v] of strMap) &#123;</span><br><span class="line">    obj[k] = v;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const myMap = new Map()</span><br><span class="line">  .<span class="built_in">set</span>(<span class="string">'yes'</span>, <span class="literal">true</span>)</span><br><span class="line">  .<span class="built_in">set</span>(<span class="string">'no'</span>, <span class="literal">false</span>);</span><br><span class="line">strMapToObj(myMap)</span><br><span class="line">// &#123; yes: <span class="literal">true</span>, no: <span class="literal">false</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果有非字符串的键名，那么这个键名会被转成字符串，再作为对象的键名。</p>
+<p>4、对象转为 Map<br>对象转为 Map 可以通过Object.entries()。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> obj = &#123;<span class="string">"a"</span>:1, <span class="string">"b"</span>:2&#125;;</span><br><span class="line"><span class="built_in">let</span> map = new Map(Object.entries(obj));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//此外，也可以自己实现一个转换函数。</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> objToStrMap(obj) &#123;</span><br><span class="line">  <span class="built_in">let</span> strMap = new Map();</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">let</span> k of Object.keys(obj)) &#123;</span><br><span class="line">    strMap.set(k, obj[k]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> strMap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">objToStrMap(&#123;yes: <span class="literal">true</span>, no: <span class="literal">false</span>&#125;)</span><br><span class="line">// Map &#123;<span class="string">"yes"</span> =&gt; <span class="literal">true</span>, <span class="string">"no"</span> =&gt; <span class="literal">false</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>5、Map 转为 JSON<br>Map 转为 JSON 要区分两种情况:<br>一种情况是，Map 的键名都是字符串，这时可以选择转为对象 JSON。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> strMapToJson(strMap) &#123;</span><br><span class="line">  <span class="built_in">return</span> JSON.stringify(strMapToObj(strMap));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> myMap = new Map().<span class="built_in">set</span>(<span class="string">'yes'</span>, <span class="literal">true</span>).<span class="built_in">set</span>(<span class="string">'no'</span>, <span class="literal">false</span>);</span><br><span class="line">strMapToJson(myMap)</span><br><span class="line">// <span class="string">'&#123;"yes":true,"no":false&#125;'</span></span><br></pre></td></tr></table></figure></p>
+<p>另一种情况是，Map 的键名有非字符串，这时可以选择转为数组 JSON。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> mapToArrayJson(map) &#123;</span><br><span class="line">  <span class="built_in">return</span> JSON.stringify([...map]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> myMap = new Map().<span class="built_in">set</span>(<span class="literal">true</span>, 7).<span class="built_in">set</span>(&#123;foo: 3&#125;, [<span class="string">'abc'</span>]);</span><br><span class="line">mapToArrayJson(myMap)</span><br><span class="line">// <span class="string">'[[true,7],[&#123;"foo":3&#125;,["abc"]]]'</span></span><br></pre></td></tr></table></figure></p>
+<p>6、JSON 转为 Map</p>
+<p>JSON 转为 Map，正常情况下，所有键名都是字符串。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> jsonToStrMap(jsonStr) &#123;</span><br><span class="line">  <span class="built_in">return</span> objToStrMap(JSON.parse(jsonStr));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jsonToStrMap(<span class="string">'&#123;"yes": true, "no": false&#125;'</span>)</span><br><span class="line">// Map &#123;<span class="string">'yes'</span> =&gt; <span class="literal">true</span>, <span class="string">'no'</span> =&gt; <span class="literal">false</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是，有一种特殊情况，整个 JSON 就是一个数组，且每个数组成员本身，又是一个有两个成员的数组。这时，它可以一一对应地转为 Map。这往往是 Map 转为数组 JSON 的逆操作。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> jsonToMap(jsonStr) &#123;</span><br><span class="line">  <span class="built_in">return</span> new Map(JSON.parse(jsonStr));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jsonToMap(<span class="string">'[[true,7],[&#123;"foo":3&#125;,["abc"]]]'</span>)</span><br><span class="line">// Map &#123;<span class="literal">true</span> =&gt; 7, Object &#123;foo: 3&#125; =&gt; [<span class="string">'abc'</span>]&#125;</span><br></pre></td></tr></table></figure></p>
+
+                
+                <div class="readmore">
+                    <a href="/2020/11/23/ES6-2/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2020/11/19/前端安全/">
+                        前端安全
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2020-11-19T02:43:12.000Z">
+                            2020-11-19
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <h3 id="🌾-网络安全"><a href="#🌾-网络安全" class="headerlink" title="🌾 网络安全"></a>🌾 网络安全</h3><h3 id="🌾-页面安全"><a href="#🌾-页面安全" class="headerlink" title="🌾 页面安全"></a>🌾 页面安全</h3><h4 id="跨站脚本攻击"><a href="#跨站脚本攻击" class="headerlink" title="跨站脚本攻击"></a>跨站脚本攻击</h4><h5 id="XSS-分类"><a href="#XSS-分类" class="headerlink" title="XSS 分类"></a>XSS 分类</h5><p>待续。。。</p>
+
+                
+                <div class="readmore">
+                    <a href="/2020/11/19/前端安全/">
                         阅读更多
                     </a>
                 </div>
@@ -71,7 +155,7 @@
             <div class="post-item">
                 <h1>
                     <a href="/2020/10/25/ES6/">
-                        ES6
+                        ES6（一）
                     </a>
                 </h1>
                 <div class="create">
@@ -377,6 +461,32 @@
         
             <div class="post-item">
                 <h1>
+                    <a href="/2020/04/11/关于大屏/">
+                        关于大屏
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2020-04-11T06:57:42.000Z">
+                            2020-04-11
+                        </time>
+                    
+                    
+                </div>
+                
+                    <p>待续。。。</p>
+
+                
+                <div class="readmore">
+                    <a href="/2020/04/11/关于大屏/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
                     <a href="/2019/12/26/hexo/">
                         hexo学习
                     </a>
@@ -425,157 +535,6 @@
                 
                 <div class="readmore">
                     <a href="/2019/12/26/hexo/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
-            <div class="post-item">
-                <h1>
-                    <a href="/2019/09/22/login/">
-                        vuex+node+express+token登录
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2019-09-22T08:38:30.000Z">
-                            2019-09-22
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/VUE/">VUE</a></li></ul>
-                </div>
-                
-                    <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>1、第一次登录的时候，前端调后端的登陆接口，发送用户名和密码</p>
-<p>2、后端收到请求，验证用户名和密码，验证成功，就给前端返回一个token</p>
-<p>3、前端拿到token，将token存储到localStorage和vuex中，并跳转路由页面</p>
-<p>4、前端每次跳转路由，就判断 localStroage 中有无 token ，没有就跳转到登录页面，有则跳转到对应路由页面</p>
-<p>5、每次调后端接口，都要在请求头中加token</p>
-<p>6、后端判断请求头中有无token，有token，就拿到token并验证token，验证成功就返回数据，验证失败（例如：token过期）就返回401，请求头中没有token也返回401</p>
-<p>7、如果前端拿到状态码为401，就清除token信息并跳转到登录页面</p>
-<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><p>1、路由守卫导航<br>2、localStorage及其他前端存储（见基础前端）<br>3、防抖和节流（token过期）<br>4、后端接口调用<br>5、node.js、mysql、git、express、element-UI、vuex、vue-router、jsonwebtoken</p>
-<h3 id="知识点解释"><a href="#知识点解释" class="headerlink" title="知识点解释"></a>知识点解释</h3><h4 id="路由守卫导航"><a href="#路由守卫导航" class="headerlink" title="路由守卫导航"></a>路由守卫导航</h4><p>vue-router 的导航钩子，主要用来作用是拦截导航，让他完成跳转或取消。<br>有三种方式可以植入路由导航过程中：</p>
-<ul>
-<li><p>全局导航守卫<br>1、全局前置守卫 router.beforeEach(fn)<br>2、全局的解析守卫(不常用)<br>3、全局的后置守卫 router.afterEach(fn)<br>（可以做一些用户友好提示、与全局前置守卫参数相同）</p>
-</li>
-<li><p>路由独享守卫<br>1、路由独享守卫 beforeEnter(to,from,next)<br>  （a、写在路由表中的守卫钩子<br>  b、针对的是和当前路由相关的，那么其他与之不相关的路由，它是无法监听它的变化情况的<br>  c、可用于用户权限管理<br>  d、与全局前置守卫参数相同）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const routes = [</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'/'</span>,</span><br><span class="line">         redirect: <span class="string">'/home'</span></span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'/home'</span>,</span><br><span class="line">         component: Home</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'/category'</span>,</span><br><span class="line">         component: Category,</span><br><span class="line">         beforeEnter ( to,from,next ) &#123;</span><br><span class="line">         alert(<span class="string">'您要进入吗'</span>)</span><br><span class="line">         next()</span><br><span class="line">         //业务： 用户权限管理</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;,</span><br><span class="line">     &#123;</span><br><span class="line">         path: <span class="string">'**'</span>,</span><br><span class="line">         redirect: <span class="string">'/error'</span></span><br><span class="line">     &#125;</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>组件内守卫<br>1、组件内的前置守卫beforeRouteEnter((to,from,next)=&gt;{})<br>导航进入组件时，调用因为组件此时没有创建，所以没有this,this是访问不到的，如果非要访问this,必须通过 next(vm=&gt;{})访问。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">next(vm =&gt; &#123; //vm指的就是组件</span><br><span class="line">   const result = JSON.parse(res.data.slice(7,-1)).rp_result.categorys</span><br><span class="line">   vm.<span class="variable">$set</span>(vm.category,<span class="string">'categorys'</span>,result)</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>2、组件内的后置守卫beforeRouteEnter((to,from,next)=&gt;{})<br>(a)离开组件时，调用<br>(b)this是可以访问到<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteLeave (to, from, next) &#123;</span><br><span class="line">    //我们现在已经要离开这个组件，那么这个组件身上的数据和方法等内容我们肯定可以获取到，也就是说这里可以使用 this</span><br><span class="line">    <span class="keyword">if</span>( this.username || this.password)&#123;</span><br><span class="line">    <span class="keyword">if</span>( confirm(<span class="string">'您已经填写结束了吗?'</span>))&#123;</span><br><span class="line">        next()</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        next(<span class="literal">false</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    	next()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>3、组件内的更新守卫（ 路由传参和路由的接参 ）<br>（a）在当前路由改变，但是该组件被复用时调用<br>（b）举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，<br>（c）由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。<br>（d）可以访问组件实例 this<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">beforeRouteUpdate ( to,from,next ) &#123; //动态路由用</span><br><span class="line">     console.log(<span class="string">'路由改变了'</span>)</span><br><span class="line">     next()</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p> 1、3种类型 7个路由监听钩子<br> 2、业务：<br>监听整个项目的路由变化情况——全局的前置守卫<br>监听某个路由的变化情况——路由的独享守卫<br>监听的路由组件的路由变化情况——组件内的导航守卫</p>
-<p>#### </p>
-<h3 id="实例实现"><a href="#实例实现" class="headerlink" title="实例实现"></a>实例实现</h3><p>待补充。。。</p>
-
-                
-                <div class="readmore">
-                    <a href="/2019/09/22/login/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
-            <div class="post-item">
-                <h1>
-                    <a href="/2019/09/11/node7/">
-                        MySQL
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2019-09-11T07:11:01.000Z">
-                            2019-09-11
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
-                </div>
-                
-                    <h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><h4 id="mysql安装"><a href="#mysql安装" class="headerlink" title="mysql安装"></a>mysql安装</h4><p>参考：<a href="https://www.cnblogs.com/laumians-notes/p/9069498.html" target="_blank" rel="noopener">https://www.cnblogs.com/laumians-notes/p/9069498.html</a></p>
-<p>Navicat数据库管理工具:<a href="https://blog.csdn.net/a599174211/article/details/82795658" target="_blank" rel="noopener">https://blog.csdn.net/a599174211/article/details/82795658</a></p>
-<h3 id="nodeJS操作MySQL"><a href="#nodeJS操作MySQL" class="headerlink" title="nodeJS操作MySQL"></a>nodeJS操作MySQL</h3><p>nodeJS默认不支持MySQL,需要第三方工具来驱动，这里用mysql驱动。</p>
-<ul>
-<li>npm install mysql</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const mysql = require(<span class="string">'mysql'</span>);</span><br><span class="line"></span><br><span class="line">1.连接</span><br><span class="line">//createConnection(哪台服务器，用户名，密码，库)</span><br><span class="line">var db = mysql.createConnection(host:<span class="string">'localhost'</span>,port:<span class="string">'3306'</span>,user:<span class="string">'root'</span>,password:<span class="string">'123456'</span>,database:<span class="string">'my_db'</span>,)；</span><br><span class="line"></span><br><span class="line">2.查询</span><br><span class="line">//query(干啥，回调函数)</span><br><span class="line">db.query(<span class="string">"SELECT * FROM `user_table`;"</span>,(err,data)=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)</span><br><span class="line">        console.log(<span class="string">'出错了'</span>，err)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        console.log(<span class="string">'成功了'</span>，data)</span><br><span class="line">        console.log(JSON.stringify(data))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="SQL标准写法："><a href="#SQL标准写法：" class="headerlink" title="SQL标准写法："></a>SQL标准写法：</h3><p>1.关键字大写<br>2.库、表、字段需加上饭单引号<code></code><br>SQL四大语句：增删改查<br>增：INSERT<br>INSERT INTO 表（字段列表） VALUES (值列表)<br>INSERT INTO <code>user_table</code>（<code>ID</code>,<code>username</code>,<code>password</code>）VALUES (<code>0</code>,<code>blue2</code>,<code>987654</code>) VALUES (值列表)<br>删：DELETE<br>改：UPDATE<br>查：SELECT</p>
-
-                
-                <div class="readmore">
-                    <a href="/2019/09/11/node7/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
-            <div class="post-item">
-                <h1>
-                    <a href="/2019/09/10/node6/">
-                        jade、ejs模板库
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2019-09-10T08:36:44.000Z">
-                            2019-09-10
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Node/">Node</a></li></ul>
-                </div>
-                
-                    <p>模板引擎：生成页面</p>
-<p>主要的：</p>
-<blockquote>
-<p>jade-破坏式、侵入式、强依赖<br>ejs-温和式、非侵入式、 弱依赖</p>
-</blockquote>
-<h3 id="安装jade插件"><a href="#安装jade插件" class="headerlink" title="安装jade插件"></a>安装jade插件</h3><p>npm install jade</p>
-<p>jade写法:</p>
-<ul>
-<li>根据缩进，规定层级</li>
-<li>属性放在()里面，逗号分隔</li>
-<li>a标签文本内容前有一个空格</li>
-<li>style两种写法：普通属性写法;用json。</li>
-<li>class两种写法:普通属性写法;用数组。</li>
-<li>&amp;attribute</li>
-</ul>
-<p>jade1.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const jade = require(<span class="string">'jade'</span>);</span><br><span class="line">//字符串：var str = jade.render(<span class="string">'njfnejrfbjreknve'</span>);</span><br><span class="line">//文件：</span><br><span class="line">var str = jade.renderfile(<span class="string">'./views/1.jade'</span>,&#123;pertty:<span class="literal">true</span>&#125;);</span><br><span class="line">console.log(str);</span><br></pre></td></tr></table></figure></p>
-<p>1.jade<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">html</span><br><span class="line">    head</span><br><span class="line">        style</span><br><span class="line">        script(src=<span class="string">"a.js"</span>)</span><br><span class="line">        link(href=<span class="string">'a.css'</span>,rel=<span class="string">'stylesheet'</span>)</span><br><span class="line">    body</span><br><span class="line">        div.box</span><br><span class="line">        div<span class="comment">#div1</span></span><br><span class="line">        div(style=<span class="string">"width:200px;height:200px;"</span>,class=<span class="string">"aaa bbb"</span>)</span><br><span class="line">            ul</span><br><span class="line">                li</span><br><span class="line">                    input(<span class="built_in">type</span>=<span class="string">'text'</span>,id=<span class="string">"test1"</span>)</span><br><span class="line">                li</span><br><span class="line">                    a(href=<span class="string">'http://baidu.com'</span>) 百度</span><br><span class="line">                li</span><br><span class="line">            div(style=&#123;width:<span class="string">'200px'</span>,height:<span class="string">'200px'</span>;&#125;,class=[<span class="string">'aaa'</span>,<span class="string">'bbb'</span>])</span><br></pre></td></tr></table></figure></p>
-<h3 id="jade模板库高级语法"><a href="#jade模板库高级语法" class="headerlink" title="jade模板库高级语法"></a>jade模板库高级语法</h3><ul>
-<li>识别单双标签，自定义标签默认为双标签。<br><img src="/2019/09/10/node6/01.png" alt="01.png"></li>
-<li>“|”或”.”用来原样输出东西。<br><img src="/2019/09/10/node6/02.png" alt="02.png"><br><img src="/2019/09/10/node6/03.png" alt="03.png"></li>
-<li>include引入文件<br><img src="/2019/09/10/node6/04.png" alt="04.png"></li>
-<li><p>使用变量：#{}  或”=”</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.js</span><br><span class="line">    const jade= require(<span class="string">'jade'</span>);</span><br><span class="line">    console.log(jade.renderfile(<span class="string">'./view/1.jade'</span>,&#123;pretty:<span class="literal">true</span>,name:<span class="string">'blue'</span>&#125;))</span><br><span class="line"></span><br><span class="line">1.jade</span><br><span class="line">    div 我的名字<span class="comment">#&#123;name&#125;</span></span><br><span class="line">    div=name</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>“-“代表：我是一段代码<br><img src="/2019/09/10/node6/05.png" alt="05.png"></p>
-</li>
-<li><p>循环：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.jade</span><br><span class="line">html </span><br><span class="line">    head</span><br><span class="line">        body</span><br><span class="line">            .<span class="keyword">for</span>(var i=0;i&lt;arr.length;i++)</span><br><span class="line">            div=arr[i]</span><br><span class="line"></span><br><span class="line">1.js</span><br><span class="line">console.log(jade.renderfile(<span class="string">'./view/1.jade'</span>,&#123;pretty:<span class="literal">true</span>,</span><br><span class="line">    arr:[<span class="string">'aaa'</span>,<span class="string">'bbb'</span>,<span class="string">'ccc'</span>]</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>非转义：标签原样输出：！</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1.jade</span><br><span class="line">html </span><br><span class="line">    head</span><br><span class="line">        body</span><br><span class="line">            div!=content</span><br><span class="line"></span><br><span class="line">1.js</span><br><span class="line">console.log(jade.renderfile(<span class="string">'./view/1.jade'</span>,&#123;pretty:<span class="literal">true</span>,</span><br><span class="line">    content:<span class="string">'&lt;h2&gt;mwenfoirefwo&lt;/h2&gt;'</span></span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>生成html文件<br><img src="/2019/09/10/node6/06.png" alt="06.png"></p>
-</li>
-</ul>
-<h3 id="安装ejs插件"><a href="#安装ejs插件" class="headerlink" title="安装ejs插件"></a>安装ejs插件</h3><p>npm install ejs</p>
-<p>ejs1.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const ejs = require(<span class="string">'ejs'</span>);</span><br><span class="line">var str = ejs.renderfile(<span class="string">'./views/1.ejs'</span>,&#123;name:<span class="string">'blue'</span>&#125;,<span class="keyword">function</span>(err,data)&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)</span><br><span class="line">        console.log(<span class="string">'编译失败'</span>)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        console.log(data)</span><br><span class="line">&#125;);</span><br><span class="line">console.log(str);</span><br></pre></td></tr></table></figure></p>
-<p>1.ejs<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    我的名字叫：&lt;%= name %&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="ejs模板库高级语法"><a href="#ejs模板库高级语法" class="headerlink" title="ejs模板库高级语法"></a>ejs模板库高级语法</h3><ul>
-<li>灵活，支持各类型数据<br><img src="/2019/09/10/node6/07.png" alt="07.png"></li>
-<li>循环<br><img src="/2019/09/10/node6/08.png" alt="08.png"></li>
-<li>“=”转义输出,”-“非转义输出</li>
-<li>&lt;% include ./a.txt %&gt;<br><img src="/2019/09/10/node6/09.png" alt="09.png"></li>
-</ul>
-
-                
-                <div class="readmore">
-                    <a href="/2019/09/10/node6/">
                         阅读更多
                     </a>
                 </div>
@@ -635,7 +594,7 @@
             <a href="/tags">
                 标签
                 <sup style="font-size: 12px">
-                    [31]
+                    [32]
                 </sup>
             </a>
         </h2>
@@ -652,7 +611,7 @@
 <aside id="acchives">
     <h2>归档</h2>
     
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
     
 </aside>
 
@@ -660,7 +619,7 @@
 
 </div>
 <nav id="pagination" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
 </nav>
 
     </div>
