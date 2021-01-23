@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <title>ES6(四) Iterator | DD_XIE的学习笔记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="遍历器（Iterator）为某种数据结构提供一种统一的访问机制，遍历器本质是一个只针对象
+1、JS中表示”集合“的数据结构有：数组（Array），对象（Object），Map和Set。但有的可直接遍历，有的在部署Iterator才可以遍历。2、遍历器为各种不同的数据提供访问机制，任何数据结构只要部署Iterator,就可以遍历处理该数据结构的所有成员。3、遍历器作用：
+
+（1）为各种数据结构，提供一个统一的、简便的访问接口；
+（2）使得数据结构的成员能够按某种次序排列；
+（3）ES6 创造了一种新的遍历命令for…of循环，Iterator 接口主要供for…of消费
+
+4、遍历过程过程：
+
+（1）创建一个指针对象，指向...">
+    
+        <link rel="icon" href="/favicon.ico">
+    
+    
+        
+            <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+        
+            <link rel="stylesheet" href="/css/stage.css">
+        
+            <link rel="stylesheet" href="/css/avatar-bg.css">
+        
+    
+</head>
+</html>
+<body>
+<header id="header">
+    <div class="menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    <div class="header-main">
+        <h1><a href="/">DD_XIE的学习笔记</a></h1>
+    </div>
+    <div id="nav">
+        <div class="nav-img" id="nav-img"></div>
+        <div class="sentences">
+            黎明的那道光，会越过黑暗
+        </div>
+    </div>
+</header>
+
+<div id="content-outer">
+    <div id="content-inner">
+        <div class="clearfix">
+    <article id="post">
+        <h1>ES6(四) Iterator</h1>
+        <div class="create">
+            <span>创建于</span>
+            
+                <time datetime="2021-01-09T01:52:51.000Z">
+                    2021-01-09
+                </time>
+            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+        </div>
+        <h3 id="遍历器（Iterator）"><a href="#遍历器（Iterator）" class="headerlink" title="遍历器（Iterator）"></a>遍历器（Iterator）</h3><p>为某种数据结构提供一种统一的访问机制，遍历器本质是一个只针对象</p>
+<p>1、JS中表示”集合“的数据结构有：数组（Array），对象（Object），Map和Set。但有的可直接遍历，有的在部署Iterator才可以遍历。<br>2、遍历器为各种不同的数据提供访问机制，任何数据结构只要部署Iterator,就可以遍历处理该数据结构的所有成员。<br>3、遍历器作用：</p>
+<ul>
+<li>（1）为各种数据结构，提供一个统一的、简便的访问接口；</li>
+<li>（2）使得数据结构的成员能够按某种次序排列；</li>
+<li>（3）ES6 创造了一种新的遍历命令for…of循环，Iterator 接口主要供for…of消费</li>
+</ul>
+<p>4、遍历过程过程：</p>
+<ul>
+<li><p>（1）创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。</p>
+</li>
+<li><p>（2）第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员。</p>
+</li>
+<li><p>（3）第二次调用指针对象的next方法，指针就指向数据结构的第二个成员。</p>
+</li>
+<li><p>（4）不断调用指针对象的next方法，直到它指向数据结构的结束位置。</p>
+</li>
+</ul>
+<p>每一次调用next方法，都会返回数据结构的当前成员的信息。具体来说，就是返回一个包含value和done两个属性的对象。其中，value属性是当前成员的值，done属性是一个布尔值，表示遍历是否结束</p>
+<h3 id="默认Iterator接口"><a href="#默认Iterator接口" class="headerlink" title="默认Iterator接口"></a>默认Iterator接口</h3><p>1、Iterator 接口的目的，就是为所有数据结构，提供了一种统一的访问机制，即for…of循环；<br>2、一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是“可遍历的”（iterable）<br>3、ES6 规定，默认的 Iterator 接口部署在数据结构的 <code>Symbol.iterator</code> 属性，即，一个数据结构只要具有Symbol.iterator属性，就可以认为是“可遍历的”（iterable）。</p>
+
+        <div>
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/ES6/">ES6</a></li></ul>
+        </div>
+        <div class="bottom-line"></div>
+        
+    <nav id="article-nav">
+        
+            <a href="/2021/01/14/react路由/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                路由
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
+        
+        
+            <a href="/2021/01/08/es6-async/" id="article-nav-older" class="article-nav-link-wrap">
+                <strong class="article-nav-caption">&lt;</strong>
+                <span class="article-nav-title">
+                    
+                        ES6(五) async
+                </span>
+                
+            </a>
+        
+    </nav>
+
+
+        
+    </article>
+    <div id="toc">
+        
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#遍历器（Iterator）"><span class="toc-number">1.</span> <span class="toc-text">遍历器（Iterator）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认Iterator接口"><span class="toc-number">2.</span> <span class="toc-text">默认Iterator接口</span></a></li></ol>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+<footer id="footer">
+     <div id="copyright">&copy; I&#39;m xiedandan  2021</div>
+     
+             <!-- 不蒜子统计 -->
+             <span id="busuanzi_container_site_pv">
+                     本站总访问量<span id="busuanzi_value_site_pv" style='color:#17a167'></span>次
+             </span>
+             <span class="post-meta-divider">|</span>
+             <span id="busuanzi_container_site_uv">
+                     本站访客数<span id="busuanzi_value_site_uv"  style='color:#17a167'></span>人
+             </span>
+             <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+       
+    <div id="theme">
+        Powered by <a href="http://hexo.io">Hexo</a>. Theme by <a href="https://github.com/markyong/hexo-theme-stage">Stage</a>
+    </div>
+</footer>
+<script src="/lib/js/waterrippleeffect.min.js"></script>
+<script src="/js/header-bg.main.js"></script>
+
+    <script src="/lib/js/smooth-scroll.min.js"></script>
+    <script src="/js/toc.main.js"></script>
+
+</body>
+</html>

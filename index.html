@@ -32,7 +32,7 @@
     <div id="nav">
         <div class="nav-img" id="nav-img"></div>
         <div class="sentences">
-            向着风，拥抱彩虹，勇敢的向前走。
+            也许世界就这样，我也还在路上。
         </div>
     </div>
 </header>
@@ -45,8 +45,416 @@
         
             <div class="post-item">
                 <h1>
+                    <a href="/2021/01/23/react-hooks/">
+                        Hooks
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2021-01-23T07:25:06.000Z">
+                            2021-01-23
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/React/">React</a></li></ul>
+                </div>
+                
+                    
+                
+                <div class="readmore">
+                    <a href="/2021/01/23/react-hooks/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2021/01/17/react-redux/">
+                        Redux
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2021-01-17T14:25:42.000Z">
+                            2021-01-17
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/React/">React</a></li></ul>
+                </div>
+                
+                    <h3 id="🌴-Redux"><a href="#🌴-Redux" class="headerlink" title="🌴 Redux"></a>🌴 Redux</h3><h3 id="🌴-React-Redux"><a href="#🌴-React-Redux" class="headerlink" title="🌴 React-Redux"></a>🌴 React-Redux</h3><h4 id="UI组件"><a href="#UI组件" class="headerlink" title="UI组件"></a>UI组件</h4><p>只负责 UI 的呈现，不带有任何业务逻辑<br>没有状态（即不使用this.state这个变量）<br>所有数据都由参数（this.props）提供<br>不使用任何 Redux 的 API</p>
+<h4 id="容器组件"><a href="#容器组件" class="headerlink" title="容器组件"></a>容器组件</h4><p>负责管理数据和业务逻辑，不负责 UI 的呈现<br>带有内部状态<br>使用 Redux 的 API<br>UI 组件负责 UI 的呈现，容器组件负责管理数据和逻辑。</p>
+<p>如果一个组件既有 UI 又有业务逻辑，那怎么办？回答是，将它拆分成下面的结构：外面是一个容器组件，里面包了一个UI 组件。前者负责与外部的通信，将数据传给后者，由后者渲染出视图。</p>
+<p>React-Redux 规定，所有的 UI 组件都由用户提供，容器组件则是由 React-Redux 自动生成。也就是说，用户负责视觉层，状态管理则是全部交给它。</p>
+<h4 id="connect"><a href="#connect" class="headerlink" title="connect()"></a>connect()</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &#123; connect &#125; from <span class="string">'react-redux'</span></span><br><span class="line">const VisibleTodoList = connect()(TodoList);</span><br></pre></td></tr></table></figure>
+<p>上面VisibleTodoList 便是通过UI组件TodoList,通过connect方法自动生成的容器组件。<br>但需要定义业务逻辑，组件才有意义。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import &#123; connect &#125; from <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line">const VisibleTodoList = connect(</span><br><span class="line">  mapStateToProps,</span><br><span class="line">  mapDispatchToProps</span><br><span class="line">)(TodoList)</span><br></pre></td></tr></table></figure></p>
+<p>connect方法接受两个参数：mapStateToProps和mapDispatchToProps。它们定义了 UI 组件的业务逻辑。前者负责输入逻辑，即将state映射到 UI 组件的参数（props），后者负责输出逻辑，即将用户对 UI 组件的操作映射成 Action。</p>
+<h4 id="mapStateToProps"><a href="#mapStateToProps" class="headerlink" title="mapStateToProps()"></a>mapStateToProps()</h4><p>它是一个函数，建立一个从（外部的）state对象到（UI 组件的）props对象的映射关系。<br>mapStateToProps执行后应该返回一个对象，里面的每一个键值对就是一个映射。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const mapStateToProps = (state) =&gt; &#123;</span><br><span class="line">  <span class="built_in">return</span> &#123;</span><br><span class="line">    todos: getVisibleTodos(state.todos, state.visibilityFilter)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>mapStateToProps是一个函数，它接受state作为参数，返回一个对象。这个对象有一个todos属性，代表 UI 组件的同名参数，后面的getVisibleTodos也是一个函数，可以从state算出 todos 的值。</p>
+<h4 id="mapDispatchToProps"><a href="#mapDispatchToProps" class="headerlink" title="mapDispatchToProps()"></a>mapDispatchToProps()</h4><p>mapDispatchToProps是connect函数的第二个参数，用来建立 UI 组件的参数到store.dispatch方法的映射。它定义了哪些用户的操作应该当作 Action，传给 Store。它可以是一个函数，也可以是一个对象。</p>
+<p>是函数则会得到dispatch和ownProps（容器组件的props对象）两个参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const mapDispatchToProps = (</span><br><span class="line">  dispatch,</span><br><span class="line">  ownProps</span><br><span class="line">) =&gt; &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    onClick: () =&gt; &#123;</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: &apos;SET_VISIBILITY_FILTER&apos;,</span><br><span class="line">        filter: ownProps.filter</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从上面代码可以看到，mapDispatchToProps作为函数，应该返回一个对象，该对象的每个键值对都是一个映射，定义了 UI 组件的参数怎样发出 Action。</p>
+<p>是一个对象，它的每个键名也是对应 UI 组件的同名参数，键值应该是一个函数，会被当作 Action creator ，返回的 Action 会由 Redux 自动发出。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const mapDispatchToProps = &#123;</span><br><span class="line">  onClick: (filter) =&gt; &#123;</span><br><span class="line">    <span class="built_in">type</span>: <span class="string">'SET_VISIBILITY_FILTER'</span>,</span><br><span class="line">    filter: filter</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Provider-组件"><a href="#Provider-组件" class="headerlink" title="Provider 组件"></a>Provider 组件</h4><p>connect方法生成容器组件以后，需要让容器组件拿到state对象，才能生成 UI 组件的参数。<br>React-Redux 提供Provider组件，可以让容器组件拿到state。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Provider &#125; from <span class="string">'react-redux'</span></span><br><span class="line">import &#123; createStore &#125; from <span class="string">'redux'</span></span><br><span class="line">import todoApp from <span class="string">'./reducers'</span></span><br><span class="line">import App from <span class="string">'./components/App'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> store = createStore(todoApp);</span><br><span class="line"></span><br><span class="line">render(</span><br><span class="line">  &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">    &lt;App /&gt;</span><br><span class="line">  &lt;/Provider&gt;,</span><br><span class="line">  document.getElementById(<span class="string">'root'</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+
+                
+                <div class="readmore">
+                    <a href="/2021/01/17/react-redux/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2021/01/14/react路由/">
+                        路由
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2021-01-14T01:21:19.000Z">
+                            2021-01-14
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/React/">React</a></li></ul>
+                </div>
+                
+                    <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li>react-ruter: 核心库</li>
+<li>react-router-dom: 基于核心库在 web端 使用的库</li>
+<li>react-router-native: 基于核心库在 React Native 使用的库</li>
+<li>react-router-config:  用于配置静态路由的库,随着 React Router v4 的引入，不再有集中式路由配置</li>
+<li>react-router-redux: 集成 Redux 的库,已经不推荐使用，推荐使用 connected-react-router 和 Redux 进行配合使用</li>
+</ul>
+<p>如果只在浏览器端使用，直接安装 react-router-dom.</p>
+<h3 id="基本组件"><a href="#基本组件" class="headerlink" title="基本组件"></a>基本组件</h3><p> React Router有三大组件：</p>
+<ul>
+<li>router components 路由器，<code>&lt;BrowserRouter&gt;</code>、<code>&lt;HashRouter&gt;</code></li>
+<li>route matching components 路线匹配器，<code>&lt;Route&gt;</code>、<code>&lt;Switch&gt;</code></li>
+<li>navigation components 导航，<code>&lt;Link&gt;</code>、<code>&lt;NavLink&gt;</code>、<code>&lt;Redirect&gt;</code></li>
+</ul>
+<p>其他还有 <code>&lt;MemoryRouter&gt;</code>  内存路由组件、<code>&lt;NativeRouter&gt;</code>  Native的路由组件、<code>&lt;StaticRouter&gt;</code> 静态路由组件这些路由组件，其中 MemoryRouter 主要用在 ReactNative 这种非浏览器的环境中，因此直接将 URL 的 history 保存在了内容中。StaticRouter 主要用于服务器端渲染</p>
+<h4 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h4><p>react-router-dom 提供了BrowserRouter 和 HashRouter 两个路由，这两个路由都会创建一个专门的 history 对象。两者之间的主要区别是它们存储 URL 和与 Web 服务器通信的方式</p>
+<blockquote>
+<p>BrowserRouter <a href="http://localhost:3000/byd" target="_blank" rel="noopener">http://localhost:3000/byd</a><br>HashRouter <a href="http://localhost:3000/#/byd" target="_blank" rel="noopener">http://localhost:3000/#/byd</a> 两者生成的 URL 区别在于有没有 </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#123; BrowserRouter, Route, Link &#125; from <span class="string">"react-router-dom"</span>;</span><br></pre></td></tr></table></figure>
+<p>BrowserRouter 容器，用来存放 Router、Link<br>BrowserRouter 提供了如下属性:</p>
+<ul>
+<li>basename (string) 当前位置的基准 URL</li>
+<li>forceRefresh (boolean)，在导航的过程中整个页面是否刷新</li>
+<li>getUserConfirmation (func)，当导航需要确认时执行的函数。默认是：window.confirm</li>
+<li>keyLength (number)  location.key 的长度。默认是 6</li>
+<li>children (node) 要渲染的子节点</li>
+</ul>
+<blockquote>
+<p>HashRouter 不支持 location.key 和 location.state ，所以在浏览器中建议使用 BrowserRouter</p>
+</blockquote>
+<h4 id="路线匹配器"><a href="#路线匹配器" class="headerlink" title="路线匹配器"></a>路线匹配器</h4><blockquote>
+<p>Route： location 与 Route 的 path 匹配时，渲染 Route 中的 Component</p>
+<ul>
+<li>Route 接受三种渲染方式：<code>&lt;Route component&gt;</code>、<code>&lt;Route render&gt;</code>、<code>&lt;Route children&gt;</code>。<br>(1)render: function 类型，Route 会渲染这个 function 的返回值，可以在函数中附加一些额外的逻辑，所以你可以在render中添加一些逻辑判断，再返回一个要渲染的 component。<br>(2)children: function 类型，比 render 多了 match参数，可以根据 match参数来决定匹配的时候渲染什么，不匹配的时候渲染什么<br>Route 经常用的是 exact、path 以及 component 属性。</li>
+</ul>
+</blockquote>
+<ul>
+<li>exact 是否进行精确匹配，路由 /a 可以和 /a/、/a 匹配。</li>
+<li>strict 是否进行严格匹配，指明路径只匹配以斜线结尾的路径，路由/a可以和/a匹配，不能和/a/匹配，相比 exact 会更严格些。</li>
+<li>path (string) 标识路由的路径，没有 path 属性的 Route 总是会匹配。</li>
+<li>component 表示路径对应显示的组件。</li>
+<li>location (object) 除了通过 path 传递路由路径，也可以通过传递 location 对象可以匹配。</li>
+<li>sensitive (boolean) 匹配路径时，是否区分大小写。</li>
+<li>Route 组件都接收 location、history、match三个 props：三个 props 比较常用的是 match，通过 match.params 可以取到动态参数的值。</li>
+</ul>
+<p><img src="/2021/01/14/react路由/01.png" alt="01.png"><br><img src="/2021/01/14/react路由/02.png" alt="02.png"></p>
+<blockquote>
+<p>Swtich:就近匹配路由，仅渲染一个路由，路由的默认行为是匹配了就直接渲染，大部分场景下这个逻辑是没有问题的，但考虑下面的场景</p>
+</blockquote>
+<h4 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h4><p>Link 声明路由要跳转的地方 </p>
+<ul>
+<li>to（string | object | function） 需要跳转到的路径(pathname) 或地址（location）<br>(1)为 string 时 就是一个明确的路径地址<br>(2)为 object 时有如下属性（就是一个location对象）<br>pathname：URL路径。<br>search：URl中查询字符串。<br>hash：URL的hash分段，例如#a-hash。<br>state：表示location中的状态<br>(3)为 function 时，就是一个函数接收当前 location 为参数，然后以字符串或对象的形式返回位置形式</li>
+<li>replace (boolean) 为 true 是替换历史记录，false 是新增历史记录</li>
+</ul>
+<p>NavLink 功能与 Link 类似不过参数更多，并且可以设置被选中时的样式或者类</p>
+<ul>
+<li>exact (boolean) 是否进行精确匹配</li>
+<li>strict (boolean) 是否进行严格匹配</li>
+<li>to（string | object） 需要跳转到的路径(pathname)或地址（location）</li>
+<li>activeClassName (string) 是选中状态的类名，我们可以为其添加样式</li>
+<li>activeStyle (Object) 元素处于选中状态时，应用于元素的样式</li>
+<li>isActive(function) 添加额外逻辑以确定链接是否处于活动状态</li>
+</ul>
+<p>Redirect 重定向组件</p>
+<ul>
+<li>from (string) 需要重定向的路径，可以包括动态参数</li>
+<li>push (boolean) 为 true 时，重定向会将新条目推入历史记录，而不是替换当前条目</li>
+<li>to (string | object) 重定向到的路径</li>
+<li>exact (boolean) 是否要对 from 进行精确匹配</li>
+<li>strict (boolean) 是否要对 from 进行严格匹配</li>
+<li>sensitive (boolean) 匹配 from 时是否区分大小写</li>
+</ul>
+<h3 id="react-router与react-router-dom"><a href="#react-router与react-router-dom" class="headerlink" title="react-router与react-router-dom"></a>react-router与react-router-dom</h3><h4 id="API"><a href="#API" class="headerlink" title="API"></a>API</h4><p>React-router：提供了router的核心api。如Router、Route、Switch等，但没有提供有关dom操作进行路由跳转的ap；</p>
+<p>React-router-dom：提供了BrowserRouter、HashRouter、Link等api，可以通过dom操作触发事件控制路由。</p>
+<h4 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h4><p>React-router：实现了路由的核心功能</p>
+<p>React-router-dom：基于React-router，加入了一些在浏览器运行下的一些功能.</p>
+<p>例如：Link组件会渲染一个a标签，</p>
+<p>　　　BrowserRouter使用 HTML5 提供的 history API可以保证你的 UI 界面和 URL 保持同步，</p>
+<p>　　　HashRouter使用 URL 的 hash 部分保证你的 UI 界面和 URL 保持同步</p>
+<h4 id="写法"><a href="#写法" class="headerlink" title="写法"></a>写法</h4><p>React-router不能通过操作dom控制路由，此时还需引入React-router-dom<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mport &#123;Switch, Route, Router&#125; from <span class="string">'react-router'</span>;</span><br><span class="line">import &#123;HashHistory, Link&#125; from <span class="string">'react-router-dom'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>React-router-dom在React-router的基础上扩展了可操作dom的api</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#123;Swtich, Route, Router, HashHistory, Link&#125; from <span class="string">'react-router-dom'</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="路由跳转"><a href="#路由跳转" class="headerlink" title="路由跳转"></a>路由跳转</h4><p>React-router：router4.0以上版本用this.props.history.push(‘/path’)实现跳转；</p>
+<p>　　　　　　　router3.0以上版本用this.props.router.push(‘/path’)实现跳转</p>
+<p>React-router-dom：直接用this.props.history.push(‘/path’)就可以实现跳转</p>
+<p>#### </p>
+
+                
+                <div class="readmore">
+                    <a href="/2021/01/14/react路由/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2021/01/09/Iterator/">
+                        ES6(四) Iterator
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2021-01-09T01:52:51.000Z">
+                            2021-01-09
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <h3 id="遍历器（Iterator）"><a href="#遍历器（Iterator）" class="headerlink" title="遍历器（Iterator）"></a>遍历器（Iterator）</h3><p>为某种数据结构提供一种统一的访问机制，遍历器本质是一个只针对象</p>
+<p>1、JS中表示”集合“的数据结构有：数组（Array），对象（Object），Map和Set。但有的可直接遍历，有的在部署Iterator才可以遍历。<br>2、遍历器为各种不同的数据提供访问机制，任何数据结构只要部署Iterator,就可以遍历处理该数据结构的所有成员。<br>3、遍历器作用：</p>
+<ul>
+<li>（1）为各种数据结构，提供一个统一的、简便的访问接口；</li>
+<li>（2）使得数据结构的成员能够按某种次序排列；</li>
+<li>（3）ES6 创造了一种新的遍历命令for…of循环，Iterator 接口主要供for…of消费</li>
+</ul>
+<p>4、遍历过程过程：</p>
+<ul>
+<li><p>（1）创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。</p>
+</li>
+<li><p>（2）第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员。</p>
+</li>
+<li><p>（3）第二次调用指针对象的next方法，指针就指向数据结构的第二个成员。</p>
+</li>
+<li><p>（4）不断调用指针对象的next方法，直到它指向数据结构的结束位置。</p>
+</li>
+</ul>
+<p>每一次调用next方法，都会返回数据结构的当前成员的信息。具体来说，就是返回一个包含value和done两个属性的对象。其中，value属性是当前成员的值，done属性是一个布尔值，表示遍历是否结束</p>
+<h3 id="默认Iterator接口"><a href="#默认Iterator接口" class="headerlink" title="默认Iterator接口"></a>默认Iterator接口</h3><p>1、Iterator 接口的目的，就是为所有数据结构，提供了一种统一的访问机制，即for…of循环；<br>2、一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是“可遍历的”（iterable）<br>3、ES6 规定，默认的 Iterator 接口部署在数据结构的 <code>Symbol.iterator</code> 属性，即，一个数据结构只要具有Symbol.iterator属性，就可以认为是“可遍历的”（iterable）。</p>
+
+                
+                <div class="readmore">
+                    <a href="/2021/01/09/Iterator/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2021/01/08/es6-async/">
+                        ES6(五) async
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2021-01-08T02:25:20.000Z">
+                            2021-01-08
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <p>### </p>
+
+                
+                <div class="readmore">
+                    <a href="/2021/01/08/es6-async/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2021/01/06/es6-3/">
+                        ES6(五) Generator
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2021-01-06T01:13:36.000Z">
+                            2021-01-06
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <h3 id="🌴-概述"><a href="#🌴-概述" class="headerlink" title="🌴 概述"></a>🌴 概述</h3><p>Generator 函数是一个状态机，可以封装多个内部状态。<br>两个特征：<br>1、function关键字与函数名之间有一个星号<br>2、函数体内部使用yield表达式，定义不同的内部状态<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>* <span class="function"><span class="title">helloWorldGenerator</span></span>() &#123;</span><br><span class="line">  yield <span class="string">'hello'</span>;</span><br><span class="line">  yield <span class="string">'world'</span>;</span><br><span class="line">  <span class="built_in">return</span> <span class="string">'ending'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var hw = helloWorldGenerator();</span><br></pre></td></tr></table></figure></p>
+<p>Generator 函数的调用方法与普通函数一样，也是在函数名后面加上一对圆括号。不同的是，调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象。<br>必须调用遍历器对象的next方法，使得指针移向下一个状态。也就是说，每次调用next方法，内部指针就从函数头部或上一次停下来的地方开始执行，直到遇到下一个yield表达式（或return语句）为止。换言之，Generator 函数是分段执行的，yield表达式是暂停执行的标记，而next方法可以恢复执行。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hw.next()</span><br><span class="line">// &#123; value: <span class="string">'hello'</span>, <span class="keyword">done</span>: <span class="literal">false</span> &#125;</span><br><span class="line"></span><br><span class="line">hw.next()</span><br><span class="line">// &#123; value: <span class="string">'world'</span>, <span class="keyword">done</span>: <span class="literal">false</span> &#125;</span><br><span class="line"></span><br><span class="line">hw.next()</span><br><span class="line">// &#123; value: <span class="string">'ending'</span>, <span class="keyword">done</span>: <span class="literal">true</span> &#125;</span><br><span class="line"></span><br><span class="line">hw.next()</span><br><span class="line">// &#123; value: undefined, <span class="keyword">done</span>: <span class="literal">true</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>综上，调用 Generator 函数，返回一个遍历器对象，代表 Generator 函数的内部指针。以后，每次调用遍历器对象的next方法，就会返回一个有着value和done两个属性的对象。value属性表示当前的内部状态的值，是yield表达式后面那个表达式的值；done属性是一个布尔值，表示是否遍历结束。</p>
+<h3 id="🌴-yield-表达式"><a href="#🌴-yield-表达式" class="headerlink" title="🌴 yield 表达式"></a>🌴 yield 表达式</h3><p>1、yield表达式就是暂停标志。<br>2、yield表达式与return语句<br>相似点：<br>都能返回紧跟在语句后面的那个表达式的值<br>区别：<br>每次遇到yield，函数暂停执行，下一次再从该位置继续向后执行，而return语句不具备位置记忆的功能。一个函数里面，只能执行一次（或者说一个）return语句，但是可以执行多次（或者说多个）yield表达式。正常函数只能返回一个值，因为只能执行一次return；Generator 函数可以返回一系列的值，因为可以有任意多个yield。<br>3、Generator 函数可以不用yield表达式，这时就变成了一个单纯的暂缓执行函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>* <span class="function"><span class="title">f</span></span>() &#123;</span><br><span class="line">  console.log(<span class="string">'执行了！'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var generator = f();</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">  generator.next()</span><br><span class="line">&#125;, 2000);</span><br></pre></td></tr></table></figure></p>
+<p>4、yield表达式只能用在 Generator 函数里面，用在其他地方都会报错。<br>5、yield表达式如果用在另一个表达式之中，必须放在圆括号里面。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>* <span class="function"><span class="title">demo</span></span>() &#123;</span><br><span class="line">  console.log(<span class="string">'Hello'</span> + yield); // SyntaxError</span><br><span class="line">  console.log(<span class="string">'Hello'</span> + yield 123); // SyntaxError</span><br><span class="line"></span><br><span class="line">  console.log(<span class="string">'Hello'</span> + (yield)); // OK</span><br><span class="line">  console.log(<span class="string">'Hello'</span> + (yield 123)); // OK</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>6、yield表达式用作函数参数或放在赋值表达式的右边，可以不加括号。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>* <span class="function"><span class="title">demo</span></span>() &#123;</span><br><span class="line">  foo(yield <span class="string">'a'</span>, yield <span class="string">'b'</span>); // OK</span><br><span class="line">  <span class="built_in">let</span> input = yield; // OK</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="🌴-next-方法的参数"><a href="#🌴-next-方法的参数" class="headerlink" title="🌴 next 方法的参数"></a>🌴 next 方法的参数</h3><p>1、<font color="red">yield表达式本身没有返回值，或者说总是返回undefined。</font><br>2、next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>* foo(x) &#123;</span><br><span class="line">  var y = 2 * (yield (x + 1));</span><br><span class="line">  var z = yield (y / 3);</span><br><span class="line">  <span class="built_in">return</span> (x + y + z);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a = foo(5);</span><br><span class="line">a.next() // Object&#123;value:6, <span class="keyword">done</span>:<span class="literal">false</span>&#125;</span><br><span class="line">a.next() // Object&#123;value:NaN, <span class="keyword">done</span>:<span class="literal">false</span>&#125;</span><br><span class="line">a.next() // Object&#123;value:NaN, <span class="keyword">done</span>:<span class="literal">true</span>&#125;</span><br><span class="line"></span><br><span class="line">var b = foo(5);</span><br><span class="line">b.next() // &#123; value:6, <span class="keyword">done</span>:<span class="literal">false</span> &#125;</span><br><span class="line">b.next(12) // &#123; value:8, <span class="keyword">done</span>:<span class="literal">false</span> &#125;</span><br><span class="line">b.next(13) // &#123; value:42, <span class="keyword">done</span>:<span class="literal">true</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="🌴-for…of"><a href="#🌴-for…of" class="headerlink" title="🌴 for…of"></a>🌴 for…of</h3><p>for…of循环可以自动遍历 Generator 函数运行时生成的Iterator对象，且此时不再需要调用next方法。<br>一旦next方法的返回对象的done属性为true，for…of循环就会中止，且不包含该返回对象，所以上面代码的return语句返回的6，不包括在for…of循环之中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>* <span class="function"><span class="title">foo</span></span>() &#123;</span><br><span class="line">  yield 1;</span><br><span class="line">  yield 2;</span><br><span class="line">  yield 3;</span><br><span class="line">  yield 4;</span><br><span class="line">  yield 5;</span><br><span class="line">  <span class="built_in">return</span> 6;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> v of foo()) &#123;</span><br><span class="line">  console.log(v);</span><br><span class="line">&#125;</span><br><span class="line">// 1 2 3 4 5</span><br></pre></td></tr></table></figure></p>
+<h3 id="Generator函数异步编程"><a href="#Generator函数异步编程" class="headerlink" title="Generator函数异步编程"></a>Generator函数异步编程</h3><ul>
+<li><p>回调函数</p>
+</li>
+<li><p>事件监听</p>
+</li>
+<li><p>发布/订阅</p>
+</li>
+<li><p>Promise 对象</p>
+</li>
+</ul>
+
+                
+                <div class="readmore">
+                    <a href="/2021/01/06/es6-3/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
+                    <a href="/2021/01/05/Promise/">
+                        ES6(三) Promise
+                    </a>
+                </h1>
+                <div class="create">
+                    <span>创建于</span>
+                    
+                        <time datetime="2021-01-05T02:25:07.000Z">
+                            2021-01-05
+                        </time>
+                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
+                </div>
+                
+                    <p><a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="noopener">参考</a></p>
+<h3 id="🌴-概述"><a href="#🌴-概述" class="headerlink" title="🌴 概述"></a>🌴 概述</h3><p>首先，Promise 是一个对象，也是一个构造函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> f1(resolve, reject) &#123;</span><br><span class="line">  // 异步代码</span><br><span class="line">&#125;</span><br><span class="line">var p1 = new Promise(f1)</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，Promise构造函数接受一个回调函数f1作为参数，f1里面是异步操作的代码。然后，返回的p1就是一个 Promise 实例。</p>
+<p>Promise 的设计思想是，所有异步任务都返回一个 Promise 实例。Promise 实例有一个then方法，用来指定下一步的回调函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(f1);</span><br><span class="line">p1.then(f2);</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，f1的异步操作执行完成，就会执行f2。</p>
+<p>传统的写法可能需要把f2作为回调函数传入f1，比如写成f1(f2)，异步操作完成后，在f1内部调用f2。Promise 使得f1和f2变成了链式写法。不仅改善了可读性，而且对于多层嵌套的回调函数尤其方便。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 传统写法</span><br><span class="line">step1(<span class="keyword">function</span> (value1) &#123;</span><br><span class="line">  step2(value1, <span class="keyword">function</span>(value2) &#123;</span><br><span class="line">    step3(value2, <span class="keyword">function</span>(value3) &#123;</span><br><span class="line">      step4(value3, <span class="keyword">function</span>(value4) &#123;</span><br><span class="line">        // ...</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// Promise 的写法</span><br><span class="line">(new Promise(step1))</span><br><span class="line">  .<span class="keyword">then</span>(step2)</span><br><span class="line">  .<span class="keyword">then</span>(step3)</span><br><span class="line">  .<span class="keyword">then</span>(step4);</span><br></pre></td></tr></table></figure></p>
+<p>从上面代码可以看到，采用 Promise 以后，程序流程变得非常清楚，十分易读。注意，为了便于理解，上面代码的Promise实例的生成格式，做了简化，真正的语法请参照下文。</p>
+<p>总的来说，传统的回调函数写法使得代码混成一团，变得横向发展而不是向下发展。Promise 就是解决这个问题，使得异步流程可以写成同步流程</p>
+<h3 id="🌴-关键词"><a href="#🌴-关键词" class="headerlink" title="🌴 关键词"></a>🌴 关键词</h3><h4 id="👉异步操作解决方案"><a href="#👉异步操作解决方案" class="headerlink" title="👉异步操作解决方案"></a>👉异步操作解决方案</h4><p>Promise 对象是 JavaScript 的异步操作解决方案，为异步操作提供统一接口。比传统的解决方案:回调函数和事件，更强大,它起到代理作用（proxy），充当异步操作与回调函数之间的中介，使得异步操作具备同步操作的接口。Promise 可以让异步操作写起来，就像在写同步操作的流程，而不必一层层地嵌套回调函数。</p>
+<h4 id="👉-三种状态"><a href="#👉-三种状态" class="headerlink" title="👉 三种状态"></a>👉 三种状态</h4><p>Promise 对象通过自身的状态，来控制异步操作。Promise 实例具有三种状态。</p>
+<blockquote>
+<p>异步操作未完成（pending）</p>
+</blockquote>
+<blockquote>
+<p>异步操作成功（fulfilled）</p>
+</blockquote>
+<blockquote>
+<p>异步操作失败（rejected）</p>
+</blockquote>
+<p>上面三种状态里面，fulfilled和rejected合在一起称为resolved（已定型）。</p>
+<p>这三种的状态的变化途径只有两种。</p>
+<blockquote>
+<p>从“未完成”到“成功”</p>
+</blockquote>
+<blockquote>
+<p>从“未完成”到“失败”</p>
+</blockquote>
+<p>一旦状态发生变化，就凝固了，不会再有新的状态变化。这也是 Promise 这个名字的由来，它的英语意思是“承诺”，一旦承诺成效，就不得再改变了。这也意味着，Promise 实例的状态变化只可能发生一次。</p>
+<p>因此，Promise 的最终结果只有两种。</p>
+<blockquote>
+<p>异步操作成功，Promise 实例传回一个值（value），状态变为fulfilled。</p>
+</blockquote>
+<blockquote>
+<p>异步操作失败，Promise 实例抛出一个错误（error），状态变为rejected</p>
+</blockquote>
+<h4 id="👉-Promise-API"><a href="#👉-Promise-API" class="headerlink" title="👉 Promise API"></a>👉 Promise API</h4><ul>
+<li>Promise.prototype.catch()</li>
+<li>Promise.prototype.finally()</li>
+<li>Promise.all()</li>
+<li>Promise.race()</li>
+<li>promise.allSettled()</li>
+<li>promise.any()</li>
+<li>Promise.resolve()</li>
+<li>Promise.reject()</li>
+<li>Promise.try()</li>
+</ul>
+<h3 id="🌴-Promise-构造函数"><a href="#🌴-Promise-构造函数" class="headerlink" title="🌴 Promise 构造函数"></a>🌴 Promise 构造函数</h3><p>JavaScript 提供原生的Promise构造函数，用来生成 Promise 实例。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var promise = new Promise(<span class="keyword">function</span> (resolve, reject) &#123;</span><br><span class="line">  // ...</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (/* 异步操作成功 */)&#123;</span><br><span class="line">    resolve(value);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123; /* 异步操作失败 */</span><br><span class="line">    reject(new Error());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，Promise构造函数接受一个函数作为参数，该函数的两个参数分别是resolve和reject。它们是两个函数，由 JavaScript 引擎提供，不用自己实现。</p>
+<p>resolve函数的作用是，将Promise实例的状态从“未完成”变为“成功”（即从pending变为fulfilled），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去。reject函数的作用是，将Promise实例的状态从“未完成”变为“失败”（即从pending变为rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。</p>
+<p>下面是一个例子。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> timeout(ms) &#123;</span><br><span class="line">  <span class="built_in">return</span> new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    setTimeout(resolve, ms, <span class="string">'done'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">timeout(100).<span class="keyword">then</span>(<span class="keyword">function</span>(val)&#123;</span><br><span class="line">    console.log(val)</span><br><span class="line">&#125;)</span><br><span class="line">或</span><br><span class="line">timeout(100).<span class="keyword">then</span>((val)=&gt;&#123;</span><br><span class="line">    console.log(val)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，timeout(100)返回一个Promise实例。100毫秒以后，该实例的状态会变为fulfilled</p>
+<h3 id="🌴-Promise-API用法"><a href="#🌴-Promise-API用法" class="headerlink" title="🌴 Promise API用法"></a>🌴 Promise API用法</h3><h4 id="Promise-prototype-then"><a href="#Promise-prototype-then" class="headerlink" title="Promise.prototype.then()"></a>Promise.prototype.then()</h4><p>Promise 实例的then方法，定义在原型对象上，用来添加回调函数。</p>
+<p>then方法可以接受两个回调函数，第一个是异步操作成功时（变为fulfilled状态）时的回调函数，第二个是异步操作失败（变为rejected）时的回调函数（该参数可以省略）。一旦状态改变，就调用相应的回调函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(<span class="keyword">function</span> (resolve, reject) &#123;</span><br><span class="line">  resolve(<span class="string">'成功'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">p1.then(console.log, console.error);</span><br><span class="line">// <span class="string">"成功"</span></span><br><span class="line"></span><br><span class="line">var p2 = new Promise(<span class="keyword">function</span> (resolve, reject) &#123;</span><br><span class="line">  reject(new Error(<span class="string">'失败'</span>));</span><br><span class="line">&#125;);</span><br><span class="line">p2.then(console.log, console.error);</span><br><span class="line">// Error: 失败</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，p1和p2都是Promise 实例，它们的then方法绑定两个回调函数：成功时的回调函数console.log，失败时的回调函数console.error（可以省略）。p1的状态变为成功，p2的状态变为失败，对应的回调函数会收到异步操作传回的值，然后在控制台输出。</p>
+<p>then方法可以链式使用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p1</span><br><span class="line">  .<span class="keyword">then</span>(step1)</span><br><span class="line">  .<span class="keyword">then</span>(step2)</span><br><span class="line">  .<span class="keyword">then</span>(step3)</span><br><span class="line">  .<span class="keyword">then</span>(</span><br><span class="line">    console.log,</span><br><span class="line">    console.error</span><br><span class="line">  );</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，p1后面有四个then，意味依次有四个回调函数。只要前一步的状态变为fulfilled，就会依次执行紧跟在后面的回调函数。</p>
+<p>最后一个then方法，回调函数是console.log和console.error，用法上有一点重要的区别。console.log只显示step3的返回值，而console.error可以显示p1、step1、step2、step3之中任意一个发生的错误。举例来说，如果step1的状态变为rejected，那么step2和step3都不会执行了（因为它们是resolved的回调函数）。Promise 开始寻找，接下来第一个为rejected的回调函数，在上面代码中是console.error。这就是说，Promise 对象的报错具有传递性。</p>
+<p>Promise 的用法，简单说就是一句话：使用then方法添加回调函数。但是，不同的写法有一些细微的差别，请看下面四种写法，它们的差别在哪里？<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 写法一</span><br><span class="line">f1().<span class="keyword">then</span>(<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">  <span class="built_in">return</span> f2();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 写法二</span><br><span class="line">f1().<span class="keyword">then</span>(fun</span><br><span class="line"><span class="function"><span class="title">ction</span></span> () &#123;</span><br><span class="line">  f2();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 写法三</span><br><span class="line">f1().<span class="keyword">then</span>(f2());</span><br><span class="line"></span><br><span class="line">// 写法四</span><br><span class="line">f1().<span class="keyword">then</span>(f2);</span><br></pre></td></tr></table></figure></p>
+<p>为了便于讲解，下面这四种写法都再用then方法接一个回调函数f3。写法一的f3回调函数的参数，是f2函数的运行结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f1().<span class="keyword">then</span>(<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">  <span class="built_in">return</span> f2();</span><br><span class="line">&#125;).<span class="keyword">then</span>(f3);</span><br></pre></td></tr></table></figure></p>
+<p>写法二的f3回调函数的参数是undefined。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">f1().<span class="keyword">then</span>(<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">  f2();</span><br><span class="line">  <span class="built_in">return</span>;</span><br><span class="line">&#125;).<span class="keyword">then</span>(f3);</span><br></pre></td></tr></table></figure></p>
+<p>写法三的f3回调函数的参数，是f2函数返回的函数的运行结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f1().<span class="keyword">then</span>(f2())</span><br><span class="line">  .<span class="keyword">then</span>(f3);</span><br></pre></td></tr></table></figure></p>
+<p>写法四与写法一只有一个差别，那就是f2会接收到f1()返回的结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f1().<span class="keyword">then</span>(f2)</span><br><span class="line">  .<span class="keyword">then</span>(f3);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Promise-prototype-catch"><a href="#Promise-prototype-catch" class="headerlink" title="Promise.prototype.catch()"></a>Promise.prototype.catch()</h4><p>1、Promise.prototype.catch()方法是.then(null, rejection)或.then(undefined, rejection)的别名，用于指定发生错误时的回调函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">getJSON(<span class="string">'/posts.json'</span>).<span class="keyword">then</span>(<span class="keyword">function</span>(posts) &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;).catch(<span class="keyword">function</span>(error) &#123;</span><br><span class="line">  // 处理 getJSON 和 前一个回调函数运行时发生的错误</span><br><span class="line">  console.log(<span class="string">'发生错误！'</span>, error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>2、Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个catch语句捕获。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getJSON(<span class="string">'/post/1.json'</span>).<span class="keyword">then</span>(<span class="keyword">function</span>(post) &#123;</span><br><span class="line">  <span class="built_in">return</span> getJSON(post.commentURL);</span><br><span class="line">&#125;).<span class="keyword">then</span>(<span class="keyword">function</span>(comments) &#123;</span><br><span class="line">  // some code</span><br><span class="line">&#125;).catch(<span class="keyword">function</span>(error) &#123;</span><br><span class="line">  // 处理前面三个Promise产生的错误</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>上面代码中，一共有三个 Promise 对象：一个由getJSON()产生，两个由then()产生。它们之中任何一个抛出的错误，都会被最后一个catch()捕获。<br>3、一般来说，不要在then()方法里面定义 Reject 状态的回调函数（即then的第二个参数），总是使用catch方法。<br>4、catch()方法返回的还是一个 Promise 对象，因此后面还可以接着调用then()方法。</p>
+<h4 id="Promise-prototype-finally"><a href="#Promise-prototype-finally" class="headerlink" title="Promise.prototype.finally()"></a>Promise.prototype.finally()</h4><p>1、finally()方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。不管promise最后的状态，在执行完then或catch指定的回调函数以后，都会执行finally方法指定的回调函数。<br>2、不接受任何参数，不依赖promise执行结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">promise</span><br><span class="line">.<span class="keyword">then</span>(result =&gt; &#123;···&#125;)</span><br><span class="line">.catch(error =&gt; &#123;···&#125;)</span><br><span class="line">.finally(() =&gt; &#123;···&#125;);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all()"></a>Promise.all()</h4><ul>
+<li>Promise.all()方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const p = Promise.all([p1, p2, p3]);</span><br></pre></td></tr></table></figure>
+<p>1、p1、p2、p3都是 Promise 实例，如果不是，就会先调用下面讲到的Promise.resolve方法，将参数转为 Promise 实例<br>2、Promise.all()方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例<br>3、只有p1、p2、p3的状态都变成fulfilled，p的状态才会变成fulfilled，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数。<br>4、只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数</p>
+<h4 id="Promise-race"><a href="#Promise-race" class="headerlink" title="Promise.race()"></a>Promise.race()</h4><ul>
+<li>Promise.race()方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const p = Promise.race([p1, p2, p3]);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>1、只要p1、p2、p3之中有一个实例率先改变状态，p的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给p的回调函数。<br>2、Promise.race()方法的参数与Promise.all()方法一样，如果不是 Promise 实例，就会先调用下面讲到的Promise.resolve()方法，将参数转为 Promise 实例，再进一步处理。<br>3、状态不可逆：如果指定时间内没有获得结果，就将 Promise 的状态变为reject，否则变为resolve<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const p = Promise.race([</span><br><span class="line">  fetch(<span class="string">'/resource-that-may-take-a-while'</span>),</span><br><span class="line">  new Promise(<span class="keyword">function</span> (resolve, reject) &#123;</span><br><span class="line">    setTimeout(() =&gt; reject(new Error(<span class="string">'request timeout'</span>)), 5000)</span><br><span class="line">  &#125;)</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line">p</span><br><span class="line">.<span class="keyword">then</span>(console.log)</span><br><span class="line">.catch(console.error);</span><br></pre></td></tr></table></figure></p>
+<h4 id="Promise-allSettled"><a href="#Promise-allSettled" class="headerlink" title="Promise.allSettled()"></a>Promise.allSettled()</h4><p>1、Promise.allSettled()方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例。只有等到所有这些参数实例都返回结果，不管是fulfilled还是rejected，包装实例才会结束<br>2、Promise.allSettled()的返回值allSettledPromise，状态只可能变成fulfilled。、<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const resolved = Promise.resolve(42);</span><br><span class="line">const rejected = Promise.reject(-1);</span><br><span class="line"></span><br><span class="line">const allSettledPromise = Promise.allSettled([resolved, rejected]);</span><br><span class="line"></span><br><span class="line">allSettledPromise.then(<span class="keyword">function</span> (results) &#123;</span><br><span class="line">  console.log(results);</span><br><span class="line">&#125;);</span><br><span class="line">// [</span><br><span class="line">//    &#123; status: <span class="string">'fulfilled'</span>, value: 42 &#125;,</span><br><span class="line">//    &#123; status: <span class="string">'rejected'</span>, reason: -1 &#125;</span><br><span class="line">// ]</span><br></pre></td></tr></table></figure></p>
+<h4 id="Promise-any"><a href="#Promise-any" class="headerlink" title="Promise.any()"></a>Promise.any()</h4><p>接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例返回。只要参数实例有一个变成fulfilled状态，包装实例就会变成fulfilled状态；如果所有参数实例都变成rejected状态，包装实例就会变成rejected状态。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const promises = [</span><br><span class="line">  fetch(<span class="string">'/endpoint-a'</span>).<span class="keyword">then</span>(() =&gt; <span class="string">'a'</span>),</span><br><span class="line">  fetch(<span class="string">'/endpoint-b'</span>).<span class="keyword">then</span>(() =&gt; <span class="string">'b'</span>),</span><br><span class="line">  fetch(<span class="string">'/endpoint-c'</span>).<span class="keyword">then</span>(() =&gt; <span class="string">'c'</span>),</span><br><span class="line">];</span><br><span class="line">try &#123;</span><br><span class="line">  const first = await Promise.any(promises);</span><br><span class="line">  console.log(first);</span><br><span class="line">&#125; catch (error) &#123;</span><br><span class="line">  console.log(error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Promise.any()方法的参数数组包含三个 Promise 操作。其中只要有一个变成fulfilled，Promise.any()返回的 Promise 对象就变成fulfilled。如果所有三个操作都变成rejected，那么await命令就会抛出错误。</p>
+<h4 id="Promise-resolve"><a href="#Promise-resolve" class="headerlink" title="Promise.resolve()"></a>Promise.resolve()</h4><p>1、将现有对象转为 Promise 对象<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Promise.resolve(<span class="string">'foo'</span>)</span><br><span class="line">// 等价于</span><br><span class="line">new Promise(resolve =&gt; resolve(<span class="string">'foo'</span>))</span><br></pre></td></tr></table></figure></p>
+<p>2、Promise.resolve()方法的参数分成四种情况：<br>（1）参数是一个 Promise 实例<br>如果参数是 Promise 实例，那么Promise.resolve将不做任何修改、原封不动地返回这个实例。</p>
+<p>（2）参数是一个thenable对象<br>thenable对象指的是具有then方法的对象，比如下面这个对象。<br>thenable对象的then()方法执行后，对象p1的状态就变为resolved，从而立即执行最后那个then()方法指定的回调函数，输出42。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> thenable = &#123;</span><br><span class="line">  <span class="keyword">then</span>: <span class="keyword">function</span>(resolve, reject) &#123;</span><br><span class="line">    resolve(42);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> p1 = Promise.resolve(thenable);</span><br><span class="line">p1.then(<span class="keyword">function</span> (value) &#123;</span><br><span class="line">  console.log(value);  // 42</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>(3)参数不是具有then()方法的对象，或根本就不是对象<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const p = Promise.resolve(<span class="string">'Hello'</span>);</span><br><span class="line"></span><br><span class="line">p.then(<span class="keyword">function</span> (s) &#123;</span><br><span class="line">  console.log(s)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>生成一个新的 Promise 对象的实例p。由于字符串Hello不属于异步操作（判断方法是字符串对象不具有 then 方法），返回 Promise 实例的状态从一生成就是resolved，所以回调函数会立即执行。Promise.resolve()方法的参数，会同时传给回调函数。</p>
+<p>（4）不带有任何参数<br>Promise.resolve()方法允许调用时不带参数，直接返回一个resolved状态的 Promise 对象。</p>
+<h4 id="Promise-reject"><a href="#Promise-reject" class="headerlink" title="Promise.reject()"></a>Promise.reject()</h4><p>Promise.reject(reason)方法也会返回一个新的 Promise 实例，该实例的状态为rejected。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const p = Promise.reject(<span class="string">'出错了'</span>);</span><br><span class="line">// 等同于</span><br><span class="line">const p = new Promise((resolve, reject) =&gt; reject(<span class="string">'出错了'</span>))</span><br><span class="line"></span><br><span class="line">p.then(null, <span class="keyword">function</span> (s) &#123;</span><br><span class="line">  console.log(s)</span><br><span class="line">&#125;);</span><br><span class="line">// 出错了</span><br></pre></td></tr></table></figure></p>
+<h3 id="🌴-小结"><a href="#🌴-小结" class="headerlink" title="🌴 小结"></a>🌴 小结</h3><p>Promise 的优点在于，让回调函数变成了规范的链式写法，程序流程可以看得很清楚。它有一整套接口，可以实现许多强大的功能，比如同时执行多个异步操作，等到它们的状态都改变以后，再执行一个回调函数；再比如，为多个回调函数中抛出的错误，统一指定处理方法等等。</p>
+<p>而且，Promise 还有一个传统写法没有的好处：它的状态一旦改变，无论何时查询，都能得到这个状态。这意味着，无论何时为 Promise 实例添加回调函数，该函数都能正确执行。所以，你不用担心是否错过了某个事件或信号。如果是传统写法，通过监听事件来执行回调函数，一旦错过了事件，再添加回调函数是不会执行的。</p>
+<p>Promise 的缺点是，编写的难度比传统写法高，而且阅读代码也不是一眼可以看懂。你只会看到一堆then，必须自己在then的回调函数里面理清逻辑。</p>
+<h3 id="🌴-微任务"><a href="#🌴-微任务" class="headerlink" title="🌴 微任务"></a>🌴 微任务</h3><p>Promise 的回调函数属于异步任务，会在同步任务之后执行。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">new Promise(<span class="keyword">function</span> (resolve, reject) &#123;</span><br><span class="line">  resolve(1);</span><br><span class="line">&#125;).<span class="keyword">then</span>(console.log);</span><br><span class="line"></span><br><span class="line">console.log(2);</span><br><span class="line">// 2</span><br><span class="line">// 1</span><br></pre></td></tr></table></figure></p>
+<p>上面代码会先输出2，再输出1。因为console.log(2)是同步任务，而then的回调函数属于异步任务，一定晚于同步任务执行。</p>
+<p>但是，Promise 的回调函数不是正常的异步任务，而是微任务（microtask）。它们的区别在于，正常任务追加到下一轮事件循环，微任务追加到本轮事件循环。这意味着，微任务的执行时间一定早于正常任务。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">  console.log(1);</span><br><span class="line">&#125;, 0);</span><br><span class="line"></span><br><span class="line">new Promise(<span class="keyword">function</span> (resolve, reject) &#123;</span><br><span class="line">  resolve(2);</span><br><span class="line">&#125;).<span class="keyword">then</span>(console.log);</span><br><span class="line"></span><br><span class="line">console.log(3);</span><br><span class="line">// 3</span><br><span class="line">// 2</span><br><span class="line">// 1</span><br></pre></td></tr></table></figure></p>
+<p>上面代码的输出结果是321。这说明then的回调函数的执行时间，早于setTimeout(fn, 0)。因为then是本轮事件循环执行，setTimeout(fn, 0)在下一轮事件循环开始时执行。</p>
+
+                
+                <div class="readmore">
+                    <a href="/2021/01/05/Promise/">
+                        阅读更多
+                    </a>
+                </div>
+            </div>
+        
+            <div class="post-item">
+                <h1>
                     <a href="/2020/12/29/React生命周期/">
-                        React生命周期
+                        生命周期
                     </a>
                 </h1>
                 <div class="create">
@@ -56,10 +464,23 @@
                             2020-12-29
                         </time>
                     
-                    
+                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/React/">React</a></li></ul>
                 </div>
                 
-                    
+                    <p>在组件的整个生命周期中，随着该组件的props或者state发生改变，其DOM表现也会有相应的变化。</p>
+<p>一个组件就是一个状态机，对于特定地输入，它总返回一致的输出。</p>
+<p>一个React组件的生命周期分为三个部分：实例化、存在期和销毁时。</p>
+<p>React应用中，组件加载顺序及生命周期如下图所示：</p>
+<h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor( )"></a>constructor( )</h3><p>constructor是ES6对类的默认方法，通过 new 命令生成对象实例时自动调用该方法。并且，该方法是类中必须有的，如果没有显示定义，则会默认添加空的constructor( )方法。当存在constructor的时候⚠️必须手动调用super方法。 在constructor中如果要访问this.props需要传入props，示例如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class MyClass extends React.component&#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props); // 声明constructor时必须调用super方法</span><br><span class="line">        console.log(this.props); // 可以正常访问this.props</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">constructor 常用来初始化state</span><br><span class="line"></span><br><span class="line">class MyClass extends React.Component &#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            list: this.props.List</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="componentWillMount"><a href="#componentWillMount" class="headerlink" title="componentWillMount()"></a>componentWillMount()</h3><p>该方法在组件挂载之前生效。 在组件挂载之前调用且全局只调用一次。如果在这个钩子里可以setState，render后可以看到更新后的state，不会触发重复渲染。该生命周期可以发起异步请求，并setState。（React v16.3后废弃该生命周期，可以在constructor中完成设置state）</p>
+<h3 id="render"><a href="#render" class="headerlink" title="render()"></a>render()</h3><p>render是一个React组件必须定义的生命周期，用来渲染dom。⚠️不要在render里面修改state，会触发死循环导致栈溢出。render必须返回reactDom。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">render</span></span>() &#123;</span><br><span class="line">	const &#123;nodeResultData: &#123;res&#125; = &#123;&#125;&#125; = this.props;</span><br><span class="line">	<span class="keyword">if</span> (isEmpty(res)) <span class="built_in">return</span> noDataInfo;</span><br><span class="line">	const nodeResult = this.getNodeResult(res);</span><br><span class="line">	<span class="built_in">return</span> (</span><br><span class="line">		&lt;div className=<span class="string">"workspace-dialog-result"</span>&gt;</span><br><span class="line">			&#123;nodeResult&#125;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line">	);</span><br></pre></td></tr></table></figure></p>
+<h3 id="componentDidMount"><a href="#componentDidMount" class="headerlink" title="componentDidMount()"></a>componentDidMount()</h3><p>在组件挂载完成后调用，且全局只调用一次。可以在这里使用refs，获取真实dom元素。该钩子内也可以发起异步请求，并在异步请求中可以进行setState。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">componentDidMount</span></span>() &#123;</span><br><span class="line">	axios.get(<span class="string">'/auth/getTemplate'</span>).<span class="keyword">then</span>(res =&gt; &#123;</span><br><span class="line">		const &#123;TemplateList = []&#125; = res;</span><br><span class="line">		this.setState(&#123;TemplateList&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="componentWillReceiveProps-nextProps"><a href="#componentWillReceiveProps-nextProps" class="headerlink" title="componentWillReceiveProps (nextProps )"></a>componentWillReceiveProps (nextProps )</h3><p>props发生变化以及父组件重新渲染时都会触发该生命周期，在该钩子内可以通过参数nextProps获取变化后的props参数，通过this.props访问之前的props。该生命周期内可以进行setState。(React v16.3后废弃该生命周期，可以用新的周期 static getDerivedStateFromProps 代替)</p>
+<h3 id="shouldComponentUpdate-nextProps-nextState"><a href="#shouldComponentUpdate-nextProps-nextState" class="headerlink" title="shouldComponentUpdate(nextProps, nextState)"></a>shouldComponentUpdate(nextProps, nextState)</h3><p>用于判断是否重新渲染，组件挂载之后，每次调用setState后都会调用shouldComponentUpdate判断是否需要重新渲染组件。默认返回true，需要重新render。返回false则不触发渲染。在比较复杂的应用里，有一些数据的改变并不影响界面展示，可以在这里做判断，优化渲染效率。</p>
+<h3 id="componentWillUpdate-nextProps-nextState"><a href="#componentWillUpdate-nextProps-nextState" class="headerlink" title="componentWillUpdate(nextProps, nextState)"></a>componentWillUpdate(nextProps, nextState)</h3><p>shouldComponentUpdate返回true或者调用forceUpdate之后，componentWillUpdate会被调用。不能在该钩子中setState，会触发重复循环。(React v16.3后废弃该生命周期，可以用新的周期 getSnapshotBeforeUpdate)</p>
+<h3 id="componentDidUpdate"><a href="#componentDidUpdate" class="headerlink" title="componentDidUpdate()"></a>componentDidUpdate()</h3><p>完成组件渲染，除了首次render之后调用componentDidMount，其它render结束之后都是调用componentDidUpdate。该钩子内setState有可能会触发重复渲染，需要自行判断，否则会进入死循环。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">componentDidUpdate</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span>(condition) &#123;</span><br><span class="line">        this.setState(&#123;..&#125;) // 设置state</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        // 不再设置state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="componentWillUnmount"><a href="#componentWillUnmount" class="headerlink" title="componentWillUnmount()"></a>componentWillUnmount()</h3><p>组件被卸载的时候调用。一般在componentDidMount里面注册的事件需要在这里删除。</p>
+
                 
                 <div class="readmore">
                     <a href="/2020/12/29/React生命周期/">
@@ -71,7 +492,7 @@
             <div class="post-item">
                 <h1>
                     <a href="/2020/11/23/ES6-2/">
-                        ES6(二)之Set和Map
+                        ES6(二) Set和Map
                     </a>
                 </h1>
                 <div class="create">
@@ -121,32 +542,6 @@
                 
                 <div class="readmore">
                     <a href="/2020/11/23/ES6-2/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
-            <div class="post-item">
-                <h1>
-                    <a href="/2020/11/19/前端安全/">
-                        前端安全
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2020-11-19T02:43:12.000Z">
-                            2020-11-19
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li></ul>
-                </div>
-                
-                    <h3 id="🌾-网络安全"><a href="#🌾-网络安全" class="headerlink" title="🌾 网络安全"></a>🌾 网络安全</h3><h3 id="🌾-页面安全"><a href="#🌾-页面安全" class="headerlink" title="🌾 页面安全"></a>🌾 页面安全</h3><h4 id="跨站脚本攻击"><a href="#跨站脚本攻击" class="headerlink" title="跨站脚本攻击"></a>跨站脚本攻击</h4><h5 id="XSS-分类"><a href="#XSS-分类" class="headerlink" title="XSS 分类"></a>XSS 分类</h5><p>待续。。。</p>
-
-                
-                <div class="readmore">
-                    <a href="/2020/11/19/前端安全/">
                         阅读更多
                     </a>
                 </div>
@@ -275,271 +670,6 @@
                 </div>
             </div>
         
-            <div class="post-item">
-                <h1>
-                    <a href="/2020/10/25/vue/">
-                        vue
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2020-10-25T11:18:34.000Z">
-                            2020-10-25
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/VUE/">VUE</a></li></ul>
-                </div>
-                
-                    <h3 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h3><p>Vue实例从创建到销毁的过程，生命周期分为8个过程：创建前，创建后，挂载前，挂载后，更新前，更新后，销毁前，销毁后。</p>
-<blockquote>
-<p>beforeCreate:初始化vue实例，进行数据观测，发生在实例对象创建之前，一般来实现加载动画等。</p>
-</blockquote>
-<blockquote>
-<p>created:组件创建，属性被绑定，但DOM还没生成，一般在这个阶段进行请求、获取数据，赋给属性等。</p>
-<ul>
-<li>完成数据观测，属性与方法的运算，watch、event事件回调的配置</li>
-<li>可调用methods中的方法，访问和修改data数据触发响应式渲染dom，可通过computed和watch完成数据计算</li>
-<li>此时vm.$el 并没有被创建</li>
-<li>一般在created中进行ajax请求</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>created -&gt; beforeMount:</p>
-<ul>
-<li>判断是否存在el选项，若不存在则停止编译，直到调用vm.$mount(el)才会继续编译</li>
-<li>若存在el，则判断是否存在template，若存在，则将template编译成render函数；若不存在，则直接编译el所对应的外部html</li>
-<li>如果存在render函数，则首先对其进行编译</li>
-<li>此过程中vm.el被实例化为el选项对应DOM元素，所以在beforeMount中，用vm.el获取到的是挂载DOM的HTML<br>优先级： render &gt; template &gt; outerHTML</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>beforeMount:</p>
-<ul>
-<li>在此阶段可获取到vm.el</li>
-<li>此阶段vm.el虽已完成DOM初始化，但并未挂载在el选项上</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>beforeMount -&gt; mounted:此阶段vm.el完成挂载，vm.$el生成的DOM替换了el选项所对应的DOM</p>
-</blockquote>
-<blockquote>
-<p>mounted:编译完成页面显示，有些东西需要在页面显示之后再操作的，应在mounted方法阶段。</p>
-</blockquote>
-<blockquote>
-<p>beforeUpdate:实例更新之前。</p>
-</blockquote>
-<blockquote>
-<p>updated:实例更新之后。</p>
-</blockquote>
-<blockquote>
-<p>beforeDestroy:实例销毁之前。</p>
-</blockquote>
-<blockquote>
-<p>destroyed:实例销毁之后。</p>
-</blockquote>
-<h3 id="路由导航守卫"><a href="#路由导航守卫" class="headerlink" title="路由导航守卫"></a>路由导航守卫</h3><p> 导航守卫就是路由跳转过程中的一些钩子函数，路由跳转的过程分为跳转前中后等等细小的过程，在每一个过程中都有一函数，这个函数能让你操作一些其他的事儿，这就是导航守卫，类似于上面的组件生命周期钩子函数。<br> 待补充。。。。</p>
-
-                
-                <div class="readmore">
-                    <a href="/2020/10/25/vue/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
-            <div class="post-item">
-                <h1>
-                    <a href="/2020/10/14/遇到的问题/">
-                        遇到的问题
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2020-10-14T01:36:25.000Z">
-                            2020-10-14
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
-                </div>
-                
-                    <h3 id="😮问题一：ArcGIS服务突然启动不了"><a href="#😮问题一：ArcGIS服务突然启动不了" class="headerlink" title="😮问题一：ArcGIS服务突然启动不了"></a>😮问题一：ArcGIS服务突然启动不了</h3><h4 id="症状😷"><a href="#症状😷" class="headerlink" title="症状😷"></a>症状😷</h4><p>症状一：所有的ArcGIS服务用不了，启动ArcGIS Server后，会立刻停掉.<br>症状二：Arcgis Desktop连接GIS Servers报错“Proxy server got bad address from remote server …”<br>症状三：打开错误日志，如下错误：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ExceptionInInitializerError</span><br><span class="line">	at com.esri.arcgis.discovery.admin.SiteManager.getInstance(SiteManager.java:374)</span><br><span class="line">	at com.esri.arcgis.discovery.admin.plugins.ServerConfigObserver.beforeStart(ServerConfigObserver.java:80)</span><br><span class="line">	at com.esri.arcgis.discovery.nodeagent.impl.ObserverManager.beforeStart(ObserverManager.java:146)</span><br><span class="line">	at com.esri.arcgis.discovery.nodeagent.impl.NodeAgent.c(NodeAgent.java:245)</span><br><span class="line">	at com.esri.arcgis.discovery.nodeagent.impl.NodeAgent.start(NodeAgent.java:137)</span><br><span class="line">	at com.esri.arcgis.discovery.nodeagent.impl.Main.start(Main.java:56)</span><br><span class="line">Caused by: java.lang.RuntimeException: Could not create directory path <span class="string">'D:\arcgisserver\config-store'</span>. This is required to maintain the Site configuration. Please check that the location is valid and that the ArcGIS Server account has permissions to the location.</span><br><span class="line">	at com.esri.arcgis.discovery.admin.SiteManager.&lt;init&gt;(SiteManager.java:242)</span><br><span class="line">	at com.esri.arcgis.discovery.admin.SiteManager.&lt;init&gt;(SiteManager.java:153)</span><br><span class="line">	at com.esri.arcgis.discovery.admin.SiteManager<span class="variable">$i_</span>.&lt;clinit&gt;(SiteManager<span class="variable">$i_</span>.java:363)</span><br></pre></td></tr></table></figure>
-<p>从以上症状，我们发现了问题所在，即文件夹’D:\arcgisserver\config-store’的权限问题，于是回想我之前是否改过权限，之前我删掉了Users组或用户名。</p>
-<h4 id="解决办法💊"><a href="#解决办法💊" class="headerlink" title="解决办法💊"></a>解决办法💊</h4><p>安全-添加-高级-立即查找-选择“users”-确定。添加主体Users后，ArcGIS Server便可恢复，如图：<br><img src="/2020/10/14/遇到的问题/001.png" alt="001.png"></p>
-<h3 id="😮问题二-Sql-Server数据库密码过期"><a href="#😮问题二-Sql-Server数据库密码过期" class="headerlink" title="😮问题二:Sql Server数据库密码过期"></a>😮问题二:Sql Server数据库密码过期</h3><h4 id="症状😷-1"><a href="#症状😷-1" class="headerlink" title="症状😷"></a>症状😷</h4><p>症状一：某台服务器上的接口突然无法使用，报错500；<br>症状二：SQL Server数据库,sa用户登录不上，错误如图：<br><img src="/2020/10/14/遇到的问题/002.png" alt="002.png"></p>
-<p>以上症状说明：sa密码错误，我们设定的密码过期了。</p>
-<h4 id="解决办法💊-1"><a href="#解决办法💊-1" class="headerlink" title="解决办法💊"></a>解决办法💊</h4><p>常规办法解决如下步骤：<br>1、以windows验证模式进入数据库管理器<br>2、右键数据库服务器名，选择【属性】<br>3、打开“服务器属性”窗口，选择【安全性】，更改“服务器身份验证”<br>4、展开数据库服务器名—“安全性”—“登录名”， 右键“sa”用户，选择【属性】<br>5、打开“登录属性”窗口，选择【常规】，设置密码<br>6、仍然在“登录属性”窗口，选择【状态】，选择“登录”下面的【已启用】<br>7、右键数据库服务器名，选择【重新启动】<br>8、现在可以使用SQL Server身份验证成功登录了。<br>以上办法设置的密码仍会过期，执行下面脚本重启服务便可彻底解决：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER LOGIN sa WITH PASSWORD = <span class="string">'&lt;password&gt;'</span> unlock, check_policy = off, check_expiration = off;</span><br></pre></td></tr></table></figure></p>
-
-                
-                <div class="readmore">
-                    <a href="/2020/10/14/遇到的问题/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
-            <div class="post-item">
-                <h1>
-                    <a href="/2020/09/25/node部署到IIS服务器/">
-                        Node.js部署到IIS服务器
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2020-09-25T07:00:31.000Z">
-                            2020-09-25
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
-                </div>
-                
-                    <p>使用iisnode模块在IIS中托管node.js应用程序来取代自托管node.exe进程：</p>
-<h3 id="起因："><a href="#起因：" class="headerlink" title="起因："></a>起因：</h3><p>服务器的ip只有80端口对外开放。但是我们node app.js后，外网访问不到，为了能够解决此问题，将nodejs部署到iis服务器上，这样既可以解决自动退出问题，也可共享80端口。</p>
-<h3 id="依赖项"><a href="#依赖项" class="headerlink" title="依赖项"></a>依赖项</h3><blockquote>
-<p>Node.js</p>
-</blockquote>
-<blockquote>
-<p><a href="urlrewrit2.exe">URL rewrite</a></p>
-</blockquote>
-<blockquote>
-<p><a href="iisnode-full-v0.2.21-x64.msi">IISNode</a></p>
-</blockquote>
-<h3 id="创建web-config文件（express）"><a href="#创建web-config文件（express）" class="headerlink" title="创建web.config文件（express）"></a>创建web.config文件（express）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line"> &lt;system.webServer&gt;</span><br><span class="line">   &lt;!-- indicates that the hello.js file is a node.js application </span><br><span class="line">   to be handled by the iisnode module --&gt;</span><br><span class="line">   &lt;handlers&gt;</span><br><span class="line">     &lt;add name=<span class="string">"iisnode"</span> path=<span class="string">"app.js"</span> verb=<span class="string">"*"</span> modules=<span class="string">"iisnode"</span> /&gt;</span><br><span class="line">   &lt;/handlers&gt;</span><br><span class="line">    &lt;!-- use URL rewriting to redirect the entire branch of the URL namespace</span><br><span class="line">    to app.js node.js application; <span class="keyword">for</span> example, the following URLs will </span><br><span class="line">    all be handled by app.js:</span><br><span class="line">        http://localhost/foo</span><br><span class="line">        http://localhost/bar</span><br><span class="line">    --&gt;</span><br><span class="line">    &lt;rewrite&gt;</span><br><span class="line">      &lt;rules&gt;</span><br><span class="line">        &lt;rule name=<span class="string">"api"</span>&gt;</span><br><span class="line">          &lt;match url=<span class="string">"api/*"</span> /&gt;</span><br><span class="line">          &lt;action <span class="built_in">type</span>=<span class="string">"Rewrite"</span> url=<span class="string">"app.js"</span> /&gt;</span><br><span class="line">        &lt;/rule&gt;</span><br><span class="line">      &lt;/rules&gt;</span><br><span class="line">    &lt;/rewrite&gt;</span><br><span class="line">    &lt;!-- exclude node_modules directory and subdirectories from serving</span><br><span class="line">    by IIS since these are implementation details of node.js applications --&gt;</span><br><span class="line">    &lt;security&gt;</span><br><span class="line">      &lt;requestFiltering&gt;</span><br><span class="line">        &lt;hiddenSegments&gt;</span><br><span class="line">          &lt;add segment=<span class="string">"node_modules"</span> /&gt;</span><br><span class="line">        &lt;/hiddenSegments&gt;</span><br><span class="line">      &lt;/requestFiltering&gt;</span><br><span class="line">    &lt;/security&gt;    </span><br><span class="line">  &lt;/system.webServer&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="Node服务的修改"><a href="#Node服务的修改" class="headerlink" title="Node服务的修改"></a>Node服务的修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.js中端口监听由 server.listen(3000) 改成 server.listen(process.env.PORT)</span><br></pre></td></tr></table></figure>
-<p>完整app.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">const userApi = require(<span class="string">'./api/userApi'</span>);</span><br><span class="line">const fs = require(<span class="string">'fs'</span>);</span><br><span class="line">const path = require(<span class="string">'path'</span>);</span><br><span class="line">const bodyParser = require(<span class="string">'body-parser'</span>);</span><br><span class="line">const express = require(<span class="string">'express'</span>);</span><br><span class="line">const app = express();</span><br><span class="line">app.all(<span class="string">'*'</span>, <span class="keyword">function</span>(req, res, next) &#123;</span><br><span class="line">    res.header(<span class="string">"Access-Control-Allow-Credentials"</span>, <span class="string">"true"</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'*'</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'Content-Type, Content-Length, Authorization, Accept, X-Requested-With,loginedtoken'</span>);</span><br><span class="line">    res.header(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'PUT, POST, GET, DELETE, OPTIONS'</span>);</span><br><span class="line">    <span class="keyword">if</span> (req.method == <span class="string">'OPTIONS'</span>) &#123;</span><br><span class="line">        res.send(200);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">var <span class="built_in">history</span> = require(<span class="string">'connect-history-api-fallback'</span>);</span><br><span class="line">const staticFileMiddleware = express.static(<span class="string">'assets'</span>);</span><br><span class="line">app.use(staticFileMiddleware);</span><br><span class="line">app.use(<span class="built_in">history</span>(&#123;</span><br><span class="line">  disableDotRule: <span class="literal">true</span>,</span><br><span class="line">  verbose: <span class="literal">true</span></span><br><span class="line">&#125;));</span><br><span class="line">app.use(bodyParser.json());</span><br><span class="line">app.use(bodyParser.urlencoded(&#123; extended: <span class="literal">true</span> &#125;))</span><br><span class="line">app.use(<span class="string">'/node_yrd/api'</span>, userApi);</span><br><span class="line">app.listen(process.env.PORT);</span><br></pre></td></tr></table></figure></p>
-<h3 id="Vue请求地址的修改"><a href="#Vue请求地址的修改" class="headerlink" title="Vue请求地址的修改"></a>Vue请求地址的修改</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var isPro = process.env.NODE_ENV === <span class="string">'production'</span> //process.env.NODE_ENV用于区分是生产环境还是开发环境</span><br><span class="line">//根据环境不同导出不同的baseURL</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    baseURL: isPro ? <span class="string">'http://***.***.com/'</span> : <span class="string">''</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="创建添加应用程序"><a href="#创建添加应用程序" class="headerlink" title="创建添加应用程序"></a>创建添加应用程序</h3><p>如图<br><img src="/2020/09/25/node部署到IIS服务器/1.png" alt="应用程序"></p>
-
-                
-                <div class="readmore">
-                    <a href="/2020/09/25/node部署到IIS服务器/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
-            <div class="post-item">
-                <h1>
-                    <a href="/2020/07/01/Cesium/">
-                        Cesium
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2020-07-01T06:16:35.000Z">
-                            2020-07-01
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Cesium/">Cesium</a></li></ul>
-                </div>
-                
-                    <h3 id="3dtiles文件放在iis服务器"><a href="#3dtiles文件放在iis服务器" class="headerlink" title="3dtiles文件放在iis服务器"></a>3dtiles文件放在iis服务器</h3><p>1、目录下，添加应用程序<br>2、配置iis的mime头，防止b3dm请求跨域：.b3dm    application/octet-stream</p>
-<ul>
-<li>问题<br>1、vue跨域：config目录下的index.js:proxyTable.<br>2、“请求筛选模块被配置为拒绝包含双重转义序列的请求。”，在些URL中若包含+号等符号，然后IIS7以上的版本会默认拒绝请求此URL，需要进行如下的修改.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;system.webServer&gt;</span><br><span class="line">&lt;security&gt;</span><br><span class="line">&lt;requestFiltering allowDoubleEscaping=<span class="string">"true"</span>/&gt;</span><br><span class="line">&lt;/security&gt;</span><br><span class="line">&lt;/system.webServer&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>viewer.scene.globe.undergroundColor 不同版本，有优化，在1.68,globe无undergroundColor属性，1.71版本有，可自定义设置。</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>三维遇到的问题（20200709）：<br>1.arcScence:导出的是wrl文件，cesium不支持可视化，还没找到可以文件转换的方法。<br>2.evs:导出的也是wrl文件，呵呵<br>3.arcgis Pro:可以解决这个问题，可以发布服务，但是，需要注册安装，试用期21天，需购买。<br>4.openGeoSys:开源，文件输出的vtk格式，cesium实现可视化，但专业，需进一步学习。</p>
-
-                
-                <div class="readmore">
-                    <a href="/2020/07/01/Cesium/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
-            <div class="post-item">
-                <h1>
-                    <a href="/2020/04/11/关于大屏/">
-                        关于大屏
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2020-04-11T06:57:42.000Z">
-                            2020-04-11
-                        </time>
-                    
-                    
-                </div>
-                
-                    <p>待续。。。</p>
-
-                
-                <div class="readmore">
-                    <a href="/2020/04/11/关于大屏/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
-            <div class="post-item">
-                <h1>
-                    <a href="/2019/12/26/hexo/">
-                        hexo学习
-                    </a>
-                </h1>
-                <div class="create">
-                    <span>创建于</span>
-                    
-                        <time datetime="2019-12-26T14:15:19.090Z">
-                            2019-12-26
-                        </time>
-                    
-                    <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/hexo/">hexo</a></li></ul>
-                </div>
-                
-                     <font color="red" size="5"><a href="https://xdd7130.github.io" target="_blank" rel="noopener">https://xdd7130.github.io</a></font><font color="red" size="5">若存储在master中,xdd7130不可更改,必须和github的username一致.</font>
-
-<h2 id="为博客添加访问量"><a href="#为博客添加访问量" class="headerlink" title="为博客添加访问量"></a>为博客添加访问量</h2><p>参考：<a href="https://blog.csdn.net/qw8880000/article/details/80235391" target="_blank" rel="noopener">https://blog.csdn.net/qw8880000/article/details/80235391</a><br>这里使用的是不蒜子提供的阅读统计功能，使用的hexo主题是stage。</p>
-<h3 id="添加是否开启统计功能的配置"><a href="#添加是否开启统计功能的配置" class="headerlink" title="添加是否开启统计功能的配置"></a>添加是否开启统计功能的配置</h3><p>找到stage主题的配置文件themes/stage/_config.yml，找到原来的footer字段，加入一个配置，这里我们叫它counter吧，即<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">footer:</span><br><span class="line">  <span class="comment"># -------------------------------------------------------------</span></span><br><span class="line">  <span class="comment"># visitors count</span></span><br><span class="line">  counter: <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
-<p>修改stage主题的模板文件<br>由于是把访问量统计放在网页的footer，所以我们需要修改的模板文件是theme/stage/layout/_partials/footer.ejs。<br>我们在合适的位置加入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;% <span class="keyword">if</span> theme.footer.counter %&#125;</span><br><span class="line">    &lt;script async src=<span class="string">"//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">    &lt;span id=<span class="string">"busuanzi_container_site_pv"</span>&gt;总访问量&lt;span id=<span class="string">"busuanzi_value_site_pv"</span>&gt;&lt;/span&gt;次&lt;/span&gt;</span><br><span class="line">    &lt;span class=<span class="string">"post-meta-divider"</span>&gt;|&lt;/span&gt;</span><br><span class="line">    &lt;span id=<span class="string">"busuanzi_container_site_uv"</span>&gt;总访客&lt;span id=<span class="string">"busuanzi_value_site_uv"</span>&gt;&lt;/span&gt;人&lt;/span&gt;</span><br><span class="line">    &lt;span class=<span class="string">"post-meta-divider"</span>&gt;|&lt;/span&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<h4 id="Hexo-github搭建博客"><a href="#Hexo-github搭建博客" class="headerlink" title="Hexo+github搭建博客"></a>Hexo+github搭建博客</h4><p>1、  npm install -g hexo<br>错误：npm WARN deprecated <a href="mailto:titlecase@1.1.2" target="_blank" rel="noopener">titlecase@1.1.2</a>: no longer maintained<br>解决：安装淘宝镜像<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></p>
-<p>2、  初始化(hexo init)<br>Hexo文件夹必须为空。<br>3、  hexo g 生成静态文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s 搭建本地服务查看localhost:4000</span><br></pre></td></tr></table></figure></p>
-<p>4、  hexo d<br>问题：$ hexo d： ERROR Deployer not found: git<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure></p>
-<p>部署本地文件到github<br>既然Repository已经创建了，当然是先把博客放到Github上去看看效果。编辑E：\hexo下的_config.yml文件，建议使用Notepad++。<br>在_config.yml最下方，添加如下配置(命令中的第一个tengj为Github的用户名,第二个tengj为之前New的Repository的名字,记得改成自己的。另外记得一点，hexo的配置文件中任何’:’后面都是带一个空格的),如果配置以下命令出现ERROR Deployer not found : github，则参考上文的解决方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy: </span><br><span class="line">    <span class="built_in">type</span>: git</span><br><span class="line">    repository: https://github.com/tengj/tengj.github.io.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure></p>
-<p>配置_config.yml并保存。如果你是第一次使用Github或者是已经使用过，但没有配置过SSH，则可能需要配置一下:<br>在Git Bash输入以下指令（任意位置点击鼠标右键），检查是否已经存在了SSH keys。<br>ls -al ~/.ssh<br>如果不存在就没有关系，如果存在的话，直接删除.ssh文件夹里面所有文件：<br>输入以下指令（邮箱就是你注册Github时候的邮箱）后，回车，出现提示让你输入的时候直接先回车，好像需要3次，如下图所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"2621324849@qq.com"</span></span><br></pre></td></tr></table></figure></p>
-<p>然后键入以下指令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-agent -s</span><br></pre></td></tr></table></figure></p>
-<p>继续输入指令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-add ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure></p>
-<p>输入之后，在我这里是出错了，不知道你的有没有出错。<br>如果你的也是这样子出错了的话，就输入以下指令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span> `ssh-agent -s`</span><br><span class="line">ssh-add</span><br></pre></td></tr></table></figure></p>
-<p>到了这一步，就可以添加SSH key到你的Github账户了。键入以下指令，拷贝Key（先拷贝了，等一下可以直接粘贴，不放心的在执行下面命令后，先黏贴在记事本上）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clip &lt; ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure></p>
-<p>然后到Github里面，点击右上角的设置图标Settings,找到SSH keys,Ttile随便你命名，Key就黏贴上你刚才复制的key,然后点Add SSH key，最后会让你重新输入下gitHub的密码<br>最后还是测试一下吧，键入以下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></p>
-<p>你可能会看到有警告，没事，输入“yes”就好<br>以上就表示SSH配置好了，执行以下命令部署到Github上。<br>hexo g<br>hexo d<br>如果执行hexo d命令报下名错：<br>就先安装一下hexo-deployer-git这个模块：npm install hexo-deployer-git –save<br>安装好了继续执行hexo d部署命令，输入gitHub的账号密码，就可以访问了。</p>
-<h4 id="问题：博客引入图片"><a href="#问题：博客引入图片" class="headerlink" title="问题：博客引入图片"></a>问题：博客引入图片</h4><p>解决办法<br>1.首先把blog（hexo）目录下的_config.yml里的psot_asset_folder:设置为true</p>
-<p>2.在blog（hexo）目录下执行:</p>
-<p>npm install hexo-asset-image –save<br>3.在blog（hexo）目录下Git Bash Here，运行hexo n “博客名”来生成md博客时，会在_post目录下看到一个与博客同名的文件夹。</p>
-<p>4.将想要上传的图片先扔到文件夹下，然后在博客中使用markdown的格式引入图片：</p>
-<p><img src="/2019/12/26/hexo/xxxx/图片名.jpg" alt="你想要输入的替代文字"><br>ps：因为博客名和文件夹名字相同，所以不需要绝对路径，只要xxxx是文件夹的名字就可以了。</p>
-<p>5.然后，使用hexo g部署的时候，进入public\2018\04\19\index.html文件中查看相关字段，可以发现html标签内的语句是img src = “2018/04/19/xxxx/图片名.jpg”而不是img src=”xxxx.图片名.jpg”，这就成功了，当然前面步骤操作正确的话，这一步也不用检查。</p>
-
-                
-                <div class="readmore">
-                    <a href="/2019/12/26/hexo/">
-                        阅读更多
-                    </a>
-                </div>
-            </div>
-        
     </div>
 
 
@@ -603,7 +733,7 @@
 <aside id="categories">
     <h2>分类</h2>
     
-        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cesium/">Cesium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/VUE/">VUE</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/小程序/">小程序</a></li></ul>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ArcGIS/">ArcGIS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cesium/">Cesium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/基础前端技术/">基础前端技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/小程序/">小程序</a></li></ul>
     
 </aside>
 
@@ -611,7 +741,7 @@
 <aside id="acchives">
     <h2>归档</h2>
     
-    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li></ul>
     
 </aside>
 
@@ -625,7 +755,7 @@
     </div>
 </div>
 <footer id="footer">
-     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     <div id="copyright">&copy; I&#39;m xiedandan  2021</div>
      
              <!-- 不蒜子统计 -->
              <span id="busuanzi_container_site_pv">

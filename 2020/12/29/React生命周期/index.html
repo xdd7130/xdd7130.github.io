@@ -3,10 +3,14 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="UTF-8">
-    <title>React生命周期 | DD_XIE的学习笔记</title>
+    <title>生命周期 | DD_XIE的学习笔记</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="">
-    <meta name="description" content="">
+    <meta name="description" content="在组件的整个生命周期中，随着该组件的props或者state发生改变，其DOM表现也会有相应的变化。
+一个组件就是一个状态机，对于特定地输入，它总返回一致的输出。
+一个React组件的生命周期分为三个部分：实例化、存在期和销毁时。
+React应用中，组件加载顺序及生命周期如下图所示：
+constructor( )constructor是ES6对类的默认方法，通过 new 命令生成对象实例时自动调用该方法。并且，该方法是类中必须有的，如果没有显示定义，则会默认添加空的constructor( )方法。当存在constructor的时候⚠️必须手动调用super方法。 在constructor中如果要访问this.props...">
     
         <link rel="icon" href="/favicon.ico">
     
@@ -32,7 +36,7 @@
     <div id="nav">
         <div class="nav-img" id="nav-img"></div>
         <div class="sentences">
-            哪怕要逆着光，就驱散黑暗，丢弃所有的负担，不再孤单。
+            低着头，期待白昼，接受所有的嘲讽。
         </div>
     </div>
 </header>
@@ -41,7 +45,7 @@
     <div id="content-inner">
         <div class="clearfix">
     <article id="post">
-        <h1>React生命周期</h1>
+        <h1>生命周期</h1>
         <div class="create">
             <span>创建于</span>
             
@@ -49,22 +53,44 @@
                     2020-12-29
                 </time>
             
-            
+            <ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/React/">React</a></li></ul>
         </div>
-        
+        <p>在组件的整个生命周期中，随着该组件的props或者state发生改变，其DOM表现也会有相应的变化。</p>
+<p>一个组件就是一个状态机，对于特定地输入，它总返回一致的输出。</p>
+<p>一个React组件的生命周期分为三个部分：实例化、存在期和销毁时。</p>
+<p>React应用中，组件加载顺序及生命周期如下图所示：</p>
+<h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor( )"></a>constructor( )</h3><p>constructor是ES6对类的默认方法，通过 new 命令生成对象实例时自动调用该方法。并且，该方法是类中必须有的，如果没有显示定义，则会默认添加空的constructor( )方法。当存在constructor的时候⚠️必须手动调用super方法。 在constructor中如果要访问this.props需要传入props，示例如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class MyClass extends React.component&#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props); // 声明constructor时必须调用super方法</span><br><span class="line">        console.log(this.props); // 可以正常访问this.props</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">constructor 常用来初始化state</span><br><span class="line"></span><br><span class="line">class MyClass extends React.Component &#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            list: this.props.List</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="componentWillMount"><a href="#componentWillMount" class="headerlink" title="componentWillMount()"></a>componentWillMount()</h3><p>该方法在组件挂载之前生效。 在组件挂载之前调用且全局只调用一次。如果在这个钩子里可以setState，render后可以看到更新后的state，不会触发重复渲染。该生命周期可以发起异步请求，并setState。（React v16.3后废弃该生命周期，可以在constructor中完成设置state）</p>
+<h3 id="render"><a href="#render" class="headerlink" title="render()"></a>render()</h3><p>render是一个React组件必须定义的生命周期，用来渲染dom。⚠️不要在render里面修改state，会触发死循环导致栈溢出。render必须返回reactDom。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">render</span></span>() &#123;</span><br><span class="line">	const &#123;nodeResultData: &#123;res&#125; = &#123;&#125;&#125; = this.props;</span><br><span class="line">	<span class="keyword">if</span> (isEmpty(res)) <span class="built_in">return</span> noDataInfo;</span><br><span class="line">	const nodeResult = this.getNodeResult(res);</span><br><span class="line">	<span class="built_in">return</span> (</span><br><span class="line">		&lt;div className=<span class="string">"workspace-dialog-result"</span>&gt;</span><br><span class="line">			&#123;nodeResult&#125;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line">	);</span><br></pre></td></tr></table></figure></p>
+<h3 id="componentDidMount"><a href="#componentDidMount" class="headerlink" title="componentDidMount()"></a>componentDidMount()</h3><p>在组件挂载完成后调用，且全局只调用一次。可以在这里使用refs，获取真实dom元素。该钩子内也可以发起异步请求，并在异步请求中可以进行setState。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">componentDidMount</span></span>() &#123;</span><br><span class="line">	axios.get(<span class="string">'/auth/getTemplate'</span>).<span class="keyword">then</span>(res =&gt; &#123;</span><br><span class="line">		const &#123;TemplateList = []&#125; = res;</span><br><span class="line">		this.setState(&#123;TemplateList&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="componentWillReceiveProps-nextProps"><a href="#componentWillReceiveProps-nextProps" class="headerlink" title="componentWillReceiveProps (nextProps )"></a>componentWillReceiveProps (nextProps )</h3><p>props发生变化以及父组件重新渲染时都会触发该生命周期，在该钩子内可以通过参数nextProps获取变化后的props参数，通过this.props访问之前的props。该生命周期内可以进行setState。(React v16.3后废弃该生命周期，可以用新的周期 static getDerivedStateFromProps 代替)</p>
+<h3 id="shouldComponentUpdate-nextProps-nextState"><a href="#shouldComponentUpdate-nextProps-nextState" class="headerlink" title="shouldComponentUpdate(nextProps, nextState)"></a>shouldComponentUpdate(nextProps, nextState)</h3><p>用于判断是否重新渲染，组件挂载之后，每次调用setState后都会调用shouldComponentUpdate判断是否需要重新渲染组件。默认返回true，需要重新render。返回false则不触发渲染。在比较复杂的应用里，有一些数据的改变并不影响界面展示，可以在这里做判断，优化渲染效率。</p>
+<h3 id="componentWillUpdate-nextProps-nextState"><a href="#componentWillUpdate-nextProps-nextState" class="headerlink" title="componentWillUpdate(nextProps, nextState)"></a>componentWillUpdate(nextProps, nextState)</h3><p>shouldComponentUpdate返回true或者调用forceUpdate之后，componentWillUpdate会被调用。不能在该钩子中setState，会触发重复循环。(React v16.3后废弃该生命周期，可以用新的周期 getSnapshotBeforeUpdate)</p>
+<h3 id="componentDidUpdate"><a href="#componentDidUpdate" class="headerlink" title="componentDidUpdate()"></a>componentDidUpdate()</h3><p>完成组件渲染，除了首次render之后调用componentDidMount，其它render结束之后都是调用componentDidUpdate。该钩子内setState有可能会触发重复渲染，需要自行判断，否则会进入死循环。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">componentDidUpdate</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span>(condition) &#123;</span><br><span class="line">        this.setState(&#123;..&#125;) // 设置state</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        // 不再设置state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="componentWillUnmount"><a href="#componentWillUnmount" class="headerlink" title="componentWillUnmount()"></a>componentWillUnmount()</h3><p>组件被卸载的时候调用。一般在componentDidMount里面注册的事件需要在这里删除。</p>
+
         <div>
-            
+            <ul class="tags-category-list"><li class="tags-category-list-item"><a class="tags-category-list-link" href="/tags/React/">React</a></li></ul>
         </div>
         <div class="bottom-line"></div>
         
     <nav id="article-nav">
+        
+            <a href="/2021/01/05/Promise/" id="article-nav-newer" class="article-nav-link-wrap">
+        <span class="article-nav-title">
+            
+                ES6(三) Promise
+            
+        </span>
+                <strong class="article-nav-caption">&gt;</strong>
+            </a>
         
         
             <a href="/2020/11/23/ES6-2/" id="article-nav-older" class="article-nav-link-wrap">
                 <strong class="article-nav-caption">&lt;</strong>
                 <span class="article-nav-title">
                     
-                        ES6(二)之Set和Map
+                        ES6(二) Set和Map
                 </span>
                 
             </a>
@@ -76,7 +102,8 @@
     </article>
     <div id="toc">
         
-            <h2>目录都去哪了...</h2>
+            <h2>文章目录</h2>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#constructor-NaN"><span class="toc-number">1.</span> <span class="toc-text">constructor( )</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillMount"><span class="toc-number">2.</span> <span class="toc-text">componentWillMount()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#render"><span class="toc-number">3.</span> <span class="toc-text">render()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentDidMount"><span class="toc-number">4.</span> <span class="toc-text">componentDidMount()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillReceiveProps-nextProps"><span class="toc-number">5.</span> <span class="toc-text">componentWillReceiveProps (nextProps )</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shouldComponentUpdate-nextProps-nextState"><span class="toc-number">6.</span> <span class="toc-text">shouldComponentUpdate(nextProps, nextState)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillUpdate-nextProps-nextState"><span class="toc-number">7.</span> <span class="toc-text">componentWillUpdate(nextProps, nextState)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentDidUpdate"><span class="toc-number">8.</span> <span class="toc-text">componentDidUpdate()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#componentWillUnmount"><span class="toc-number">9.</span> <span class="toc-text">componentWillUnmount()</span></a></li></ol>
         
     </div>
 </div>
@@ -84,7 +111,7 @@
     </div>
 </div>
 <footer id="footer">
-     <div id="copyright">&copy; I&#39;m xiedandan  2020</div>
+     <div id="copyright">&copy; I&#39;m xiedandan  2021</div>
      
              <!-- 不蒜子统计 -->
              <span id="busuanzi_container_site_pv">
