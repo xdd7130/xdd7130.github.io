@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>垂直居中 | Hexo</title>
+  <meta name="description" content="16种方法实现水平居中垂直居中熟悉水平居中和垂直居中的方法, 不为别的, 就为用的时候能够信手拈来. 下面直接步入正题.原文：16种方法实现水平居中垂直居中 水平居中1) 若是行内元素, 给其父元素设置 text-align:center,即可实现行内元素水平居中. 2) 若是块级元素, 该元素设置 margin:0 auto即可. 3) 若子元素包含 float:left 属性, 为了让子元素水">
+<meta name="keywords" content="CSS,居中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="垂直居中">
+<meta property="og:url" content="http://xdd7130.github.io/2019/01/05/垂直居中/index.html">
+<meta property="og:site_name" content="DD_XIE的学习笔记">
+<meta property="og:description" content="16种方法实现水平居中垂直居中熟悉水平居中和垂直居中的方法, 不为别的, 就为用的时候能够信手拈来. 下面直接步入正题.原文：16种方法实现水平居中垂直居中 水平居中1) 若是行内元素, 给其父元素设置 text-align:center,即可实现行内元素水平居中. 2) 若是块级元素, 该元素设置 margin:0 auto即可. 3) 若子元素包含 float:left 属性, 为了让子元素水">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-11-02T11:15:20.720Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="垂直居中">
+<meta name="twitter:description" content="16种方法实现水平居中垂直居中熟悉水平居中和垂直居中的方法, 不为别的, 就为用的时候能够信手拈来. 下面直接步入正题.原文：16种方法实现水平居中垂直居中 水平居中1) 若是行内元素, 给其父元素设置 text-align:center,即可实现行内元素水平居中. 2) 若是块级元素, 该元素设置 margin:0 auto即可. 3) 若子元素包含 float:left 属性, 为了让子元素水">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://xdd7130.github.io/2019/01/05/垂直居中/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="DD_XIE的学习笔记" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/xdd7130" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">昵称</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web Developer &amp; Designer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">Books</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ArcGIS/">ArcGIS</a><span class="category-list-count">27</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cesium/">Cesium</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue3/">Vue3</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web前端/">Web前端</a><span class="category-list-count">22</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webgis/">webgis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/小程序/">小程序</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArcGIS/">ArcGIS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArcGIS-API-for-JS/">ArcGIS API for JS</a><span class="tag-list-count">25</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cesium/">Cesium</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cesium-Vue-Vite/">Cesium,Vue,Vite</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIS服务器/">IIS服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PROBLEM/">PROBLEM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/">Promise</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-Router4-X-Vue-Vue3/">Vue Router4.X,Vue,Vue3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-Vue3-element-plus/">Vue,Vue3,element-plus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie/">cookie</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock-linux/">mock,linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-linux/">nginx,linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python基础/">python基础</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tcp/">tcp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webgis/">webgis</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端工作流/">前端工作流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型，继承/">原型，继承</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大屏/">大屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全/">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/居中/">居中</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/盒模型/">盒模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闭包/">闭包</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/ArcGIS/" style="font-size: 13.14px;">ArcGIS</a> <a href="/tags/ArcGIS-API-for-JS/" style="font-size: 13.86px;">ArcGIS API for JS</a> <a href="/tags/CSS/" style="font-size: 13.29px;">CSS</a> <a href="/tags/Cesium/" style="font-size: 13.43px;">Cesium</a> <a href="/tags/Cesium-Vue-Vite/" style="font-size: 13px;">Cesium,Vue,Vite</a> <a href="/tags/ES6/" style="font-size: 13.57px;">ES6</a> <a href="/tags/IIS服务器/" style="font-size: 13px;">IIS服务器</a> <a href="/tags/JS/" style="font-size: 13px;">JS</a> <a href="/tags/Node-js/" style="font-size: 13.71px;">Node.js</a> <a href="/tags/PROBLEM/" style="font-size: 13px;">PROBLEM</a> <a href="/tags/Promise/" style="font-size: 13px;">Promise</a> <a href="/tags/React/" style="font-size: 13.57px;">React</a> <a href="/tags/Vue/" style="font-size: 13.29px;">Vue</a> <a href="/tags/Vue-Router4-X-Vue-Vue3/" style="font-size: 13px;">Vue Router4.X,Vue,Vue3</a> <a href="/tags/Vue-Vue3-element-plus/" style="font-size: 13px;">Vue,Vue3,element-plus</a> <a href="/tags/WebSocket/" style="font-size: 13px;">WebSocket</a> <a href="/tags/cookie/" style="font-size: 13px;">cookie</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/http/" style="font-size: 13.14px;">http</a> <a href="/tags/js/" style="font-size: 13px;">js</a> <a href="/tags/mock-linux/" style="font-size: 13px;">mock,linux</a> <a href="/tags/nginx-linux/" style="font-size: 13.14px;">nginx,linux</a> <a href="/tags/python基础/" style="font-size: 13.43px;">python基础</a> <a href="/tags/tcp/" style="font-size: 13px;">tcp</a> <a href="/tags/vue/" style="font-size: 13px;">vue</a> <a href="/tags/webgis/" style="font-size: 14px;">webgis</a> <a href="/tags/前端工作流/" style="font-size: 13px;">前端工作流</a> <a href="/tags/原型，继承/" style="font-size: 13px;">原型，继承</a> <a href="/tags/大屏/" style="font-size: 13px;">大屏</a> <a href="/tags/安全/" style="font-size: 13px;">安全</a> <a href="/tags/小程序/" style="font-size: 13px;">小程序</a> <a href="/tags/居中/" style="font-size: 13px;">居中</a> <a href="/tags/数组/" style="font-size: 13px;">数组</a> <a href="/tags/盒模型/" style="font-size: 13px;">盒模型</a> <a href="/tags/笔记/" style="font-size: 13px;">笔记</a> <a href="/tags/缓存/" style="font-size: 13px;">缓存</a> <a href="/tags/跨域/" style="font-size: 13px;">跨域</a> <a href="/tags/闭包/" style="font-size: 13px;">闭包</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">39</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/hexo/">hexo</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/11/02/hexo/" class="title">hexo学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-11-02T11:15:20.551Z" itemprop="datePublished">2022-11-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Vue3/">Vue3</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/10/20/Vue3引入element-plus/" class="title">Vue3引入element-plus</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-20T12:33:12.000Z" itemprop="datePublished">2022-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Cesium/">Cesium</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/10/20/Cesium+Vue3/" class="title">Cesium+Vue3 搭建第一个项目</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-20T12:22:12.000Z" itemprop="datePublished">2022-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Cesium/">Cesium</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/10/20/Cesium之3DTiles/" class="title">Cesium之3D Tiles</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-20T12:22:12.000Z" itemprop="datePublished">2022-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Cesium/">Cesium</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/10/20/Cesium之鹰眼图/" class="title">Cesium之鹰眼图</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-20T12:22:12.000Z" itemprop="datePublished">2022-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-垂直居中" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      垂直居中
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/01/05/垂直居中/" class="article-date">
+	  <time datetime="2019-01-05T01:25:40.000Z" itemprop="datePublished">2019-01-05</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Web前端/">Web前端</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/CSS/">CSS</a>, <a class="article-tag-link" href="/tags/居中/">居中</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/01/05/垂直居中/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="16种方法实现水平居中垂直居中"><a href="#16种方法实现水平居中垂直居中" class="headerlink" title="16种方法实现水平居中垂直居中"></a>16种方法实现水平居中垂直居中</h1><p>熟悉水平居中和垂直居中的方法, 不为别的, 就为用的时候能够信手拈来. 下面直接步入正题.<br>原文：16种方法实现水平居中垂直居中</p>
+<h2 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h2><p>1) 若是行内元素, 给其父元素设置 text-align:center,即可实现行内元素水平居中.</p>
+<p>2) 若是块级元素, 该元素设置 margin:0 auto即可.</p>
+<p>3) 若子元素包含 float:left 属性, 为了让子元素水平居中, 则可让父元素宽度设置为fit-content,并且配合margin, 作如下设置:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.parent&#123;</span><br><span class="line">    width: -moz-fit-content;</span><br><span class="line">    width: -webkit-fit-content;</span><br><span class="line">    width:fit-content;</span><br><span class="line">    margin:0 auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>fit-content是CSS3中给width属性新加的一个属性值,它配合margin可以轻松实现水平居中, 目前只支持Chrome 和 Firefox浏览器.</p>
+<p>4) 使用flex 2012年版本布局, 可以轻松的实现水平居中, 子元素设置如下:</p>
+<p>.son{<br>    display: flex;<br>    justify-content: center;<br>}复制代码<br>5) 使用flex 2009年版本, 父元素display: box;box-pack: center;如下设置:</p>
+<p>.parent {<br>    display: -webkit-box;<br>    -webkit-box-orient: horizontal;<br>    -webkit-box-pack: center;<br>    display: -moz-box;<br>    -moz-box-orient: horizontal;<br>    -moz-box-pack: center;<br>    display: -o-box;<br>      -o-box-orient: horizontal;<br>      -o-box-pack: center;<br>      display: -ms-box;<br>      -ms-box-orient: horizontal;<br>      -ms-box-pack: center;<br>      display: box;<br>      box-orient: horizontal;<br>      box-pack: center;<br>}复制代码<br>6) 使用CSS3中新增的transform属性, 子元素设置如下:</p>
+<p>.son{<br>    position:absolute;<br>      left:50%;<br>      transform:translate(-50%,0);<br>}复制代码<br>7) 使用绝对定位方式, 以及负值的margin-left, 子元素设置如下:</p>
+<p>.son{<br>    position:absolute;<br>    width:固定;<br>    left:50%;<br>    margin-left:-0.5宽度;<br>}复制代码<br>8) 使用绝对定位方式, 以及left:0;right:0;margin:0 auto; 子元素设置如下:</p>
+<p>.son{<br>    position:absolute;<br>    width:固定;<br>    left:0;<br>    right:0;<br>    margin:0 auto;<br>}复制代码</p>
+<h2 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h2><h3 id="单行文本"><a href="#单行文本" class="headerlink" title="单行文本"></a>单行文本</h3><p>1) 若元素是单行文本, 则可设置 line-height 等于父元素高度</p>
+<h3 id="行内块级元素"><a href="#行内块级元素" class="headerlink" title="行内块级元素"></a>行内块级元素</h3><p>2) 若元素是行内块级元素, 基本思想是使用display: inline-block, vertical-align: middle和一个伪元素让内容块处于容器中央.</p>
+<p>.parent::after, .son{<br>    display:inline-block;<br>    vertical-align:middle;<br>}<br>.parent::after{<br>    content:’’;<br>    height:100%;<br>}复制代码<br>这是一种很流行的方法, 也适应IE7.</p>
+<h3 id="元素高度不定"><a href="#元素高度不定" class="headerlink" title="元素高度不定"></a>元素高度不定</h3><p>3) 可用 vertical-align 属性, 而vertical-align只有在父层为 td 或者 th 时, 才会生效, 对于其他块级元素, 例如 div、p 等, 默认情况是不支持的. 为了使用vertical-align, 我们需要设置父元素display:table, 子元素 display:table-cell;vertical-align:middle;</p>
+<p>优点</p>
+<p>元素高度可以动态改变, 不需再CSS中定义, 如果父元素没有足够空间时, 该元素内容也不会被截断.</p>
+<p>缺点</p>
+<p>IE6~7, 甚至IE8 beta中无效.</p>
+<p>4) 可用 Flex 2012版, 这是CSS布局未来的趋势. Flexbox是CSS3新增属性, 设计初衷是为了解决像垂直居中这样的常见布局问题. 相关的文章如《弹性盒模型Flex指南》</p>
+<p>父元素做如下设置即可保证子元素垂直居中:</p>
+<p>.parent {<br>  display: flex;<br>  align-items: center;<br>}复制代码<br>优点</p>
+<p>内容块的宽高任意, 优雅的溢出.<br>可用于更复杂高级的布局技术中.<br>缺点</p>
+<p>IE8/IE9不支持<br>需要浏览器厂商前缀<br>渲染上可能会有一些问题<br>5) 使用flex 2009版.</p>
+<p>.parent {<br>      display: box;<br>      box-orient: vertical;<br>      box-pack: center;<br>}复制代码<br>优点</p>
+<p>实现简单, 扩展性强</p>
+<p>缺点</p>
+<p>兼容性差, 不支持IE</p>
+<p>6) 可用 transform , 设置父元素相对定位(position:relative), 子元素如下css样式:</p>
+<p>.son{<br>    position:absolute;<br>    top:50%;<br>    -webkit-transform: translate(-50%,-50%);<br>    -ms-transform: translate(-50%,-50%);<br>    transform: translate(-50%,-50%);<br>}复制代码<br>优点</p>
+<p>代码量少</p>
+<p>缺点</p>
+<p>IE8不支持, 属性需要追加浏览器厂商前缀, 可能干扰其他 transform 效果, 某些情形下会出现文本或元素边界渲染模糊的现象.</p>
+<p>元素高度固定<br>7) 设置父元素相对定位(position:relative), 子元素如下css样式:</p>
+<p>.son{<br>    position:absolute;<br>    top:50%;<br>    height:固定;<br>    margin-top:-0.5高度;<br>}复制代码<br>优点</p>
+<p>适用于所有浏览器.</p>
+<p>缺点</p>
+<p>父元素空间不够时, 子元素可能不可见(当浏览器窗口缩小时,滚动条不出现时).如果子元素设置了overflow:auto, 则高度不够时, 会出现滚动条.</p>
+<p>8) 设置父元素相对定位(position:relative), 子元素如下css样式:</p>
+<p>.son{<br>    position:absolute;<br>    height:固定;<br>    top:0;<br>    bottom:0;<br>    margin:auto 0;<br>}复制代码<br>优点</p>
+<p>简单</p>
+<p>缺点</p>
+<p>没有足够空间时, 子元素会被截断, 但不会有滚动条.</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>水平居中较为简单, 共提供了8种方法, 一般情况下 text-align:center,marin:0 auto; 足矣</p>
+<p>① text-align:center;<br>② margin:0 auto;<br>③ width:fit-content;<br>④ flex<br>⑤ 盒模型<br>⑥ transform<br>⑦ ⑧ 两种不同的绝对定位方法<br>垂直居中, 共提供了8种方法.</p>
+<p>① 单行文本, line-height<br>② 行内块级元素, 使用 display: inline-block, vertical-align: middle; 加上伪元素辅助实现<br>③ vertical-align<br>④ flex<br>⑤ 盒模型<br>⑥ transform<br>⑦ ⑧ 两种不同的绝对定位方法<br>我们发现, flex, 盒模型, transform, 绝对定位, 这几种方法同时适用于水平居中和垂直居中.</p>
+<h1 id="水平垂直居中实现"><a href="#水平垂直居中实现" class="headerlink" title="水平垂直居中实现"></a>水平垂直居中实现</h1><h2 id="仅居中元素定宽高适用："><a href="#仅居中元素定宽高适用：" class="headerlink" title="仅居中元素定宽高适用："></a>仅居中元素定宽高适用：</h2><ul>
+<li><a href="http://yanhaijing.com/vertical-center/absolute1.html" target="_blank" rel="noopener">absolute + 负margin</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/absolute2.html" target="_blank" rel="noopener">absolute + margin auto</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/absolute3.html" target="_blank" rel="noopener">absolute + calc</a></li>
+</ul>
+<h2 id="居中元素不定宽高适用："><a href="#居中元素不定宽高适用：" class="headerlink" title="居中元素不定宽高适用："></a>居中元素不定宽高适用：</h2><ul>
+<li><a href="http://yanhaijing.com/vertical-center/absolute4.html" target="_blank" rel="noopener">absolute + transform</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/writing-mode.html" target="_blank" rel="noopener">writing-mode</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/lineheight.html" target="_blank" rel="noopener">lineheight</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/table.html" target="_blank" rel="noopener">table</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/css-table.html" target="_blank" rel="noopener">css-table</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/flex.html" target="_blank" rel="noopener">flex</a></li>
+<li><a href="http://yanhaijing.com/vertical-center/grid.html" target="_blank" rel="noopener">grid</a></li>
+</ul>
+<h2 id="absolute-负margin"><a href="#absolute-负margin" class="headerlink" title="absolute + 负margin"></a>absolute + 负margin</h2><p>为了实现上面的效果先来做些准备工作，假设HTML代码如下，总共两个元素，父元素和子元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box size&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>wp是父元素的类名，box是子元素的类名，因为有定宽和不定宽的区别，size用来表示指定宽度，下面是所有效果都要用到的公共代码，主要是设置颜色和宽高<br>注意：后面不在重复这段公共代码，只会给出相应提示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/* 公共代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    border: 1px solid red;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 300px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.box &#123;</span><br><span class="line">    background: green;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.box.size&#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">&#125;</span><br><span class="line">/* 公共代码 */</span><br></pre></td></tr></table></figure></p>
+<p>绝对定位的百分比是相对于父元素的宽高，通过这个特性可以让子元素的居中显示，但绝对定位是基于子元素的左上角，期望的效果是子元素的中心居中显示为了修正这个问题，可以借助外边距的负值，负的外边距可以让元素向相反方向定位，通过指定子元素的外边距为子元素宽度一半的负值，就可以让子元素居中了，css代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    margin-left: -50px;</span><br><span class="line">    margin-top: -50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这是我比较常用的方式，这种方式比较好理解，兼容性也很好，缺点是<font color="red">需要知道子元素的宽高</font></p>
+<h2 id="absolute-margin-auto"><a href="#absolute-margin-auto" class="headerlink" title="absolute + margin auto"></a>absolute + margin auto</h2><p>这种方式也要求居中元素的宽高必须固定，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box size&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这种方式通过设置各个方向的距离都是0，此时再讲margin设为auto，就可以在各个方向上居中了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    top: 0;</span><br><span class="line">    left: 0;</span><br><span class="line">    right: 0;</span><br><span class="line">    bottom: 0;</span><br><span class="line">    margin: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法兼容性也很好，缺点是需要知道子元素的宽高</p>
+<h2 id="absolute-calc"><a href="#absolute-calc" class="headerlink" title="absolute + calc"></a>absolute + calc</h2><p>这种方式也要求居中元素的宽高必须固定，所以我们为box增加size类，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box size&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>感谢css3带来了计算属性，既然top的百分比是基于元素的左上角，那么在减去宽度的一半就好了，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;;</span><br><span class="line">    top: calc(50% - 50px);</span><br><span class="line">    left: calc(50% - 50px);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法兼容性依赖calc的兼容性，缺点是需要知道子元素的宽高</p>
+<h2 id="absolute-transform"><a href="#absolute-transform" class="headerlink" title="absolute + transform"></a>absolute + transform</h2><p>还是绝对定位，但这个方法不需要子元素固定宽高，所以不再需要size类了，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>修复绝对定位的问题，还可以使用css3新增的transform，transform的translate属性也可以设置百分比，其是相对于自身的宽和高，所以可以讲translate设置为-50%，就可以做到居中了，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    transform: translate(-50%, -50%);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法兼容性依赖translate2d的兼容性</p>
+<h2 id="line-height"><a href="#line-height" class="headerlink" title="line-height"></a>line-height</h2><p>利用行内元素居中属性也可以做到水平垂直居中，HTML代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>把box设置为行内元素，通过text-align就可以做到水平居中，但很多同学可能不知道通过通过vertical-align也可以在垂直方向做到居中，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    line-height: 300px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    font-size: 0px;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    font-size: 16px;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">    line-height: initial;</span><br><span class="line">    text-align: left; /* 修正文字 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法需要在子元素中将文字显示重置为想要的效果</p>
+<h2 id="writing-mode"><a href="#writing-mode" class="headerlink" title="writing-mode"></a>writing-mode</h2><p>writing-mode可以改变文字的显示方向，比如可以通过writing-mode让文字的显示变为垂直方向<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;div1&quot;&gt;水平方向&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;div2&quot;&gt;垂直方向&lt;/div&gt;</span><br><span class="line">.div2 &#123;</span><br><span class="line">    writing-mode: vertical-lr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">水平方向</span><br><span class="line">垂</span><br><span class="line">直</span><br><span class="line">方</span><br><span class="line">向</span><br></pre></td></tr></table></figure></p>
+<p>更神奇的是所有水平方向上的css属性，都会变为垂直方向上的属性，比如text-align，通过writing-mode和text-align就可以做到水平和垂直方向的居中了，只不过要稍微麻烦一点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;wp-inner&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">复制代码/* 此处引用上面的公共代码 */</span><br><span class="line">/* 此处引用上面的公共代码 */</span><br><span class="line"></span><br><span class="line">/* 定位代码 */</span><br><span class="line">.wp &#123;</span><br><span class="line">    writing-mode: vertical-lr;</span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">.wp-inner &#123;</span><br><span class="line">    writing-mode: horizontal-tb;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    text-align: center;</span><br><span class="line">    width: 100%;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    margin: auto;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法实现起来和理解起来都稍微有些复杂</p>
+<h2 id="table"><a href="#table" class="headerlink" title="table"></a>table</h2><p>曾经table被用来做页面布局，现在没人这么做了，但table也能够实现水平垂直居中，但是会增加很多冗余代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;table&gt;</span><br><span class="line">    &lt;tbody&gt;</span><br><span class="line">        &lt;tr&gt;</span><br><span class="line">            &lt;td class=&quot;wp&quot;&gt;</span><br><span class="line">                &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">            &lt;/td&gt;</span><br><span class="line">        &lt;/tr&gt;</span><br><span class="line">    &lt;/tbody&gt;</span><br><span class="line">&lt;/table&gt;</span><br></pre></td></tr></table></figure></p>
+<p>tabel单元格中的内容天然就是垂直居中的，只要添加一个水平居中属性就好了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.wp &#123;</span><br><span class="line">    text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种方法就是代码太冗余，而且也不是table的正确用法</p>
+<h2 id="css-table"><a href="#css-table" class="headerlink" title="css-table"></a>css-table</h2><p>css新增的table属性，可以让我们把普通元素，变为table元素的现实效果，通过这个特性也可以实现水平垂直居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>下面通过css属性，可以让div显示的和table一样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.wp &#123;</span><br><span class="line">    display: table-cell;</span><br><span class="line">    text-align: center;</span><br><span class="line">    vertical-align: middle;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>复制代码这种方法和table一样的原理，但却没有那么多冗余代码，兼容性也还不错</p>
+<h2 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h2><p>flex作为现代的布局方案，颠覆了过去的经验，只需几行代码就可以优雅的做到水平垂直居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">.wp &#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    align-items: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>目前在移动端已经完全可以使用flex了，PC端需要看自己业务的兼容性情况</p>
+<h2 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h2><p>css新出的网格布局，由于兼容性不太好，一直没太关注，通过grid也可以实现水平垂直居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wp&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;123123&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">.wp &#123;</span><br><span class="line">    display: grid;</span><br><span class="line">&#125;</span><br><span class="line">.box &#123;</span><br><span class="line">    align-self: center;</span><br><span class="line">    justify-self: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码量也很少，但兼容性不如flex，不推荐使用</p>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>下面对比下各个方式的优缺点，肯定又双叒叕该有同学说回字的写法了，简单总结下</p>
+<ul>
+<li>PC端有兼容性要求，宽高固定，推荐absolute + 负margin</li>
+<li>PC端有兼容要求，宽高不固定，推荐css-table</li>
+<li>PC端无兼容性要求，推荐flex</li>
+<li>移动端推荐使用flex</li>
+</ul>
+<p><strong>小贴士：</strong>关于flex的兼容性决方案，请看这里《<a href="//yanhaijing.com/css/2016/08/21/flex-practice-on-mobile/">移动端flex布局实战</a>》</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>居中元素定宽高固定</th>
+<th>PC兼容性</th>
+<th>移动端兼容性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>absolute + 负margin</td>
+<td>是</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>absolute + margin auto</td>
+<td>是</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>absolute + calc</td>
+<td>是</td>
+<td>ie9+, chrome19+, firefox4+</td>
+<td>安卓4.4+, iOS6+</td>
+</tr>
+<tr>
+<td>absolute + transform</td>
+<td>否</td>
+<td>ie9+, chrome4+, firefox3.5+</td>
+<td>安卓3+, iOS6+</td>
+</tr>
+<tr>
+<td>writing-mode</td>
+<td>否</td>
+<td>ie6+, chrome4+, firefox3.5+</td>
+<td>安卓2.3+, iOS5.1+</td>
+</tr>
+<tr>
+<td>lineheight</td>
+<td>否</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>table</td>
+<td>否</td>
+<td>ie6+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>css-table</td>
+<td>否</td>
+<td>ie8+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>flex</td>
+<td>否</td>
+<td>ie10+, chrome4+, firefox2+</td>
+<td>安卓2.3+, iOS6+</td>
+</tr>
+<tr>
+<td>grid</td>
+<td>否</td>
+<td>ie10+, chrome57+, firefox52+</td>
+<td>安卓6+, iOS10.3+</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://xdd7130.github.io/2019/01/05/垂直居中/" title="垂直居中" target="_blank" rel="external">http://xdd7130.github.io/2019/01/05/垂直居中/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/xdd7130" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/xdd7130" target="_blank"><span class="text-dark">昵称</span><small class="ml-1x">Web Developer &amp; Designer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2019/01/07/类class/" title="类class"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/01/04/盒模型/" title="盒模型"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button> -->
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
