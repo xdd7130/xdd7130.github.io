@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>vue其他 | Hexo</title>
+  <meta name="description" content="IntellIJ IDEA 配置支持Vue参考：https://www.jianshu.com/p/01d832e028ea第一步：先安装vue插件:file –&amp;gt; settings –&amp;gt; plugins，然后什么都不用输入，直接点击Browse repositories… 紧接着左上方输入“vue”，点击搜索结果里的vue.js，右边会有绿色install按钮，安装成功后重启idea">
+<meta name="keywords" content="Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue其他">
+<meta property="og:url" content="http://xdd7130.github.io/2019/07/13/vue其他/index.html">
+<meta property="og:site_name" content="DD_XIE的学习笔记">
+<meta property="og:description" content="IntellIJ IDEA 配置支持Vue参考：https://www.jianshu.com/p/01d832e028ea第一步：先安装vue插件:file –&amp;gt; settings –&amp;gt; plugins，然后什么都不用输入，直接点击Browse repositories… 紧接着左上方输入“vue”，点击搜索结果里的vue.js，右边会有绿色install按钮，安装成功后重启idea">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-11-02T11:15:20.678Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue其他">
+<meta name="twitter:description" content="IntellIJ IDEA 配置支持Vue参考：https://www.jianshu.com/p/01d832e028ea第一步：先安装vue插件:file –&amp;gt; settings –&amp;gt; plugins，然后什么都不用输入，直接点击Browse repositories… 紧接着左上方输入“vue”，点击搜索结果里的vue.js，右边会有绿色install按钮，安装成功后重启idea">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://xdd7130.github.io/2019/07/13/vue其他/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="DD_XIE的学习笔记" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/xdd7130" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">昵称</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web Developer &amp; Designer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">Books</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ArcGIS/">ArcGIS</a><span class="category-list-count">27</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cesium/">Cesium</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/D3/">D3</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVG/">SVG</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue3/">Vue3</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web前端/">Web前端</a><span class="category-list-count">22</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webgis/">webgis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/小程序/">小程序</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArcGIS/">ArcGIS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArcGIS-API-for-JS/">ArcGIS API for JS</a><span class="tag-list-count">25</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cesium/">Cesium</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cesium-Vue-Vite/">Cesium,Vue,Vite</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/D3/">D3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIS服务器/">IIS服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PROBLEM/">PROBLEM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/">Promise</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-Router4-X-Vue-Vue3/">Vue Router4.X,Vue,Vue3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-Vue3-element-plus/">Vue,Vue3,element-plus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie/">cookie</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock-linux/">mock,linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-linux/">nginx,linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python基础/">python基础</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tcp/">tcp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webgis/">webgis</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端工作流/">前端工作流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型，继承/">原型，继承</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大屏/">大屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全/">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/居中/">居中</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/盒模型/">盒模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闭包/">闭包</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/ArcGIS/" style="font-size: 13.14px;">ArcGIS</a> <a href="/tags/ArcGIS-API-for-JS/" style="font-size: 13.86px;">ArcGIS API for JS</a> <a href="/tags/CSS/" style="font-size: 13.29px;">CSS</a> <a href="/tags/Cesium/" style="font-size: 13.43px;">Cesium</a> <a href="/tags/Cesium-Vue-Vite/" style="font-size: 13px;">Cesium,Vue,Vite</a> <a href="/tags/D3/" style="font-size: 13px;">D3</a> <a href="/tags/ES6/" style="font-size: 13.57px;">ES6</a> <a href="/tags/IIS服务器/" style="font-size: 13px;">IIS服务器</a> <a href="/tags/JS/" style="font-size: 13px;">JS</a> <a href="/tags/Node-js/" style="font-size: 13.71px;">Node.js</a> <a href="/tags/PROBLEM/" style="font-size: 13px;">PROBLEM</a> <a href="/tags/Promise/" style="font-size: 13px;">Promise</a> <a href="/tags/React/" style="font-size: 13.57px;">React</a> <a href="/tags/SVG/" style="font-size: 13px;">SVG</a> <a href="/tags/Vue/" style="font-size: 13.29px;">Vue</a> <a href="/tags/Vue-Router4-X-Vue-Vue3/" style="font-size: 13px;">Vue Router4.X,Vue,Vue3</a> <a href="/tags/Vue-Vue3-element-plus/" style="font-size: 13px;">Vue,Vue3,element-plus</a> <a href="/tags/WebSocket/" style="font-size: 13px;">WebSocket</a> <a href="/tags/cookie/" style="font-size: 13px;">cookie</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/http/" style="font-size: 13.14px;">http</a> <a href="/tags/js/" style="font-size: 13px;">js</a> <a href="/tags/mock-linux/" style="font-size: 13px;">mock,linux</a> <a href="/tags/nginx-linux/" style="font-size: 13.14px;">nginx,linux</a> <a href="/tags/node/" style="font-size: 13px;">node</a> <a href="/tags/python基础/" style="font-size: 13.43px;">python基础</a> <a href="/tags/tcp/" style="font-size: 13px;">tcp</a> <a href="/tags/vue/" style="font-size: 13px;">vue</a> <a href="/tags/webgis/" style="font-size: 14px;">webgis</a> <a href="/tags/前端工作流/" style="font-size: 13px;">前端工作流</a> <a href="/tags/原型，继承/" style="font-size: 13px;">原型，继承</a> <a href="/tags/大屏/" style="font-size: 13px;">大屏</a> <a href="/tags/安全/" style="font-size: 13px;">安全</a> <a href="/tags/小程序/" style="font-size: 13px;">小程序</a> <a href="/tags/居中/" style="font-size: 13px;">居中</a> <a href="/tags/数组/" style="font-size: 13px;">数组</a> <a href="/tags/盒模型/" style="font-size: 13px;">盒模型</a> <a href="/tags/笔记/" style="font-size: 13px;">笔记</a> <a href="/tags/缓存/" style="font-size: 13px;">缓存</a> <a href="/tags/跨域/" style="font-size: 13px;">跨域</a> <a href="/tags/闭包/" style="font-size: 13px;">闭包</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">39</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/笔记/">笔记</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/08/JSON和excel之间的转换/" class="title">JSON 和 excel之间的转换</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-08T06:34:15.000Z" itemprop="datePublished">2025-02-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/D3/">D3</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/08/D3-1/" class="title">D3(1)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-08T03:35:15.000Z" itemprop="datePublished">2025-02-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/hexo/">hexo</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/11/02/hexo/" class="title">hexo学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-11-02T11:15:20.551Z" itemprop="datePublished">2022-11-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Vue3/">Vue3</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/10/20/Vue3引入element-plus/" class="title">Vue3引入element-plus</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-20T12:33:12.000Z" itemprop="datePublished">2022-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Cesium/">Cesium</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/10/20/Cesium之3DTiles/" class="title">Cesium之3D Tiles</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-20T12:22:12.000Z" itemprop="datePublished">2022-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-vue其他" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue其他
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/07/13/vue其他/" class="article-date">
+	  <time datetime="2019-07-13T13:35:13.000Z" itemprop="datePublished">2019-07-13</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Vue/">Vue</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Vue/">Vue</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/07/13/vue其他/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="IntellIJ-IDEA-配置支持Vue"><a href="#IntellIJ-IDEA-配置支持Vue" class="headerlink" title="IntellIJ IDEA 配置支持Vue"></a>IntellIJ IDEA 配置支持Vue</h1><p>参考：<a href="https://www.jianshu.com/p/01d832e028ea" target="_blank" rel="noopener">https://www.jianshu.com/p/01d832e028ea</a><br>第一步：先安装vue插件:<br>file –&gt; settings –&gt; plugins，然后什么都不用输入，直接点击Browse repositories… 紧接着左上方输入“vue”，点击搜索结果里的vue.js，右边会有绿色install按钮，安装成功后重启idea，这样idea就能识别.vue文件了。<br>第二步：设置vue新建文件模板。</p>
+<h1 id="安装Element-ui"><a href="#安装Element-ui" class="headerlink" title="安装Element-ui"></a>安装Element-ui</h1><h1 id="vue2-0-element-UI-中-el-table-数据导出Excel"><a href="#vue2-0-element-UI-中-el-table-数据导出Excel" class="headerlink" title="vue2.0 + element UI 中 el-table 数据导出Excel"></a>vue2.0 + element UI 中 el-table 数据导出Excel</h1><p>最近后台项目中有需要将游戏用户提交的返利数据信息导出为excel表的形式，所以对此功能进行了简单的总结：</p>
+<h2 id="安装相关依赖"><a href="#安装相关依赖" class="headerlink" title="安装相关依赖"></a>安装相关依赖</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">主要是两个依赖:(xlsx 和 file-saver)</span><br><span class="line">npm install --save xlsx file-saver</span><br></pre></td></tr></table></figure>
+<p>对于这两个插件使用，github上边有更加详细的参考<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/SheetJS/js-xlsx](https://github.com/SheetJS/js-xlsx)</span><br><span class="line">https://github.com/eligrey/FileSaver.js](https://github.com/eligrey/FileSaver.js</span><br></pre></td></tr></table></figure></p>
+<h2 id="在组件头里边引入插件"><a href="#在组件头里边引入插件" class="headerlink" title="在组件头里边引入插件"></a>在组件头里边引入插件</h2><p>(测试的时候，下边代码放到入口js文件main.js的时候没有效果，遗留问题，有待解决)（放到组件头里边能够实现效果）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import FileSaver from <span class="string">'file-saver'</span></span><br><span class="line">import XLSX from <span class="string">'xlsx'</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="在对应组件里边methods里边写一个方法"><a href="#在对应组件里边methods里边写一个方法" class="headerlink" title="在对应组件里边methods里边写一个方法"></a>在对应组件里边methods里边写一个方法</h2><p>（到处的时候进行调用）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">exportExcel</span></span> () &#123;</span><br><span class="line">    /* generate workbook object from table */</span><br><span class="line">    <span class="built_in">let</span> wb = XLSX.utils.table_to_book(document.querySelector(<span class="string">'#rebateSetTable'</span>));</span><br><span class="line">    /* get binary string as output */</span><br><span class="line">    <span class="built_in">let</span> wbout = XLSX.write(wb, &#123; bookType: <span class="string">'xlsx'</span>, bookSST: <span class="literal">true</span>, <span class="built_in">type</span>: <span class="string">'array'</span> &#125;);</span><br><span class="line">    try &#123;</span><br><span class="line">        FileSaver.saveAs(new Blob([wbout], &#123; <span class="built_in">type</span>: <span class="string">'application/octet-stream'</span> &#125;), <span class="string">'用户提交返利表.xlsx'</span>);</span><br><span class="line">    &#125; catch (e)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (typeof console !== <span class="string">'undefined'</span>)</span><br><span class="line">            console.log(e, wbout)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> wbout</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>提示：<br>上边方法中：XLSX.uitls.table_to_book( 放入的是table 的DOM 节点 ) ，sheetjs.xlsx 即为导出表格的名字，可修改！</p>
+<h2 id="点击导出按钮执行-exportExcel-的方法即可-。"><a href="#点击导出按钮执行-exportExcel-的方法即可-。" class="headerlink" title="点击导出按钮执行 exportExcel 的方法即可 。"></a>点击导出按钮执行 exportExcel 的方法即可 。</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">"export"</span>&gt;</span><br><span class="line">     &lt;el-button @click=<span class="string">"exportExcel"</span> style=<span class="string">"margin-top: 2px;"</span> size=<span class="string">"medium"</span> <span class="built_in">type</span>=<span class="string">"success"</span>&gt;导出&lt;/el-button&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="vue-element-ui自定义主题样式"><a href="#vue-element-ui自定义主题样式" class="headerlink" title="vue element-ui自定义主题样式"></a>vue element-ui自定义主题样式</h1><h3 id="新建一个element-variables-scss，并在-main-app-js入口文件引入"><a href="#新建一个element-variables-scss，并在-main-app-js入口文件引入" class="headerlink" title="新建一个element-variables.scss，并在(main|app).js入口文件引入"></a>新建一个element-variables.scss，并在(main|app).js入口文件引入</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import Vue from <span class="string">'vue'</span></span><br><span class="line"></span><br><span class="line">import Element from <span class="string">'element-ui'</span></span><br><span class="line">import <span class="string">'@/styles/element-variables.scss'</span></span><br></pre></td></tr></table></figure>
+<h3 id="在-element-variables-scss，修改你要的主题或组件预设的样式变量即可"><a href="#在-element-variables-scss，修改你要的主题或组件预设的样式变量即可" class="headerlink" title="在 element-variables.scss，修改你要的主题或组件预设的样式变量即可"></a>在 element-variables.scss，修改你要的主题或组件预设的样式变量即可</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/* 改变 主题/样式相关 变量 */</span><br><span class="line">$--color-primary: <span class="comment">#1ABCB0;</span></span><br><span class="line">$--select-option-hover-background: <span class="comment">#def1f2;</span></span><br><span class="line">$--select-option-selected-hover: <span class="comment">#1abcb0;</span></span><br><span class="line">$--table-row-hover-background: <span class="comment">#f2f2f2;</span></span><br><span class="line">$--table-header-color: <span class="comment">#444;</span></span><br><span class="line">$--pagination-button-disabled-fill: transparent;</span><br><span class="line">$--pagination-fill: transparent;</span><br><span class="line"></span><br><span class="line">/* 改变 icon 字体路径变量，必需 */</span><br><span class="line">$--font-path: <span class="string">'~element-ui/lib/theme-chalk/fonts'</span>;</span><br><span class="line"></span><br><span class="line">/* 改变 路径变量，必需 */</span><br><span class="line">@import <span class="string">"~element-ui/packages/theme-chalk/src/index"</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="默认-element-variables-scss-全部变量内容"><a href="#默认-element-variables-scss-全部变量内容" class="headerlink" title="默认 element-variables.scss 全部变量内容"></a>默认 element-variables.scss 全部变量内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br><span class="line">602</span><br><span class="line">603</span><br><span class="line">604</span><br><span class="line">605</span><br><span class="line">606</span><br><span class="line">607</span><br><span class="line">608</span><br><span class="line">609</span><br><span class="line">610</span><br><span class="line">611</span><br><span class="line">612</span><br><span class="line">613</span><br><span class="line">614</span><br><span class="line">615</span><br><span class="line">616</span><br><span class="line">617</span><br><span class="line">618</span><br><span class="line">619</span><br><span class="line">620</span><br><span class="line">621</span><br><span class="line">622</span><br><span class="line">623</span><br><span class="line">624</span><br><span class="line">625</span><br><span class="line">626</span><br><span class="line">627</span><br><span class="line">628</span><br><span class="line">629</span><br><span class="line">630</span><br><span class="line">631</span><br><span class="line">632</span><br><span class="line">633</span><br><span class="line">634</span><br><span class="line">635</span><br><span class="line">636</span><br><span class="line">637</span><br><span class="line">638</span><br><span class="line">639</span><br><span class="line">640</span><br><span class="line">641</span><br><span class="line">642</span><br><span class="line">643</span><br><span class="line">644</span><br><span class="line">645</span><br><span class="line">646</span><br><span class="line">647</span><br><span class="line">648</span><br><span class="line">649</span><br><span class="line">650</span><br><span class="line">651</span><br><span class="line">652</span><br><span class="line">653</span><br><span class="line">654</span><br><span class="line">655</span><br><span class="line">656</span><br><span class="line">657</span><br><span class="line">658</span><br><span class="line">659</span><br><span class="line">660</span><br><span class="line">661</span><br><span class="line">662</span><br><span class="line">663</span><br><span class="line">664</span><br><span class="line">665</span><br><span class="line">666</span><br><span class="line">667</span><br><span class="line">668</span><br><span class="line">669</span><br><span class="line">670</span><br><span class="line">671</span><br><span class="line">672</span><br><span class="line">673</span><br><span class="line">674</span><br><span class="line">675</span><br><span class="line">676</span><br><span class="line">677</span><br><span class="line">678</span><br><span class="line">679</span><br><span class="line">680</span><br><span class="line">681</span><br><span class="line">682</span><br><span class="line">683</span><br><span class="line">684</span><br><span class="line">685</span><br><span class="line">686</span><br><span class="line">687</span><br><span class="line">688</span><br><span class="line">689</span><br><span class="line">690</span><br><span class="line">691</span><br><span class="line">692</span><br><span class="line">693</span><br><span class="line">694</span><br><span class="line">695</span><br><span class="line">696</span><br><span class="line">697</span><br><span class="line">698</span><br><span class="line">699</span><br><span class="line">700</span><br><span class="line">701</span><br><span class="line">702</span><br><span class="line">703</span><br><span class="line">704</span><br><span class="line">705</span><br><span class="line">706</span><br><span class="line">707</span><br><span class="line">708</span><br><span class="line">709</span><br><span class="line">710</span><br><span class="line">711</span><br><span class="line">712</span><br><span class="line">713</span><br></pre></td><td class="code"><pre><span class="line">/* Element Chalk Variables */</span><br><span class="line"></span><br><span class="line">/* Transition</span><br><span class="line">-------------------------- */</span><br><span class="line">$--all-transition: all .3s cubic-bezier(.645,.045,.355,1) !default;</span><br><span class="line">$--fade-transition: opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) !default;</span><br><span class="line">$--fade-linear-transition: opacity 200ms linear !default;</span><br><span class="line">$--md-fade-transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1), opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) !default;</span><br><span class="line">$--border-transition-base: border-color .2s cubic-bezier(.645,.045,.355,1) !default;</span><br><span class="line">$--color-transition-base: color .2s cubic-bezier(.645,.045,.355,1) !default;</span><br><span class="line"></span><br><span class="line">/* Colors</span><br><span class="line">-------------------------- */</span><br><span class="line">$--color-white: <span class="comment">#fff !default;</span></span><br><span class="line">$--color-black: <span class="comment">#000 !default;</span></span><br><span class="line"></span><br><span class="line">$--color-primary: <span class="comment">#1ABCB0 !default;</span></span><br><span class="line">$--color-primary-light-1: mix($--color-white, $--color-primary, 10%) !default; /* 53a8ff */</span><br><span class="line">$--color-primary-light-2: mix($--color-white, $--color-primary, 20%) !default; /* 66b1ff */</span><br><span class="line">$--color-primary-light-3: mix($--color-white, $--color-primary, 30%) !default; /* 79bbff */</span><br><span class="line">$--color-primary-light-4: mix($--color-white, $--color-primary, 40%) !default; /* 8cc5ff */</span><br><span class="line">$--color-primary-light-5: mix($--color-white, $--color-primary, 50%) !default; /* a0cfff */</span><br><span class="line">$--color-primary-light-6: mix($--color-white, $--color-primary, 60%) !default; /* b3d8ff */</span><br><span class="line">$--color-primary-light-7: mix($--color-white, $--color-primary, 70%) !default; /* c6e2ff */</span><br><span class="line">$--color-primary-light-8: mix($--color-white, $--color-primary, 80%) !default; /* d9ecff */</span><br><span class="line">$--color-primary-light-9: mix($--color-white, $--color-primary, 90%) !default; /* ecf5ff */</span><br><span class="line"></span><br><span class="line">$--color-success: <span class="comment">#67c23a !default;</span></span><br><span class="line">$--color-warning: <span class="comment">#e6a23c !default;</span></span><br><span class="line">$--color-danger: <span class="comment">#f56c6c !default;</span></span><br><span class="line">$--color-info: <span class="comment">#909399 !default;</span></span><br><span class="line"></span><br><span class="line">$--color-success-light: mix($--color-white, $--color-success, 80%) !default;</span><br><span class="line">$--color-warning-light: mix($--color-white, $--color-warning, 80%) !default;</span><br><span class="line">$--color-danger-light: mix($--color-white, $--color-danger, 80%) !default;</span><br><span class="line">$--color-info-light: mix($--color-white, $--color-info, 80%) !default;</span><br><span class="line"></span><br><span class="line">$--color-success-lighter: mix($--color-white, $--color-success, 90%) !default;</span><br><span class="line">$--color-warning-lighter: mix($--color-white, $--color-warning, 90%) !default;</span><br><span class="line">$--color-danger-lighter: mix($--color-white, $--color-danger, 90%) !default;</span><br><span class="line">$--color-info-lighter: mix($--color-white, $--color-info, 90%) !default;</span><br><span class="line"></span><br><span class="line">$--color-text-primary: <span class="comment">#303133 !default;</span></span><br><span class="line">$--color-text-regular: <span class="comment">#606266 !default;</span></span><br><span class="line">$--color-text-secondary: <span class="comment">#909399 !default;</span></span><br><span class="line">$--color-text-placeholder: <span class="comment">#c0c4cc !default;</span></span><br><span class="line"></span><br><span class="line">/* Link</span><br><span class="line">-------------------------- */</span><br><span class="line">$--link-color: $--color-primary-light-2 !default;</span><br><span class="line">$--link-hover-color: $--color-primary !default;</span><br><span class="line"></span><br><span class="line">/* Background</span><br><span class="line">-------------------------- */</span><br><span class="line">$--background-color-base: <span class="comment">#f5f7fa !default;</span></span><br><span class="line"></span><br><span class="line">/* Border</span><br><span class="line">-------------------------- */</span><br><span class="line">$--border-width-base: 1px !default;</span><br><span class="line">$--border-style-base: solid !default;</span><br><span class="line">$--border-color-base: <span class="comment">#dcdfe6 !default;</span></span><br><span class="line">$--border-color-light: <span class="comment">#e4e7ed !default;</span></span><br><span class="line">$--border-color-lighter: <span class="comment">#ebeef5 !default;</span></span><br><span class="line">$--border-color-extra-light: <span class="comment">#f2f6fc !default;</span></span><br><span class="line">$--border-color-hover: $--color-text-placeholder !default;</span><br><span class="line">$--border-base: $--border-width-base $--border-style-base $--border-color-base !default;</span><br><span class="line">$--border-radius-base: 4px !default;</span><br><span class="line">$--border-radius-small: 2px !default;</span><br><span class="line">$--border-radius-circle: 100% !default;</span><br><span class="line"></span><br><span class="line">/* Box-shadow</span><br><span class="line">-------------------------- */</span><br><span class="line">$--box-shadow-base: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04) !default;</span><br><span class="line">$--box-shadow-dark: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .12) !default;</span><br><span class="line">$--box-shadow-light: 0 2px 12px 0 rgba(0, 0, 0, 0.1) !default;</span><br><span class="line"></span><br><span class="line">/* Fill</span><br><span class="line">-------------------------- */</span><br><span class="line">$--fill-base: $--color-white !default;</span><br><span class="line"></span><br><span class="line">/* Font</span><br><span class="line">-------------------------- */</span><br><span class="line">$--font-path: <span class="string">'fonts'</span> !default;</span><br><span class="line">$--font-size-base: 14px !default;</span><br><span class="line">$--font-size-small: 13px !default;</span><br><span class="line">$--font-size-large: 18px !default;</span><br><span class="line">$--font-color-disabled-base: <span class="comment">#bbb !default;</span></span><br><span class="line">$--font-weight-primary: 500 !default;</span><br><span class="line">$--font-line-height-primary: 24px !default;</span><br><span class="line"></span><br><span class="line">/* Size</span><br><span class="line">-------------------------- */</span><br><span class="line">$--size-base: 14px !default;</span><br><span class="line"></span><br><span class="line">/* z-index</span><br><span class="line">-------------------------- */</span><br><span class="line">$--index-normal: 1 !default;</span><br><span class="line">$--index-top: 1000 !default;</span><br><span class="line">$--index-popper: 2000 !default;</span><br><span class="line"></span><br><span class="line">/* Disable base</span><br><span class="line">-------------------------- */</span><br><span class="line">$--disabled-fill-base: $--background-color-base !default;</span><br><span class="line">$--disabled-color-base: $--color-text-placeholder !default;</span><br><span class="line">$--disabled-border-base: $--border-color-light !default;</span><br><span class="line"></span><br><span class="line">/* Icon</span><br><span class="line">-------------------------- */</span><br><span class="line">$--icon-color: <span class="comment">#666 !default;</span></span><br><span class="line">$--icon-color-base: $--color-info !default;</span><br><span class="line"></span><br><span class="line">/* Checkbox</span><br><span class="line">-------------------------- */</span><br><span class="line">$--checkbox-font-size: 14px !default;</span><br><span class="line">$--checkbox-font-weight: $--font-weight-primary !default;</span><br><span class="line">$--checkbox-color: $--color-text-regular !default;</span><br><span class="line">$--checkbox-input-height: 14px !default;</span><br><span class="line">$--checkbox-input-width: 14px !default;</span><br><span class="line">$--checkbox-input-border-radius: $--border-radius-small !default;</span><br><span class="line">$--checkbox-input-fill: $--color-white !default;</span><br><span class="line">$--checkbox-input-border: $--border-base !default;</span><br><span class="line">$--checkbox-input-border-color: $--border-color-base !default;</span><br><span class="line">$--checkbox-icon-color: $--color-white !default;</span><br><span class="line"></span><br><span class="line">$--checkbox-disabled-input-border-color: $--border-color-base !default;</span><br><span class="line">$--checkbox-disabled-input-fill: <span class="comment">#edf2fc !default;</span></span><br><span class="line">$--checkbox-disabled-icon-color: $--color-text-placeholder !default;</span><br><span class="line"></span><br><span class="line">$--checkbox-disabled-checked-input-fill: $--border-color-extra-light !default;</span><br><span class="line">$--checkbox-disabled-checked-input-border-color: $--border-color-base !default;</span><br><span class="line">$--checkbox-disabled-checked-icon-color: $--color-text-placeholder !default;</span><br><span class="line"></span><br><span class="line">$--checkbox-checked-text-color: $--color-primary !default;</span><br><span class="line">$--checkbox-checked-input-border-color: $--color-primary !default;</span><br><span class="line">$--checkbox-checked-input-fill: $--color-primary !default;</span><br><span class="line">$--checkbox-checked-icon-color: $--fill-base !default;</span><br><span class="line"></span><br><span class="line">$--checkbox-input-border-color-hover: $--color-primary !default;</span><br><span class="line"></span><br><span class="line">$--checkbox-bordered-height: 40px !default;</span><br><span class="line">$--checkbox-bordered-padding: 9px 20px 9px 10px !default;</span><br><span class="line">$--checkbox-bordered-medium-padding: 7px 20px 7px 10px !default;</span><br><span class="line">$--checkbox-bordered-small-padding: 5px 15px 5px 10px !default;</span><br><span class="line">$--checkbox-bordered-mini-padding: 3px 15px 3px 10px !default;</span><br><span class="line">$--checkbox-bordered-medium-input-height: 14px !default;</span><br><span class="line">$--checkbox-bordered-medium-input-width: 14px !default;</span><br><span class="line">$--checkbox-bordered-medium-height: 36px !default;</span><br><span class="line">$--checkbox-bordered-small-input-height: 12px !default;</span><br><span class="line">$--checkbox-bordered-small-input-width: 12px !default;</span><br><span class="line">$--checkbox-bordered-small-height: 32px !default;</span><br><span class="line">$--checkbox-bordered-mini-input-height: 12px !default;</span><br><span class="line">$--checkbox-bordered-mini-input-width: 12px !default;</span><br><span class="line">$--checkbox-bordered-mini-height: 28px !default;</span><br><span class="line"></span><br><span class="line">$--checkbox-button-font-size: $--font-size-base !default;</span><br><span class="line">$--checkbox-button-checked-fill: $--color-primary !default;</span><br><span class="line">$--checkbox-button-checked-color: $--color-white !default;</span><br><span class="line">$--checkbox-button-checked-border-color: $--color-primary !default;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/* Radio</span><br><span class="line">-------------------------- */</span><br><span class="line">$--radio-font-size: 14px !default;</span><br><span class="line">$--radio-font-weight: $--font-weight-primary !default;</span><br><span class="line">$--radio-color: $--color-text-regular !default;</span><br><span class="line">$--radio-input-height: 14px !default;</span><br><span class="line">$--radio-input-width: 14px !default;</span><br><span class="line">$--radio-input-border-radius: $--border-radius-circle !default;</span><br><span class="line">$--radio-input-fill: $--color-white !default;</span><br><span class="line">$--radio-input-border: $--border-base !default;</span><br><span class="line">$--radio-input-border-color: $--border-color-base !default;</span><br><span class="line">$--radio-icon-color: $--color-white !default;</span><br><span class="line"></span><br><span class="line">$--radio-disabled-input-border-color: $--disabled-border-base !default;</span><br><span class="line">$--radio-disabled-input-fill: $--disabled-fill-base !default;</span><br><span class="line">$--radio-disabled-icon-color: $--disabled-fill-base !default;</span><br><span class="line"></span><br><span class="line">$--radio-disabled-checked-input-border-color: $--disabled-border-base !default;</span><br><span class="line">$--radio-disabled-checked-input-fill: $--disabled-fill-base !default;</span><br><span class="line">$--radio-disabled-checked-icon-color: $--color-text-placeholder !default;</span><br><span class="line"></span><br><span class="line">$--radio-checked-text-color: $--color-primary !default;</span><br><span class="line">$--radio-checked-input-border-color: $--color-primary !default;</span><br><span class="line">$--radio-checked-input-fill: $--color-white !default;</span><br><span class="line">$--radio-checked-icon-color: $--color-primary !default;</span><br><span class="line"></span><br><span class="line">$--radio-input-border-color-hover: $--color-primary !default;</span><br><span class="line"></span><br><span class="line">$--radio-bordered-height: 40px !default;</span><br><span class="line">$--radio-bordered-padding: 12px 20px 0 10px !default;</span><br><span class="line">$--radio-bordered-medium-padding: 10px 20px 0 10px !default;</span><br><span class="line">$--radio-bordered-small-padding: 8px 15px 0 10px !default;</span><br><span class="line">$--radio-bordered-mini-padding: 6px 15px 0 10px !default;</span><br><span class="line">$--radio-bordered-medium-input-height: 14px !default;</span><br><span class="line">$--radio-bordered-medium-input-width: 14px !default;</span><br><span class="line">$--radio-bordered-medium-height: 36px !default;</span><br><span class="line">$--radio-bordered-small-input-height: 12px !default;</span><br><span class="line">$--radio-bordered-small-input-width: 12px !default;</span><br><span class="line">$--radio-bordered-small-height: 32px !default;</span><br><span class="line">$--radio-bordered-mini-input-height: 12px !default;</span><br><span class="line">$--radio-bordered-mini-input-width: 12px !default;</span><br><span class="line">$--radio-bordered-mini-height: 28px !default;</span><br><span class="line"></span><br><span class="line">$--radio-button-font-size: $--font-size-base !default;</span><br><span class="line">$--radio-button-checked-fill: $--color-primary !default;</span><br><span class="line">$--radio-button-checked-color: $--color-white !default;</span><br><span class="line">$--radio-button-checked-border-color: $--color-primary !default;</span><br><span class="line">$--radio-button-disabled-checked-fill: $--border-color-extra-light !default;</span><br><span class="line"></span><br><span class="line">/* Select</span><br><span class="line">-------------------------- */</span><br><span class="line">$--select-border-color-hover: $--border-color-hover !default;</span><br><span class="line">$--select-disabled-border: $--disabled-border-base !default;</span><br><span class="line">$--select-font-size: $--font-size-base !default;</span><br><span class="line">$--select-close-hover-color: $--color-text-secondary !default;</span><br><span class="line"></span><br><span class="line">$--select-input-color: $--color-text-placeholder !default;</span><br><span class="line">$--select-multiple-input-color: <span class="comment">#666 !default;</span></span><br><span class="line">$--select-input-focus-background: $--color-primary !default;</span><br><span class="line">$--select-input-font-size: 14px !default;</span><br><span class="line"></span><br><span class="line">$--select-option-color: $--color-text-regular !default;</span><br><span class="line">$--select-option-disabled-color: $--color-text-placeholder !default;</span><br><span class="line">$--select-option-disabled-background: $--color-white !default;</span><br><span class="line">$--select-option-height: 34px !default;</span><br><span class="line">$--select-option-hover-background: $--border-color-base !default;</span><br><span class="line">$--select-option-selected: $--color-primary !default;</span><br><span class="line">$--select-option-selected-hover: red !default;</span><br><span class="line"></span><br><span class="line">$--select-group-color: $--color-info !default;</span><br><span class="line">$--select-group-height: 30px !default;</span><br><span class="line">$--select-group-font-size: 12px !default;</span><br><span class="line"></span><br><span class="line">$--select-dropdown-background: $--color-white !default;</span><br><span class="line">$--select-dropdown-shadow: $--box-shadow-light !default;</span><br><span class="line">$--select-dropdown-empty-color: <span class="comment">#999 !default;</span></span><br><span class="line">$--select-dropdown-max-height: 274px !default;</span><br><span class="line">$--select-dropdown-padding: 6px 0 !default;</span><br><span class="line">$--select-dropdown-empty-padding: 10px 0 !default;</span><br><span class="line">$--select-dropdown-border: solid 1px $--border-color-light !default;</span><br><span class="line"></span><br><span class="line">/* Alert</span><br><span class="line">-------------------------- */</span><br><span class="line">$--alert-padding: 8px 16px !default;</span><br><span class="line">$--alert-border-radius: $--border-radius-base !default;</span><br><span class="line">$--alert-title-font-size: 13px !default;</span><br><span class="line">$--alert-description-font-size: 12px !default;</span><br><span class="line">$--alert-close-font-size: 12px !default;</span><br><span class="line">$--alert-close-customed-font-size: 13px !default;</span><br><span class="line"></span><br><span class="line">$--alert-success-color: $--color-success-lighter !default;</span><br><span class="line">$--alert-info-color: $--color-info-lighter !default;</span><br><span class="line">$--alert-warning-color: $--color-warning-lighter !default;</span><br><span class="line">$--alert-danger-color: $--color-danger-lighter !default;</span><br><span class="line"></span><br><span class="line">$--alert-icon-size: 16px !default;</span><br><span class="line">$--alert-icon-large-size: 28px !default;</span><br><span class="line"></span><br><span class="line">/* Message Box</span><br><span class="line">-------------------------- */</span><br><span class="line">$--msgbox-width: 420px !default;</span><br><span class="line">$--msgbox-border-radius: 4px !default;</span><br><span class="line">$--msgbox-font-size: $--font-size-large !default;</span><br><span class="line">$--msgbox-content-font-size: $--font-size-base !default;</span><br><span class="line">$--msgbox-content-color: $--color-text-regular !default;</span><br><span class="line">$--msgbox-error-font-size: 12px !default;</span><br><span class="line">$--msgbox-padding-primary: 15px !default;</span><br><span class="line"></span><br><span class="line">$--msgbox-success-color: $--color-success !default;</span><br><span class="line">$--msgbox-info-color: $--color-info !default;</span><br><span class="line">$--msgbox-warning-color: $--color-warning !default;</span><br><span class="line">$--msgbox-danger-color: $--color-danger !default;</span><br><span class="line"></span><br><span class="line">/* Message</span><br><span class="line">-------------------------- */</span><br><span class="line">$--message-shadow: $--box-shadow-base !default;</span><br><span class="line">$--message-min-width: 380px !default;</span><br><span class="line">$--message-background-color: <span class="comment">#edf2fc !default;</span></span><br><span class="line">$--message-padding: 15px 15px 15px 20px !default;</span><br><span class="line">$--message-content-color: $--color-text-regular !default;</span><br><span class="line">$--message-close-color: $--color-text-placeholder !default;</span><br><span class="line">$--message-close-size: 16px !default;</span><br><span class="line">$--message-close-hover-color: $--color-text-secondary !default;</span><br><span class="line"></span><br><span class="line">$--message-success-color: $--color-success !default;</span><br><span class="line">$--message-info-color: $--color-info !default;</span><br><span class="line">$--message-warning-color: $--color-warning !default;</span><br><span class="line">$--message-danger-color: $--color-danger !default;</span><br><span class="line"></span><br><span class="line">/* Notification</span><br><span class="line">-------------------------- */</span><br><span class="line">$--notification-width: 330px !default;</span><br><span class="line">$--notification-padding: 14px 26px 14px 13px !default;</span><br><span class="line">$--notification-radius: 8px !default;</span><br><span class="line">$--notification-shadow: $--box-shadow-light !default;</span><br><span class="line">$--notification-border-color: $--border-color-lighter !default;</span><br><span class="line">$--notification-icon-size: 24px !default;</span><br><span class="line">$--notification-close-font-size: $--message-close-size !default;</span><br><span class="line">$--notification-group-margin: 13px !default;</span><br><span class="line">$--notification-font-size: $--font-size-base !default;</span><br><span class="line">$--notification-color: $--color-text-regular !default;</span><br><span class="line">$--notification-title-font-size: 16px !default;</span><br><span class="line">$--notification-title-color: $--color-text-primary !default;</span><br><span class="line"></span><br><span class="line">$--notification-close-color: $--color-text-secondary !default;</span><br><span class="line">$--notification-close-hover-color: $--color-text-regular !default;</span><br><span class="line"></span><br><span class="line">$--notification-success-color: $--color-success !default;</span><br><span class="line">$--notification-info-color: $--color-info !default;</span><br><span class="line">$--notification-warning-color: $--color-warning !default;</span><br><span class="line">$--notification-danger-color: $--color-danger !default;</span><br><span class="line"></span><br><span class="line">/* Input</span><br><span class="line">-------------------------- */</span><br><span class="line">$--input-font-size: $--font-size-base !default;</span><br><span class="line">$--input-color: $--color-text-regular !default;</span><br><span class="line">$--input-width: 140px !default;</span><br><span class="line">$--input-height: 40px !default;</span><br><span class="line">$--input-border: $--border-base !default;</span><br><span class="line">$--input-border-color: $--border-color-base !default;</span><br><span class="line">$--input-border-radius: $--border-radius-base !default;</span><br><span class="line">$--input-border-color-hover: $--border-color-hover !default;</span><br><span class="line">$--input-fill: $--color-white !default;</span><br><span class="line">$--input-fill-disabled: $--disabled-fill-base !default;</span><br><span class="line">$--input-color-disabled: $--font-color-disabled-base !default;</span><br><span class="line">$--input-icon-color: $--color-text-placeholder !default;</span><br><span class="line">$--input-placeholder-color: $--color-text-placeholder !default;</span><br><span class="line">$--input-max-width: 314px !default;</span><br><span class="line"></span><br><span class="line">$--input-hover-border: $--border-color-hover !default;</span><br><span class="line">$--input-clear-hover-color: $--color-text-secondary !default;</span><br><span class="line"></span><br><span class="line">$--input-focus-border: $--color-primary !default;</span><br><span class="line">$--input-focus-fill: $--color-white !default;</span><br><span class="line"></span><br><span class="line">$--input-disabled-fill: $--disabled-fill-base !default;</span><br><span class="line">$--input-disabled-border: $--disabled-border-base !default;</span><br><span class="line">$--input-disabled-color: $--disabled-color-base !default;</span><br><span class="line">$--input-disabled-placeholder-color: $--color-text-placeholder !default;</span><br><span class="line"></span><br><span class="line">$--input-medium-font-size: 14px !default;</span><br><span class="line">$--input-medium-height: 36px !default;</span><br><span class="line"></span><br><span class="line">$--input-small-font-size: 13px !default;</span><br><span class="line">$--input-small-height: 32px !default;</span><br><span class="line"></span><br><span class="line">$--input-mini-font-size: 12px !default;</span><br><span class="line">$--input-mini-height: 28px !default;</span><br><span class="line"></span><br><span class="line">/* Cascader</span><br><span class="line">-------------------------- */</span><br><span class="line">$--cascader-menu-fill: $--fill-base !default;</span><br><span class="line">$--cascader-menu-font-size: $--font-size-base !default;</span><br><span class="line">$--cascader-menu-radius: $--border-radius-base !default;</span><br><span class="line">$--cascader-menu-border: $--border-base !default;</span><br><span class="line">$--cascader-menu-border-color: $--border-color-base !default;</span><br><span class="line">$--cascader-menu-border-width: $--border-width-base !default;</span><br><span class="line">$--cascader-menu-color: $--color-text-regular !default;</span><br><span class="line">$--cascader-menu-option-color-active: $--color-text-secondary !default;</span><br><span class="line">$--cascader-menu-option-fill-active: rgba($--color-text-secondary, 0.12) !default;</span><br><span class="line">$--cascader-menu-option-color-hover: $--color-text-regular !default;</span><br><span class="line">$--cascader-menu-option-fill-hover: rgba($--color-text-primary, 0.06) !default;</span><br><span class="line">$--cascader-menu-option-color-disabled: <span class="comment">#999 !default;</span></span><br><span class="line">$--cascader-menu-option-fill-disabled: rgba($--color-black, 0.06) !default;</span><br><span class="line">$--cascader-menu-option-empty-color: <span class="comment">#666 !default;</span></span><br><span class="line">$--cascader-menu-group-color: <span class="comment">#999 !default;</span></span><br><span class="line">$--cascader-menu-shadow: 0 1px 2px rgba($--color-black, 0.14), 0 0 3px rgba($--color-black, 0.14) !default;</span><br><span class="line">$--cascader-menu-option-pinyin-color: <span class="comment">#999 !default;</span></span><br><span class="line">$--cascader-menu-submenu-shadow: 1px 1px 2px rgba($--color-black, 0.14), 1px 0 2px rgba($--color-black, 0.14) !default;</span><br><span class="line"></span><br><span class="line">/* Group</span><br><span class="line">-------------------------- */</span><br><span class="line">$--group-option-flex: 0 0 (1/5) * 100% !default;</span><br><span class="line">$--group-option-offset-bottom: 12px !default;</span><br><span class="line">$--group-option-fill-hover: rgba($--color-black, 0.06) !default;</span><br><span class="line">$--group-title-color: $--color-black !default;</span><br><span class="line">$--group-title-font-size: $--font-size-base !default;</span><br><span class="line">$--group-title-width: 66px !default;</span><br><span class="line"></span><br><span class="line">/* Tab</span><br><span class="line">-------------------------- */</span><br><span class="line">$--tab-font-size: $--font-size-base !default;</span><br><span class="line">$--tab-border-line: 1px solid <span class="comment">#e4e4e4 !default;</span></span><br><span class="line">$--tab-header-color-active: $--color-text-secondary !default;</span><br><span class="line">$--tab-header-color-hover: $--color-text-regular !default;</span><br><span class="line">$--tab-header-color: $--color-text-regular !default;</span><br><span class="line">$--tab-header-fill-active: rgba($--color-black, 0.06) !default;</span><br><span class="line">$--tab-header-fill-hover: rgba($--color-black, 0.06) !default;</span><br><span class="line">$--tab-vertical-header-width: 90px !default;</span><br><span class="line">$--tab-vertical-header-count-color: $--color-white !default;</span><br><span class="line">$--tab-vertical-header-count-fill: $--color-text-secondary !default;</span><br><span class="line"></span><br><span class="line">/* Button</span><br><span class="line">-------------------------- */</span><br><span class="line">$--button-font-size: 14px !default;</span><br><span class="line">$--button-font-weight: $--font-weight-primary !default;</span><br><span class="line">$--button-border-radius: $--border-radius-base !default;</span><br><span class="line">$--button-padding-vertical: 12px !default;</span><br><span class="line">$--button-padding-horizontal: 20px !default;</span><br><span class="line"></span><br><span class="line">$--button-medium-font-size: 14px !default;</span><br><span class="line">$--button-medium-border-radius: $--border-radius-base !default;</span><br><span class="line">$--button-medium-padding-vertical: 10px !default;</span><br><span class="line">$--button-medium-padding-horizontal: 20px !default;</span><br><span class="line"></span><br><span class="line">$--button-small-font-size: 12px !default;</span><br><span class="line">$--button-small-border-radius: <span class="comment">#&#123;$--border-radius-base - 1&#125; !default;</span></span><br><span class="line">$--button-small-padding-vertical: 9px !default;</span><br><span class="line">$--button-small-padding-horizontal: 15px !default;</span><br><span class="line"></span><br><span class="line">$--button-mini-font-size: 12px !default;</span><br><span class="line">$--button-mini-border-radius: <span class="comment">#&#123;$--border-radius-base - 1&#125; !default;</span></span><br><span class="line">$--button-mini-padding-vertical: 7px !default;</span><br><span class="line">$--button-mini-padding-horizontal: 15px !default;</span><br><span class="line"></span><br><span class="line">$--button-default-color: $--color-text-regular !default;</span><br><span class="line">$--button-default-fill: $--color-white !default;</span><br><span class="line">$--button-default-border: $--border-color-base !default;</span><br><span class="line"></span><br><span class="line">$--button-disabled-color: $--color-text-placeholder !default;</span><br><span class="line">$--button-disabled-fill: $--color-white !default;</span><br><span class="line">$--button-disabled-border: $--border-color-lighter !default;</span><br><span class="line"></span><br><span class="line">$--button-primary-border: $--color-primary !default;</span><br><span class="line">$--button-primary-color: $--color-white !default;</span><br><span class="line">$--button-primary-fill: $--color-primary !default;</span><br><span class="line"></span><br><span class="line">$--button-success-border: $--color-success !default;</span><br><span class="line">$--button-success-color: $--color-white !default;</span><br><span class="line">$--button-success-fill: $--color-success !default;</span><br><span class="line"></span><br><span class="line">$--button-warning-border: $--color-warning !default;</span><br><span class="line">$--button-warning-color: $--color-white !default;</span><br><span class="line">$--button-warning-fill: $--color-warning !default;</span><br><span class="line"></span><br><span class="line">$--button-danger-border: $--color-danger !default;</span><br><span class="line">$--button-danger-color: $--color-white !default;</span><br><span class="line">$--button-danger-fill: $--color-danger !default;</span><br><span class="line"></span><br><span class="line">$--button-info-border: $--color-info !default;</span><br><span class="line">$--button-info-color: $--color-white !default;</span><br><span class="line">$--button-info-fill: $--color-info !default;</span><br><span class="line"></span><br><span class="line">$--button-hover-tint-percent: 20% !default;</span><br><span class="line">$--button-active-shade-percent: 10% !default;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/* cascader</span><br><span class="line">-------------------------- */</span><br><span class="line">$--cascader-height: 200px !default;</span><br><span class="line"></span><br><span class="line">/* Switch</span><br><span class="line">-------------------------- */</span><br><span class="line">$--switch-on-color: $--color-primary !default;</span><br><span class="line">$--switch-off-color: $--border-color-base !default;</span><br><span class="line">$--switch-disabled-color: $--border-color-lighter !default;</span><br><span class="line">$--switch-disabled-text-color: $--color-text-placeholder !default;</span><br><span class="line"></span><br><span class="line">$--switch-font-size: $--font-size-base !default;</span><br><span class="line">$--switch-core-border-radius: 10px !default;</span><br><span class="line">$--switch-width: 40px !default;</span><br><span class="line">$--switch-height: 20px !default;</span><br><span class="line">$--switch-button-size: 16px !default;</span><br><span class="line"></span><br><span class="line">/* Dialog</span><br><span class="line">-------------------------- */</span><br><span class="line">$--dialog-background-color: $--color-primary-light-4 !default;</span><br><span class="line">$--dialog-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !default;</span><br><span class="line">$--dialog-close-hover-color: $--color-primary !default;</span><br><span class="line">$--dialog-title-font-size: $--font-size-large !default;</span><br><span class="line">$--dialog-font-size: 14px !default;</span><br><span class="line">$--dialog-line-height: $--font-line-height-primary !default;</span><br><span class="line">$--dialog-padding-primary: 20px !default;</span><br><span class="line"></span><br><span class="line">/* Table</span><br><span class="line">-------------------------- */</span><br><span class="line">$--table-border-color: $--border-color-lighter !default;</span><br><span class="line">$--table-border: 1px solid $--table-border-color !default;</span><br><span class="line">$--table-text-color: $--color-text-regular !default;</span><br><span class="line">$--table-header-color: $--color-text-secondary !default;</span><br><span class="line">$--table-row-hover-background: $--background-color-base !default;</span><br><span class="line">$--table-current-row-background: $--color-primary-light-9 !default;</span><br><span class="line">$--table-header-background: $--color-white !default;</span><br><span class="line">$--table-footer-background: $--color-text-placeholder !default;</span><br><span class="line">$--table-fixed-box-shadow: 0 0 10px rgba(0, 0, 0, .12) !default;</span><br><span class="line"></span><br><span class="line">/* Pagination</span><br><span class="line">-------------------------- */</span><br><span class="line">$--pagination-font-size: 13px !default;</span><br><span class="line">$--pagination-fill: $--color-white !default;</span><br><span class="line">$--pagination-color: $--color-text-primary !default;</span><br><span class="line">$--pagination-border-radius: 3px !default;</span><br><span class="line">$--pagination-button-color: $--color-text-primary !default;</span><br><span class="line">$--pagination-button-width: 35.5px !default;</span><br><span class="line">$--pagination-button-height: 28px !default;</span><br><span class="line">$--pagination-button-disabled-color: $--color-text-placeholder !default;</span><br><span class="line">$--pagination-button-disabled-fill: $--color-white !default;</span><br><span class="line">$--pagination-hover-fill: $--color-primary !default;</span><br><span class="line">$--pagination-hover-color: $--color-white !default;</span><br><span class="line"></span><br><span class="line">/* Popover</span><br><span class="line">-------------------------- */</span><br><span class="line">$--popover-fill: $--color-white !default;</span><br><span class="line">$--popover-font-size: $--font-size-base !default;</span><br><span class="line">$--popover-border-color: $--border-color-lighter !default;</span><br><span class="line">$--popover-arrow-size: 6px !default;</span><br><span class="line">$--popover-padding: 12px !default;</span><br><span class="line">$--popover-padding-large: 18px 20px !default;</span><br><span class="line">$--popover-title-font-size: 16px !default;</span><br><span class="line">$--popover-title-color: $--color-text-primary !default;</span><br><span class="line"></span><br><span class="line">/* Tooltip</span><br><span class="line">-------------------------- */</span><br><span class="line">$--tooltip-fill: $--color-text-primary !default;</span><br><span class="line">$--tooltip-color: $--color-white !default;</span><br><span class="line">$--tooltip-font-size: 12px !default;</span><br><span class="line">$--tooltip-border-color: $--color-text-primary !default;</span><br><span class="line">$--tooltip-arrow-size: 6px !default;</span><br><span class="line">$--tooltip-padding: 10px !default;</span><br><span class="line"></span><br><span class="line">/* Tag</span><br><span class="line">-------------------------- */</span><br><span class="line">$--tag-padding: 0 10px !default;</span><br><span class="line">$--tag-fill: rgba($--color-primary, 0.10) !default;</span><br><span class="line">$--tag-color: $--color-primary !default;</span><br><span class="line">$--tag-border: rgba($--color-primary, 0.20) !default;</span><br><span class="line">$--tag-font-size: 12px !default;</span><br><span class="line">$--tag-border-radius: 4px !default;</span><br><span class="line"></span><br><span class="line">$--tag-info-fill: rgba($--color-info, 0.10) !default;</span><br><span class="line">$--tag-info-border: rgba($--color-info, 0.20) !default;</span><br><span class="line">$--tag-info-color: $--color-info !default;</span><br><span class="line"></span><br><span class="line">$--tag-primary-fill: rgba($--color-primary, 0.10) !default;</span><br><span class="line">$--tag-primary-border: rgba($--color-primary, 0.20) !default;</span><br><span class="line">$--tag-primary-color: $--color-primary !default;</span><br><span class="line"></span><br><span class="line">$--tag-success-fill: rgba($--color-success, 0.10) !default;</span><br><span class="line">$--tag-success-border: rgba($--color-success, 0.20) !default;</span><br><span class="line">$--tag-success-color: $--color-success !default;</span><br><span class="line"></span><br><span class="line">$--tag-warning-fill: rgba($--color-warning, 0.10) !default;</span><br><span class="line">$--tag-warning-border: rgba($--color-warning, 0.20) !default;</span><br><span class="line">$--tag-warning-color: $--color-warning !default;</span><br><span class="line"></span><br><span class="line">$--tag-danger-fill: rgba($--color-danger, 0.10) !default;</span><br><span class="line">$--tag-danger-border: rgba($--color-danger, 0.20) !default;</span><br><span class="line">$--tag-danger-color: $--color-danger !default;</span><br><span class="line"></span><br><span class="line">/* Tree</span><br><span class="line">-------------------------- */</span><br><span class="line">$--tree-node-hover-color: $--background-color-base !default;</span><br><span class="line">$--tree-text-color: $--color-text-regular !default;</span><br><span class="line">$--tree-expand-icon-color: $--color-text-placeholder !default;</span><br><span class="line"></span><br><span class="line">/* Dropdown</span><br><span class="line">-------------------------- */</span><br><span class="line">$--dropdown-menu-box-shadow: $--box-shadow-light !default;</span><br><span class="line">$--dropdown-menuItem-hover-fill: $--color-primary-light-9 !default;</span><br><span class="line">$--dropdown-menuItem-hover-color: $--link-color !default;</span><br><span class="line"></span><br><span class="line">/* Badge</span><br><span class="line">-------------------------- */</span><br><span class="line">$--badge-fill: $--color-danger !default;</span><br><span class="line">$--badge-radius: 10px !default;</span><br><span class="line">$--badge-font-size: 12px !default;</span><br><span class="line">$--badge-padding: 6px !default;</span><br><span class="line">$--badge-size: 18px !default;</span><br><span class="line"></span><br><span class="line">/* Card</span><br><span class="line">--------------------------*/</span><br><span class="line">$--card-border-color: $--border-color-lighter !default;</span><br><span class="line">$--card-border-radius: 4px !default;</span><br><span class="line">$--card-padding: 20px !default;</span><br><span class="line"></span><br><span class="line">/* Slider</span><br><span class="line">--------------------------*/</span><br><span class="line">$--slider-main-background-color: $--color-primary !default;</span><br><span class="line">$--slider-runway-background-color: $--border-color-light !default;</span><br><span class="line">$--slider-button-hover-color: mix($--color-primary, black, 97%) !default;</span><br><span class="line">$--slider-stop-background-color: $--color-white !default;</span><br><span class="line">$--slider-disable-color: $--color-text-placeholder !default;</span><br><span class="line"></span><br><span class="line">$--slider-margin: 16px 0 !default;</span><br><span class="line">$--slider-border-radius: 3px !default;</span><br><span class="line">$--slider-height: 6px !default;</span><br><span class="line">$--slider-button-size: 16px !default;</span><br><span class="line">$--slider-button-wrapper-size: 36px !default;</span><br><span class="line">$--slider-button-wrapper-offset: -15px !default;</span><br><span class="line"></span><br><span class="line">/* Steps</span><br><span class="line">--------------------------*/</span><br><span class="line">$--steps-border-color: $--disabled-border-base !default;</span><br><span class="line">$--steps-border-radius: 4px !default;</span><br><span class="line">$--steps-padding: 20px !default;</span><br><span class="line"></span><br><span class="line">/* Menu</span><br><span class="line">--------------------------*/</span><br><span class="line">$--menu-item-font-size: $--font-size-base !default;</span><br><span class="line">$--menu-item-color: $--color-text-primary !default;</span><br><span class="line">$--menu-item-fill: $--color-white !default;</span><br><span class="line">$--menu-item-hover-fill: $--color-primary-light-9 !default;</span><br><span class="line"></span><br><span class="line">/* Rate</span><br><span class="line">--------------------------*/</span><br><span class="line">$--rate-height: 20px !default;</span><br><span class="line">$--rate-font-size: $--font-size-base !default;</span><br><span class="line">$--rate-icon-size: 18px !default;</span><br><span class="line">$--rate-icon-margin: 6px !default;</span><br><span class="line">$--rate-icon-color: $--color-text-placeholder !default;</span><br><span class="line"></span><br><span class="line">/* DatePicker</span><br><span class="line">--------------------------*/</span><br><span class="line">$--datepicker-color: $--color-text-regular !default;</span><br><span class="line">$--datepicker-off-color: $--color-text-placeholder !default;</span><br><span class="line">$--datepicker-header-color: $--color-text-regular !default;</span><br><span class="line">$--datepicker-icon-color: $--color-text-primary !default;</span><br><span class="line">$--datepicker-border-color: $--disabled-border-base !default;</span><br><span class="line">$--datepicker-inner-border-color: <span class="comment">#e4e4e4 !default;</span></span><br><span class="line">$--datepicker-inrange-color: $--border-color-extra-light !default;</span><br><span class="line">$--datepicker-inrange-hover-color: $--border-color-extra-light !default;</span><br><span class="line">$--datepicker-active-color: $--color-primary !default;</span><br><span class="line">$--datepicker-text-hover-color: $--color-primary !default;</span><br><span class="line">$--datepicker-cell-hover-color: <span class="comment">#fff !default;</span></span><br><span class="line"></span><br><span class="line">/* Loading</span><br><span class="line">--------------------------*/</span><br><span class="line">$--loading-spinner-size: 42px !default;</span><br><span class="line">$--loading-fullscreen-spinner-size: 50px !default;</span><br><span class="line"></span><br><span class="line">/* Scrollbar</span><br><span class="line">--------------------------*/</span><br><span class="line">$--scrollbar-background-color: rgba($--color-text-secondary, .3) !default;</span><br><span class="line">$--scrollbar-hover-background-color: rgba($--color-text-secondary, .5) !default;</span><br><span class="line"></span><br><span class="line">/* Carousel</span><br><span class="line">--------------------------*/</span><br><span class="line">$--carousel-arrow-font-size: 12px !default;</span><br><span class="line">$--carousel-arrow-size: 36px !default;</span><br><span class="line">$--carousel-arrow-background: rgba(31, 45, 61, 0.11) !default;</span><br><span class="line">$--carousel-arrow-hover-background: rgba(31, 45, 61, 0.23) !default;</span><br><span class="line">$--carousel-indicator-width: 30px !default;</span><br><span class="line">$--carousel-indicator-height: 2px !default;</span><br><span class="line">$--carousel-indicator-padding-horizontal: 4px !default;</span><br><span class="line">$--carousel-indicator-padding-vertical: 12px !default;</span><br><span class="line">$--carousel-indicator-out-color: $--border-color-hover !default;</span><br><span class="line"></span><br><span class="line">/* Collapse</span><br><span class="line">--------------------------*/</span><br><span class="line">$--collapse-border-color: $--border-color-lighter !default;</span><br><span class="line">$--collapse-header-height: 48px !default;</span><br><span class="line">$--collapse-header-padding: 20px !default;</span><br><span class="line">$--collapse-header-fill: $--color-white !default;</span><br><span class="line">$--collapse-header-color: $--color-text-primary !default;</span><br><span class="line">$--collapse-header-size: 13px !default;</span><br><span class="line">$--collapse-content-fill: $--color-white !default;</span><br><span class="line">$--collapse-content-size: 13px !default;</span><br><span class="line">$--collapse-content-color: $--color-text-primary !default;</span><br><span class="line"></span><br><span class="line">/* Transfer</span><br><span class="line">--------------------------*/</span><br><span class="line">$--transfer-border-color: $--border-color-lighter !default;</span><br><span class="line">$--transfer-border-radius: $--border-radius-base !default;</span><br><span class="line">$--transfer-panel-width: 200px !default;</span><br><span class="line">$--transfer-panel-header-height: 40px !default;</span><br><span class="line">$--transfer-panel-header-background: $--background-color-base !default;</span><br><span class="line">$--transfer-panel-footer-height: 40px !default;</span><br><span class="line">$--transfer-panel-body-height: 246px !default;</span><br><span class="line">$--transfer-item-height: 30px !default;</span><br><span class="line">$--transfer-item-hover-background: $--color-text-secondary !default;</span><br><span class="line">$--transfer-filter-height: 32px !default;</span><br><span class="line"></span><br><span class="line">/* Header</span><br><span class="line">  --------------------------*/</span><br><span class="line">$--header-padding: 0 20px !default;</span><br><span class="line"></span><br><span class="line">/* Footer</span><br><span class="line">--------------------------*/</span><br><span class="line">$--footer-padding: 0 20px !default;</span><br><span class="line"></span><br><span class="line">/* Main</span><br><span class="line">--------------------------*/</span><br><span class="line">$--main-padding: 20px !default;</span><br><span class="line"></span><br><span class="line">/* Break-point</span><br><span class="line">--------------------------*/</span><br><span class="line">$--sm: 768px !default;</span><br><span class="line">$--md: 992px !default;</span><br><span class="line">$--lg: 1200px !default;</span><br><span class="line">$--xl: 1920px !default;</span><br><span class="line"></span><br><span class="line">$--breakpoints: (</span><br><span class="line">  <span class="string">'xs'</span> : (max-width: $--sm - 1),</span><br><span class="line">  <span class="string">'sm'</span> : (min-width: $--sm),</span><br><span class="line">  <span class="string">'md'</span> : (min-width: $--md),</span><br><span class="line">  <span class="string">'lg'</span> : (min-width: $--lg),</span><br><span class="line">  <span class="string">'xl'</span> : (min-width: $--xl)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">$--breakpoints-spec: (</span><br><span class="line">  <span class="string">'xs-only'</span> : (max-width: $--sm - 1),</span><br><span class="line">  <span class="string">'sm-and-up'</span> : (min-width: $--sm),</span><br><span class="line">  <span class="string">'sm-only'</span>: <span class="string">"(min-width: #&#123;$--sm&#125;) and (max-width: #&#123;$--md&#125; - 1)"</span>,</span><br><span class="line">  <span class="string">'sm-and-down'</span>: (max-width: $--md - 1),</span><br><span class="line">  <span class="string">'md-and-up'</span> : (min-width: $--md),</span><br><span class="line">  <span class="string">'md-only'</span>: <span class="string">"(min-width: #&#123;$--md&#125;) and (max-width: #&#123;$--lg &#125; - 1)"</span>,</span><br><span class="line">  <span class="string">'md-and-down'</span>: (max-width: $--lg - 1),</span><br><span class="line">  <span class="string">'lg-and-up'</span> : (min-width: $--lg),</span><br><span class="line">  <span class="string">'lg-only'</span>: <span class="string">"(min-width: #&#123;$--lg&#125;) and (max-width: #&#123;$--xl &#125; - 1)"</span>,</span><br><span class="line">  <span class="string">'lg-and-down'</span>: (max-width: $--xl - 1),</span><br><span class="line">  <span class="string">'xl-only'</span> : (min-width: $--xl),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://xdd7130.github.io/2019/07/13/vue其他/" title="vue其他" target="_blank" rel="external">http://xdd7130.github.io/2019/07/13/vue其他/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/xdd7130" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/xdd7130" target="_blank"><span class="text-dark">昵称</span><small class="ml-1x">Web Developer &amp; Designer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2019/07/13/react/" title="React"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/07/04/git/" title="git"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button> -->
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

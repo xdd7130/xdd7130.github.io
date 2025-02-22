@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>SVG | Hexo</title>
+  <meta name="description" content="1. 可缩放矢量图形 Scalable Vector Graphics SVG什么是SVGSVG 指可伸缩矢量图形 (Scalable Vector Graphics)SVG 用来定义用于网络的基于矢量的图形SVG 使用 XML 格式定义图形SVG 图像在放大或改变尺寸的情况下其图形质量不会有所损失SVG 是万维网联盟的标准SVG 与诸如 DOM 和 XSL 之类的 W3C 标准是一个整体 特点及">
+<meta name="keywords" content="SVG">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVG">
+<meta property="og:url" content="http://xdd7130.github.io/2020/07/01/SVG/index.html">
+<meta property="og:site_name" content="DD_XIE的学习笔记">
+<meta property="og:description" content="1. 可缩放矢量图形 Scalable Vector Graphics SVG什么是SVGSVG 指可伸缩矢量图形 (Scalable Vector Graphics)SVG 用来定义用于网络的基于矢量的图形SVG 使用 XML 格式定义图形SVG 图像在放大或改变尺寸的情况下其图形质量不会有所损失SVG 是万维网联盟的标准SVG 与诸如 DOM 和 XSL 之类的 W3C 标准是一个整体 特点及">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2025-02-15T04:02:15.962Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SVG">
+<meta name="twitter:description" content="1. 可缩放矢量图形 Scalable Vector Graphics SVG什么是SVGSVG 指可伸缩矢量图形 (Scalable Vector Graphics)SVG 用来定义用于网络的基于矢量的图形SVG 使用 XML 格式定义图形SVG 图像在放大或改变尺寸的情况下其图形质量不会有所损失SVG 是万维网联盟的标准SVG 与诸如 DOM 和 XSL 之类的 W3C 标准是一个整体 特点及">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://xdd7130.github.io/2020/07/01/SVG/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="DD_XIE的学习笔记" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/xdd7130" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">昵称</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web Developer &amp; Designer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">Books</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ArcGIS/">ArcGIS</a><span class="category-list-count">27</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cesium/">Cesium</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/D3/">D3</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVG/">SVG</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue3/">Vue3</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web前端/">Web前端</a><span class="category-list-count">22</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webgis/">webgis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/小程序/">小程序</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArcGIS/">ArcGIS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArcGIS-API-for-JS/">ArcGIS API for JS</a><span class="tag-list-count">25</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cesium/">Cesium</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cesium-Vue-Vite/">Cesium,Vue,Vite</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/D3/">D3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIS服务器/">IIS服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PROBLEM/">PROBLEM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/">Promise</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-Router4-X-Vue-Vue3/">Vue Router4.X,Vue,Vue3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-Vue3-element-plus/">Vue,Vue3,element-plus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie/">cookie</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock-linux/">mock,linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-linux/">nginx,linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python基础/">python基础</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tcp/">tcp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webgis/">webgis</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端工作流/">前端工作流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型，继承/">原型，继承</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大屏/">大屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全/">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/居中/">居中</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/盒模型/">盒模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闭包/">闭包</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/ArcGIS/" style="font-size: 13.14px;">ArcGIS</a> <a href="/tags/ArcGIS-API-for-JS/" style="font-size: 13.86px;">ArcGIS API for JS</a> <a href="/tags/CSS/" style="font-size: 13.29px;">CSS</a> <a href="/tags/Cesium/" style="font-size: 13.43px;">Cesium</a> <a href="/tags/Cesium-Vue-Vite/" style="font-size: 13px;">Cesium,Vue,Vite</a> <a href="/tags/D3/" style="font-size: 13px;">D3</a> <a href="/tags/ES6/" style="font-size: 13.57px;">ES6</a> <a href="/tags/IIS服务器/" style="font-size: 13px;">IIS服务器</a> <a href="/tags/JS/" style="font-size: 13px;">JS</a> <a href="/tags/Node-js/" style="font-size: 13.71px;">Node.js</a> <a href="/tags/PROBLEM/" style="font-size: 13px;">PROBLEM</a> <a href="/tags/Promise/" style="font-size: 13px;">Promise</a> <a href="/tags/React/" style="font-size: 13.57px;">React</a> <a href="/tags/SVG/" style="font-size: 13px;">SVG</a> <a href="/tags/Vue/" style="font-size: 13.29px;">Vue</a> <a href="/tags/Vue-Router4-X-Vue-Vue3/" style="font-size: 13px;">Vue Router4.X,Vue,Vue3</a> <a href="/tags/Vue-Vue3-element-plus/" style="font-size: 13px;">Vue,Vue3,element-plus</a> <a href="/tags/WebSocket/" style="font-size: 13px;">WebSocket</a> <a href="/tags/cookie/" style="font-size: 13px;">cookie</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/http/" style="font-size: 13.14px;">http</a> <a href="/tags/js/" style="font-size: 13px;">js</a> <a href="/tags/mock-linux/" style="font-size: 13px;">mock,linux</a> <a href="/tags/nginx-linux/" style="font-size: 13.14px;">nginx,linux</a> <a href="/tags/node/" style="font-size: 13px;">node</a> <a href="/tags/python基础/" style="font-size: 13.43px;">python基础</a> <a href="/tags/tcp/" style="font-size: 13px;">tcp</a> <a href="/tags/vue/" style="font-size: 13px;">vue</a> <a href="/tags/webgis/" style="font-size: 14px;">webgis</a> <a href="/tags/前端工作流/" style="font-size: 13px;">前端工作流</a> <a href="/tags/原型，继承/" style="font-size: 13px;">原型，继承</a> <a href="/tags/大屏/" style="font-size: 13px;">大屏</a> <a href="/tags/安全/" style="font-size: 13px;">安全</a> <a href="/tags/小程序/" style="font-size: 13px;">小程序</a> <a href="/tags/居中/" style="font-size: 13px;">居中</a> <a href="/tags/数组/" style="font-size: 13px;">数组</a> <a href="/tags/盒模型/" style="font-size: 13px;">盒模型</a> <a href="/tags/笔记/" style="font-size: 13px;">笔记</a> <a href="/tags/缓存/" style="font-size: 13px;">缓存</a> <a href="/tags/跨域/" style="font-size: 13px;">跨域</a> <a href="/tags/闭包/" style="font-size: 13px;">闭包</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">39</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/笔记/">笔记</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/08/JSON和excel之间的转换/" class="title">JSON 和 excel之间的转换</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-08T06:34:15.000Z" itemprop="datePublished">2025-02-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/D3/">D3</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/08/D3-1/" class="title">D3(1)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-08T03:35:15.000Z" itemprop="datePublished">2025-02-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/hexo/">hexo</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/11/02/hexo/" class="title">hexo学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-11-02T11:15:20.551Z" itemprop="datePublished">2022-11-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Vue3/">Vue3</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/10/20/Vue3引入element-plus/" class="title">Vue3引入element-plus</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-20T12:33:12.000Z" itemprop="datePublished">2022-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Cesium/">Cesium</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/10/20/Cesium之3DTiles/" class="title">Cesium之3D Tiles</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-20T12:22:12.000Z" itemprop="datePublished">2022-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-SVG" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SVG
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/07/01/SVG/" class="article-date">
+	  <time datetime="2020-07-01T06:16:35.000Z" itemprop="datePublished">2020-07-01</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/SVG/">SVG</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/SVG/">SVG</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/07/01/SVG/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="1-可缩放矢量图形-Scalable-Vector-Graphics-SVG"><a href="#1-可缩放矢量图形-Scalable-Vector-Graphics-SVG" class="headerlink" title="1. 可缩放矢量图形 Scalable Vector Graphics SVG"></a>1. 可缩放矢量图形 Scalable Vector Graphics SVG</h3><h4 id="什么是SVG"><a href="#什么是SVG" class="headerlink" title="什么是SVG"></a>什么是SVG</h4><p>SVG 指可伸缩矢量图形 (Scalable Vector Graphics)<br>SVG 用来定义用于网络的基于矢量的图形<br>SVG 使用 XML 格式定义图形<br>SVG 图像在放大或改变尺寸的情况下其图形质量不会有所损失<br>SVG 是万维网联盟的标准<br>SVG 与诸如 DOM 和 XSL 之类的 W3C 标准是一个整体</p>
+<h4 id="特点及优势"><a href="#特点及优势" class="headerlink" title="特点及优势"></a>特点及优势</h4><p>SVG 可被非常多的工具读取和修改（比如记事本）<br>SVG 与 JPEG 和 GIF 图像比起来，尺寸更小，且可压缩性更强。<br>SVG 图像可在任何的分辨率下被高质量地打印<br>SVG 可在图像质量不下降的情况下被放大<br>SVG 图像中的文本是可选的，同时也是可搜索的（很适合制作地图）</p>
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><h4 id="在浏览器直接打开"><a href="#在浏览器直接打开" class="headerlink" title="在浏览器直接打开"></a>在浏览器直接打开</h4><p>xml 是浏览器能读取的格式，但如果希望 svg 能在浏览器中渲染出来，需要使用 xmlns 声明渲染规则。所以必须使用 xmlns=”<a href="http://www.w3.org/2000/svg&quot;。" target="_blank" rel="noopener">http://www.w3.org/2000/svg&quot;。</a></p>
+<h4 id="内嵌到HTML中："><a href="#内嵌到HTML中：" class="headerlink" title="内嵌到HTML中："></a>内嵌到HTML中：</h4><p>，<svg> 标签并没有使用 xmlns=”<a href="http://www.w3.org/2000/svg&quot;" target="_blank" rel="noopener">http://www.w3.org/2000/svg&quot;</a> 声明命名空间，这是因为 HTML 5 文档使用 &lt;!DOCTYPE html&gt; 标记，它允许跳过 SVG 命名空间声明，HTML 解析器会自动识别 SVG 元素和它的子元素<br/>在css背景图中使用</svg></p>
+<h4 id="使用img标签引入"><a href="#使用img标签引入" class="headerlink" title="使用img标签引入"></a>使用img标签引入</h4><h3 id="坐标定位"><a href="#坐标定位" class="headerlink" title="坐标定位"></a>坐标定位</h3><p>和canvas一样，Svg以页面的左上角为 (0,0) 坐标点，它的默认坐标以像素为单位，x 轴正方向是向右，y 轴正方向是向下；如<svg width="200" height="200" viewbox="0 0 100 100">，这里定义的画布尺寸是 200<em>200px。但是，viewBox 属性定义了画布上可以显示的区域：从 (0,0) 点开始，100 宽</em>100 高的区域。这个 100<em>100 的区域，会放到 200</em>200 的画布上显示。于是就形成了放大两倍的效果。</svg></p>
+<h3 id="元素"><a href="#元素" class="headerlink" title="元素"></a>元素</h3><p>见链接 : <a href="https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element" target="_blank" rel="noopener">元素</a></p>
+<h4 id="defs-use-g-symbol"><a href="#defs-use-g-symbol" class="headerlink" title="defs, use, g, symbol"></a>defs, use, g, symbol</h4><p>g 是group（分组）的缩写。g元素通常用来对相关图形元素进行分组，以便统一操作，比如旋转，缩放或者添加相关样式等。<br>defs 重用已存储元素, 分组定义的内容直接会显示，所以defs在使用的时候会有更大的灵活性; use 用的是这些 tag 的 id，而非 defs;defs 是个声明块，声明块本身没啥重用意义，其内定义可被重用的内容集合，重用的是该集合中的一项或多项，原样的拿过来在不同位置下呈现<br>symbol 兼具g的分组功能和defs初始不可见的特性,能够创建自己的视窗,symbol 可以设定 width height<br>use 复用; 实现SVG现有图形的复用，可以复用单个SVG图形元素，也可以复用g定义的组元素</p>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p>所有 SVG 显示属性都可以作为 CSS 属性来使用</p>
+<h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><h4 id="SMIL-驱动"><a href="#SMIL-驱动" class="headerlink" title="SMIL 驱动"></a>SMIL 驱动</h4><p>SMIL是Synchronized Multimedia Integration Language（同步多媒体集成语言）的首字母缩写简称，是一种标准。SVG借鉴了这种标准<br>用: Set, animate, animateColor, animateTransform, animateMotion元素实现动画</p>
+<h4 id="JavaScript-驱动"><a href="#JavaScript-驱动" class="headerlink" title="JavaScript 驱动"></a>JavaScript 驱动</h4><p>一般应用js操作属性实现</p>
+<h4 id="CSS-驱动"><a href="#CSS-驱动" class="headerlink" title="CSS 驱动"></a>CSS 驱动</h4><p>使用 css @keyframes animationName 定义动画</p>
+<p>选择哪个?</p>
+<p>建议将CSS动画用于无变形的过渡或简单动画。尤其是在硬件加速时。CSS不需要加载其他资源（一般指三方库），并且悬停时的小变换可以为交互带来更好的效果。特别是当你不需要3d、物理体感、或进行大量堆叠动画效果时建议选用CSS。另外，CSS方便调试也是很大的一个优势。<br>对于较长的动画，开发时会变得非常复杂且需要花精力去调试，而CSS调整时间尺度很困难，尤其是当你需要操纵一些细微帧时，个人觉得SMIL更合适做有序的，复杂的堆叠动画群的场景。<br>对于变形的动画，建议使用SMIL或者第三方库: GSAP, anime.js, D3, Snap.js, SVG.js, Velocity.js。</p>
+<p>本文代码示例: <a href="https://github.com/xdd7130/vue3_vite_cesium_ts/tree/master/src/svg" target="_blank" rel="noopener">链接</a></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://xdd7130.github.io/2020/07/01/SVG/" title="SVG" target="_blank" rel="external">http://xdd7130.github.io/2020/07/01/SVG/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/xdd7130" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/xdd7130" target="_blank"><span class="text-dark">昵称</span><small class="ml-1x">Web Developer &amp; Designer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/07/01/Cesium/" title="Cesium"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/04/11/关于大屏/" title="关于大屏"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button> -->
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>

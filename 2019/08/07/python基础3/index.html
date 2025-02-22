@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>python基础(三)--数据类型 | Hexo</title>
+  <meta name="description" content="Python Number(数字)Python Number 数据类型用于存储数值。 数据类型是不允许改变的,这就意味着如果改变 Number 数据类型的值，将重新分配内存空间。 以下实例在变量赋值时 Number 对象将被创建：12var1 = 1var2 = 10 Python 支持四种不同的数值类型：  整型(Int) - 通常被称为是整型或整数，是正或负整数，不带小数点。 长整型(long">
+<meta name="keywords" content="python基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python基础(三)--数据类型">
+<meta property="og:url" content="http://xdd7130.github.io/2019/08/07/python基础3/index.html">
+<meta property="og:site_name" content="DD_XIE的学习笔记">
+<meta property="og:description" content="Python Number(数字)Python Number 数据类型用于存储数值。 数据类型是不允许改变的,这就意味着如果改变 Number 数据类型的值，将重新分配内存空间。 以下实例在变量赋值时 Number 对象将被创建：12var1 = 1var2 = 10 Python 支持四种不同的数值类型：  整型(Int) - 通常被称为是整型或整数，是正或负整数，不带小数点。 长整型(long">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/01.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/02.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/03.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/04.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/05.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/06.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/07.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/08.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/09.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/10.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/11.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/12.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/13.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/14.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/15.png">
+<meta property="og:image" content="http://xdd7130.github.io/2019/08/07/python基础3/16.png">
+<meta property="og:updated_time" content="2022-11-02T11:15:20.660Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python基础(三)--数据类型">
+<meta name="twitter:description" content="Python Number(数字)Python Number 数据类型用于存储数值。 数据类型是不允许改变的,这就意味着如果改变 Number 数据类型的值，将重新分配内存空间。 以下实例在变量赋值时 Number 对象将被创建：12var1 = 1var2 = 10 Python 支持四种不同的数值类型：  整型(Int) - 通常被称为是整型或整数，是正或负整数，不带小数点。 长整型(long">
+<meta name="twitter:image" content="http://xdd7130.github.io/2019/08/07/python基础3/01.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://xdd7130.github.io/2019/08/07/python基础3/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="DD_XIE的学习笔记" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/xdd7130" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">昵称</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web Developer &amp; Designer</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Hangzhou, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="Search" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="Type something..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">Home</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">Archives</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">Categories</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">Tags</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">Repository</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">Books</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">Links</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">About</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">Board</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/ArcGIS/">ArcGIS</a><span class="category-list-count">27</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cesium/">Cesium</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/D3/">D3</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/React/">React</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVG/">SVG</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue3/">Vue3</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web前端/">Web前端</a><span class="category-list-count">22</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nginx/">nginx</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webgis/">webgis</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他/">其他</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/小程序/">小程序</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/笔记/">笔记</a><span class="category-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArcGIS/">ArcGIS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ArcGIS-API-for-JS/">ArcGIS API for JS</a><span class="tag-list-count">25</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cesium/">Cesium</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cesium-Vue-Vite/">Cesium,Vue,Vite</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/D3/">D3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IIS服务器/">IIS服务器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node-js/">Node.js</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PROBLEM/">PROBLEM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/">Promise</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVG/">SVG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/">Vue</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-Router4-X-Vue-Vue3/">Vue Router4.X,Vue,Vue3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue-Vue3-element-plus/">Vue,Vue3,element-plus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebSocket/">WebSocket</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie/">cookie</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mock-linux/">mock,linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-linux/">nginx,linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python基础/">python基础</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tcp/">tcp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webgis/">webgis</a><span class="tag-list-count">26</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端工作流/">前端工作流</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原型，继承/">原型，继承</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大屏/">大屏</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/安全/">安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/居中/">居中</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/盒模型/">盒模型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔记/">笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓存/">缓存</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/跨域/">跨域</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/闭包/">闭包</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/ArcGIS/" style="font-size: 13.14px;">ArcGIS</a> <a href="/tags/ArcGIS-API-for-JS/" style="font-size: 13.86px;">ArcGIS API for JS</a> <a href="/tags/CSS/" style="font-size: 13.29px;">CSS</a> <a href="/tags/Cesium/" style="font-size: 13.43px;">Cesium</a> <a href="/tags/Cesium-Vue-Vite/" style="font-size: 13px;">Cesium,Vue,Vite</a> <a href="/tags/D3/" style="font-size: 13px;">D3</a> <a href="/tags/ES6/" style="font-size: 13.57px;">ES6</a> <a href="/tags/IIS服务器/" style="font-size: 13px;">IIS服务器</a> <a href="/tags/JS/" style="font-size: 13px;">JS</a> <a href="/tags/Node-js/" style="font-size: 13.71px;">Node.js</a> <a href="/tags/PROBLEM/" style="font-size: 13px;">PROBLEM</a> <a href="/tags/Promise/" style="font-size: 13px;">Promise</a> <a href="/tags/React/" style="font-size: 13.57px;">React</a> <a href="/tags/SVG/" style="font-size: 13px;">SVG</a> <a href="/tags/Vue/" style="font-size: 13.29px;">Vue</a> <a href="/tags/Vue-Router4-X-Vue-Vue3/" style="font-size: 13px;">Vue Router4.X,Vue,Vue3</a> <a href="/tags/Vue-Vue3-element-plus/" style="font-size: 13px;">Vue,Vue3,element-plus</a> <a href="/tags/WebSocket/" style="font-size: 13px;">WebSocket</a> <a href="/tags/cookie/" style="font-size: 13px;">cookie</a> <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/http/" style="font-size: 13.14px;">http</a> <a href="/tags/js/" style="font-size: 13px;">js</a> <a href="/tags/mock-linux/" style="font-size: 13px;">mock,linux</a> <a href="/tags/nginx-linux/" style="font-size: 13.14px;">nginx,linux</a> <a href="/tags/node/" style="font-size: 13px;">node</a> <a href="/tags/python基础/" style="font-size: 13.43px;">python基础</a> <a href="/tags/tcp/" style="font-size: 13px;">tcp</a> <a href="/tags/vue/" style="font-size: 13px;">vue</a> <a href="/tags/webgis/" style="font-size: 14px;">webgis</a> <a href="/tags/前端工作流/" style="font-size: 13px;">前端工作流</a> <a href="/tags/原型，继承/" style="font-size: 13px;">原型，继承</a> <a href="/tags/大屏/" style="font-size: 13px;">大屏</a> <a href="/tags/安全/" style="font-size: 13px;">安全</a> <a href="/tags/小程序/" style="font-size: 13px;">小程序</a> <a href="/tags/居中/" style="font-size: 13px;">居中</a> <a href="/tags/数组/" style="font-size: 13px;">数组</a> <a href="/tags/盒模型/" style="font-size: 13px;">盒模型</a> <a href="/tags/笔记/" style="font-size: 13px;">笔记</a> <a href="/tags/缓存/" style="font-size: 13px;">缓存</a> <a href="/tags/跨域/" style="font-size: 13px;">跨域</a> <a href="/tags/闭包/" style="font-size: 13px;">闭包</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Archive</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">November 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a><span class="archive-list-count">39</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/笔记/">笔记</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/08/JSON和excel之间的转换/" class="title">JSON 和 excel之间的转换</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-08T06:34:15.000Z" itemprop="datePublished">2025-02-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/D3/">D3</a>
+              </p>
+              <p class="item-title">
+                <a href="/2025/02/08/D3-1/" class="title">D3(1)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2025-02-08T03:35:15.000Z" itemprop="datePublished">2025-02-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/hexo/">hexo</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/11/02/hexo/" class="title">hexo学习</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-11-02T11:15:20.551Z" itemprop="datePublished">2022-11-02</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Vue3/">Vue3</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/10/20/Vue3引入element-plus/" class="title">Vue3引入element-plus</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-20T12:33:12.000Z" itemprop="datePublished">2022-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Cesium/">Cesium</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/10/20/Cesium之3DTiles/" class="title">Cesium之3D Tiles</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-10-20T12:22:12.000Z" itemprop="datePublished">2022-10-20</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-python基础3" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      python基础(三)--数据类型
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/08/07/python基础3/" class="article-date">
+	  <time datetime="2019-08-07T10:59:42.000Z" itemprop="datePublished">2019-08-07</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/python/">python</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/python基础/">python基础</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/07/python基础3/#comments" class="article-comment-link">Comments</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="Python-Number-数字"><a href="#Python-Number-数字" class="headerlink" title="Python Number(数字)"></a>Python Number(数字)</h3><p>Python Number 数据类型用于存储数值。</p>
+<p>数据类型是不允许改变的,这就意味着如果改变 Number 数据类型的值，将重新分配内存空间。</p>
+<p>以下实例在变量赋值时 Number 对象将被创建：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var1 = 1</span><br><span class="line">var2 = 10</span><br></pre></td></tr></table></figure></p>
+<p>Python 支持四种不同的数值类型：</p>
+<ul>
+<li>整型(Int) - 通常被称为是整型或整数，是正或负整数，不带小数点。</li>
+<li>长整型(long integers) - 无限大小的整数，整数最后是一个大写或小写的L。</li>
+<li>浮点型(floating point real values) - 浮点型由整数部分与小数部分组成，浮点型也可以使用科学计数法表示（2.5e2 = 2.5 x 102 = 250）</li>
+<li>复数(complex numbers) - 复数由实数部分和虚数部分构成，可以用a + bj,或者complex(a,b)表示， 复数的实部a和虚部b都是浮点型。</li>
+</ul>
+<h4 id="Python-Number-类型转换"><a href="#Python-Number-类型转换" class="headerlink" title="Python Number 类型转换"></a>Python Number 类型转换</h4><p><img src="/2019/08/07/python基础3/01.png" alt="01.png"></p>
+<h4 id="Python-math-模块、cmath-模块"><a href="#Python-math-模块、cmath-模块" class="headerlink" title="Python math 模块、cmath 模块"></a>Python math 模块、cmath 模块</h4><p>Python 中数学运算常用的函数基本都在 math 模块、cmath 模块中。</p>
+<p>Python math 模块提供了许多对浮点数的数学运算函数。</p>
+<p>Python cmath 模块包含了一些用于复数运算的函数。</p>
+<p>cmath 模块的函数跟 math 模块函数基本一致，区别是 cmath 模块运算的是复数，math 模块运算的是数学运算。</p>
+<p>要使用 math 或 cmath 函数必须先导入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import math</span><br></pre></td></tr></table></figure></p>
+<h4 id="Python数学函数"><a href="#Python数学函数" class="headerlink" title="Python数学函数"></a>Python数学函数</h4><p><img src="/2019/08/07/python基础3/02.png" alt="02.png"></p>
+<h4 id="Python随机数函数"><a href="#Python随机数函数" class="headerlink" title="Python随机数函数"></a>Python随机数函数</h4><p><img src="/2019/08/07/python基础3/03.png" alt="03.png"></p>
+<h4 id="Python三角函数"><a href="#Python三角函数" class="headerlink" title="Python三角函数"></a>Python三角函数</h4><p><img src="/2019/08/07/python基础3/04.png" alt="04.png"></p>
+<h4 id="Python数学常量"><a href="#Python数学常量" class="headerlink" title="Python数学常量"></a>Python数学常量</h4><p><img src="/2019/08/07/python基础3/05.png" alt="05.png"></p>
+<h3 id="Python-字符串"><a href="#Python-字符串" class="headerlink" title="Python 字符串"></a>Python 字符串</h3><p>可以使用引号(‘或”)来创建字符串<br>Python访问字符串中的值<br>Python不支持单字符类型，单字符在 Python 中也是作为一个字符串使用。</p>
+<p>Python访问子字符串，可以使用方括号来截取字符串，如下实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">var1 = &apos;Hello World!&apos;</span><br><span class="line">var2 = &quot;Python Runoob&quot;</span><br><span class="line"> </span><br><span class="line">print &quot;var1[0]: &quot;, var1[0]</span><br><span class="line">print &quot;var2[1:5]: &quot;, var2[1:5]</span><br></pre></td></tr></table></figure></p>
+<p>Python字符串更新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line">var1 = &apos;Hello World!&apos;</span><br><span class="line">print &quot;更新字符串 :- &quot;, var1[:6] + &apos;Runoob!&apos;</span><br></pre></td></tr></table></figure></p>
+<p>Python转义字符<br><img src="/2019/08/07/python基础3/06.png" alt="06.png"><br><img src="/2019/08/07/python基础3/07.png" alt="07.png"><br>Python字符串运算符<br><img src="/2019/08/07/python基础3/08.png" alt="08.png"><br>Python 字符串格式化<br><img src="/2019/08/07/python基础3/09.png" alt="09.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"></span><br><span class="line">print &quot;My name is %s and weight is %d kg!&quot; % (&apos;Zara&apos;, 21)</span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">My name is Zara and weight is 21 kg!</span><br></pre></td></tr></table></figure></p>
+<p>Python三引号（triple quotes）</p>
+<p>python中三引号可以将复杂的字符串进行复制:<br>python三引号允许一个字符串跨多行，字符串中可以包含换行符、制表符以及其他特殊字符。<br>三引号的语法是一对连续的单引号或者双引号（通常都是成对的用）。</p>
+<p>Unicode 字符串<br>引号前小写的”u”表示这里创建的是一个 Unicode 字符串。如果你想加入一个特殊字符，可以使用 Python 的 Unicode-Escape 编码。</p>
+<h3 id="Python-列表-List"><a href="#Python-列表-List" class="headerlink" title="Python 列表(List)"></a>Python 列表(List)</h3><p>序列是Python中最基本的数据结构。序列中的每个元素都分配一个数字 - 它的位置，或索引，第一个索引是0，第二个索引是1，依此类推。<br>Python有6个序列的内置类型，但最常见的是列表和元组。<br>序列都可以进行的操作包括索引，切片，加，乘，检查成员。<br>此外，Python已经内置确定序列的长度以及确定最大和最小的元素的方法。<br>列表是最常用的Python数据类型，它可以作为一个方括号内的逗号分隔值出现。<br>列表的数据项不需要具有相同的类型<br>创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list1 = [&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000]</span><br><span class="line">list2 = [1, 2, 3, 4, 5 ]</span><br><span class="line">list3 = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>访问列表中的值<br>使用下标索引来访问列表中的值，同样你也可以使用方括号的形式截取字符，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">list1 = [&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000]</span><br><span class="line">list2 = [1, 2, 3, 4, 5, 6, 7 ]</span><br><span class="line"> </span><br><span class="line">print &quot;list1[0]: &quot;, list1[0]</span><br><span class="line">print &quot;list2[1:5]: &quot;, list2[1:5]</span><br></pre></td></tr></table></figure></p>
+<p>更新列表<br>你可以对列表的数据项进行修改或更新，你也可以使用append()方法来添加列表项，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">list = []          ## 空列表</span><br><span class="line">list.append(&apos;Google&apos;)   ## 使用 append() 添加元素</span><br><span class="line">list.append(&apos;Runoob&apos;)</span><br><span class="line">print list</span><br></pre></td></tr></table></figure></p>
+<p>删除列表元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">list1 = [&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000]</span><br><span class="line"> </span><br><span class="line">print list1</span><br><span class="line">del list1[2]</span><br><span class="line">print &quot;After deleting value at index 2 : &quot;</span><br><span class="line">print list1</span><br></pre></td></tr></table></figure></p>
+<p>Python列表脚本操作符<br>列表对 + 和 <em> 的操作符与字符串相似。+ 号用于组合列表，</em> 号用于重复列表。<br><img src="/2019/08/07/python基础3/10.png" alt="10.png"><br>Python列表截取<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;L = [&apos;Google&apos;, &apos;Runoob&apos;, &apos;Taobao&apos;]</span><br><span class="line">&gt;&gt;&gt; L[2]</span><br><span class="line">&apos;Taobao&apos;</span><br><span class="line">&gt;&gt;&gt; L[-2]</span><br><span class="line">&apos;Runoob&apos;</span><br><span class="line">&gt;&gt;&gt; L[1:]</span><br><span class="line">[&apos;Runoob&apos;, &apos;Taobao&apos;]</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/08/07/python基础3/11.png" alt="11.png"><br>Python列表函数&amp;方法<br><img src="/2019/08/07/python基础3/12.png" alt="12.png"><br><img src="/2019/08/07/python基础3/13.png" alt="13.png"></p>
+<h3 id="Python-元组"><a href="#Python-元组" class="headerlink" title="Python 元组"></a>Python 元组</h3><p>Python的元组与列表类似，不同之处在于元组的元素不能修改。<br>元组使用小括号，列表使用方括号。<br>元组创建很简单，只需要在括号中添加元素，并使用逗号隔开即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tup1 = (&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000)</span><br><span class="line">tup2 = (1, 2, 3, 4, 5 )</span><br><span class="line">tup3 = &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;</span><br></pre></td></tr></table></figure></p>
+<p>创建空元组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tup1 = ()</span><br></pre></td></tr></table></figure></p>
+<p>元组中只包含一个元素时，需要在元素后面添加逗号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tup1 = (50,)</span><br></pre></td></tr></table></figure></p>
+<p>访问元组<br>元组可以使用下标索引来访问元组中的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">tup1 = (&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000)</span><br><span class="line">tup2 = (1, 2, 3, 4, 5, 6, 7 )</span><br><span class="line"> </span><br><span class="line">print &quot;tup1[0]: &quot;, tup1[0]</span><br><span class="line">print &quot;tup2[1:5]: &quot;, tup2[1:5]</span><br></pre></td></tr></table></figure></p>
+<p>修改元组<br>元组中的元素值是不允许修改的，但我们可以对元组进行连接组合<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">tup1 = (12, 34.56)</span><br><span class="line">tup2 = (&apos;abc&apos;, &apos;xyz&apos;)</span><br><span class="line"> </span><br><span class="line"># 以下修改元组元素操作是非法的。</span><br><span class="line"># tup1[0] = 100</span><br><span class="line"> </span><br><span class="line"># 创建一个新的元组</span><br><span class="line">tup3 = tup1 + tup2</span><br><span class="line">print tup3</span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(12, 34.56, &apos;abc&apos;, &apos;xyz&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>删除元组<br>元组中的元素值是不允许删除的，但我们可以使用del语句来删除整个元组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">tup = (&apos;physics&apos;, &apos;chemistry&apos;, 1997, 2000)</span><br><span class="line"> </span><br><span class="line">print tup</span><br><span class="line">del tup</span><br><span class="line">print &quot;After deleting tup : &quot;</span><br><span class="line">print tup</span><br></pre></td></tr></table></figure></p>
+<p>元组运算符<br>与字符串一样，元组之间可以使用 + 号和 * 号进行运算。这就意味着他们可以组合和复制，运算后会生成一个新的元组<br><img src="/2019/08/07/python基础3/14.png" alt="14.png"><br>元组索引，截取<br><img src="/2019/08/07/python基础3/15.png" alt="15.png"><br>无关闭分隔符<br>任意无符号的对象，以逗号隔开，默认为元组<br>元组内置函数<br><img src="/2019/08/07/python基础3/16.png" alt="16.png"></p>
+<h3 id="Python-字典-Dictionary"><a href="#Python-字典-Dictionary" class="headerlink" title="Python 字典(Dictionary)"></a>Python 字典(Dictionary)</h3><p>字典是另一种可变容器模型，且可存储任意类型对象。</p>
+<p>字典的每个键值 key=&gt;value 对用冒号 : 分割，每个键值对之间用逗号 , 分割，整个字典包括在花括号 {} 中 ,格式如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">d = &#123;key1 : value1, key2 : value2 &#125;</span><br></pre></td></tr></table></figure></p>
+<p>键一般是唯一的，如果重复最后的一个键值对会替换前面的，值不需要唯一。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;dict = &#123;&apos;a&apos;: 1, &apos;b&apos;: 2, &apos;b&apos;: &apos;3&apos;&#125;</span><br><span class="line">&gt;&gt;&gt; dict[&apos;b&apos;]</span><br><span class="line">&apos;3&apos;</span><br><span class="line">&gt;&gt;&gt; dict</span><br><span class="line">&#123;&apos;a&apos;: 1, &apos;b&apos;: &apos;3&apos;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>值可以取任何数据类型，但键必须是不可变的，如字符串，数字或元组。</p>
+<p>一个简单的字典实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dict = &#123;&apos;Alice&apos;: &apos;2341&apos;, &apos;Beth&apos;: &apos;9102&apos;, &apos;Cecil&apos;: &apos;3258&apos;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>访问字典里的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">dict = &#123;&apos;Name&apos;: &apos;Zara&apos;, &apos;Age&apos;: 7, &apos;Class&apos;: &apos;First&apos;&#125;</span><br><span class="line"> </span><br><span class="line">print &quot;dict[&apos;Name&apos;]: &quot;, dict[&apos;Name&apos;]</span><br><span class="line">print &quot;dict[&apos;Age&apos;]: &quot;, dict[&apos;Age&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>修改字典<br>向字典添加新内容的方法是增加新的键/值对，修改或删除已有键/值对<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"> </span><br><span class="line">dict = &#123;&apos;Name&apos;: &apos;Zara&apos;, &apos;Age&apos;: 7, &apos;Class&apos;: &apos;First&apos;&#125;</span><br><span class="line"> </span><br><span class="line">dict[&apos;Age&apos;] = 8 # 更新</span><br><span class="line">dict[&apos;School&apos;] = &quot;RUNOOB&quot; # 添加</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">print &quot;dict[&apos;Age&apos;]: &quot;, dict[&apos;Age&apos;]</span><br><span class="line">print &quot;dict[&apos;School&apos;]: &quot;, dict[&apos;School&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>删除字典元素<br>能删单一的元素也能清空字典，清空只需一项操作。</p>
+<p>显示删除一个字典用del命令.</p>
+<h3 id="Python-日期和时间"><a href="#Python-日期和时间" class="headerlink" title="Python 日期和时间"></a>Python 日期和时间</h3><p>Python 程序能用很多方式处理日期和时间，转换日期格式是一个常见的功能。</p>
+<p>Python 提供了一个 time 和 calendar 模块可以用于格式化日期和时间。</p>
+<p>时间间隔是以秒为单位的浮点小数。</p>
+<p>每个时间戳都以自从1970年1月1日午夜（历元）经过了多长时间来表示。</p>
+<p>Python 的 time 模块下有很多函数可以转换常见日期格式。如函数time.time()用于获取当前时间戳<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line">import time;  # 引入time模块</span><br><span class="line"> </span><br><span class="line">ticks = time.time()</span><br><span class="line">print &quot;当前时间戳为:&quot;, ticks</span><br></pre></td></tr></table></figure></p>
+<p>以上实例输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当前时间戳为: 1459994552.51</span><br></pre></td></tr></table></figure></p>
+<p>获取当前时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">localtime = time.localtime(time.time())</span><br><span class="line">print &quot;本地时间为 :&quot;, localtime</span><br></pre></td></tr></table></figure></p>
+<p>获取格式化的时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line"> </span><br><span class="line">localtime = time.asctime( time.localtime(time.time()) )</span><br><span class="line">print &quot;本地时间为 :&quot;, localtime</span><br></pre></td></tr></table></figure></p>
+<p>格式化日期<br>我们可以使用 time 模块的 strftime 方法来格式化日期，：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">time.strftime(format[, t])</span><br></pre></td></tr></table></figure></p>
+<p>获取某月日历<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import calendar</span><br><span class="line"> </span><br><span class="line">cal = calendar.month(2016, 1)</span><br><span class="line">print &quot;以下输出2016年1月份的日历:&quot;</span><br><span class="line">print cal</span><br></pre></td></tr></table></figure></p>
+<h3 id="Python-函数"><a href="#Python-函数" class="headerlink" title="Python 函数"></a>Python 函数</h3><p>函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。</p>
+<p>函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如print()。但你也可以自己创建函数，这被叫做用户自定义函数。</p>
+<h4 id="定义一个函数"><a href="#定义一个函数" class="headerlink" title="定义一个函数"></a>定义一个函数</h4><p>你可以定义一个由自己想要功能的函数，以下是简单的规则：</p>
+<ul>
+<li>函数代码块以 def 关键词开头，后接函数标识符名称和圆括号()。</li>
+<li>任何传入参数和自变量必须放在圆括号中间。圆括号之间可以用于定义参数。</li>
+<li>函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。</li>
+<li>函数内容以冒号起始，并且缩进。</li>
+<li>return [表达式] 结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None。</li>
+</ul>
+<h4 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h4><p>定义一个函数只给了函数一个名称，指定了函数里包含的参数，和代码块结构。</p>
+<p>这个函数的基本结构完成以后，你可以通过另一个函数调用执行，也可以直接从Python提示符执行。</p>
+<p>如下实例调用了printme（）函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"> </span><br><span class="line"># 定义函数</span><br><span class="line">def printme( str ):</span><br><span class="line">   &quot;打印任何传入的字符串&quot;</span><br><span class="line">   print str;</span><br><span class="line">   return;</span><br><span class="line"> </span><br><span class="line"># 调用函数</span><br><span class="line">printme(&quot;我要调用用户自定义函数!&quot;);</span><br><span class="line">printme(&quot;再次调用同一函数&quot;);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://xdd7130.github.io/2019/08/07/python基础3/" title="python基础(三)--数据类型" target="_blank" rel="external">http://xdd7130.github.io/2019/08/07/python基础3/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/xdd7130" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/xdd7130" target="_blank"><span class="text-dark">昵称</span><small class="ml-1x">Web Developer &amp; Designer</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2019/08/07/python基础4/" title="python基础(四)"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;Newer</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/08/07/python基础2/" title="python基础(二)--语句"><span>Older&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <!-- <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>$</span></button> -->
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>Maybe you could buy me a cup of coffee.</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open alipay app scan this qrcode, buy me a coffee!</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="Scan Qrcode" title="Scan" />
+              </div>
+              <p class="text-muted mv">Scan this qrcode</p>
+              <p class="text-grey">Open wechat app scan this qrcode, buy me a coffee!</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> alipay</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> wechat payment</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
